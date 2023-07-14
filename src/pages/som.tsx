@@ -1,7 +1,10 @@
-import React from "react";
+import { Button, Page, Text } from "@geist-ui/core";
 
-function som() {
-  return <div>som</div>;
-}
+const Home = () => (
+  <Page>
+    <Text h1>Home Page</Text>
+    <Button>Submit</Button>
+  </Page>
+);
 
-export default som;
+export default Home;
