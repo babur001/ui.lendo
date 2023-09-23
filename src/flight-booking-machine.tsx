@@ -1,30 +1,21 @@
 import { createMachine, assign } from "xstate";
 
-type TStates = "ONE_WAY" | "RETURN";
+type TStates =
+  | "identify"
+  | "info"
+  | "klient"
+  | "scoring"
+  | "oformlenie"
+  | "shartnoma"
+  | "tasdiqlash"
+  | "grafik";
 
-export const flightBookingMachine = createMachine({
-  initial: "one_way",
-  context: {
-    dateFrom: "",
-    dateTo: "",
-  },
+export const authMachine = createMachine({
+  initial: "identify",
+  context: {},
   states: {
-    one_way: {
-      on: {
-        TOGGLE: {
-          target: "return",
-          actions: assign({
-            dateTo: (_, event: { payload: string; type: string }) => "",
-          }),
-        },
-        "START_DATE.UPDATE": {
-          actions: assign({
-            dateFrom: (_, event: { payload: string; type: string }) => {
-              return event.payload;
-            },
-          }),
-        },
-      },
+    identify: {
+      on,
     },
     return: {
       on: {

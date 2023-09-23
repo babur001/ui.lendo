@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 module.exports = {
-  ignorePatterns: [".eslintrc.cjs", "vite.config.ts"],
+  ignorePatterns: [".eslintrc.cjs", "vite.config.ts", "tailwind.config.js"],
   root: true,
   env: { browser: true, es2020: true },
   extends: [
