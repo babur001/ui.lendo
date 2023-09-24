@@ -10,7 +10,7 @@ import {
 import { Alert, Segmented, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { log } from "console";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight, Minus, Plus, X } from "lucide-react";
 import React, { useRef } from "react";
 
 interface ITableEDIT {
@@ -43,8 +43,8 @@ function Formalization({ onFinish }: IProps) {
 
       <div className="h-[20px]" />
 
-      <div className="grid grid-cols-12 gap-5 items-center !border !border-gray-300 px-3 py-5 rounded-md">
-        <div className="col-span-4">
+      <div className="grid grid-cols-12 gap-5 items-end !border !border-gray-300 px-3 py-5 rounded-md">
+        <div className="col-span-3">
           <Input placeholder="..." width={"100%"}>
             Tovar nomi
           </Input>
@@ -59,6 +59,9 @@ function Formalization({ onFinish }: IProps) {
         </div>
         <div className="col-span-3">
           <Input width={"100%"}>1 tovar uchun narxi</Input>
+        </div>
+        <div className="col-span-1">
+          <Button iconRight={<X />} auto scale={3 / 4} px={0.6} />
         </div>
       </div>
 

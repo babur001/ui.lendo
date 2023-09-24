@@ -3,11 +3,13 @@ import Info from "@/auth/Info";
 import { Dot, Spinner, Text } from "@geist-ui/core";
 import { Steps } from "antd";
 import { useState } from "react";
-import "@/tailwind.css";
 import Client from "@/auth/Client";
 import Scoring from "@/auth/Scoring";
 import Logo from "@/Logo";
 import Formalization from "@/auth/Formalization";
+import Contract from "@/auth/Contract";
+import "@/tailwind.css";
+import Approval from "@/auth/Approval";
 
 enum TEnumSteps {
   IDENTIFICATION = 0,
@@ -17,13 +19,13 @@ enum TEnumSteps {
   FORMALIZATION = 4,
   CONTRACT = 5,
   APPROVAL = 6,
-  SCHEDULE = 7,
+  GRAPH = 7,
 }
 
 function App() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.FORMALIZATION,
-    actual: TEnumSteps.FORMALIZATION,
+    active: TEnumSteps.APPROVAL,
+    actual: TEnumSteps.APPROVAL,
   });
 
   return (
@@ -116,7 +118,7 @@ function App() {
                   description: "Xali tasdiqlash konfiguratsiya qilinmadi.",
                 },
                 {
-                  disabled: step.actual < TEnumSteps.SCHEDULE,
+                  disabled: step.actual < TEnumSteps.GRAPH,
                   title: "Grafik",
                 },
               ]}
@@ -179,6 +181,30 @@ function App() {
                   setStep({
                     active: TEnumSteps.CONTRACT,
                     actual: TEnumSteps.CONTRACT,
+                  })
+                }
+              />
+            ) : null}
+
+            {/* 6. Contract */}
+            {step.active === TEnumSteps.CONTRACT ? (
+              <Contract
+                onFinish={() =>
+                  setStep({
+                    active: TEnumSteps.APPROVAL,
+                    actual: TEnumSteps.APPROVAL,
+                  })
+                }
+              />
+            ) : null}
+
+            {/* 7. Approval */}
+            {step.active === TEnumSteps.APPROVAL ? (
+              <Approval
+                onFinish={() =>
+                  setStep({
+                    active: TEnumSteps.GRAPH,
+                    actual: TEnumSteps.GRAPH,
                   })
                 }
               />
