@@ -10,6 +10,7 @@ import Formalization from "@/auth/Formalization";
 import Contract from "@/auth/Contract";
 import "@/tailwind.css";
 import Approval from "@/auth/Approval";
+import Graph from "@/auth/Graph";
 
 enum TEnumSteps {
   IDENTIFICATION = 0,
@@ -24,8 +25,8 @@ enum TEnumSteps {
 
 function App() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.APPROVAL,
-    actual: TEnumSteps.APPROVAL,
+    active: TEnumSteps.GRAPH,
+    actual: TEnumSteps.GRAPH,
   });
 
   return (
@@ -207,6 +208,19 @@ function App() {
                     actual: TEnumSteps.GRAPH,
                   })
                 }
+              />
+            ) : null}
+
+            {/* 8. Graph */}
+            {step.active === TEnumSteps.GRAPH ? (
+              <Graph
+                onFinish={() => {
+                  console.log("Alhamdullilah");
+                  // setStep({
+                  //   active: TEnumSteps.GRAPH,
+                  //   actual: TEnumSteps.GRAPH,
+                  // });
+                }}
               />
             ) : null}
           </div>
