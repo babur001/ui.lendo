@@ -1,6 +1,5 @@
 import { Button, Description, Text } from "@geist-ui/core";
 import { ArrowRight } from "lucide-react";
-import React from "react";
 
 interface IProps {
   onFinish: () => unknown;

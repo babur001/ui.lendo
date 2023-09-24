@@ -5,6 +5,9 @@ import { Steps } from "antd";
 import { useState } from "react";
 import "@/tailwind.css";
 import Client from "@/auth/Client";
+import Scoring from "@/auth/Scoring";
+import Logo from "@/Logo";
+import Formalization from "@/auth/Formalization";
 
 enum TEnumSteps {
   IDENTIFICATION = 0,
@@ -19,13 +22,15 @@ enum TEnumSteps {
 
 function App() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.CLIENT,
-    actual: TEnumSteps.CLIENT,
+    active: TEnumSteps.FORMALIZATION,
+    actual: TEnumSteps.FORMALIZATION,
   });
 
   return (
     <>
-      <header className="h-14 shadow-lg"></header>
+      <header className="h-14 shadow-sm flex items-center justify-center">
+        <Logo className="!h-10" />
+      </header>
 
       <div className="container mx-auto">
         <div className="h-[30px]" />
@@ -150,6 +155,30 @@ function App() {
                   setStep({
                     active: TEnumSteps.SCORING,
                     actual: TEnumSteps.SCORING,
+                  })
+                }
+              />
+            ) : null}
+
+            {/* 4. Scoring */}
+            {step.active === TEnumSteps.SCORING ? (
+              <Scoring
+                onFinish={() =>
+                  setStep({
+                    active: TEnumSteps.FORMALIZATION,
+                    actual: TEnumSteps.FORMALIZATION,
+                  })
+                }
+              />
+            ) : null}
+
+            {/* 5. Formalization */}
+            {step.active === TEnumSteps.FORMALIZATION ? (
+              <Formalization
+                onFinish={() =>
+                  setStep({
+                    active: TEnumSteps.CONTRACT,
+                    actual: TEnumSteps.CONTRACT,
                   })
                 }
               />
