@@ -76,28 +76,38 @@ function Formalization({ onFinish }: IProps) {
 
       <div className="h-[20px]" />
 
-      <div className="flex items-center gap-5">
-        <Description title="Bosh to'lam" content={<Input />} />
+      <div className="flex items-end justify-between gap-5">
+        <Description
+          title="Bosh to'lam"
+          className="flex-grow"
+          content={<Input initialValue={"0"} scale={1.2} width={"100%"} />}
+        />
         <Description
           title="Davr"
-          content={<Segmented options={["4 oy", "6 oy", "9 oy", "12 oy"]} />}
+          content={
+            <Segmented
+              size="large"
+              options={["4 oy", "6 oy", "9 oy", "12 oy"]}
+            />
+          }
         />
         <Description
+          className="flex-grow"
           title="Jami"
-          content={<Input readOnly value={"31 500 000"} />}
+          content={
+            <Input scale={1.2} readOnly value={"31 500 000"} width={"100%"} />
+          }
         />
-      </div>
 
-      {/* <div className="flex items-center justify-end">
         <Button
           onClick={onFinish}
           iconRight={<ArrowRight strokeWidth={1.5} />}
           type="success"
-          className="!w-64"
+          className="!w-56"
         >
-          Rasmiylashtirishga o'tish
+          Shartnoma olish
         </Button>
-      </div> */}
+      </div>
     </>
   );
 }
