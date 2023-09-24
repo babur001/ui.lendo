@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 
+* {
+	font-family: 'Nunito', sans-serif;
+}
 *,
 ::before,
 ::after {
