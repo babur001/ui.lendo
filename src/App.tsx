@@ -1,8 +1,10 @@
 import Identification from "@/auth/Identification";
 import Info from "@/auth/Info";
-import { Dot, Text } from "@geist-ui/core";
+import { Dot, Spinner, Text } from "@geist-ui/core";
 import { Steps } from "antd";
 import { useState } from "react";
+import "@/tailwind.css";
+import Client from "@/auth/Client";
 
 enum TEnumSteps {
   IDENTIFICATION = 0,
@@ -17,8 +19,8 @@ enum TEnumSteps {
 
 function App() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.IDENTIFICATION,
-    actual: TEnumSteps.IDENTIFICATION,
+    active: TEnumSteps.CLIENT,
+    actual: TEnumSteps.CLIENT,
   });
 
   return (
@@ -35,7 +37,7 @@ function App() {
             <div className="h-[10px]" />
 
             <Steps
-              progressDot
+              // progressDot
               direction="vertical"
               current={step.active}
               onChange={(stepParam) =>
@@ -46,6 +48,11 @@ function App() {
               }
               items={[
                 {
+                  // icon: (
+                  //   <div className="flex items-center justify-center bg-gray-200 h-8 w-8 rounded-full">
+                  //     <Spinner className="!h-5" scale={0.95} />
+                  //   </div>
+                  // ),
                   title: "Identifikatsiya",
                   description: <div>Ismi: Saburov Babur</div>,
                 },
@@ -131,6 +138,18 @@ function App() {
                   setStep({
                     active: TEnumSteps.CLIENT,
                     actual: TEnumSteps.CLIENT,
+                  })
+                }
+              />
+            ) : null}
+
+            {/* 3. Klient */}
+            {step.active === TEnumSteps.CLIENT ? (
+              <Client
+                onFinish={() =>
+                  setStep({
+                    active: TEnumSteps.SCORING,
+                    actual: TEnumSteps.SCORING,
                   })
                 }
               />
