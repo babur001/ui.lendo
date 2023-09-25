@@ -58,7 +58,9 @@ function Identification({ onFinish }: IProps) {
           <Text p>Загрузите паспорт, щелкнув или перетащив файл.</Text>
         </Dragger>
 
-        <Button type="primary">Регистрация</Button>
+        <Button type="primary" onClick={onFinish}>
+          Регистрация
+        </Button>
       </div>
 
       {/* MyID realize */}
