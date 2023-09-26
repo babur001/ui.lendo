@@ -158,7 +158,7 @@ function Identification({ onFinish }: IProps) {
         <Tabs.Item label="MyID" value="2">
           <>
             <Alert
-              message="Identifikatysiyadan o'tish uchun o'ngdagi tugmani bosing."
+              message="Идентификациядан ўтиш учун тугмани босинг"
               type="info"
               showIcon
             />
@@ -205,7 +205,7 @@ function Identification({ onFinish }: IProps) {
             </Modal>
 
             <Button onClick={() => setState(true)}>
-              Identifikatysiyadan o'tish
+              Идентификациядан ўтиш
             </Button>
           </>
         </Tabs.Item>

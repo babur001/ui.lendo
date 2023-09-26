@@ -25,8 +25,8 @@ enum TEnumSteps {
 
 function App() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.IDENTIFICATION,
-    actual: TEnumSteps.IDENTIFICATION,
+    active: TEnumSteps.INFO,
+    actual: TEnumSteps.INFO,
   });
 
   return (
@@ -40,7 +40,7 @@ function App() {
 
         <div className="flex gap-7">
           <div className="w-1/4">
-            <Text h3>Ariza: 73519</Text>
+            <Text h3>Ариза: 73519</Text>
 
             <div className="h-[10px]" />
 
@@ -61,16 +61,16 @@ function App() {
                   //     <Spinner className="!h-5" scale={0.95} />
                   //   </div>
                   // ),
-                  title: "Identifikatsiya",
-                  description: <div>Ismi: Saburov Babur</div>,
+                  title: "Идентификация",
+                  description: <div>ФИШ: Saburov Babur</div>,
                 },
                 {
                   disabled: step.actual < TEnumSteps.INFO,
-                  title: "Ma'lumotlari",
+                  title: "Ҳаридор маълумотлари",
                   description: (
                     <div>
                       <Text p my={0}>
-                        Telefon raqam:
+                        Телефон рақам:
                       </Text>
                       <Text p my={0}>
                         Karta raqami:
@@ -85,7 +85,7 @@ function App() {
                 },
                 {
                   disabled: step.actual < TEnumSteps.SCORING,
-                  title: "Skoring",
+                  title: "Скоринг тизими",
                 },
                 {
                   disabled: step.actual < TEnumSteps.FORMALIZATION,
@@ -110,13 +110,13 @@ function App() {
                 },
                 {
                   disabled: step.actual < TEnumSteps.CONTRACT,
-                  title: "Shartnoma",
-                  description: "Xali tuzilmadi.",
+                  title: "Шартнома (Оммавий оферта)",
+                  // description: "Xali tuzilmadi.",
                 },
                 {
                   disabled: step.actual < TEnumSteps.APPROVAL,
                   title: "Tasdiqlash",
-                  description: "Xali tasdiqlash konfiguratsiya qilinmadi.",
+                  // description: "Xali tasdiqlash konfiguratsiya qilinmadi.",
                 },
                 {
                   disabled: step.actual < TEnumSteps.GRAPH,
@@ -127,7 +127,7 @@ function App() {
           </div>
 
           <div className="w-3/4 h-full">
-            {/* 1. Identifikatsiya */}
+            {/* 1. Идентификация */}
             {step.active === TEnumSteps.IDENTIFICATION ? (
               <Identification
                 onFinish={() =>

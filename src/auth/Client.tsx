@@ -16,7 +16,7 @@ function Client({ onFinish }: IProps) {
 
       <div className="flex flex-col gap-5">
         <Description title="Ism:" content={"Saburov Babur"} />
-        <Description title="Telefon raqam:" content={"+998907271449"} />
+        <Description title="Телефон рақам:" content={"+998907271449"} />
         <Description title="Karta raqam:" content={"8600 **** **** 4844"} />
         <Text h3>...</Text>
       </div>
@@ -27,7 +27,7 @@ function Client({ onFinish }: IProps) {
         }}
         iconRight={<ArrowRight strokeWidth={1.5} />}
       >
-        Scoring
+        Скоринг тизими
       </Button>
     </>
   );

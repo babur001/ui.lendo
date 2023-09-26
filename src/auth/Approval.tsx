@@ -41,10 +41,10 @@ function Approval({ onFinish }: IProps) {
                 width={`100%`}
                 placeholder="0000 0000 0000 0000"
               >
-                Nomer karti*
+                Банк карта рақами*
               </Input>
               <Input className="!w-full" placeholder="mm/yy">
-                Srok deystviya*
+                Амал қилиш муддати*
               </Input>
             </div>
 

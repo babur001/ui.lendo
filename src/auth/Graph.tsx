@@ -16,7 +16,7 @@ function Graph({ onFinish }: IProps) {
       <div className="flex flex-col gap-4">
         <Description title="Summa rassrochki:" content={"13 500 000"} />
         <Description title="Umumiy nasiya:" content={"13 500 000"} />
-        <Description title="Davr:" content={"9 oy"} />
+        <Description title="Давр:" content={"9 Ой"} />
         <Description title="Oylik to'lam:" content={"1 500 000"} />
       </div>
 

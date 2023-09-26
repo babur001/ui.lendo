@@ -15,11 +15,11 @@ interface IProps {
 function Scoring({ onFinish }: IProps) {
   const columns: ColumnsType<ITableEDIT> = [
     {
-      title: "Oy",
+      title: "Ой",
       dataIndex: "month",
     },
     {
-      title: "Minimal summa",
+      title: "Минимал сумма",
       dataIndex: "min_sum",
     },
     {
@@ -30,10 +30,10 @@ function Scoring({ onFinish }: IProps) {
 
   return (
     <>
-      <Text h3>4. Scoring</Text>
+      <Text h3>4. Скоринг тизими</Text>
 
       <Alert
-        message="Tabriklaymiz, skoring muvaffaqiyatli o'tildi!"
+        message="Табриклаймиз, скоринг муваффақиятли ўтилди"
         type="success"
         showIcon
       />
@@ -41,7 +41,7 @@ function Scoring({ onFinish }: IProps) {
       <div className="h-[20px]" />
 
       <Description
-        title={"Mavjud limit:"}
+        title={"Мавжуд лимит:"}
         content={"17 875 000"}
         scale={1.25}
       />

@@ -26,7 +26,7 @@ function Contract({ onFinish }: IProps) {
 
   return (
     <>
-      <Text h3>5. Contract</Text>
+      <Text h3>5. Шартнома (Оммавий оферта)</Text>
 
       <div className="h-[20px]" />
 
@@ -57,7 +57,7 @@ function Contract({ onFinish }: IProps) {
         type="success"
         disabled={!isChecked}
       >
-        Shartnoma olish
+        Шартнома олиш
       </Button>
 
       <div className="h-[40px]" />

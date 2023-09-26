@@ -24,11 +24,11 @@ interface IProps {
 function Formalization({ onFinish }: IProps) {
   const columns: ColumnsType<ITableEDIT> = [
     {
-      title: "Oy",
+      title: "Ой",
       dataIndex: "month",
     },
     {
-      title: "Minimal summa",
+      title: "Минимал сумма",
       dataIndex: "min_sum",
     },
     {
@@ -46,19 +46,19 @@ function Formalization({ onFinish }: IProps) {
       <div className="grid grid-cols-12 gap-5 items-end !border !border-gray-300 px-3 py-5 rounded-md">
         <div className="col-span-3">
           <Input placeholder="..." width={"100%"}>
-            Tovar nomi
+            Маҳсулот номи
           </Input>
         </div>
         <div className="col-span-2">
           <Input initialValue={"1"} width={"100%"}>
-            Dona
+            Миқдори
           </Input>
         </div>
         <div className="col-span-3">
-          <Input width={"100%"}>1 tovar uchun narxi</Input>
+          <Input width={"100%"}>Нархи</Input>
         </div>
         <div className="col-span-3">
-          <Input width={"100%"}>1 tovar uchun narxi</Input>
+          <Input width={"100%"}>Нархи</Input>
         </div>
         <div className="col-span-1">
           <Button iconRight={<X />} auto scale={3 / 4} px={0.6} />
@@ -69,7 +69,7 @@ function Formalization({ onFinish }: IProps) {
 
       <div className="col-span-12 grid grid-cols-12">
         <Button scale={0.7} className="col-start-1 col-end-3" type="success">
-          Tovar qo'shish
+          Маҳсулот қўшиш
         </Button>
       </div>
 
@@ -81,22 +81,22 @@ function Formalization({ onFinish }: IProps) {
 
       <div className="flex items-end justify-between gap-5">
         <Description
-          title="Bosh to'lam"
+          title="Бошланғич тўлов"
           className="flex-grow"
           content={<Input initialValue={"0"} scale={1.2} width={"100%"} />}
         />
         <Description
-          title="Davr"
+          title="Давр"
           content={
             <Segmented
               size="large"
-              options={["4 oy", "6 oy", "9 oy", "12 oy"]}
+              options={["4 Ой", "6 Ой", "9 Ой", "12 Ой"]}
             />
           }
         />
         <Description
           className="flex-grow"
-          title="Jami"
+          title="Жами сумма"
           content={
             <Input scale={1.2} readOnly value={"31 500 000"} width={"100%"} />
           }
@@ -108,7 +108,7 @@ function Formalization({ onFinish }: IProps) {
           type="success"
           className="!w-56"
         >
-          Shartnoma olish
+          Шартнома олиш
         </Button>
       </div>
     </>
