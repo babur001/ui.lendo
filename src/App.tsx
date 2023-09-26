@@ -25,8 +25,8 @@ enum TEnumSteps {
 
 function App() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.INFO,
-    actual: TEnumSteps.INFO,
+    active: TEnumSteps.IDENTIFICATION,
+    actual: TEnumSteps.IDENTIFICATION,
   });
 
   return (
