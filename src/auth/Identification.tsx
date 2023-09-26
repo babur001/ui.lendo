@@ -1,10 +1,19 @@
 import { Input, Modal, Tabs, Text } from "@geist-ui/core";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Alert, Button, Upload, UploadProps, message } from "antd";
 import axios from "axios";
-import { ArrowRight, UploadCloud } from "lucide-react";
-import React, { useState } from "react";
+import clsx from "clsx";
+import { get } from "lodash";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+const authManual = z.object({
+  pinfl: z
+    .string()
+    .length(14, { message: "PINFL должен состоять из 14 символов." }),
+});
 
 interface IProps {
   onFinish: () => unknown;
@@ -60,7 +69,9 @@ function Identification({ onFinish }: IProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IIdentificationForm>();
+  } = useForm<IIdentificationForm>({
+    resolver: zodResolver(authManual),
+  });
 
   const mutateUser = useMutation({
     mutationKey: ["queryUser"],
@@ -83,6 +94,9 @@ function Identification({ onFinish }: IProps) {
     onFinish();
   };
 
+  const errorMsg = {
+    pinfl: get(errors, "pinfl.message", null),
+  };
   return (
     <>
       <Text h3>1. Идентификация</Text>
@@ -100,22 +114,34 @@ function Identification({ onFinish }: IProps) {
               <Input
                 placeholder="..."
                 className="!w-full"
+                type={errorMsg.pinfl ? "error" : "default"}
                 {...register("pinfl")}
               >
-                ПИНФЛ*
+                <div className="flex items-center justify-between">
+                  <span>ПИНФЛ*</span>
+                  <span
+                    className={clsx({
+                      "text-[#c50000]": true,
+                      hidden: !errorMsg.pinfl,
+                    })}
+                  >
+                    {errorMsg.pinfl}
+                  </span>
+                </div>
               </Input>
 
               {/* <Input label="+998" placeholder="..." className="!w-full">
-          Номер телефона*
-        </Input>
+                    Номер телефона*
+                  </Input>
 
-        <Dragger {...props} className="w-full">
-          <Text p>
-            <UploadCloud strokeWidth={1.5} />
-          </Text>
+                  <Dragger {...props} className="w-full">
+                    <Text p>
+                      <UploadCloud strokeWidth={1.5} />
+                    </Text>
 
-          <Text p>Загрузите паспорт, щелкнув или перетащив файл.</Text>
-        </Dragger> */}
+                    <Text p>Загрузите паспорт, щелкнув или перетащив файл.</Text>
+                  </Dragger> 
+               */}
 
               <Button
                 type="primary"
