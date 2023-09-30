@@ -1,11 +1,8 @@
 import TotalContractedSum from "@/auth/TotalContractedSum";
 import TotalSingleProduct from "@/auth/TotalSingleProduct";
 import { Button, Description, Divider, Input, Text } from "@geist-ui/core";
-import { useQuery } from "@tanstack/react-query";
 import { Segmented } from "antd";
 import { ColumnsType } from "antd/es/table";
-import axios from "axios";
-import { log } from "console";
 import { ArrowRight, X } from "lucide-react";
 import { useEffect } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -49,6 +46,7 @@ function Formalization({ onFinish }: IProps) {
   const onSubmit = (values: unknown) => {
     console.log(values);
   };
+
   return (
     <>
       <Text h3>5. Formalization</Text>

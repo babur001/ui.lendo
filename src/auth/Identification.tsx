@@ -1,3 +1,5 @@
+import { req } from "@/services/api";
+import { IBuyer, useBuyerStore } from "@/stores/buyer";
 import { Description, Input, Modal, Tabs, Text } from "@geist-ui/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -44,26 +46,15 @@ const props: UploadProps = {
 
 export const baseUrl = `https://mp-api.techstack.uz/mp-client-api`;
 
-export interface IUser {
-  pinfl: number;
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  passportSerial: string;
-  passportNumber: string;
-  passportGivenBy: string;
-  gender: string;
-  citizenship: string;
-  createdAt: string;
-  updatedAt?: null;
-  profiles?: null[] | null;
-}
-
 interface IIdentificationForm {
   pinfl: string;
 }
 
 function Identification({ onFinish }: IProps) {
+  const { user, setUser } = useBuyerStore((store) => ({
+    user: store.user,
+    setUser: store.setUser,
+  }));
   const [state, setState] = useState(false);
 
   const {
@@ -77,9 +68,9 @@ function Identification({ onFinish }: IProps) {
   const mutateUser = useMutation({
     mutationKey: ["queryUser"],
     mutationFn: (pinflParam: string) => {
-      return axios({
+      return req({
         method: "GET",
-        url: `${baseUrl}/registration/get-client-info`,
+        url: `/registration/get-client-info`,
         params: {
           pinfl: pinflParam,
         },
@@ -90,9 +81,15 @@ function Identification({ onFinish }: IProps) {
   const onSubmit = async (values: IIdentificationForm) => {
     try {
       const res = await mutateUser.mutateAsync(values.pinfl);
-    } catch (error) {}
 
-    onFinish();
+      const user = get(res, "data.data", null) as IBuyer;
+
+      if (user) {
+        setUser(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const errorMsg = {
@@ -100,20 +97,20 @@ function Identification({ onFinish }: IProps) {
   };
 
   const userData = [
-    { title: "ЖИШШР", value: 51704005120014 },
-    { title: "Фамилия", value: "TOJIYEV" },
-    { title: "Исм", value: "SHERZOD" },
-    { title: "Шариф", value: "TEST" },
-    { title: "Паспорт серия", value: "AB" },
-    { title: "Паспорт рақами", value: "1234568" },
-    { title: "Ким томонидан берилган", value: "TOSHKENT SHAHAR IIB" },
-    { title: "Жинси", value: "MALE" },
-    { title: "Миллати", value: "UZBEK" },
+    { title: "ЖИШШР", value: get(user, "pinfl", "-") },
+    { title: "Фамилия", value: get(user, "firstName", "-") },
+    { title: "Исм", value: get(user, "lastName", "-") },
+    { title: "Шариф", value: get(user, "middleName", "-") },
+    { title: "Паспорт серия", value: get(user, "passportSerial", "-") },
+    { title: "Паспорт рақами", value: get(user, "passportNumber", "-") },
+    { title: "Ким томонидан берилган", value: get(user, "", "-") },
+    { title: "Жинси", value: get(user, "gender", "-") },
+    { title: "Миллати", value: get(user, "citizenship", "-") },
   ];
 
   return (
     <>
-      {true ? (
+      {user ? (
         <>
           <Text h3>Шахсга доир маълумотлар</Text>
 

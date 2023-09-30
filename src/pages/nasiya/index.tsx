@@ -25,8 +25,8 @@ enum TEnumSteps {
 
 function Nasiya() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.FORMALIZATION,
-    actual: TEnumSteps.GRAPH,
+    active: TEnumSteps.IDENTIFICATION,
+    actual: TEnumSteps.IDENTIFICATION,
   });
 
   return (
@@ -58,21 +58,10 @@ function Nasiya() {
                   //   </div>
                   // ),
                   title: "Идентификация",
-                  // description: <div>ФИШ: Saburov Babur</div>,
                 },
                 {
                   disabled: step.actual < TEnumSteps.INFO,
                   title: "Ҳаридор маълумотлари",
-                  // description: (
-                  //   <div>
-                  //     <Text p my={0}>
-                  //       Телефон рақам:
-                  //     </Text>
-                  //     <Text p my={0}>
-                  //       Karta raqami:
-                  //     </Text>
-                  //   </div>
-                  // ),
                 },
                 {
                   disabled: step.actual < TEnumSteps.SCORING,
@@ -81,33 +70,14 @@ function Nasiya() {
                 {
                   disabled: step.actual < TEnumSteps.FORMALIZATION,
                   title: "Oformlenie",
-                  // description: (
-                  //   <div>
-                  //     <Text p my={0}>
-                  //       4 ta parametrni tanlang
-                  //     </Text>
-
-                  //     <div className="h-[10px]" />
-
-                  //     <div className="flex flex-col gap-3 text-xs">
-                  //       {new Array(3).fill("").map((el, idx) => (
-                  //         <Dot className="!pr-3 !text-xs !lowercase">
-                  //           {idx + 10} <span className="!lowercase">oy</span>
-                  //         </Dot>
-                  //       ))}
-                  //     </div>
-                  //   </div>
-                  // ),
                 },
                 {
                   disabled: step.actual < TEnumSteps.CONTRACT,
                   title: "Шартнома (Оммавий оферта)",
-                  // description: "Xali tuzilmadi.",
                 },
                 {
                   disabled: step.actual < TEnumSteps.APPROVAL,
                   title: "Tasdiqlash",
-                  // description: "Xali tasdiqlash konfiguratsiya qilinmadi.",
                 },
                 {
                   disabled: step.actual < TEnumSteps.GRAPH,
