@@ -3,6 +3,9 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { baseUrl } from "@/auth/Identification";
+import { get } from "lodash";
+import { useNavigate } from "react-router-dom";
+import { req } from "@/services/api";
 
 interface ILogin {
   username: string;
@@ -10,12 +13,13 @@ interface ILogin {
 }
 
 function Login() {
+  const navigate = useNavigate();
   const mutateLogin = useMutation({
     mutationKey: ["mutateLogin"],
     mutationFn: (authParams: ILogin) => {
-      return axios({
+      return req({
         method: "POST",
-        url: `${baseUrl}/auth/login`,
+        url: `/auth/login`,
         data: {
           ...authParams,
         },
@@ -23,10 +27,17 @@ function Login() {
     },
   });
 
-  const onFinish = (values: ILogin) => {
+  const onFinish = async (values: ILogin) => {
     try {
-      const res = mutateLogin.mutateAsync(values);
-      console.log("success");
+      const res = await mutateLogin.mutateAsync(values);
+
+      const accessToken = get(res, "data.data.accessToken", null);
+      const refreshToken = get(res, "data.data.refreshToken", null);
+
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("refresh_token", refreshToken);
+
+      navigate("/nasiya");
     } catch (error) {
       console.log(error);
     }

@@ -7,14 +7,32 @@ function TotalContractedSum({ control }: { control: Control }) {
     control,
   });
 
-  console.log(values);
+  let total = 0;
+
+  (values?.products || []).forEach((product: any) => {
+    total += (isNaN(+product.price) ? 0 : product.price) * product.count;
+  });
+
+  total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
+
+  const percentages = {
+    4: 23,
+    6: 30,
+    9: 35,
+    12: 40,
+  } as any;
+
+  const percentage =
+    percentages[isNaN(+values.monthPeriod) ? 4 : values.monthPeriod];
+
+  total = total + total * (percentage / 100);
 
   return (
     <Description
       className="flex-grow"
       title="Жами сумма"
       content={
-        <Input scale={1.2} readOnly value={"31 500 000"} width={"100%"} />
+        <Input scale={1.2} readOnly value={String(total)} width={"100%"} />
       }
     />
   );

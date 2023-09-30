@@ -1,7 +1,10 @@
 import TotalContractedSum from "@/auth/TotalContractedSum";
+import TotalSingleProduct from "@/auth/TotalSingleProduct";
 import { Button, Description, Divider, Input, Text } from "@geist-ui/core";
+import { useQuery } from "@tanstack/react-query";
 import { Segmented } from "antd";
 import { ColumnsType } from "antd/es/table";
+import axios from "axios";
 import { log } from "console";
 import { ArrowRight, X } from "lucide-react";
 import { useEffect } from "react";
@@ -58,7 +61,7 @@ function Formalization({ onFinish }: IProps) {
             key={field.id}
             className="grid grid-cols-12 gap-5 items-end !border !border-gray-300 px-3 py-5 rounded-md !mb-3"
           >
-            <div className="col-span-5">
+            <div className="col-span-3">
               <Input
                 placeholder="..."
                 width={"100%"}
@@ -76,10 +79,13 @@ function Formalization({ onFinish }: IProps) {
                 Миқдори
               </Input>
             </div>
-            <div className="col-span-4">
+            <div className="col-span-3">
               <Input width={"100%"} {...register(`products.${idx}.price`)}>
                 Нархи
               </Input>
+            </div>
+            <div className="col-span-3">
+              <TotalSingleProduct control={control} idx={idx} />
             </div>
 
             <div className="col-span-1" onClick={() => remove(idx)}>
