@@ -1,10 +1,11 @@
-import { Input, Modal, Tabs, Text } from "@geist-ui/core";
+import { Description, Input, Modal, Tabs, Text } from "@geist-ui/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { Alert, Button, Upload, UploadProps, message } from "antd";
+import { Alert, Button, Image, Upload, UploadProps, message } from "antd";
 import axios from "axios";
 import clsx from "clsx";
 import { get } from "lodash";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -97,40 +98,91 @@ function Identification({ onFinish }: IProps) {
   const errorMsg = {
     pinfl: get(errors, "pinfl.message", null),
   };
+
+  const userData = [
+    { title: "ЖИШШР", value: 51704005120014 },
+    { title: "Фамилия", value: "TOJIYEV" },
+    { title: "Исм", value: "SHERZOD" },
+    { title: "Шариф", value: "TEST" },
+    { title: "Паспорт серия", value: "AB" },
+    { title: "Паспорт рақами", value: "1234568" },
+    { title: "Ким томонидан берилган", value: "TOSHKENT SHAHAR IIB" },
+    { title: "Жинси", value: "MALE" },
+    { title: "Миллати", value: "UZBEK" },
+  ];
+
   return (
     <>
-      <Text h3>1. Идентификация</Text>
+      {true ? (
+        <>
+          <Text h3>Шахсга доир маълумотлар</Text>
 
-      <Tabs initialValue="1">
-        <div className="h-[15px]" />
+          <div className="h-[15px]" />
 
-        {/* Manual */}
-        <Tabs.Item label="Вручную" value="1">
-          <div className="flex flex-col gap-5 !w-96">
-            <form
-              className="flex flex-col gap-5"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <Input
-                placeholder="..."
-                className="!w-full"
-                type={errorMsg.pinfl ? "error" : "default"}
-                {...register("pinfl")}
-              >
-                <div className="flex items-center justify-between">
-                  <span>ПИНФЛ*</span>
-                  <span
-                    className={clsx({
-                      "text-[#c50000]": true,
-                      hidden: !errorMsg.pinfl,
-                    })}
+          <Image
+            src="https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_960_720.jpg"
+            alt="man_image"
+            width={192}
+            height={192}
+            className="rounded-lg object-contain"
+          />
+
+          <div className="h-[35px]" />
+
+          <div className="grid grid-cols-3 gap-5">
+            {userData.map((data, idx) => {
+              return <Description title={data.title} content={data.value} />;
+            })}
+          </div>
+
+          <div className="h-[35px]" />
+
+          <Button
+            onClick={() => {
+              onFinish();
+            }}
+            type="primary"
+            size="large"
+            className="flex items-center !gap-2 w-full justify-center"
+          >
+            Ҳаридор маълумотлари{" "}
+            <ArrowRight strokeWidth={1.5} className="!h-5" />
+          </Button>
+        </>
+      ) : (
+        <>
+          <Text h3>Идентификация</Text>
+
+          <Tabs initialValue="1">
+            <div className="h-[15px]" />
+
+            {/* Manual */}
+            <Tabs.Item label="Вручную" value="1">
+              <div className="flex flex-col gap-5 !w-96">
+                <form
+                  className="flex flex-col gap-5"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <Input
+                    placeholder="..."
+                    className="!w-full"
+                    type={errorMsg.pinfl ? "error" : "default"}
+                    {...register("pinfl")}
                   >
-                    {errorMsg.pinfl}
-                  </span>
-                </div>
-              </Input>
+                    <div className="flex items-center justify-between">
+                      <span>ПИНФЛ*</span>
+                      <span
+                        className={clsx({
+                          "text-[#c50000]": true,
+                          hidden: !errorMsg.pinfl,
+                        })}
+                      >
+                        {errorMsg.pinfl}
+                      </span>
+                    </div>
+                  </Input>
 
-              {/* <Input label="+998" placeholder="..." className="!w-full">
+                  {/* <Input label="+998" placeholder="..." className="!w-full">
                     Номер телефона*
                   </Input>
 
@@ -143,73 +195,75 @@ function Identification({ onFinish }: IProps) {
                   </Dragger> 
                */}
 
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={mutateUser.status === "loading"}
-              >
-                Регистрация
-              </Button>
-            </form>
-          </div>
-        </Tabs.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={mutateUser.status === "loading"}
+                  >
+                    Регистрация
+                  </Button>
+                </form>
+              </div>
+            </Tabs.Item>
 
-        {/* MyID realize */}
-        <Tabs.Item label="MyID" value="2">
-          <>
-            <Alert
-              message="Идентификациядан ўтиш учун тугмани босинг"
-              type="info"
-              showIcon
-            />
-
-            <div className="h-[10px]" />
-
-            <Modal visible={state} onClose={() => setState(false)}>
-              <Modal.Title>Lorem, ipsum.</Modal.Title>
-              <Modal.Content>
-                <Text className="space-y-2">
-                  <p className="my-0 text-sm">
-                    1. Lorem ipsum dolor sit amet consectetur
-                  </p>
-                  <p className="my-0 text-sm">
-                    2. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quis, corrupti.
-                  </p>
-                  <p className="my-0 text-sm">
-                    3. Lorem ipsum dolor sit amet consectetur
-                  </p>
-                </Text>
-
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/UPC-A-036000291452.svg/1200px-UPC-A-036000291452.svg.png"
-                  alt="shtrix"
-                  className="mx-auto h-56"
+            {/* MyID realize */}
+            <Tabs.Item label="MyID" value="2">
+              <>
+                <Alert
+                  message="Идентификациядан ўтиш учун тугмани босинг"
+                  type="info"
+                  showIcon
                 />
 
-                <div className="h-[20px]" />
+                <div className="h-[10px]" />
 
-                <Button
-                  onClick={() => {
-                    setState(false);
+                <Modal visible={state} onClose={() => setState(false)}>
+                  <Modal.Title>Lorem, ipsum.</Modal.Title>
+                  <Modal.Content>
+                    <Text className="space-y-2">
+                      <p className="my-0 text-sm">
+                        1. Lorem ipsum dolor sit amet consectetur
+                      </p>
+                      <p className="my-0 text-sm">
+                        2. Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Quis, corrupti.
+                      </p>
+                      <p className="my-0 text-sm">
+                        3. Lorem ipsum dolor sit amet consectetur
+                      </p>
+                    </Text>
 
-                    setTimeout(() => {
-                      onFinish();
-                    }, 20);
-                  }}
-                  // iconRight={<ArrowRight strokeWidth={1.5} />}
-                >
-                  Keyingisi
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/UPC-A-036000291452.svg/1200px-UPC-A-036000291452.svg.png"
+                      alt="shtrix"
+                      className="mx-auto h-56"
+                    />
+
+                    <div className="h-[20px]" />
+
+                    <Button
+                      onClick={() => {
+                        setState(false);
+
+                        setTimeout(() => {
+                          onFinish();
+                        }, 20);
+                      }}
+                      // iconRight={<ArrowRight strokeWidth={1.5} />}
+                    >
+                      Keyingisi
+                    </Button>
+                  </Modal.Content>
+                </Modal>
+
+                <Button onClick={() => setState(true)}>
+                  Идентификациядан ўтиш
                 </Button>
-              </Modal.Content>
-            </Modal>
-
-            <Button onClick={() => setState(true)}>
-              Идентификациядан ўтиш
-            </Button>
-          </>
-        </Tabs.Item>
-      </Tabs>
+              </>
+            </Tabs.Item>
+          </Tabs>
+        </>
+      )}
     </>
   );
 }

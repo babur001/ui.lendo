@@ -1,0 +1,1674 @@
+[
+  {
+    "NS10_CODE": "3",
+    "CODE": "1",
+    "DISTRICT_CODE": "0301",
+    "NAME_UZ": "Андижон шаҳар",
+    "NAME_RU": "город Андижан",
+    "NAME_LATN": "Andijon shahar"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "1",
+    "DISTRICT_CODE": "0601",
+    "NAME_UZ": "Бухоро шаҳар",
+    "NAME_RU": "город Бухара",
+    "NAME_LATN": "Buxoro shahar"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "1",
+    "DISTRICT_CODE": "0801",
+    "NAME_UZ": "Арнасой тумани",
+    "NAME_RU": "Арнасайский район",
+    "NAME_LATN": "Arnasoy tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "1",
+    "DISTRICT_CODE": "1001",
+    "NAME_UZ": "Қарши шаҳар",
+    "NAME_RU": "город Карши",
+    "NAME_LATN": "Qarshi shahar"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "1",
+    "DISTRICT_CODE": "1201",
+    "NAME_UZ": "Навоий шаҳар",
+    "NAME_RU": "город Навойи",
+    "NAME_LATN": "Navoiy shahar"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "1",
+    "DISTRICT_CODE": "1401",
+    "NAME_UZ": "Наманган шаҳар",
+    "NAME_RU": "город Наманган",
+    "NAME_LATN": "Namangan shahar"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "1",
+    "DISTRICT_CODE": "1801",
+    "NAME_UZ": "Самарқанд шаҳар",
+    "NAME_RU": "город Самарканд",
+    "NAME_LATN": "Samarqand shahar"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "1",
+    "DISTRICT_CODE": "2201",
+    "NAME_UZ": "Термиз шаҳар",
+    "NAME_RU": "город Термез",
+    "NAME_LATN": "Termiz shahar"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "1",
+    "DISTRICT_CODE": "2401",
+    "NAME_UZ": "Оқолтин тумани",
+    "NAME_RU": "Окалтынский район",
+    "NAME_LATN": "Oqoltin tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "1",
+    "DISTRICT_CODE": "2601",
+    "NAME_UZ": "Миробод тумани",
+    "NAME_RU": "Мирабадский район",
+    "NAME_LATN": "Mirobod tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "1",
+    "DISTRICT_CODE": "2701",
+    "NAME_UZ": "Бекобод тумани",
+    "NAME_RU": "Бекабадский район",
+    "NAME_LATN": "Bekobod tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "1",
+    "DISTRICT_CODE": "3001",
+    "NAME_UZ": "Қувасой шаҳар",
+    "NAME_RU": "город Кувасай",
+    "NAME_LATN": "Quvasoy shahar"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "1",
+    "DISTRICT_CODE": "3301",
+    "NAME_UZ": "Урганч шаҳар",
+    "NAME_RU": "город Ургенч",
+    "NAME_LATN": "Urganch shahar"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "1",
+    "DISTRICT_CODE": "3501",
+    "NAME_UZ": "Нукус шаҳар",
+    "NAME_RU": "город Нукус",
+    "NAME_LATN": "Nukus shahar"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "2",
+    "DISTRICT_CODE": "0802",
+    "NAME_UZ": "Бахмал тумани",
+    "NAME_RU": "Бахмальский район",
+    "NAME_LATN": "Baxmal tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "2",
+    "DISTRICT_CODE": "1002",
+    "NAME_UZ": "Шаҳрисабз шаҳар",
+    "NAME_RU": "город Шахрисабз",
+    "NAME_LATN": "Shahrisabz shahar"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "2",
+    "DISTRICT_CODE": "1202",
+    "NAME_UZ": "Зарафшон шаҳар",
+    "NAME_RU": "город Зарафшан",
+    "NAME_LATN": "Zarafshon shahar"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "2",
+    "DISTRICT_CODE": "2402",
+    "NAME_UZ": "Боёвут тумани",
+    "NAME_RU": "Баяутский район",
+    "NAME_LATN": "Boyovut tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "2",
+    "DISTRICT_CODE": "2602",
+    "NAME_UZ": "Мирзо Улуғбек тумани",
+    "NAME_RU": "Мирзо Улугбекский район",
+    "NAME_LATN": "Mirzo Ulug‘bek tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "2",
+    "DISTRICT_CODE": "2702",
+    "NAME_UZ": "Бўка тумани",
+    "NAME_RU": "Букинский район",
+    "NAME_LATN": "Bo‘ka tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "2",
+    "DISTRICT_CODE": "3302",
+    "NAME_UZ": "Хива шаҳар",
+    "NAME_RU": "город Хива",
+    "NAME_LATN": "Xiva shahar"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "3",
+    "DISTRICT_CODE": "0303",
+    "NAME_UZ": "Хонобод шаҳар",
+    "NAME_RU": "город Ханабад",
+    "NAME_LATN": "Xonobod shahar"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "3",
+    "DISTRICT_CODE": "0603",
+    "NAME_UZ": "Когон шаҳар",
+    "NAME_RU": "город Каган",
+    "NAME_LATN": "Kogon shahar"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "3",
+    "DISTRICT_CODE": "0803",
+    "NAME_UZ": "Ғаллаорол тумани",
+    "NAME_RU": "Галляаральский район",
+    "NAME_LATN": "G‘allaorol tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "3",
+    "DISTRICT_CODE": "1203",
+    "NAME_UZ": "Учкудуқ шаҳар",
+    "NAME_RU": "город Учкудук",
+    "NAME_LATN": "Uchkuduq shahar"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "3",
+    "DISTRICT_CODE": "2203",
+    "NAME_UZ": "Ангор тумани",
+    "NAME_RU": "Ангорский район",
+    "NAME_LATN": "Angor tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "3",
+    "DISTRICT_CODE": "2403",
+    "NAME_UZ": "Гулистон тумани",
+    "NAME_RU": "Гулистанский район",
+    "NAME_LATN": "Guliston tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "3",
+    "DISTRICT_CODE": "2603",
+    "NAME_UZ": "Юнусобод тумани",
+    "NAME_RU": "Юнусабадский район",
+    "NAME_LATN": "Yunusobod tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "3",
+    "DISTRICT_CODE": "2703",
+    "NAME_UZ": "Бўстонлиқ тумани",
+    "NAME_RU": "Бостанлыкский район",
+    "NAME_LATN": "Bo‘stonliq tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "3",
+    "DISTRICT_CODE": "3003",
+    "NAME_UZ": "Қўқон шаҳар",
+    "NAME_RU": "город Коканд",
+    "NAME_LATN": "Qo‘qon shahar"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "3",
+    "DISTRICT_CODE": "3303",
+    "NAME_UZ": "Питнак тумани",
+    "NAME_RU": "Питнак район",
+    "NAME_LATN": "Pitnak tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "4",
+    "DISTRICT_CODE": "0604",
+    "NAME_UZ": "Олот тумани",
+    "NAME_RU": "Алатский район",
+    "NAME_LATN": "Olot tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "4",
+    "DISTRICT_CODE": "0804",
+    "NAME_UZ": "Шароф Рашидов тумани",
+    "NAME_RU": "Шароф Рашидовский район",
+    "NAME_LATN": "Sharof Rashidov tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "4",
+    "DISTRICT_CODE": "1004",
+    "NAME_UZ": "Ғузор тумани",
+    "NAME_RU": "Гузарский район",
+    "NAME_LATN": "G‘uzor tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "4",
+    "DISTRICT_CODE": "1204",
+    "NAME_UZ": "Конимех тумани",
+    "NAME_RU": "Кенимехский район",
+    "NAME_LATN": "Konimex tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "4",
+    "DISTRICT_CODE": "1804",
+    "NAME_UZ": "Тойлоқ тумани",
+    "NAME_RU": "Тайлякский район",
+    "NAME_LATN": "Toyloq tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "4",
+    "DISTRICT_CODE": "2204",
+    "NAME_UZ": "Олтинсой тумани",
+    "NAME_RU": "Алтынсайский район",
+    "NAME_LATN": "Oltinsoy tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "4",
+    "DISTRICT_CODE": "2604",
+    "NAME_UZ": "Яккасарой тумани",
+    "NAME_RU": "Яккасарайский район",
+    "NAME_LATN": "Yakkasaroy tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "4",
+    "DISTRICT_CODE": "2704",
+    "NAME_UZ": "Зангиота тумани",
+    "NAME_RU": "Зангиатинский район",
+    "NAME_LATN": "Zangiota tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "4",
+    "DISTRICT_CODE": "3004",
+    "NAME_UZ": "Марғилон шаҳар",
+    "NAME_RU": "город Маргилан",
+    "NAME_LATN": "Marg‘ilon shahar"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "4",
+    "DISTRICT_CODE": "3304",
+    "NAME_UZ": "Урганч тумани",
+    "NAME_RU": "Ургенчский район",
+    "NAME_LATN": "Urganch tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "5",
+    "DISTRICT_CODE": "0305",
+    "NAME_UZ": "Қорасув шаҳар",
+    "NAME_RU": "город Карасу",
+    "NAME_LATN": "Qorasuv shahar"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "5",
+    "DISTRICT_CODE": "0605",
+    "NAME_UZ": "Бухоро тумани",
+    "NAME_RU": "Бухарский район",
+    "NAME_LATN": "Buxoro tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "5",
+    "DISTRICT_CODE": "0805",
+    "NAME_UZ": "Дўстлик тумани",
+    "NAME_RU": "Дустликский район",
+    "NAME_LATN": "Do‘stlik tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "5",
+    "DISTRICT_CODE": "1005",
+    "NAME_UZ": "Деҳқонобод тумани",
+    "NAME_RU": "Дехканабадский район",
+    "NAME_LATN": "Dehqonobod tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "5",
+    "DISTRICT_CODE": "1205",
+    "NAME_UZ": "Қизилтепа тумани",
+    "NAME_RU": "Кызылтепинский район",
+    "NAME_LATN": "Qiziltepa tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "5",
+    "DISTRICT_CODE": "2205",
+    "NAME_UZ": "Бойсун тумани",
+    "NAME_RU": "Байсунский район",
+    "NAME_LATN": "Boysun tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "5",
+    "DISTRICT_CODE": "2405",
+    "NAME_UZ": "Мирзаобод тумани",
+    "NAME_RU": "Мирзаабадский район",
+    "NAME_LATN": "Mirzaobod tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "5",
+    "DISTRICT_CODE": "2605",
+    "NAME_UZ": "Шайхонтоҳур тумани",
+    "NAME_RU": "Шайхонтохурский район",
+    "NAME_LATN": "Shayxontohur tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "5",
+    "DISTRICT_CODE": "2705",
+    "NAME_UZ": "Юқори Чирчиқ тумани",
+    "NAME_RU": "Юкори Чирчикский район",
+    "NAME_LATN": "Yuqori Chirchiq tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "5",
+    "DISTRICT_CODE": "3005",
+    "NAME_UZ": "Фарғона шаҳар",
+    "NAME_RU": "город Фергана",
+    "NAME_LATN": "Farg‘ona shahar"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "5",
+    "DISTRICT_CODE": "3305",
+    "NAME_UZ": "Хива тумани",
+    "NAME_RU": "Хивинский район",
+    "NAME_LATN": "Xiva tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "6",
+    "DISTRICT_CODE": "0306",
+    "NAME_UZ": "Олтинкўл тумани",
+    "NAME_RU": "Алтынкульский район",
+    "NAME_LATN": "Oltinko‘l tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "6",
+    "DISTRICT_CODE": "0606",
+    "NAME_UZ": "Вобкент тумани",
+    "NAME_RU": "Вабкентский район",
+    "NAME_LATN": "Vobkent tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "6",
+    "DISTRICT_CODE": "0806",
+    "NAME_UZ": "Зарбдор тумани",
+    "NAME_RU": "Зарбдорский район",
+    "NAME_LATN": "Zarbdor tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "6",
+    "DISTRICT_CODE": "1006",
+    "NAME_UZ": "Қамаши тумани",
+    "NAME_RU": "Камашинский район",
+    "NAME_LATN": "Qamashi tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "6",
+    "DISTRICT_CODE": "1806",
+    "NAME_UZ": "Каттақўрғон шаҳар",
+    "NAME_RU": "город Каттакурган",
+    "NAME_LATN": "Kattaqo‘rg‘on shahar"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "6",
+    "DISTRICT_CODE": "2206",
+    "NAME_UZ": "Музрабод тумани",
+    "NAME_RU": "Музрабадский район",
+    "NAME_LATN": "Muzrabod tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "6",
+    "DISTRICT_CODE": "2406",
+    "NAME_UZ": "Сайхунобод тумани",
+    "NAME_RU": "Сайхунабадский район",
+    "NAME_LATN": "Sayxunobod tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "6",
+    "DISTRICT_CODE": "2606",
+    "NAME_UZ": "Чилонзор тумани",
+    "NAME_RU": "Чиланзарский район",
+    "NAME_LATN": "Chilonzor tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "6",
+    "DISTRICT_CODE": "2706",
+    "NAME_UZ": "Қибрай тумани",
+    "NAME_RU": "Кибрайский район",
+    "NAME_LATN": "Qibray tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "6",
+    "DISTRICT_CODE": "3006",
+    "NAME_UZ": "Бешариқ тумани",
+    "NAME_RU": "Бешарыкский район",
+    "NAME_LATN": "Beshariq tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "6",
+    "DISTRICT_CODE": "3306",
+    "NAME_UZ": "Хозарасп тумани",
+    "NAME_RU": "Хазараспский район",
+    "NAME_LATN": "Xozarasp tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "7",
+    "DISTRICT_CODE": "0307",
+    "NAME_UZ": "Андижон тумани",
+    "NAME_RU": "Андижанский район",
+    "NAME_LATN": "Andijon tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "7",
+    "DISTRICT_CODE": "0607",
+    "NAME_UZ": "Ғиждувон тумани",
+    "NAME_RU": "Гиждуванский район",
+    "NAME_LATN": "G‘ijduvon tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "7",
+    "DISTRICT_CODE": "0807",
+    "NAME_UZ": "Зомин тумани",
+    "NAME_RU": "Зааминский район",
+    "NAME_LATN": "Zomin tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "7",
+    "DISTRICT_CODE": "1007",
+    "NAME_UZ": "Қарши тумани",
+    "NAME_RU": "Каршинский район",
+    "NAME_LATN": "Qarshi tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "7",
+    "DISTRICT_CODE": "1207",
+    "NAME_UZ": "Томди тумани",
+    "NAME_RU": "Тамдынский район",
+    "NAME_LATN": "Tomdi tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "7",
+    "DISTRICT_CODE": "1407",
+    "NAME_UZ": "Мингбулоқ тумани",
+    "NAME_RU": "Мингбулакский район",
+    "NAME_LATN": "Mingbuloq tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "7",
+    "DISTRICT_CODE": "2207",
+    "NAME_UZ": "Денов тумани",
+    "NAME_RU": "Денаусский район",
+    "NAME_LATN": "Denov tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "7",
+    "DISTRICT_CODE": "2407",
+    "NAME_UZ": "Сирдарё тумани",
+    "NAME_RU": "Сырдарьинский район",
+    "NAME_LATN": "Sirdaryo tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "7",
+    "DISTRICT_CODE": "2607",
+    "NAME_UZ": "Сергели тумани",
+    "NAME_RU": "Сергелийский район",
+    "NAME_LATN": "Sergeli tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "7",
+    "DISTRICT_CODE": "2707",
+    "NAME_UZ": "Оққўрғон тумани",
+    "NAME_RU": "Аккурганский район",
+    "NAME_LATN": "Oqqo‘rg‘on tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "7",
+    "DISTRICT_CODE": "3007",
+    "NAME_UZ": "Боғдод тумани",
+    "NAME_RU": "Багдадский район",
+    "NAME_LATN": "Bog‘dod tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "7",
+    "DISTRICT_CODE": "3307",
+    "NAME_UZ": "Гурлан тумани",
+    "NAME_RU": "Гурленский район",
+    "NAME_LATN": "Gurlan tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "7",
+    "DISTRICT_CODE": "1807",
+    "NAME_UZ": "Ургут шаҳар",
+    "NAME_RU": "Ургут шаҳар",
+    "NAME_LATN": "Urgut shahar"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "8",
+    "DISTRICT_CODE": "0308",
+    "NAME_UZ": "Балиқчи тумани",
+    "NAME_RU": "Балыкчинский район",
+    "NAME_LATN": "Baliqchi tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "8",
+    "DISTRICT_CODE": "0608",
+    "NAME_UZ": "Жондор тумани",
+    "NAME_RU": "Джандарский район",
+    "NAME_LATN": "Jondor tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "8",
+    "DISTRICT_CODE": "0808",
+    "NAME_UZ": "Зафаробод тумани",
+    "NAME_RU": "Зафарабадский район",
+    "NAME_LATN": "Zafarobod tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "8",
+    "DISTRICT_CODE": "1008",
+    "NAME_UZ": "Косон тумани",
+    "NAME_RU": "Касанский район",
+    "NAME_LATN": "Koson tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "8",
+    "DISTRICT_CODE": "1208",
+    "NAME_UZ": "Навбаҳор тумани",
+    "NAME_RU": "Навбахорский район",
+    "NAME_LATN": "Navbahor tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "8",
+    "DISTRICT_CODE": "1408",
+    "NAME_UZ": "Косонсой тумани",
+    "NAME_RU": "Касансайский район",
+    "NAME_LATN": "Kosonsoy tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "8",
+    "DISTRICT_CODE": "1808",
+    "NAME_UZ": "Оқдарё тумани",
+    "NAME_RU": "Акдарьинский район",
+    "NAME_LATN": "Oqdaryo tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "8",
+    "DISTRICT_CODE": "2208",
+    "NAME_UZ": "Жарқўрғон тумани",
+    "NAME_RU": "Джаркурганский район",
+    "NAME_LATN": "Jarqo‘rg‘on tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "8",
+    "DISTRICT_CODE": "2408",
+    "NAME_UZ": "Ховос тумани",
+    "NAME_RU": "Хавастский район",
+    "NAME_LATN": "Xovos tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "8",
+    "DISTRICT_CODE": "2608",
+    "NAME_UZ": "Яшнобод тумани",
+    "NAME_RU": "Яшнабадский район",
+    "NAME_LATN": "Yashnobod tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "8",
+    "DISTRICT_CODE": "2708",
+    "NAME_UZ": "Оҳангарон тумани",
+    "NAME_RU": "Ахангаранский район",
+    "NAME_LATN": "Ohangaron tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "8",
+    "DISTRICT_CODE": "3008",
+    "NAME_UZ": "Бувайда тумани",
+    "NAME_RU": "Бувайдинский район",
+    "NAME_LATN": "Buvayda tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "8",
+    "DISTRICT_CODE": "3308",
+    "NAME_UZ": "Шовот тумани",
+    "NAME_RU": "Шаватский район",
+    "NAME_LATN": "Shovot tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "8",
+    "DISTRICT_CODE": "3508",
+    "NAME_UZ": "Амударё тумани",
+    "NAME_RU": "Амударьинский район",
+    "NAME_LATN": "Amudaryo tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "9",
+    "DISTRICT_CODE": "0309",
+    "NAME_UZ": "Бўстон тумани",
+    "NAME_RU": "Бустонский район",
+    "NAME_LATN": "Bo‘ston tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "9",
+    "DISTRICT_CODE": "0609",
+    "NAME_UZ": "Когон тумани",
+    "NAME_RU": "Каганский район",
+    "NAME_LATN": "Kogon tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "9",
+    "DISTRICT_CODE": "0809",
+    "NAME_UZ": "Мирзачўл тумани",
+    "NAME_RU": "Мирзачульский район",
+    "NAME_LATN": "Mirzacho‘l tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "9",
+    "DISTRICT_CODE": "1009",
+    "NAME_UZ": "Китоб тумани",
+    "NAME_RU": "Китабский район",
+    "NAME_LATN": "Kitob tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "9",
+    "DISTRICT_CODE": "1209",
+    "NAME_UZ": "Хатирчи тумани",
+    "NAME_RU": "Хатырчинский район",
+    "NAME_LATN": "Xatirchi tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "9",
+    "DISTRICT_CODE": "1409",
+    "NAME_UZ": "Наманган тумани",
+    "NAME_RU": "Наманганский район",
+    "NAME_LATN": "Namangan tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "9",
+    "DISTRICT_CODE": "1809",
+    "NAME_UZ": "Булунғур тумани",
+    "NAME_RU": "Булунгурский район",
+    "NAME_LATN": "Bulung‘ur tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "9",
+    "DISTRICT_CODE": "2209",
+    "NAME_UZ": "Қумқўрғон тумани",
+    "NAME_RU": "Кумкурганский район",
+    "NAME_LATN": "Qumqo‘rg‘on tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "9",
+    "DISTRICT_CODE": "2409",
+    "NAME_UZ": "Сардоба тумани",
+    "NAME_RU": "Сардобинский район",
+    "NAME_LATN": "Sardoba tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "9",
+    "DISTRICT_CODE": "2609",
+    "NAME_UZ": "Олмазор тумани",
+    "NAME_RU": "Алмазарский район",
+    "NAME_LATN": "Olmazor tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "9",
+    "DISTRICT_CODE": "2709",
+    "NAME_UZ": "Паркент тумани",
+    "NAME_RU": "Паркентский район",
+    "NAME_LATN": "Parkent tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "9",
+    "DISTRICT_CODE": "3009",
+    "NAME_UZ": "Дангара тумани",
+    "NAME_RU": "Дангаринский район",
+    "NAME_LATN": "Dangara tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "9",
+    "DISTRICT_CODE": "3309",
+    "NAME_UZ": "Янгиариқ тумани",
+    "NAME_RU": "Янгиарыкский район",
+    "NAME_LATN": "Yangiariq tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "9",
+    "DISTRICT_CODE": "3509",
+    "NAME_UZ": "Беруний тумани",
+    "NAME_RU": "Берунийский район",
+    "NAME_LATN": "Beruniy tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "10",
+    "DISTRICT_CODE": "0310",
+    "NAME_UZ": "Булоқбоши тумани",
+    "NAME_RU": "Булакбашинский район",
+    "NAME_LATN": "Buloqboshi tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "10",
+    "DISTRICT_CODE": "0610",
+    "NAME_UZ": "Қоракўл тумани",
+    "NAME_RU": "Каракульский район",
+    "NAME_LATN": "Qorako‘l tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "10",
+    "DISTRICT_CODE": "0810",
+    "NAME_UZ": "Пахтакор тумани",
+    "NAME_RU": "Пахтакорский район",
+    "NAME_LATN": "Paxtakor tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "10",
+    "DISTRICT_CODE": "1010",
+    "NAME_UZ": "Муборак тумани",
+    "NAME_RU": "Мубарекский район",
+    "NAME_LATN": "Muborak tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "10",
+    "DISTRICT_CODE": "1210",
+    "NAME_UZ": "Нурота тумани",
+    "NAME_RU": "Нуратинский район",
+    "NAME_LATN": "Nurota tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "10",
+    "DISTRICT_CODE": "1410",
+    "NAME_UZ": "Норин тумани",
+    "NAME_RU": "Нарынский район",
+    "NAME_LATN": "Norin tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "10",
+    "DISTRICT_CODE": "2210",
+    "NAME_UZ": "Қизириқ тумани",
+    "NAME_RU": "Кизирикский район",
+    "NAME_LATN": "Qiziriq tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "10",
+    "DISTRICT_CODE": "2410",
+    "NAME_UZ": "Гулистон шаҳар",
+    "NAME_RU": "город Гулистан",
+    "NAME_LATN": "Guliston shahar"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "10",
+    "DISTRICT_CODE": "2610",
+    "NAME_UZ": "Учтепа тумани",
+    "NAME_RU": "Учтепинский район",
+    "NAME_LATN": "Uchtepa tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "10",
+    "DISTRICT_CODE": "2710",
+    "NAME_UZ": "Пискент тумани",
+    "NAME_RU": "Пскентский район",
+    "NAME_LATN": "Piskent tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "10",
+    "DISTRICT_CODE": "3010",
+    "NAME_UZ": "Ёзёвон тумани",
+    "NAME_RU": "Язьяванский район",
+    "NAME_LATN": "Yozyovon tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "10",
+    "DISTRICT_CODE": "3310",
+    "NAME_UZ": "Қўшкўпир тумани",
+    "NAME_RU": "Кушкупырский район",
+    "NAME_LATN": "Qo‘shko‘pir tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "10",
+    "DISTRICT_CODE": "3510",
+    "NAME_UZ": "Бозатаус тумани",
+    "NAME_RU": "Бозатауский район",
+    "NAME_LATN": "Bozataus tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "11",
+    "DISTRICT_CODE": "0311",
+    "NAME_UZ": "Жалолқудуқ тумани",
+    "NAME_RU": "Джалалкудукский район",
+    "NAME_LATN": "Jalolquduq tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "11",
+    "DISTRICT_CODE": "0611",
+    "NAME_UZ": "Пешку тумани",
+    "NAME_RU": "Пешкунский район",
+    "NAME_LATN": "Peshku tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "11",
+    "DISTRICT_CODE": "0811",
+    "NAME_UZ": "Фориш тумани",
+    "NAME_RU": "Фаришский район",
+    "NAME_LATN": "Forish tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "11",
+    "DISTRICT_CODE": "1011",
+    "NAME_UZ": "Нишон тумани",
+    "NAME_RU": "Нишанский район",
+    "NAME_LATN": "Nishon tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "11",
+    "DISTRICT_CODE": "1211",
+    "NAME_UZ": "Кармана тумани",
+    "NAME_RU": "Карманинский район",
+    "NAME_LATN": "Karmana tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "11",
+    "DISTRICT_CODE": "1411",
+    "NAME_UZ": "Поп тумани",
+    "NAME_RU": "Папский район",
+    "NAME_LATN": "Pop tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "11",
+    "DISTRICT_CODE": "1811",
+    "NAME_UZ": "Жомбой тумани",
+    "NAME_RU": "Джамбайский район",
+    "NAME_LATN": "Jomboy tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "11",
+    "DISTRICT_CODE": "2211",
+    "NAME_UZ": "Сариосиё тумани",
+    "NAME_RU": "Сарыассийский район",
+    "NAME_LATN": "Sariosiyo tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "11",
+    "DISTRICT_CODE": "2611",
+    "NAME_UZ": "Бектемир тумани",
+    "NAME_RU": "Бектемирский район",
+    "NAME_LATN": "Bektemir tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "11",
+    "DISTRICT_CODE": "2711",
+    "NAME_UZ": "Тошкент тумани",
+    "NAME_RU": "Ташкентский район",
+    "NAME_LATN": "Toshkent tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "11",
+    "DISTRICT_CODE": "3011",
+    "NAME_UZ": "Қува тумани",
+    "NAME_RU": "Кувинский район",
+    "NAME_LATN": "Quva tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "11",
+    "DISTRICT_CODE": "3311",
+    "NAME_UZ": "Боғот тумани",
+    "NAME_RU": "Багатский район",
+    "NAME_LATN": "Bog‘ot tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "11",
+    "DISTRICT_CODE": "3511",
+    "NAME_UZ": "Кегейли тумани",
+    "NAME_RU": "Кегейлийский район",
+    "NAME_LATN": "Kegeyli tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "12",
+    "DISTRICT_CODE": "0312",
+    "NAME_UZ": "Избоскан тумани",
+    "NAME_RU": "Избасканский район",
+    "NAME_LATN": "Izboskan tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "12",
+    "DISTRICT_CODE": "0612",
+    "NAME_UZ": "Ромитан тумани",
+    "NAME_RU": "Ромитанский район",
+    "NAME_LATN": "Romitan tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "12",
+    "DISTRICT_CODE": "0812",
+    "NAME_UZ": "Жиззах шаҳар",
+    "NAME_RU": "город Джизак",
+    "NAME_LATN": "Jizzax shahar"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "12",
+    "DISTRICT_CODE": "1012",
+    "NAME_UZ": "Касби тумани",
+    "NAME_RU": "Касбинский район",
+    "NAME_LATN": "Kasbi tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "12",
+    "DISTRICT_CODE": "1412",
+    "NAME_UZ": "Тўрақўрғон тумани",
+    "NAME_RU": "Туракурганский район",
+    "NAME_LATN": "To‘raqo‘rg‘on tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "12",
+    "DISTRICT_CODE": "1812",
+    "NAME_UZ": "Иштихон тумани",
+    "NAME_RU": "Иштыханский район",
+    "NAME_LATN": "Ishtixon tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "12",
+    "DISTRICT_CODE": "2212",
+    "NAME_UZ": "Термиз  тумани",
+    "NAME_RU": "Термезский район",
+    "NAME_LATN": "Termiz  tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "12",
+    "DISTRICT_CODE": "2412",
+    "NAME_UZ": "Ширин шаҳар",
+    "NAME_RU": "город Ширин",
+    "NAME_LATN": "Shirin shahar"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "12",
+    "DISTRICT_CODE": "2712",
+    "NAME_UZ": "Ўрта Чирчиқ тумани",
+    "NAME_RU": "Урта-Чирчикский район",
+    "NAME_LATN": "O'rta Chirchiq tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "12",
+    "DISTRICT_CODE": "3012",
+    "NAME_UZ": "Олтиариқ тумани",
+    "NAME_RU": "Алтыарыкский район",
+    "NAME_LATN": "Oltiariq tumani"
+  },
+  {
+    "NS10_CODE": "26",
+    "CODE": "12",
+    "DISTRICT_CODE": "2612",
+    "NAME_UZ": "Янгиҳаёт тумани",
+    "NAME_RU": "Янгихаётский район",
+    "NAME_LATN": "Yangihayot tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "12",
+    "DISTRICT_CODE": "3312",
+    "NAME_UZ": "Хонқа тумани",
+    "NAME_RU": "Ханкинский район",
+    "NAME_LATN": "Xonqa tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "12",
+    "DISTRICT_CODE": "3512",
+    "NAME_UZ": "Қўнғрод тумани",
+    "NAME_RU": "Кунградский район",
+    "NAME_LATN": "Qo‘ng‘rod tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "13",
+    "DISTRICT_CODE": "0313",
+    "NAME_UZ": "Улуғнор тумани",
+    "NAME_RU": "Улугнорский район",
+    "NAME_LATN": "Ulug‘nor tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "13",
+    "DISTRICT_CODE": "0613",
+    "NAME_UZ": "Шофирикон тумани",
+    "NAME_RU": "Шафирканский район",
+    "NAME_LATN": "Shofirikon tumani"
+  },
+  {
+    "NS10_CODE": "8",
+    "CODE": "13",
+    "DISTRICT_CODE": "0813",
+    "NAME_UZ": "Янгиобод тумани",
+    "NAME_RU": "Янгиабадский район",
+    "NAME_LATN": "Yangiobod tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "13",
+    "DISTRICT_CODE": "1413",
+    "NAME_UZ": "Уйчи тумани",
+    "NAME_RU": "Уйчинский район",
+    "NAME_LATN": "Uychi tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "13",
+    "DISTRICT_CODE": "1813",
+    "NAME_UZ": "Каттақўрғон тумани",
+    "NAME_RU": "Каттакурганский район",
+    "NAME_LATN": "Kattaqo‘rg‘on tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "13",
+    "DISTRICT_CODE": "2213",
+    "NAME_UZ": "Шеробод тумани",
+    "NAME_RU": "Шерабадский район",
+    "NAME_LATN": "Sherobod tumani"
+  },
+  {
+    "NS10_CODE": "24",
+    "CODE": "13",
+    "DISTRICT_CODE": "2413",
+    "NAME_UZ": "Янгиер шаҳар",
+    "NAME_RU": "город Янгиер",
+    "NAME_LATN": "Yangier shahar"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "13",
+    "DISTRICT_CODE": "2713",
+    "NAME_UZ": "Чиноз тумани",
+    "NAME_RU": "Чиназский район",
+    "NAME_LATN": "Chinoz tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "13",
+    "DISTRICT_CODE": "3013",
+    "NAME_UZ": "Қўштепа тумани",
+    "NAME_RU": "Куштепинский район",
+    "NAME_LATN": "Qo‘shtepa tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "13",
+    "DISTRICT_CODE": "3313",
+    "NAME_UZ": "Янгибозор тумани",
+    "NAME_RU": "Янгибазарский район",
+    "NAME_LATN": "Yangibozor tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "13",
+    "DISTRICT_CODE": "3513",
+    "NAME_UZ": "Қонликўл тумани",
+    "NAME_RU": "Кандикульский район",
+    "NAME_LATN": "Qonliko‘l tumani"
+  },
+  {
+    "NS10_CODE": "12",
+    "CODE": "13",
+    "DISTRICT_CODE": "1213",
+    "NAME_UZ": "Ғозғон шаҳар",
+    "NAME_RU": "город Газган",
+    "NAME_LATN": "G‘ozg‘on shahar"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "14",
+    "DISTRICT_CODE": "0314",
+    "NAME_UZ": "Қўрғонтепа тумани",
+    "NAME_RU": "Кургантепинский район",
+    "NAME_LATN": "Qo‘rg‘ontepa tumani"
+  },
+  {
+    "NS10_CODE": "6",
+    "CODE": "14",
+    "DISTRICT_CODE": "0614",
+    "NAME_UZ": "Қоровулбозор тумани",
+    "NAME_RU": "Караулбазарский район",
+    "NAME_LATN": "Qorovulbozor tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "14",
+    "DISTRICT_CODE": "1014",
+    "NAME_UZ": "Чироқчи тумани",
+    "NAME_RU": "Чиракчинский район",
+    "NAME_LATN": "Chiroqchi tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "14",
+    "DISTRICT_CODE": "1414",
+    "NAME_UZ": "Учқўрғон тумани",
+    "NAME_RU": "Учкурганский район",
+    "NAME_LATN": "Uchqo‘rg‘on tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "14",
+    "DISTRICT_CODE": "1814",
+    "NAME_UZ": "Қўшрабод тумани",
+    "NAME_RU": "Кошрабадский район",
+    "NAME_LATN": "Qo‘shrabod tumani"
+  },
+  {
+    "NS10_CODE": "33",
+    "CODE": "14",
+    "DISTRICT_CODE": "3314",
+    "NAME_UZ": "Тупроққалъа тумани",
+    "NAME_RU": "Тупроккалинский район",
+    "NAME_LATN": "Tuproqqal'a tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "14",
+    "DISTRICT_CODE": "2214",
+    "NAME_UZ": "Шўрчи тумани",
+    "NAME_RU": "Шурчинский район",
+    "NAME_LATN": "Sho‘rchi tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "14",
+    "DISTRICT_CODE": "2714",
+    "NAME_UZ": "Қуйи Чирчиқ тумани",
+    "NAME_RU": "Куйи-Чирчикский район",
+    "NAME_LATN": "Quyi Chirchiq tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "14",
+    "DISTRICT_CODE": "3014",
+    "NAME_UZ": "Риштон тумани",
+    "NAME_RU": "Риштанский район",
+    "NAME_LATN": "Rishton tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "14",
+    "DISTRICT_CODE": "3514",
+    "NAME_UZ": "Муйноқ тумани",
+    "NAME_RU": "Муйнакский район",
+    "NAME_LATN": "Muynoq tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "15",
+    "DISTRICT_CODE": "0315",
+    "NAME_UZ": "Асака тумани",
+    "NAME_RU": "Асакинский район",
+    "NAME_LATN": "Asaka tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "15",
+    "DISTRICT_CODE": "1015",
+    "NAME_UZ": "Шахрисабз тумани",
+    "NAME_RU": "Шахризабский район",
+    "NAME_LATN": "Shaxrisabz tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "15",
+    "DISTRICT_CODE": "1415",
+    "NAME_UZ": "Чортоқ тумани",
+    "NAME_RU": "Чартакский район",
+    "NAME_LATN": "Chortoq tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "15",
+    "DISTRICT_CODE": "1815",
+    "NAME_UZ": "Нарпай тумани",
+    "NAME_RU": "Нарпайский район",
+    "NAME_LATN": "Narpay tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "15",
+    "DISTRICT_CODE": "2215",
+    "NAME_UZ": "Узун тумани",
+    "NAME_RU": "Узунский район",
+    "NAME_LATN": "Uzun tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "15",
+    "DISTRICT_CODE": "2715",
+    "NAME_UZ": "Янгийўл тумани",
+    "NAME_RU": "Янгийульский район",
+    "NAME_LATN": "Yangiyo‘l tumani"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "15",
+    "DISTRICT_CODE": "3015",
+    "NAME_UZ": "Сўх тумани",
+    "NAME_RU": "Сохский район",
+    "NAME_LATN": "So‘x tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "15",
+    "DISTRICT_CODE": "3515",
+    "NAME_UZ": "Нукус тумани",
+    "NAME_RU": "Нукусский район",
+    "NAME_LATN": "Nukus tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "16",
+    "DISTRICT_CODE": "0316",
+    "NAME_UZ": "Марҳамат тумани",
+    "NAME_RU": "Мархаматский район",
+    "NAME_LATN": "Marhamat tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "16",
+    "DISTRICT_CODE": "1016",
+    "NAME_UZ": "Яккабоғ тумани",
+    "NAME_RU": "Яккабагский район",
+    "NAME_LATN": "Yakkabog‘ tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "16",
+    "DISTRICT_CODE": "1416",
+    "NAME_UZ": "Чуст тумани",
+    "NAME_RU": "Чустский район",
+    "NAME_LATN": "Chust tumani"
+  },
+  {
+    "NS10_CODE": "22",
+    "CODE": "16",
+    "DISTRICT_CODE": "2216",
+    "NAME_UZ": "Бандихон тумани",
+    "NAME_RU": "Бандиханский район",
+    "NAME_LATN": "Bandixon tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "16",
+    "DISTRICT_CODE": "2716",
+    "NAME_UZ": "Ангрен шаҳар",
+    "NAME_RU": "город Ангрен",
+    "NAME_LATN": "Angren shahar"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "16",
+    "DISTRICT_CODE": "3016",
+    "NAME_UZ": "Тошлоқ тумани",
+    "NAME_RU": "Ташлакский район",
+    "NAME_LATN": "Toshloq tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "16",
+    "DISTRICT_CODE": "3516",
+    "NAME_UZ": "Тахтакўпир тумани",
+    "NAME_RU": "Тахтакупырский район",
+    "NAME_LATN": "Taxtako‘pir tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "17",
+    "DISTRICT_CODE": "0317",
+    "NAME_UZ": "Шаҳрихон тумани",
+    "NAME_RU": "Шахриханский район",
+    "NAME_LATN": "Shahrixon tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "17",
+    "DISTRICT_CODE": "1017",
+    "NAME_UZ": "Миришкор тумани",
+    "NAME_RU": "Миришкорский район",
+    "NAME_LATN": "Mirishkor tumani"
+  },
+  {
+    "NS10_CODE": "14",
+    "CODE": "17",
+    "DISTRICT_CODE": "1417",
+    "NAME_UZ": "Янгиқўргон тумани",
+    "NAME_RU": "Янгикурганский район",
+    "NAME_LATN": "Yangiqo‘rgon tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "17",
+    "DISTRICT_CODE": "1817",
+    "NAME_UZ": "Пайариқ тумани",
+    "NAME_RU": "Пайарыкский район",
+    "NAME_LATN": "Payariq tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "17",
+    "DISTRICT_CODE": "2717",
+    "NAME_UZ": "Бекобод шаҳар",
+    "NAME_RU": "город Бекабад",
+    "NAME_LATN": "Bekobod shahar"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "17",
+    "DISTRICT_CODE": "3017",
+    "NAME_UZ": "Ўзбекистон тумани",
+    "NAME_RU": "Узбекистанский район",
+    "NAME_LATN": "O'zbekiston tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "17",
+    "DISTRICT_CODE": "3517",
+    "NAME_UZ": "Тўрткўл тумани",
+    "NAME_RU": "Турткульский район",
+    "NAME_LATN": "To‘rtko‘l tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "18",
+    "DISTRICT_CODE": "0318",
+    "NAME_UZ": "Пахтаобод тумани",
+    "NAME_RU": "Пахтаабадский район",
+    "NAME_LATN": "Paxtaobod tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "18",
+    "DISTRICT_CODE": "1818",
+    "NAME_UZ": "Пастдарғом тумани",
+    "NAME_RU": "Пастдаргомский район",
+    "NAME_LATN": "Pastdarg‘om tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "18",
+    "DISTRICT_CODE": "2718",
+    "NAME_UZ": "Олмалиқ шаҳар",
+    "NAME_RU": "город Алмалык",
+    "NAME_LATN": "Olmaliq shahar"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "18",
+    "DISTRICT_CODE": "3018",
+    "NAME_UZ": "Учкўприқ тумани",
+    "NAME_RU": "Учкуприкский район",
+    "NAME_LATN": "Uchko‘priq tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "18",
+    "DISTRICT_CODE": "3518",
+    "NAME_UZ": "Хўжайли тумани",
+    "NAME_RU": "Ходжейлийский район",
+    "NAME_LATN": "Xo‘jayli tumani"
+  },
+  {
+    "NS10_CODE": "10",
+    "CODE": "18",
+    "DISTRICT_CODE": "1018",
+    "NAME_UZ": "Кўкдала тумани",
+    "NAME_RU": "Кукдалинский район",
+    "NAME_LATN": "Ko'kdala tumani"
+  },
+  {
+    "NS10_CODE": "3",
+    "CODE": "19",
+    "DISTRICT_CODE": "0319",
+    "NAME_UZ": "Хўжаобод тумани",
+    "NAME_RU": "Ходжаабадский район",
+    "NAME_LATN": "Xo‘jaobod tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "19",
+    "DISTRICT_CODE": "1819",
+    "NAME_UZ": "Пахтачи тумани",
+    "NAME_RU": "Пахтаачинский район",
+    "NAME_LATN": "Paxtachi tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "19",
+    "DISTRICT_CODE": "2719",
+    "NAME_UZ": "Оҳангарон шаҳар",
+    "NAME_RU": "город Ахангаран",
+    "NAME_LATN": "Ohangaron shahar"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "19",
+    "DISTRICT_CODE": "3019",
+    "NAME_UZ": "Фарғона тумани",
+    "NAME_RU": "Ферганский район",
+    "NAME_LATN": "Farg‘ona tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "19",
+    "DISTRICT_CODE": "3519",
+    "NAME_UZ": "Чимбой тумани",
+    "NAME_RU": "Чимбайский район",
+    "NAME_LATN": "Chimboy tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "20",
+    "DISTRICT_CODE": "1820",
+    "NAME_UZ": "Самарқанд тумани",
+    "NAME_RU": "Самаркандский район",
+    "NAME_LATN": "Samarqand tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "20",
+    "DISTRICT_CODE": "2720",
+    "NAME_UZ": "Чирчиқ шаҳар",
+    "NAME_RU": "город Чирчик",
+    "NAME_LATN": "Chirchiq shahar"
+  },
+  {
+    "NS10_CODE": "30",
+    "CODE": "20",
+    "DISTRICT_CODE": "3020",
+    "NAME_UZ": "Фурқат тумани",
+    "NAME_RU": "Фуркатский район",
+    "NAME_LATN": "Furqat tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "20",
+    "DISTRICT_CODE": "3520",
+    "NAME_UZ": "Шуманай тумани",
+    "NAME_RU": "Шуманайский район",
+    "NAME_LATN": "Shumanay tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "21",
+    "DISTRICT_CODE": "1821",
+    "NAME_UZ": "Нуробод тумани",
+    "NAME_RU": "Нуробадский район",
+    "NAME_LATN": "Nurobod tumani"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "21",
+    "DISTRICT_CODE": "3521",
+    "NAME_UZ": "Элликқъала тумани",
+    "NAME_RU": "Элликкалинский район",
+    "NAME_LATN": "Ellikq'ala tumani"
+  },
+  {
+    "NS10_CODE": "18",
+    "CODE": "22",
+    "DISTRICT_CODE": "1822",
+    "NAME_UZ": "Ургут тумани",
+    "NAME_RU": "Ургутсский район",
+    "NAME_LATN": "Urgut tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "22",
+    "DISTRICT_CODE": "2722",
+    "NAME_UZ": "Янгийўл шаҳар",
+    "NAME_RU": "город Янгийуль",
+    "NAME_LATN": "Yangiyo‘l shahar"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "22",
+    "DISTRICT_CODE": "3522",
+    "NAME_UZ": "Қораузак тумани",
+    "NAME_RU": "Караузякский район",
+    "NAME_LATN": "Qorauzak tumani"
+  },
+  {
+    "NS10_CODE": "27",
+    "CODE": "23",
+    "DISTRICT_CODE": "2723",
+    "NAME_UZ": "Нурафшон шаҳар",
+    "NAME_RU": "город Нурафшон",
+    "NAME_LATN": "Nurafshon shahar"
+  },
+  {
+    "NS10_CODE": "35",
+    "CODE": "23",
+    "DISTRICT_CODE": "3523",
+    "NAME_UZ": "Тахиатош тумани",
+    "NAME_RU": "Тахиаташский район",
+    "NAME_LATN": "Taxiatosh tumani"
+  }
+]

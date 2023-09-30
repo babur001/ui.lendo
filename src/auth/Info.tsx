@@ -2,6 +2,8 @@ import { Button, Input, Select, Text } from "@geist-ui/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import regions from "@/data/ns10.json";
+import tumans from "@/data/ns11.json";
 
 interface IProps {
   onFinish: () => unknown;
@@ -11,6 +13,8 @@ function Info({ onFinish }: IProps) {
   // const { register } = useForm({
   //   resolver: zodResolver(userInfoSchema),
   // });
+
+  console.log(regions);
 
   return (
     <>
@@ -32,7 +36,7 @@ function Info({ onFinish }: IProps) {
 
         <>
           <Text h4 my={0}>
-            Телефон рақамлари
+            Банк маълумотлари
           </Text>
 
           <div className="flex items-center justify-between !w-full !gap-3">
@@ -49,19 +53,26 @@ function Info({ onFinish }: IProps) {
             Манзили
           </Text>
 
-          <Select placeholder="Uzbekistan">
-            <Select.Option value="1">Option 1</Select.Option>
-            <Select.Option value="2">Option 2</Select.Option>
+          {/* <Select placeholder="Uzbekistan" disabled /> */}
+
+          <Select placeholder="Вилоят">
+            {regions.map((region, idx) => {
+              return (
+                <Select.Option value={region.CODE}>
+                  {region.NAME_UZ}
+                </Select.Option>
+              );
+            })}
           </Select>
 
-          <Select placeholder="TOSHKENT VILOYATI">
-            <Select.Option value="1">Option 1</Select.Option>
-            <Select.Option value="2">Option 2</Select.Option>
-          </Select>
-
-          <Select placeholder="TOSHKENT TUMANI">
-            <Select.Option value="1">Option 1</Select.Option>
-            <Select.Option value="2">Option 2</Select.Option>
+          <Select placeholder="Туман">
+            {tumans.map((tuman, idx) => {
+              return (
+                <Select.Option value={tuman.CODE}>
+                  {tuman.NAME_UZ}
+                </Select.Option>
+              );
+            })}
           </Select>
 
           <Input className="!w-full">Махалла номи*</Input>

@@ -1,9 +1,8 @@
 import Identification from "@/auth/Identification";
 import Info from "@/auth/Info";
-import { Dot, Text } from "@geist-ui/core";
+import { Text } from "@geist-ui/core";
 import { Layout, Menu, MenuProps, Steps, theme } from "antd";
 import { useState } from "react";
-import Client from "@/auth/Client";
 import Scoring from "@/auth/Scoring";
 import Logo from "@/Logo";
 import Formalization from "@/auth/Formalization";
@@ -12,22 +11,21 @@ import Approval from "@/auth/Approval";
 import Graph from "@/auth/Graph";
 import { Calculator, LayoutDashboard, User } from "lucide-react";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 
 enum TEnumSteps {
   IDENTIFICATION = 0,
   INFO = 1,
-  CLIENT = 2,
-  SCORING = 3,
-  FORMALIZATION = 4,
-  CONTRACT = 5,
-  APPROVAL = 6,
-  GRAPH = 7,
+  SCORING = 2,
+  FORMALIZATION = 3,
+  CONTRACT = 4,
+  APPROVAL = 5,
+  GRAPH = 6,
 }
 
 function Nasiya() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.GRAPH,
+    active: TEnumSteps.FORMALIZATION,
     actual: TEnumSteps.GRAPH,
   });
 
@@ -75,11 +73,6 @@ function Nasiya() {
                   //     </Text>
                   //   </div>
                   // ),
-                },
-                {
-                  disabled: step.actual < TEnumSteps.CLIENT,
-                  title: "Klient",
-                  // description: "Klient kartsi yaratilmadi.",
                 },
                 {
                   disabled: step.actual < TEnumSteps.SCORING,
@@ -142,18 +135,6 @@ function Nasiya() {
               <Info
                 onFinish={() =>
                   setStep({
-                    active: TEnumSteps.CLIENT,
-                    actual: TEnumSteps.CLIENT,
-                  })
-                }
-              />
-            ) : null}
-
-            {/* 3. Klient */}
-            {step.active === TEnumSteps.CLIENT ? (
-              <Client
-                onFinish={() =>
-                  setStep({
                     active: TEnumSteps.SCORING,
                     actual: TEnumSteps.SCORING,
                   })
@@ -161,7 +142,7 @@ function Nasiya() {
               />
             ) : null}
 
-            {/* 4. Scoring */}
+            {/* 3. Scoring */}
             {step.active === TEnumSteps.SCORING ? (
               <Scoring
                 onFinish={() =>

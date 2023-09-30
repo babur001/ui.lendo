@@ -1,0 +1,86 @@
+[
+  {
+    "CODE": "3",
+    "NAME_UZ": "Андижон вилояти",
+    "NAME_RU": "Андижанская область",
+    "NAME_LATN": "Andijon viloyati"
+  },
+  {
+    "CODE": "6",
+    "NAME_UZ": "Бухоро вилояти",
+    "NAME_RU": "Бухарская область",
+    "NAME_LATN": "Buxoro viloyati"
+  },
+  {
+    "CODE": "8",
+    "NAME_UZ": "Жиззах вилояти",
+    "NAME_RU": "Джизакская область",
+    "NAME_LATN": "Jizzax viloyati"
+  },
+  {
+    "CODE": "10",
+    "NAME_UZ": "Қашқадарё вилояти",
+    "NAME_RU": "Кашкадарьинская область",
+    "NAME_LATN": "Qashqadaryo viloyati"
+  },
+  {
+    "CODE": "12",
+    "NAME_UZ": "Навоий вилояти",
+    "NAME_RU": "Навоийская область",
+    "NAME_LATN": "Navoiy viloyati"
+  },
+  {
+    "CODE": "14",
+    "NAME_UZ": "Наманган вилояти",
+    "NAME_RU": "Наманганская область",
+    "NAME_LATN": "Namangan viloyati"
+  },
+  {
+    "CODE": "18",
+    "NAME_UZ": "Самарқанд вилояти",
+    "NAME_RU": "Самаркандская область",
+    "NAME_LATN": "Samarqand viloyati"
+  },
+  {
+    "CODE": "22",
+    "NAME_UZ": "Сурхондарё вилояти",
+    "NAME_RU": "Сурхандарьинская область",
+    "NAME_LATN": "Surxondaryo viloyati"
+  },
+  {
+    "CODE": "24",
+    "NAME_UZ": "Сирдарё вилояти",
+    "NAME_RU": "Сырдарьинская область",
+    "NAME_LATN": "Sirdaryo viloyati"
+  },
+  {
+    "CODE": "26",
+    "NAME_UZ": "Тошкент шаҳар",
+    "NAME_RU": "город Ташкент",
+    "NAME_LATN": "Toshkent shahar"
+  },
+  {
+    "CODE": "27",
+    "NAME_UZ": "Тошкент вилояти",
+    "NAME_RU": "Ташкентская область",
+    "NAME_LATN": "Toshkent viloyati"
+  },
+  {
+    "CODE": "30",
+    "NAME_UZ": "Фарғона вилояти",
+    "NAME_RU": "Ферганская область",
+    "NAME_LATN": "Farg‘ona viloyati"
+  },
+  {
+    "CODE": "33",
+    "NAME_UZ": "Хоразм вилояти",
+    "NAME_RU": "Хорезмская область",
+    "NAME_LATN": "Xorazm viloyati"
+  },
+  {
+    "CODE": "35",
+    "NAME_UZ": "Қорақалпоғистон Респ.",
+    "NAME_RU": "Респ. Каракалпакстан",
+    "NAME_LATN": "Qoraqalpog'iston Resp."
+  }
+]

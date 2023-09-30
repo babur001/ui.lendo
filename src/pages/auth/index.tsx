@@ -16,10 +16,6 @@ function Login() {
       return axios({
         method: "POST",
         url: `${baseUrl}/auth/login`,
-        headers: {
-          "Content-Type": "application/json",
-          accept: "*/*",
-        },
         data: {
           ...authParams,
         },
@@ -27,9 +23,10 @@ function Login() {
     },
   });
 
-  const onFinish = async (values: ILogin) => {
+  const onFinish = (values: ILogin) => {
     try {
-      const res = await mutateLogin.mutateAsync(values);
+      const res = mutateLogin.mutateAsync(values);
+      console.log("success");
     } catch (error) {
       console.log(error);
     }
