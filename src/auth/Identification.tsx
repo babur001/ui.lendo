@@ -41,7 +41,7 @@ const props: UploadProps = {
   },
 };
 
-const base = `https://mp-api.techstack.uz/mp-client-api`;
+export const baseUrl = `https://mp-api.techstack.uz/mp-client-api`;
 
 export interface IUser {
   pinfl: number;
@@ -78,7 +78,7 @@ function Identification({ onFinish }: IProps) {
     mutationFn: (pinflParam: string) => {
       return axios({
         method: "GET",
-        url: `${base}/registration/get-client-info`,
+        url: `${baseUrl}/registration/get-client-info`,
         params: {
           pinfl: pinflParam,
         },

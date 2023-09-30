@@ -16,7 +16,7 @@ function Info({ onFinish }: IProps) {
     <>
       <Text h3>2. Ҳаридор маълумотлари</Text>
 
-      <div className="flex flex-col gap-5 w-2/5">
+      <div className="flex flex-col gap-5 w-full">
         <>
           <Text h4 my={0}>
             Телефон рақамлари
