@@ -26,8 +26,8 @@ enum TEnumSteps {
 
 function Nasiya() {
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.IDENTIFICATION,
-    actual: TEnumSteps.IDENTIFICATION,
+    active: TEnumSteps.INFO,
+    actual: TEnumSteps.INFO,
   });
 
   return (
