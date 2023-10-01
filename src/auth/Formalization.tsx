@@ -1,8 +1,12 @@
 import TotalContractedSum from "@/auth/TotalContractedSum";
 import TotalSingleProduct from "@/auth/TotalSingleProduct";
-import { Button, Description, Divider, Input, Text } from "@geist-ui/core";
-import { Segmented } from "antd";
+import { req } from "@/services/api";
+import { IProducts, useBuyerStore } from "@/stores/buyer";
+import { Description, Divider, Input, Text } from "@geist-ui/core";
+import { useMutation } from "@tanstack/react-query";
+import { Button, Segmented, message } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { get } from "lodash";
 import { ArrowRight, X } from "lucide-react";
 import { useEffect } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -15,41 +19,84 @@ interface IProps {
   onFinish: () => unknown;
 }
 
-const columns: ColumnsType<ITableEDIT> = [
-  {
-    title: "Ой",
-    dataIndex: "month",
-  },
-  {
-    title: "Минимал сумма",
-    dataIndex: "min_sum",
-  },
-  {
-    title: "Maksimal summa",
-    dataIndex: "max_sum",
-  },
-];
-
 function Formalization({ onFinish }: IProps) {
-  const { control, register, handleSubmit } = useForm();
+  const { user, clientProfileId, clientScoringId, products, setProducts } =
+    useBuyerStore((store) => ({
+      user: store.user,
+      products: store.products,
+      setProducts: store.setProducts,
+      clientProfileId: store.clientProfileId,
+      clientScoringId: store.clientScoringId,
+    }));
+
+  const { control, register, handleSubmit } = useForm<IProducts>({
+    defaultValues: {
+      paymentSum: 0,
+      paymentPeriod: 4,
+      paymentDayOfMonth: 1,
+      ...(products ? products : {}),
+    },
+  });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "products",
+    name: "items",
+  });
+
+  const mutateAddProduct = useMutation({
+    mutationKey: ["mutateAddProduct"],
+    mutationFn: (
+      addProductParams: IProducts & {
+        clientProfileId: string | number;
+        clientScoringId: string | number;
+        clientPinfl: number | string;
+      }
+    ) => {
+      return req({
+        method: "POST",
+        url: `/registration/set-application`,
+        data: {
+          ...addProductParams,
+        },
+      });
+    },
   });
 
   useEffect(() => {
-    append({});
+    append({ name: "", amount: 1, price: "" });
 
     return () => remove();
   }, []);
 
-  const onSubmit = (values: unknown) => {
-    console.log(values);
+  const onSubmit = async (values: IProducts) => {
+    if (!clientProfileId || !clientScoringId) {
+      return message.error(`Avtorizatysaiyadan qaytadan o'ting!`);
+    }
+
+    const data = {
+      ...values,
+      clientPinfl: get(user, "pinfl", ""),
+      clientProfileId,
+      clientScoringId,
+    };
+
+    setProducts(values);
+
+    const res = await mutateAddProduct.mutateAsync(data);
+
+    const success = get(res, "data.success", false);
+
+    if (success) {
+      onFinish();
+    }
+
+    if (!success) {
+      message.error(`Kutilmagan xatolik!`);
+    }
   };
 
   return (
     <>
-      <Text h3>5. Formalization</Text>
+      <Text h3>4. Расмийлаштириш</Text>
 
       <div className="h-[20px]" />
 
@@ -63,7 +110,7 @@ function Formalization({ onFinish }: IProps) {
               <Input
                 placeholder="..."
                 width={"100%"}
-                {...register(`products.${idx}.productName`)}
+                {...register(`items.${idx}.name` as const)}
               >
                 Маҳсулот номи
               </Input>
@@ -72,13 +119,13 @@ function Formalization({ onFinish }: IProps) {
               <Input
                 initialValue={"1"}
                 width={"100%"}
-                {...register(`products.${idx}.count`)}
+                {...register(`items.${idx}.amount` as const)}
               >
                 Миқдори
               </Input>
             </div>
             <div className="col-span-3">
-              <Input width={"100%"} {...register(`products.${idx}.price`)}>
+              <Input width={"100%"} {...register(`items.${idx}.price`)}>
                 Нархи
               </Input>
             </div>
@@ -87,7 +134,12 @@ function Formalization({ onFinish }: IProps) {
             </div>
 
             <div className="col-span-1" onClick={() => remove(idx)}>
-              <Button iconRight={<X />} auto scale={3 / 4} px={0.6} />
+              <Button
+                className="flex items-center justify-center !w-9 !h-9 !p-0"
+                disabled={fields.length === 1}
+              >
+                <X strokeWidth={1.5} className="!h-5" />
+              </Button>
             </div>
           </div>
         );
@@ -97,10 +149,9 @@ function Formalization({ onFinish }: IProps) {
 
       <div className="col-span-12 grid grid-cols-12">
         <Button
-          scale={0.7}
-          className="col-start-1 col-end-3"
-          type="success"
-          onClick={() => append({ count: 1 })}
+          className="col-span-3"
+          type="primary"
+          onClick={() => append({ name: "", amount: 1, price: "" })}
         >
           Маҳсулот қўшиш
         </Button>
@@ -121,14 +172,14 @@ function Formalization({ onFinish }: IProps) {
               placeholder={"0"}
               scale={1.2}
               width={"100%"}
-              {...register("initialPayment")}
+              {...register("paymentSum")}
             />
           }
         />
 
         <Controller
           control={control}
-          name="monthPeriod"
+          name="paymentPeriod"
           render={({ field }) => {
             return (
               <Description
@@ -150,15 +201,42 @@ function Formalization({ onFinish }: IProps) {
           }}
         />
 
-        <TotalContractedSum control={control} />
+        <Controller
+          control={control}
+          name="paymentDayOfMonth"
+          render={({ field }) => {
+            return (
+              <Description
+                title="Ойлик тўлов муддати"
+                content={
+                  <Segmented
+                    {...field}
+                    size="large"
+                    options={[
+                      { label: <div className="px-2">1</div>, value: 1 },
+                      { label: <div className="px-2">10</div>, value: 10 },
+                      { label: <div className="px-2">20</div>, value: 20 },
+                    ]}
+                  />
+                }
+              />
+            );
+          }}
+        />
 
+        <TotalContractedSum control={control} />
+      </div>
+
+      <div className="h-[40px]" />
+
+      <div className="flex items-center justify-end w-full">
         <Button
           onClick={handleSubmit(onSubmit)}
-          iconRight={<ArrowRight strokeWidth={1.5} className="!ml-2" />}
-          type="success"
-          className="!w-56"
+          type="primary"
+          size="large"
+          className="!w-full flex items-center justify-center"
         >
-          Шартнома олиш
+          Шартнома олиш <ArrowRight strokeWidth={1.5} className="!ml-2 !h-5" />
         </Button>
       </div>
     </>

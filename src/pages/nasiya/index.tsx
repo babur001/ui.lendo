@@ -34,7 +34,7 @@ function Nasiya() {
       <div className="container mx-auto">
         <div className="h-[30px]" />
 
-        <div className="flex gap-7">
+        <div className="flex gap-7 h-full">
           <div className="w-1/4">
             <Text h3>Ариза: 73519</Text>
 
@@ -69,7 +69,7 @@ function Nasiya() {
                 },
                 {
                   disabled: step.actual < TEnumSteps.FORMALIZATION,
-                  title: "Oformlenie",
+                  title: "Расмийлаштириш",
                 },
                 {
                   disabled: step.actual < TEnumSteps.CONTRACT,

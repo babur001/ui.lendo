@@ -31,11 +31,14 @@ interface IScoringParams {
 }
 
 function Info({ onFinish }: IProps) {
-  const { user, userInfo, setUserInfo } = useBuyerStore((store) => ({
-    user: store.user,
-    userInfo: store.userInfo,
-    setUserInfo: store.setUserInfo,
-  }));
+  const { user, userInfo, setUserInfo, setUniqueIds } = useBuyerStore(
+    (store) => ({
+      user: store.user,
+      userInfo: store.userInfo,
+      setUserInfo: store.setUserInfo,
+      setUniqueIds: store.setUniqueIds,
+    })
+  );
 
   const { register, handleSubmit, control } = useForm<IUserInfo>({
     defaultValues: userInfo ? userInfo : {},
@@ -98,12 +101,14 @@ function Info({ onFinish }: IProps) {
       const scoringSuccess = get(resScoring, "data.success", false);
       const userSuccess = get(resUser, "data.success", false);
 
-      console.log(resScoring, resUser);
+      const clientProfileId = get(resUser, "data.data.id", false);
+      const clientScoringId = get(resScoring, "data.data.id", false);
 
       if (scoringSuccess && userSuccess) {
         setUserInfo(values);
+        setUniqueIds({ clientProfileId, clientScoringId });
 
-        // onFinish();
+        onFinish();
       }
 
       if (!scoringSuccess || !userSuccess) {

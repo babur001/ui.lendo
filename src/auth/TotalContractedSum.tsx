@@ -1,19 +1,20 @@
 import { Description, Input } from "@geist-ui/core";
+import { get } from "lodash";
 import React from "react";
 import { Control, useWatch } from "react-hook-form";
 
-function TotalContractedSum({ control }: { control: Control }) {
+function TotalContractedSum({ control }: { control: Control<any> }) {
   const values = useWatch({
     control,
   });
 
   let total = 0;
 
-  (values?.products || []).forEach((product: any) => {
-    total += (isNaN(+product.price) ? 0 : product.price) * product.count;
+  get(values, "items", []).forEach((product: any) => {
+    total += (isNaN(+product.price) ? 0 : product.price) * product.amount;
   });
 
-  total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
+  total -= isNaN(+values.paymentSum) ? 0 : values.paymentSum;
 
   const percentages = {
     4: 23,
@@ -23,7 +24,7 @@ function TotalContractedSum({ control }: { control: Control }) {
   } as any;
 
   const percentage =
-    percentages[isNaN(+values.monthPeriod) ? 4 : values.monthPeriod];
+    percentages[isNaN(+values.paymentPeriod) ? 4 : values.paymentPeriod];
 
   total = total + total * (percentage / 100);
 

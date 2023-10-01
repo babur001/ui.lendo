@@ -29,18 +29,46 @@ export interface IUserInfo {
   homeNumber: string;
 }
 
+export interface IProducts {
+  paymentSum: number | string;
+  paymentPeriod: number | string;
+  paymentDayOfMonth: number | string;
+  items: {
+    name: string;
+    amount: number | "";
+    price: number | "";
+  }[];
+}
+
 export interface Store {
   user: IBuyer | null;
+  products: IProducts | null;
   userInfo: IUserInfo | null;
+  clientProfileId: string | number | null;
+  clientScoringId: string | number | null;
 }
 
 interface Actions {
   setUser: (value: Store["user"]) => void;
+  setProducts: (value: Store["products"]) => void;
   setUserInfo: (value: Store["userInfo"]) => void;
+  setUniqueIds: (value: {
+    clientProfileId: Store["clientProfileId"];
+    clientScoringId: Store["clientScoringId"];
+  }) => void;
 }
 
 export const useBuyerStore = create<Store & Actions>()((set) => ({
+  clientProfileId: null,
+  clientScoringId: null,
+  setUniqueIds: (values) => set((state) => ({ ...values })),
+
   user: null,
+  setProducts: (value: Store["products"]) => {
+    return set((state) => ({ products: value }));
+  },
+
+  products: null,
   setUser: (user: Store["user"]) => set((state) => ({ user })),
 
   userInfo: null,
