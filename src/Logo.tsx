@@ -10,16 +10,16 @@ function Logo(props: any) {
       {...props}
     >
       <text
-        fill="#12b855"
+        fill="#407a69"
         strokeWidth="0"
         dx="0"
         dy="0"
-        fontFamily='"e5v6h3pKZtL1:::Montserrat"'
+        fontFamily='"e3p6xqYioTU1:::Montserrat"'
         fontSize="40"
         fontWeight="600"
-        transform="translate(20 38.881)"
+        transform="translate(19 38.881)"
       >
-        <tspan y="0">ZUMDA</tspan>
+        <tspan y="0">NASIYA</tspan>
       </text>
     </svg>
   );

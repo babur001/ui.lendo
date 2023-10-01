@@ -139,7 +139,7 @@ function Info({ onFinish }: IProps) {
               className="!w-full"
               {...register("phone1")}
             >
-              Телефон рақам*
+              Телефон рақам №1*
             </Input>
             <Input
               label="+998"

@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { get } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { req } from "@/services/api";
+import Logo from "@/Logo";
 
 interface ILogin {
   username: string;
@@ -51,6 +52,10 @@ function Login() {
         }}
         onFinish={onFinish}
       >
+        <Logo className="h-14" />
+
+        <div className="h-[25px]" />
+
         <Form.Item
           name="username"
           rules={[

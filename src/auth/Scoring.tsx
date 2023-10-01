@@ -143,7 +143,7 @@ function Scoring({ onFinish }: IProps) {
                   type="primary"
                   className="!w-64"
                 >
-                  Rasmiylashtirishga o'tish
+                  Расмийлаштиришга ўтинг
                 </Button>
               </div>
             </>

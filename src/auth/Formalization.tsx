@@ -236,7 +236,8 @@ function Formalization({ onFinish }: IProps) {
           size="large"
           className="!w-full flex items-center justify-center"
         >
-          Шартнома олиш <ArrowRight strokeWidth={1.5} className="!ml-2 !h-5" />
+          Шартномани олиш{" "}
+          <ArrowRight strokeWidth={1.5} className="!ml-2 !h-5" />
         </Button>
       </div>
     </>

@@ -11,7 +11,7 @@ function Approval({ onFinish }: IProps) {
 
   return (
     <>
-      <Text h3>5. Approval</Text>
+      <Text h3>6. Тасдиқлаш</Text>
 
       <div className="h-[10px]" />
 
@@ -23,14 +23,18 @@ function Approval({ onFinish }: IProps) {
               velit.
             </Text>
 
-            <Input className="!w-full" width={`100%`} placeholder="6 qator son">
-              SMS kod
+            <Input
+              className="!w-full"
+              width={`100%`}
+              placeholder="кодни киритинг"
+            >
+              СМС код
             </Input>
 
             <div className="h-[20px]" />
 
             <Button onClick={onFinish} type="primary" block>
-              Tasdiqlash
+              Тасдиқлаш
             </Button>
           </>
         ) : (
@@ -55,7 +59,7 @@ function Approval({ onFinish }: IProps) {
             </Text>
 
             <Button onClick={() => setIsSMS(true)} type="primary" block>
-              SMS kod olish
+              СМС тарзда код юбориш
             </Button>
           </>
         )}

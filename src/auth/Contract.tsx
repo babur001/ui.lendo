@@ -1,5 +1,4 @@
 import {
-  Button,
   Description,
   Divider,
   Input,
@@ -7,7 +6,7 @@ import {
   Pagination,
   Text,
 } from "@geist-ui/core";
-import { Alert, Checkbox, Segmented, Table } from "antd";
+import { Alert, Button, Checkbox, Segmented, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { log } from "console";
 import { ArrowRight, Minus, Plus, X } from "lucide-react";
@@ -53,11 +52,10 @@ function Contract({ onFinish }: IProps) {
 
       <Button
         onClick={onFinish}
-        iconRight={<ArrowRight strokeWidth={1.5} />}
-        type="success"
+        type="primary"
         disabled={!isChecked}
       >
-        Шартнома олиш
+        Шартномани олиш
       </Button>
 
       <div className="h-[40px]" />

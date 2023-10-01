@@ -99,9 +99,9 @@ function Identification({ onFinish }: IProps) {
   const userData = [
     { title: "ЖИШШР", value: get(user, "pinfl", "-") },
     { title: "Фамилия", value: get(user, "firstName", "-") },
-    { title: "Исм", value: get(user, "lastName", "-") },
-    { title: "Шариф", value: get(user, "middleName", "-") },
-    { title: "Паспорт серия", value: get(user, "passportSerial", "-") },
+    { title: "Исми", value: get(user, "lastName", "-") },
+    { title: "Шарифи", value: get(user, "middleName", "-") },
+    { title: "Паспорт серияси", value: get(user, "passportSerial", "-") },
     { title: "Паспорт рақами", value: get(user, "passportNumber", "-") },
     { title: "Ким томонидан берилган", value: get(user, "", "-") },
     { title: "Жинси", value: get(user, "gender", "-") },
@@ -112,7 +112,7 @@ function Identification({ onFinish }: IProps) {
     <>
       {user ? (
         <>
-          <Text h3>Шахсга доир маълумотлар</Text>
+          <Text h3>1. Шахсга доир маълумотлар</Text>
 
           <div className="h-[15px]" />
 

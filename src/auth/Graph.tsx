@@ -9,15 +9,14 @@ interface IProps {
 function Graph({ onFinish }: IProps) {
   return (
     <>
-      <Text h3>8. Graph</Text>
+      <Text h3>7. Тўлов графиги</Text>
 
       <div className="h-[10px]" />
 
       <div className="flex flex-col gap-4">
-        <Description title="Summa rassrochki:" content={"13 500 000"} />
-        <Description title="Umumiy nasiya:" content={"13 500 000"} />
+        <Description title="Насия сумма:" content={"13 500 000"} />
         <Description title="Давр:" content={"9 Ой"} />
-        <Description title="Oylik to'lam:" content={"1 500 000"} />
+        <Description title="Ойлик тўлов:" content={"1 500 000"} />
       </div>
 
       <div className="h-[30px]" />
@@ -29,7 +28,8 @@ function Graph({ onFinish }: IProps) {
         type="primary"
         className="flex items-center justify-center gap-4"
       >
-        <Download strokeWidth={1.5} className="h-4 w-full" /> Jadvalni yuklash
+        <Download strokeWidth={1.5} className="h-4 w-full" /> Тўлов графигини
+        юклаш
       </Button>
     </>
   );

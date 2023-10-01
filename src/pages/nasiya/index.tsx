@@ -10,6 +10,7 @@ import Contract from "@/auth/Contract";
 import Approval from "@/auth/Approval";
 import Graph from "@/auth/Graph";
 import { Calculator, LayoutDashboard, User } from "lucide-react";
+import Buyers from "@/pages/buyers";
 
 const { Sider } = Layout;
 
@@ -36,8 +37,6 @@ function Nasiya() {
 
         <div className="flex gap-7 h-full">
           <div className="w-1/4">
-            <Text h3>Ариза: 73519</Text>
-
             <div className="h-[10px]" />
 
             <Steps
@@ -77,11 +76,11 @@ function Nasiya() {
                 },
                 {
                   disabled: step.actual < TEnumSteps.APPROVAL,
-                  title: "Tasdiqlash",
+                  title: "Тасдиқлаш",
                 },
                 {
                   disabled: step.actual < TEnumSteps.GRAPH,
-                  title: "Grafik",
+                  title: "Тўлов графиги",
                 },
               ]}
             />
@@ -181,17 +180,17 @@ function Nasiya() {
 
 const items: MenuProps["items"] = [
   {
-    key: 1,
+    key: "main",
     icon: <Calculator strokeWidth={1.5} className="!h-5" />,
     label: `Асосий`,
   },
   {
-    key: 2,
+    key: "register",
     icon: <User strokeWidth={1.5} className="!h-5" />,
     label: `Рўйхатдан ўтказиш`,
   },
   {
-    key: 3,
+    key: "buyers",
     icon: <LayoutDashboard strokeWidth={1.5} className="!h-5" />,
     label: `Ҳаридорлар рўйхати`,
   },
@@ -202,6 +201,7 @@ function Wrapper() {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const [menu, setMenu] = useState("register");
   return (
     <div>
       <Layout>
@@ -218,13 +218,15 @@ function Wrapper() {
           <Menu
             theme="light"
             mode="inline"
-            defaultSelectedKeys={["2"]}
+            defaultSelectedKeys={[menu]}
             items={items}
+            onClick={(e) => setMenu(e.key)}
           />
         </Sider>
 
         <Layout style={{ padding: "0 24px 24px" }} className="bg-white">
-          <Nasiya />
+          {menu === "register" ? <Nasiya /> : null}
+          {menu === "buyers" ? <Buyers /> : null}
         </Layout>
       </Layout>
     </div>
