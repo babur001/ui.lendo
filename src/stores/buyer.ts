@@ -17,19 +17,12 @@ export interface IBuyer {
   activeProfile?: null;
 }
 
-// "livingAddress": "string",
-// "country": "string",
-// "regionName": "string",
-// "districtName": "string",
-// "clientPinfl": 0
-
 export interface IUserInfo {
-  phone: string;
+  phone1: string;
   phone2: string;
   card: string;
   card_date: string;
   regionCode: string;
-  ns10Code: string;
   district_code: string;
   neighborhood: string;
   street: string;

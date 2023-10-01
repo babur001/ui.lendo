@@ -4,14 +4,30 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import regions from "@/data/ns10.json";
 import tumans from "@/data/ns11.json";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { IUserInfo, useBuyerStore } from "@/stores/buyer";
 import { useMutation } from "@tanstack/react-query";
 import { req } from "@/services/api";
-import { find } from "lodash";
+import { find, get } from "lodash";
 
 interface IProps {
   onFinish: () => unknown;
+}
+
+interface IAdditionApiParam {
+  livingAddress: string;
+  country: string;
+  regionName: string;
+  districtName: string;
+  clientPinfl: string | number;
+}
+
+interface IScoringParams {
+  cardNumber: string;
+  cardExpiry: string;
+  pinfl: string | number;
+  loanAmount: string | number;
+  applicationId: string | number;
 }
 
 function Info({ onFinish }: IProps) {
@@ -26,16 +42,8 @@ function Info({ onFinish }: IProps) {
   });
 
   const mutateAddUserInfo = useMutation({
-    mutationKey: [""],
-    mutationFn: (
-      userInfoParams: IUserInfo & {
-        livingAddress: string;
-        country: string;
-        regionName: string;
-        districtName: string;
-        clientPinfl: string;
-      }
-    ) => {
+    mutationKey: ["mutateAddUserInfo"],
+    mutationFn: (userInfoParams: IUserInfo & IAdditionApiParam) => {
       return req({
         method: "POST",
         url: `/registration/create-profile`,
@@ -46,26 +54,67 @@ function Info({ onFinish }: IProps) {
     },
   });
 
+  const mutateSendForScoring = useMutation({
+    mutationKey: ["mutateSendForScoring"],
+    mutationFn: (scoringParams: IScoringParams) => {
+      return req({
+        method: "POST",
+        url: `/registration/check-scoring`,
+        data: {
+          ...scoringParams,
+        },
+      });
+    },
+  });
+
   const onSubmit = async (values: IUserInfo) => {
     try {
-      const res = mutateAddUserInfo.mutateAsync({
-        ...values,
-        livingAddress: values.homeNumber,
-        country: "UZBEKISTAN",
-        regionName:
-          find(regions, (region) => {
-            return region.CODE === values.regionCode;
-          })?.NAME_UZ ?? "",
-        districtName:
-          find(tumans, (tuman) => {
-            return tuman.DISTRICT_CODE === values.district_code;
-          })?.NAME_UZ ?? "",
-        clientPinfl: String(user?.pinfl ?? ""),
+      const regionObj = find(regions, (region) => {
+        return region.CODE === values.regionCode;
+      });
+      const tumanObj = find(tumans, (tuman) => {
+        return tuman.DISTRICT_CODE === values.district_code;
       });
 
-      setUserInfo(values);
-      onFinish();
-    } catch (error) {}
+      const [resScoring, resUser] = await Promise.all([
+        mutateSendForScoring.mutateAsync({
+          cardNumber: values.card,
+          cardExpiry: values.card_date,
+          pinfl: get(user, "pinfl", ""),
+          loanAmount: 0,
+          applicationId: 0,
+        }),
+        mutateAddUserInfo.mutateAsync({
+          ...values,
+          livingAddress: values.homeNumber,
+          country: "UZBEKISTAN",
+          regionName: get(regionObj, "NAME_UZ", "-"),
+          districtName: get(tumanObj, "NAME_UZ", "-"),
+          clientPinfl: get(user, "pinfl", ""),
+        }),
+        ,
+      ]);
+
+      const scoringSuccess = get(resScoring, "data.success", false);
+      const userSuccess = get(resUser, "data.success", false);
+
+      console.log(resScoring, resUser);
+
+      if (scoringSuccess && userSuccess) {
+        setUserInfo(values);
+
+        // onFinish();
+      }
+
+      if (!scoringSuccess || !userSuccess) {
+        message.error("Xatolik yuz berdi!");
+      }
+
+      // @remove
+      // onFinish();
+    } catch (error) {
+      message.error("Xatolik yuz berdi!");
+    }
   };
 
   return (
@@ -83,7 +132,7 @@ function Info({ onFinish }: IProps) {
               label="+998"
               placeholder="..."
               className="!w-full"
-              {...register("phone")}
+              {...register("phone1")}
             >
               Телефон рақам*
             </Input>
