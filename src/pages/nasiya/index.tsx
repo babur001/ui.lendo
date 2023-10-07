@@ -227,29 +227,31 @@ function Wrapper() {
             onClick={(e) => setMenu(e.key)}
           />
 
-          <Select
-            className="w-full"
-            defaultValue={"ru"}
-            onSelect={(e) => {
-              changeLanguageHandler(e as TLanguages);
-            }}
-            options={
-              [
-                {
-                  label: "ru",
-                  value: "ru",
-                },
-                {
-                  label: "Kyrl",
-                  value: "uz_kyrl",
-                },
-                {
-                  label: "latn",
-                  value: "uz_latn",
-                },
-              ] satisfies { label: React.ReactNode; value: TLanguages }[]
-            }
-          />
+          <div className="px-3 !mt-3">
+            <Select
+              className="w-full"
+              defaultValue={"ru"}
+              onSelect={(e) => {
+                changeLanguageHandler(e as TLanguages);
+              }}
+              options={
+                [
+                  {
+                    label: "ru",
+                    value: "ru",
+                  },
+                  {
+                    label: "Kyrl",
+                    value: "uz_kyrl",
+                  },
+                  {
+                    label: "latn",
+                    value: "uz_latn",
+                  },
+                ] satisfies { label: React.ReactNode; value: TLanguages }[]
+              }
+            />
+          </div>
         </Sider>
 
         <Layout style={{ padding: "0 24px 24px" }} className="bg-white">
