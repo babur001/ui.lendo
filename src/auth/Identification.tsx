@@ -1,14 +1,13 @@
+import MyIdAuth from "@/auth/MyIdAuth";
 import { req } from "@/services/api";
-import { IBuyer, useBuyerStore } from "@/stores/buyer";
-import { Description, Input, Modal, Tabs, Text } from "@geist-ui/core";
+import { IBuyer, Store, useBuyerStore } from "@/stores/buyer";
+import { Description, Input, Tabs, Text } from "@geist-ui/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { Alert, Button, Image, Upload, UploadProps, message } from "antd";
-import axios from "axios";
+import { Button, Image } from "antd";
 import clsx from "clsx";
 import { get } from "lodash";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -22,28 +21,6 @@ interface IProps {
   onFinish: () => unknown;
 }
 
-const { Dragger } = Upload;
-
-const props: UploadProps = {
-  name: "file",
-  multiple: false,
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
-
 export const baseUrl = `https://mp-api.techstack.uz/mp-client-api`;
 
 interface IIdentificationForm {
@@ -55,7 +32,6 @@ function Identification({ onFinish }: IProps) {
     user: store.user,
     setUser: store.setUser,
   }));
-  const [state, setState] = useState(false);
 
   const {
     register,
@@ -78,6 +54,17 @@ function Identification({ onFinish }: IProps) {
     },
   });
 
+  const mutateSetUser = useMutation({
+    mutationKey: ["mutateSetUser"],
+    mutationFn: (userParam: Store["user"]) => {
+      return req({
+        method: "POST",
+        url: `/registration/set-client-info`,
+        data: userParam,
+      });
+    },
+  });
+
   const onSubmit = async (values: IIdentificationForm) => {
     try {
       const res = await mutateUser.mutateAsync(values.pinfl);
@@ -92,7 +79,7 @@ function Identification({ onFinish }: IProps) {
     }
   };
 
-  const errorMsg = {
+  const errorMessages = {
     pinfl: get(errors, "pinfl.message", null),
   };
 
@@ -107,6 +94,18 @@ function Identification({ onFinish }: IProps) {
     { title: "Жинси", value: get(user, "gender", "-") },
     { title: "Миллати", value: get(user, "citizenship", "-") },
   ];
+
+  const onNext = async () => {
+    try {
+      if (user) {
+        const { createdAt, updatedAt, ...restUser } = user;
+
+        const res = await mutateSetUser.mutateAsync(restUser);
+
+        onFinish();
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -135,12 +134,11 @@ function Identification({ onFinish }: IProps) {
           <div className="h-[35px]" />
 
           <Button
-            onClick={() => {
-              onFinish();
-            }}
+            onClick={onNext}
             type="primary"
             size="large"
             className="flex items-center !gap-2 w-full justify-center"
+            loading={mutateSetUser.status === "loading"}
           >
             Ҳаридор маълумотлари{" "}
             <ArrowRight strokeWidth={1.5} className="!h-5" />
@@ -150,11 +148,11 @@ function Identification({ onFinish }: IProps) {
         <>
           <Text h3>Идентификация</Text>
 
-          <Tabs initialValue="1">
+          <Tabs initialValue="2">
             <div className="h-[15px]" />
 
             {/* Manual */}
-            <Tabs.Item label="Вручную" value="1">
+            {/* <Tabs.Item label="Вручную" value="1">
               <div className="flex flex-col gap-5 !w-96">
                 <form
                   className="flex flex-col gap-5"
@@ -163,7 +161,7 @@ function Identification({ onFinish }: IProps) {
                   <Input
                     placeholder="..."
                     className="!w-full"
-                    type={errorMsg.pinfl ? "error" : "default"}
+                    type={errorMessages.pinfl ? "error" : "default"}
                     {...register("pinfl")}
                   >
                     <div className="flex items-center justify-between">
@@ -171,26 +169,13 @@ function Identification({ onFinish }: IProps) {
                       <span
                         className={clsx({
                           "text-[#c50000]": true,
-                          hidden: !errorMsg.pinfl,
+                          hidden: !errorMessages.pinfl,
                         })}
                       >
-                        {errorMsg.pinfl}
+                        {errorMessages.pinfl}
                       </span>
                     </div>
                   </Input>
-
-                  {/* <Input label="+998" placeholder="..." className="!w-full">
-                    Номер телефона*
-                  </Input>
-
-                  <Dragger {...props} className="w-full">
-                    <Text p>
-                      <UploadCloud strokeWidth={1.5} />
-                    </Text>
-
-                    <Text p>Загрузите паспорт, щелкнув или перетащив файл.</Text>
-                  </Dragger> 
-               */}
 
                   <Button
                     type="primary"
@@ -201,62 +186,11 @@ function Identification({ onFinish }: IProps) {
                   </Button>
                 </form>
               </div>
-            </Tabs.Item>
+            </Tabs.Item> */}
 
             {/* MyID realize */}
             <Tabs.Item label="MyID" value="2">
-              <>
-                <Alert
-                  message="Идентификациядан ўтиш учун тугмани босинг"
-                  type="info"
-                  showIcon
-                />
-
-                <div className="h-[10px]" />
-
-                <Modal visible={state} onClose={() => setState(false)}>
-                  <Modal.Title>Lorem, ipsum.</Modal.Title>
-                  <Modal.Content>
-                    <Text className="space-y-2">
-                      <p className="my-0 text-sm">
-                        1. Lorem ipsum dolor sit amet consectetur
-                      </p>
-                      <p className="my-0 text-sm">
-                        2. Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Quis, corrupti.
-                      </p>
-                      <p className="my-0 text-sm">
-                        3. Lorem ipsum dolor sit amet consectetur
-                      </p>
-                    </Text>
-
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/UPC-A-036000291452.svg/1200px-UPC-A-036000291452.svg.png"
-                      alt="shtrix"
-                      className="mx-auto h-56"
-                    />
-
-                    <div className="h-[20px]" />
-
-                    <Button
-                      onClick={() => {
-                        setState(false);
-
-                        setTimeout(() => {
-                          onFinish();
-                        }, 20);
-                      }}
-                      // iconRight={<ArrowRight strokeWidth={1.5} />}
-                    >
-                      Keyingisi
-                    </Button>
-                  </Modal.Content>
-                </Modal>
-
-                <Button onClick={() => setState(true)}>
-                  Идентификациядан ўтиш
-                </Button>
-              </>
+              <MyIdAuth />
             </Tabs.Item>
           </Tabs>
         </>

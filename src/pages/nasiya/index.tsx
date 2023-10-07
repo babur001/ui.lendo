@@ -1,6 +1,5 @@
 import Identification from "@/auth/Identification";
 import Info from "@/auth/Info";
-import { Text } from "@geist-ui/core";
 import { Layout, Menu, MenuProps, Steps, theme } from "antd";
 import { useState } from "react";
 import Scoring from "@/auth/Scoring";
@@ -163,11 +162,7 @@ function Nasiya() {
             {step.active === TEnumSteps.GRAPH ? (
               <Graph
                 onFinish={() => {
-                  console.log("Alhamdullilah");
-                  // setStep({
-                  //   active: TEnumSteps.GRAPH,
-                  //   actual: TEnumSteps.GRAPH,
-                  // });
+                  // ...
                 }}
               />
             ) : null}

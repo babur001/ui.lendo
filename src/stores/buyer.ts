@@ -8,7 +8,7 @@ export interface IBuyer {
   passportSerial: string;
   passportNumber: string;
   passportGivenBy: string;
-  gender: string;
+  gender: "FEMALE" | "MALE";
   citizenship: string;
   createdAt?: null;
   updatedAt?: null;

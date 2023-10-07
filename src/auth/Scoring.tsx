@@ -12,7 +12,7 @@ interface ITableEDIT {
   //
 }
 
-type TStatus =
+export type TStatus =
   | "STATUS_NEW"
   | "STATUS_PENDING"
   | "STATUS_ERROR"
