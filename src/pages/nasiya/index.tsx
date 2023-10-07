@@ -1,6 +1,6 @@
 import Identification from "@/auth/Identification";
 import Info from "@/auth/Info";
-import { Layout, Menu, MenuProps, Steps, theme } from "antd";
+import { Layout, Menu, MenuProps, Select, Steps, theme } from "antd";
 import { useState } from "react";
 import Scoring from "@/auth/Scoring";
 import Logo from "@/Logo";
@@ -10,6 +10,8 @@ import Approval from "@/auth/Approval";
 import Graph from "@/auth/Graph";
 import { Calculator, LayoutDashboard, User } from "lucide-react";
 import Buyers from "@/pages/buyers";
+import { useTranslation } from "react-i18next";
+import { TLanguages } from "@/auth/i18n";
 
 const { Sider } = Layout;
 
@@ -24,6 +26,7 @@ enum TEnumSteps {
 }
 
 function Nasiya() {
+  const { t, i18n } = useTranslation();
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
     active: TEnumSteps.IDENTIFICATION,
     actual: TEnumSteps.IDENTIFICATION,
@@ -55,7 +58,7 @@ function Nasiya() {
                   //     <Spinner className="!h-5" scale={0.95} />
                   //   </div>
                   // ),
-                  title: "Идентификация",
+                  title: t("Идентификация"),
                 },
                 {
                   disabled: step.actual < TEnumSteps.INFO,
@@ -192,6 +195,12 @@ const items: MenuProps["items"] = [
 ];
 
 function Wrapper() {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguageHandler = (lang: TLanguages) => {
+    i18n.changeLanguage(lang);
+  };
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -216,6 +225,30 @@ function Wrapper() {
             defaultSelectedKeys={[menu]}
             items={items}
             onClick={(e) => setMenu(e.key)}
+          />
+
+          <Select
+            className="w-full"
+            defaultValue={"ru"}
+            onSelect={(e) => {
+              changeLanguageHandler(e as TLanguages);
+            }}
+            options={
+              [
+                {
+                  label: "ru",
+                  value: "ru",
+                },
+                {
+                  label: "Kyrl",
+                  value: "uz_kyrl",
+                },
+                {
+                  label: "latn",
+                  value: "uz_latn",
+                },
+              ] satisfies { label: React.ReactNode; value: TLanguages }[]
+            }
           />
         </Sider>
 

@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { GeistProvider, CssBaseline } from "@geist-ui/core";
 import { ConfigProvider } from "antd";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./auth/i18n.ts";
 
 const queryClient = new QueryClient();
 
