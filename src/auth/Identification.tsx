@@ -156,46 +156,47 @@ function Identification({onFinish}: IProps) {
 
                         {/* Manual */}
                         {
-                            /* шу жойни олдим  <Tabs.Item label="Вручную" value="1">
-                                 <div className="flex flex-col gap-5 !w-96">
-                                     <form
-                                         className="flex flex-col gap-5"
-                                         onSubmit={handleSubmit(onSubmit)}
-                                     >
-                                         <Input
-                                             placeholder="..."
-                                             value={"51704005120015"}  //  шу жойни кушдим
-                                             className="!w-full"
-                                             type={errorMessages.pinfl ? "error" : "default"}
-                                             {...register("pinfl")}
+                            /* шу жойи коммент эди*/
+                            <Tabs.Item label="Вручную" value="1">
+                                <div className="flex flex-col gap-5 !w-96">
+                                    <form
+                                        className="flex flex-col gap-5"
+                                        onSubmit={handleSubmit(onSubmit)}
+                                    >
+                                        <Input
+                                            placeholder="..."
+                                            value={"51704005120015"}  //  шу жойни кушдим
+                                            className="!w-full"
+                                            type={errorMessages.pinfl ? "error" : "default"}
+                                            {...register("pinfl")}
 
-                                         >
-                                             <div className="flex items-center justify-between">
-                                                 <span>ПИНФЛ*</span>
-                                                 <span
-                                                     className={clsx({
-                                                         "text-[#c50000]": true,
-                                                         hidden: !errorMessages.pinfl,
-                                                     })}
-                                                 >
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <span>ПИНФЛ*</span>
+                                                <span
+                                                    className={clsx({
+                                                        "text-[#c50000]": true,
+                                                        hidden: !errorMessages.pinfl,
+                                                    })}
+                                                >
                          {errorMessages.pinfl}
                        </span>
-                                             </div>
-                                         </Input>
+                                            </div>
+                                        </Input>
 
-                                         <Button
-                                             type="primary"
-                                             htmlType="submit"
-                                             loading={mutateUser.status === "loading"}
-                                         >
-                                             {t("Рўйхатдан ўтказиш")}
-                                         </Button>
-                                     </form>
-                                 </div>
-                             </Tabs.Item>   /* шу жойни олдим
-                         }
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                            loading={mutateUser.status === "loading"}
+                                        >
+                                            {t("Рўйхатдан ўтказиш")}
+                                        </Button>
+                                    </form>
+                                </div>
+                            </Tabs.Item>   // */шу жойни олдим
+                        }
 
-                         {/* MyID realize */}
+                        {/* MyID realize */}
                         <Tabs.Item label="MyID" value="2">
                             <MyIdAuth/>
                         </Tabs.Item>
