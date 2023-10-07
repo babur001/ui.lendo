@@ -62,7 +62,7 @@ function Nasiya() {
                 },
                 {
                   disabled: step.actual < TEnumSteps.INFO,
-                  title: "Ҳаридор маълумотлари",
+                  title: t("Ҳаридор маълумотлари"),
                 },
                 {
                   disabled: step.actual < TEnumSteps.SCORING,
@@ -176,26 +176,26 @@ function Nasiya() {
   );
 }
 
-const items: MenuProps["items"] = [
-  {
-    key: "main",
-    icon: <Calculator strokeWidth={1.5} className="!h-5" />,
-    label: `Асосий`,
-  },
-  {
-    key: "register",
-    icon: <User strokeWidth={1.5} className="!h-5" />,
-    label: `Рўйхатдан ўтказиш`,
-  },
-  {
-    key: "buyers",
-    icon: <LayoutDashboard strokeWidth={1.5} className="!h-5" />,
-    label: `Ҳаридорлар рўйхати`,
-  },
-];
-
 function Wrapper() {
   const { t, i18n } = useTranslation();
+
+  const items: MenuProps["items"] = [
+    {
+      key: "main",
+      icon: <Calculator strokeWidth={1.5} className="!h-5" />,
+      label: t(`Asosiy`),
+    },
+    {
+      key: "register",
+      icon: <User strokeWidth={1.5} className="!h-5" />,
+      label: `Рўйхатдан ўтказиш`,
+    },
+    {
+      key: "buyers",
+      icon: <LayoutDashboard strokeWidth={1.5} className="!h-5" />,
+      label: `Ҳаридорлар рўйхати`,
+    },
+  ];
 
   const changeLanguageHandler = (lang: TLanguages) => {
     i18n.changeLanguage(lang);
