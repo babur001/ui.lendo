@@ -1,11 +1,13 @@
 import { Button, Description, Text } from "@geist-ui/core";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   onFinish: () => unknown;
 }
 
 function Client({ onFinish }: IProps) {
+    const { t, i18n } = useTranslation();
   return (
     <>
       <Text h3>3. Klient</Text>
@@ -27,7 +29,7 @@ function Client({ onFinish }: IProps) {
         }}
         iconRight={<ArrowRight strokeWidth={1.5} />}
       >
-        Скоринг тизими
+          {t("Скоринг тизими")}
       </Button>
     </>
   );

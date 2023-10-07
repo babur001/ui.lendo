@@ -7,8 +7,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Alert, QRCode } from "antd";
 import { get } from "lodash";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function MyIdAuth() {
+  const { t, i18n } = useTranslation();
   const queryUser = useAuthUser();
   const setUser = useBuyerStore((store) => store.setUser);
 
@@ -77,7 +79,7 @@ function MyIdAuth() {
   return (
     <>
       <Alert
-        message="Идентификациядан ўтиш учун сканер қилинг"
+        message={t("Идентификациядан ўтиш учун сканер қилинг")}
         type="info"
         showIcon
       />

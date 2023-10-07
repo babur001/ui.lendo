@@ -1,22 +1,24 @@
 import { Description, Text } from "@geist-ui/core";
 import { Button } from "antd";
 import { ArrowRight, Download } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   onFinish: () => unknown;
 }
 
 function Graph({ onFinish }: IProps) {
+    const { t, i18n } = useTranslation();
   return (
     <>
-      <Text h3>7. Тўлов графиги</Text>
+      <Text h3>7. t(Тўлов графиги)</Text>
 
       <div className="h-[10px]" />
 
       <div className="flex flex-col gap-4">
-        <Description title="Насия сумма:" content={"13 500 000"} />
-        <Description title="Давр:" content={"9 Ой"} />
-        <Description title="Ойлик тўлов:" content={"1 500 000"} />
+        <Description title={t("Насия сумма:")} content={"13 500 000"} />
+        <Description title={t("Давр:")} content={t("9 Ой")} />
+        <Description title={t("Ойлик тўлов:")} content={"1 500 000"} />
       </div>
 
       <div className="h-[30px]" />

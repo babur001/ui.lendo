@@ -2,8 +2,10 @@ import { Description, Input } from "@geist-ui/core";
 import { get } from "lodash";
 import React from "react";
 import { Control, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 function TotalContractedSum({ control }: { control: Control<any> }) {
+  const { t, i18n } = useTranslation();
   const values = useWatch({
     control,
   });
@@ -31,7 +33,7 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
   return (
     <Description
       className="flex-grow"
-      title="Жами сумма"
+      title={t("Жами сумма")}
       content={
         <Input scale={1.2} readOnly value={String(total)} width={"100%"} />
       }
