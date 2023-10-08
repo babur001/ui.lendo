@@ -237,15 +237,15 @@ function Wrapper() {
               options={
                 [
                   {
-                    label: "ru",
+                    label: "Русский",
                     value: "ru",
                   },
                   {
-                    label: "Kyrl",
+                    label: "Ўзбекча",
                     value: "uz_kyrl",
                   },
                   {
-                    label: "latn",
+                    label: "O'zbekcha",
                     value: "uz_latn",
                   },
                 ] satisfies { label: React.ReactNode; value: TLanguages }[]
