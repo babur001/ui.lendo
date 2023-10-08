@@ -5,8 +5,10 @@ import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { get } from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Buyers() {
+  const { t, i18n } = useTranslation();
   const queryBuyers = useQuery({
     queryKey: ["queryBuyers"],
     queryFn: () => {
@@ -31,11 +33,11 @@ function Buyers() {
       },
     },
     {
-      title: "ПИНФЛ",
+      title: t("ПИНФЛ"),
       dataIndex: "clientPinfl",
     },
     {
-      title: "ФИО",
+      title: t("ФИО"),
       dataIndex: "",
       render(value, record, index) {
         const fullName = "".concat(
@@ -50,7 +52,7 @@ function Buyers() {
       },
     },
     {
-      title: "Телефон рақами",
+      title: t("Телефон рақами"),
       dataIndex: "client",
       render(value, record, index) {
         const phone = get(record, "clientProfile.phone1", "");
@@ -59,23 +61,23 @@ function Buyers() {
       },
     },
     {
-      title: "Скоринг лимити",
+      title: t("Скоринг лимити"),
       dataIndex: "",
     },
     {
-      title: "Рассрочка суммаси",
+      title: t("Рассрочка суммаси"),
       dataIndex: "paymentSum",
     },
     {
-      title: "Епилган сумма",
+      title: t("Епилган сумма"),
       dataIndex: "",
     },
     {
-      title: "Қолдиқ сумма",
+      title: t("Қолдиқ сумма"),
       dataIndex: "",
     },
     {
-      title: "Шартнома имзоланган сана",
+      title: t("Шартнома имзоланган сана"),
       dataIndex: "",
     },
   ];

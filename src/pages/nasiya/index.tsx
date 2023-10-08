@@ -66,23 +66,23 @@ function Nasiya() {
                 },
                 {
                   disabled: step.actual < TEnumSteps.SCORING,
-                  title: "Скоринг тизими",
+                  title: t("Скоринг тизими"),
                 },
                 {
                   disabled: step.actual < TEnumSteps.FORMALIZATION,
-                  title: "Расмийлаштириш",
+                  title: t("Расмийлаштириш"),
                 },
                 {
                   disabled: step.actual < TEnumSteps.CONTRACT,
-                  title: "Шартнома (Оммавий оферта)",
+                  title: t("Шартнома (Оммавий оферта)"),
                 },
                 {
                   disabled: step.actual < TEnumSteps.APPROVAL,
-                  title: "Тасдиқлаш",
+                  title: t("Тасдиқлаш"),
                 },
                 {
                   disabled: step.actual < TEnumSteps.GRAPH,
-                  title: "Тўлов графиги",
+                  title: t("Тўлов графиги"),
                 },
               ]}
             />
@@ -188,12 +188,12 @@ function Wrapper() {
     {
       key: "register",
       icon: <User strokeWidth={1.5} className="!h-5" />,
-      label: `Рўйхатдан ўтказиш`,
+      label: t(`Рўйхатдан ўтказиш`),
     },
     {
       key: "buyers",
       icon: <LayoutDashboard strokeWidth={1.5} className="!h-5" />,
-      label: `Ҳаридорлар рўйхати`,
+      label: t(`Ҳаридорлар рўйхати`),
     },
   ];
 
@@ -262,4 +262,5 @@ function Wrapper() {
     </div>
   );
 }
+
 export default Wrapper;
