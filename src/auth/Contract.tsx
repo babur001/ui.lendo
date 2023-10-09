@@ -27,7 +27,7 @@ function Contract({onFinish}: IProps) {
 
     return (
         <>
-            <Text h3>5. Шартнома (Оммавий оферта)</Text>
+            <Text h3>5. {t("Шартнома(Оммавий оферта)")}</Text>
 
             <div className="h-[20px]"/>
 
@@ -47,7 +47,7 @@ function Contract({onFinish}: IProps) {
                 checked={isChecked}
                 onChange={(value) => setIsChecked((prev) => !prev)}
             >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia, nihil!
+                {t("Shartnoma shartlari bilan tanishildi")}
             </Checkbox>
 
             <div className="h-[20px]"/>

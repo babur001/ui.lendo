@@ -85,7 +85,7 @@ function Buyers() {
     <>
       <div className="h-[20px]" />
 
-      <Text h3>Ҳаридорлар рўйхати</Text>
+      <Text h3>{t("Ҳаридорлар рўйхати")}</Text>
 
       <div className="h-[20px]" />
 

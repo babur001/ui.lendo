@@ -11,7 +11,7 @@ function Graph({ onFinish }: IProps) {
     const { t, i18n } = useTranslation();
   return (
     <>
-      <Text h3>7. t(Тўлов графиги)</Text>
+      <Text h3>7. {t("Тўлов графиги")}</Text>
 
       <div className="h-[10px]" />
 
@@ -30,8 +30,7 @@ function Graph({ onFinish }: IProps) {
         type="primary"
         className="flex items-center justify-center gap-4"
       >
-        <Download strokeWidth={1.5} className="h-4 w-full" /> Тўлов графигини
-        юклаш
+        <Download strokeWidth={1.5} className="h-4 w-full" /> {t("Тўлов графигини юклаш")}
       </Button>
     </>
   );

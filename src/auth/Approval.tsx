@@ -13,7 +13,7 @@ function Approval({onFinish}: IProps) {
 
     return (
         <>
-            <Text h3>6. t("Тасдиқлаш")</Text>
+            <Text h3>6. {t("Тасдиқлаш")}</Text>
 
             <div className="h-[10px]"/>
 
@@ -21,8 +21,8 @@ function Approval({onFinish}: IProps) {
                 {isSMS ? (
                     <>
                         <Text p font={0.8}>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
-                            velit.
+                            {/*Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
+                            velit.         ШЕР*/}
                         </Text>
 
                         <Input
@@ -30,7 +30,7 @@ function Approval({onFinish}: IProps) {
                             width={`100%`}
                             placeholder={t("кодни киритинг")}
                         >
-                            СМС код
+                            {t("СМС код")}
                         </Input>
 
                         <div className="h-[20px]"/>
@@ -47,21 +47,21 @@ function Approval({onFinish}: IProps) {
                                 width={`100%`}
                                 placeholder="0000 0000 0000 0000"
                             >
-                                {("Банк карта рақами*")}
+                                {t("Банк карта рақами*")}
                             </Input>
                             <Input className="!w-full" placeholder="mm/yy">
-                                Амал қилиш муддати*
+                                {t("Амал қилиш муддати*")}
                             </Input>
                         </div>
 
                         <Text mb={1.3} p font={0.8}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            {/*Lorem ipsum dolor sit amet consectetur adipisicing elit.              //ШЕР
                             Perferendis ab eaque ullam ad commodi, dolor deserunt error ex
-                            maxime sequi!
+                            maxime sequi!*/}
                         </Text>
 
                         <Button onClick={() => setIsSMS(true)} type="primary" block>
-                            СМС тарзда код юбориш
+                            {t("СМС тарзда код юбориш")}
                         </Button>
                     </>
                 )}
