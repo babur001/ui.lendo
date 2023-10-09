@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/*",
-    element: <Navigate to={"/nasiya"} />,
+    element: <Navigate to={"/auth"} />,
   },
 ]);
 

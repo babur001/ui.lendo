@@ -54,11 +54,13 @@ function Formalization({onFinish}: IProps) {
                 clientPinfl: number | string;
             }
         ) => {
+            const fileId = 1;           //ШЕР
             return req({
                 method: "POST",
                 url: `/registration/set-application`,
                 data: {
                     ...addProductParams,
+                    fileId                 //ШЕР
                 },
             });
         },
@@ -77,7 +79,7 @@ function Formalization({onFinish}: IProps) {
 
         const data = {
             ...values,
-            clientPinfl: get(user, t("ПИНФЛ"), ""),
+            clientPinfl: get(user, "pinfl", ""),
             clientProfileId,
             clientScoringId,
         };
@@ -115,7 +117,7 @@ function Formalization({onFinish}: IProps) {
                                 width={"100%"}
                                 {...register(`items.${idx}.name` as const)}
                             >
-                                {t("Маҳсулот номи")} {idx+1}
+                                {t("Маҳсулот номи")} {idx + 1}
                             </Input>
                         </div>
                         <div className="col-span-2">
@@ -132,6 +134,16 @@ function Formalization({onFinish}: IProps) {
                                 {t("Нархи")}
                             </Input>
                         </div>
+                        {/*ШЕР*/}
+                        {/* <div className="col-span-1">
+                            <Select
+                                defaultValue={"ҚҚСсиз"}
+                                options={[
+                                    {value: "ҚҚСсиз"},
+                                    {value: "ҚҚС билан"}]}
+                            />
+                        </div>*/}
+                        {/*------------------------------*/}
                         <div className="col-span-3">
                             <TotalSingleProduct control={control} idx={idx}/>
                         </div>
