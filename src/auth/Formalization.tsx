@@ -8,9 +8,10 @@ import {Button, Segmented, message} from "antd";
 import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
 import {ArrowRight, X} from "lucide-react";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
+import {log} from "console";
 
 interface ITableEDIT {
     //
@@ -114,7 +115,7 @@ function Formalization({onFinish}: IProps) {
                                 width={"100%"}
                                 {...register(`items.${idx}.name` as const)}
                             >
-                                {t("Маҳсулот номи")}
+                                {t("Маҳсулот номи")} {idx+1}
                             </Input>
                         </div>
                         <div className="col-span-2">
