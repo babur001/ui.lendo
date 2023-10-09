@@ -1,3 +1,4 @@
+import AddCompanyModal from "@/pages/admin/AddCompanyModal";
 import { req } from "@/services/api";
 import { Text } from "@geist-ui/core";
 import { useQuery } from "@tanstack/react-query";
@@ -5,10 +6,9 @@ import { Button, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { get } from "lodash";
 import { ArrowRight } from "lucide-react";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
-interface ICompanies {
+interface ICompany {
   id: string | number;
   name: string | number;
   tin: string | number;
@@ -22,8 +22,8 @@ interface ICompanies {
 export default function Admin() {
   const { t } = useTranslation();
 
-  const queryBuyers = useQuery({
-    queryKey: ["queryBuyers"],
+  const queryCompanies = useQuery({
+    queryKey: ["queryCompanies"],
     queryFn: () => {
       return req({
         method: "GET",
@@ -34,11 +34,14 @@ export default function Admin() {
       });
     },
   });
-  const data = get(queryBuyers, "data.data.data.content", []);
-  const total = get(queryBuyers, "data.data.data.totalElements", 0);
-  console.log(data);
+  const data = get(queryCompanies, "data.data.data.content", []) as ICompany[];
+  const total = get(
+    queryCompanies,
+    "data.data.data.totalElements",
+    0
+  ) as number;
 
-  const columns: ColumnsType<ICompanies> = [
+  const columns: ColumnsType<ICompany> = [
     {
       title: "",
       dataIndex: "NONE",
@@ -82,7 +85,9 @@ export default function Admin() {
       <Text h3>{t("Operator shaxsiy kabineti")}</Text>
 
       <div className="h-[20px]" />
-
+      <div className="w-full flex items-center justify-end">
+        <AddCompanyModal onAdd={() => queryCompanies.refetch()} />
+      </div>
       <Table pagination={false} dataSource={data} columns={columns} />
     </div>
   );
