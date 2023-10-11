@@ -42,7 +42,7 @@ interface ICompanyForm {
   // };
 }
 
-function AddSalePointModal({}: IProps) {
+function AddSalePointSellerModal({}: IProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -98,7 +98,7 @@ function AddSalePointModal({}: IProps) {
   return (
     <>
       <Button size="large" onClick={() => setIsOpen(true)} type="primary">
-        Qo'shish
+        Sotuvchi qoshish
       </Button>
 
       <Modal
@@ -147,4 +147,4 @@ function AddSalePointModal({}: IProps) {
   );
 }
 
-export default AddSalePointModal;
+export default AddSalePointSellerModal;

@@ -1,4 +1,5 @@
 import AddSalePointModal from "@/pages/sale-points/AddSalePointModal";
+import AddSalePointSellerModal from "@/pages/sale-points/AddSalePointSellerModal";
 import { req } from "@/services/api";
 import { Text } from "@geist-ui/core";
 import { useQuery } from "@tanstack/react-query";
@@ -90,8 +91,9 @@ export default function SalePoints() {
       <Text h3>{t("Do'kon adminstratorining kabineti")}</Text>
 
       <div className="h-[20px]" />
-      <div className="w-full flex items-center justify-end">
+      <div className="w-full flex items-center justify-end gap-5">
         <AddSalePointModal onAdd={() => querySalePoints.refetch()} />
+        <AddSalePointSellerModal onAdd={() => querySalePoints.refetch()} />
       </div>
       <Table pagination={false} dataSource={data} columns={columns} />
     </div>
