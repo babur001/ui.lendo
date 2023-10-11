@@ -64,7 +64,7 @@ export default function Admin() {
       dataIndex: "contact",
     },
     {
-      title: t("Adminstrator"),
+      title: t("Direktor"),
       dataIndex: "directorName",
     },
     {
@@ -72,7 +72,7 @@ export default function Admin() {
       dataIndex: "",
       render(value, record, index) {
         return (
-          <Button onClick={() => navigate(`/sale-points/${record.id}`)}>
+          <Button /*onClick={() => navigate(`/sale-points/${record.id}`)}*/>
             <ArrowRight strokeWidth={1} />
           </Button>
         );
@@ -85,11 +85,12 @@ export default function Admin() {
       <div className="h-[20px]" />
 
       <Text h3>{t("Operator shaxsiy kabineti")}</Text>
-
+      <div className="w-full flex items-center justify-center gap-5"><Text h3>{t("Korxonalar reyesti")}</Text></div>
       <div className="h-[20px]" />
       <div className="w-full flex items-center justify-end">
         <AddCompanyModal onAdd={() => queryCompanies.refetch()} />
       </div>
+      <div className="h-[20px]" />
       <Table pagination={false} dataSource={data} columns={columns} />
     </div>
   );

@@ -54,10 +54,10 @@ function Buyers() {
       },
     },
 
-    {
+   /* {
       title: t("Скоринг лимити"),
       dataIndex: "",
-    },
+    },*/
     {
       title: t("Рассрочка суммаси"),
       dataIndex: "paymentSum",
