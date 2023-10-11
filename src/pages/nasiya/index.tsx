@@ -1,6 +1,6 @@
 import Identification from "@/auth/Identification";
 import Info from "@/auth/Info";
-import { Layout, Menu, MenuProps, Select, Steps, theme } from "antd";
+import { Button, Layout, Menu, MenuProps, Select, Steps, theme } from "antd";
 import { useState } from "react";
 import Scoring from "@/auth/Scoring";
 import Logo from "@/Logo";
@@ -8,10 +8,11 @@ import Formalization from "@/auth/Formalization";
 import Contract from "@/auth/Contract";
 import Approval from "@/auth/Approval";
 import Graph from "@/auth/Graph";
-import { Calculator, LayoutDashboard, User } from "lucide-react";
+import { Calculator, LayoutDashboard, LogOut, User } from "lucide-react";
 import Buyers from "@/pages/buyers";
 import { useTranslation } from "react-i18next";
 import { TLanguages } from "@/auth/i18n";
+import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -179,6 +180,7 @@ function Nasiya() {
 function Wrapper() {
   const { t, i18n } = useTranslation();
 
+  const navigate = useNavigate();
   const items: MenuProps["items"] = [
     {
       key: "main",
@@ -206,6 +208,11 @@ function Wrapper() {
   } = theme.useToken();
 
   const [menu, setMenu] = useState("register");
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth");
+  };
   return (
     <div>
       <Layout>
@@ -226,35 +233,41 @@ function Wrapper() {
             items={items}
             onClick={(e) => setMenu(e.key)}
           />
-
-          <div className="px-3 !mt-3">
-            <Select
-              className="w-full"
-              defaultValue={"ru"}
-              onSelect={(e) => {
-                changeLanguageHandler(e as TLanguages);
-              }}
-              options={
-                [
-                  {
-                    label: "Русский",
-                    value: "ru",
-                  },
-                  {
-                    label: "Ўзбекча",
-                    value: "uz_kyrl",
-                  },
-                  {
-                    label: "O'zbekcha",
-                    value: "uz_latn",
-                  },
-                ] satisfies { label: React.ReactNode; value: TLanguages }[]
-              }
-            />
-          </div>
         </Sider>
 
         <Layout style={{ padding: "0 24px 24px" }} className="bg-white">
+          <header>
+            <div className="px-3 !mt-3 w-full flex items-center justify-end gap-5">
+              <Select
+                className="w-40"
+                defaultValue={"ru"}
+                onSelect={(e) => {
+                  changeLanguageHandler(e as TLanguages);
+                }}
+                options={
+                  [
+                    {
+                      label: "Русский",
+                      value: "ru",
+                    },
+                    {
+                      label: "Ўзбекча",
+                      value: "uz_kyrl",
+                    },
+                    {
+                      label: "O'zbekcha",
+                      value: "uz_latn",
+                    },
+                  ] satisfies { label: React.ReactNode; value: TLanguages }[]
+                }
+              />
+
+              <Button className="flex items-center" danger onClick={logout}>
+                {t("Chiqish")}
+                <LogOut strokeWidth={1.5} size={14} className="!ml-4" />
+              </Button>
+            </div>
+          </header>
           {menu === "register" ? <Nasiya /> : null}
           {menu === "buyers" ? <Buyers /> : null}
         </Layout>
