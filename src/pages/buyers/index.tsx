@@ -1,11 +1,12 @@
 import { req } from "@/services/api";
 import { Text } from "@geist-ui/core";
 import { useQuery } from "@tanstack/react-query";
-import { Table } from "antd";
+import {Button, Table} from "antd";
 import { ColumnsType } from "antd/es/table";
 import { get } from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import {ArrowRight} from "lucide-react";
 
 function Buyers() {
   const { t, i18n } = useTranslation();
@@ -14,7 +15,8 @@ function Buyers() {
     queryFn: () => {
       return req({
         method: "GET",
-        url: `/registration/get-applications`,
+       // url: `/registration/get-applications`, //ШЕР
+        url: `/home/get-clients`, //ШЕР
         params: {
           //
         },
@@ -26,7 +28,7 @@ function Buyers() {
 
   const columns: ColumnsType<IBuyer> = [
     {
-      title: "",
+      title: "№",
       dataIndex: "NONE",
       render(value, record, index) {
         return <>{1 + index}</>;
@@ -34,32 +36,24 @@ function Buyers() {
     },
     {
       title: t("ПИНФЛ"),
-      dataIndex: "clientPinfl",
+      dataIndex: "pinfl",
     },
     {
       title: t("ФИО"),
       dataIndex: "",
       render(value, record, index) {
         const fullName = "".concat(
-          get(record, "client.firstName", ""),
+          get(record, "firstName", ""),
           " ",
-          get(record, "client.lastName", ""),
+          get(record, "lastName", ""),
           " ",
-          get(record, "client.middleName", "")
+          get(record, "middleName", "")
         );
 
         return <>{fullName}</>;
       },
     },
-    {
-      title: t("Телефон рақами"),
-      dataIndex: "client",
-      render(value, record, index) {
-        const phone = get(record, "clientProfile.phone1", "");
 
-        return <>{phone}</>;
-      },
-    },
     {
       title: t("Скоринг лимити"),
       dataIndex: "",
@@ -70,7 +64,7 @@ function Buyers() {
     },
     {
       title: t("Епилган сумма"),
-      dataIndex: "",
+      dataIndex: "paidSum",  //ШЕР
     },
     {
       title: t("Қолдиқ сумма"),
@@ -78,8 +72,21 @@ function Buyers() {
     },
     {
       title: t("Шартнома имзоланган сана"),
-      dataIndex: "",
+      dataIndex: "lastPaymentDate",  //ШЕР
     },
+    /*ШЕР*/
+    {
+      title: t("Batafsil"),
+      dataIndex: "",
+      render(value, record, index) {
+        return (
+            <Button>
+              <ArrowRight strokeWidth={1} />
+            </Button>
+        );
+      },
+    },
+      /*---------------*/
   ];
   return (
     <>
@@ -95,7 +102,7 @@ function Buyers() {
 }
 
 export interface IBuyer {
-  clientPinfl: number;
+  pinfl: number;
   clientProfileId: number;
   paymentPeriod: number;
   paymentSum: number;

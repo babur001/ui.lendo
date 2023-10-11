@@ -54,13 +54,12 @@ function Formalization({onFinish}: IProps) {
                 clientPinfl: number | string;
             }
         ) => {
-            const fileId = 1;           //ШЕР
             return req({
                 method: "POST",
                 url: `/registration/set-application`,
                 data: {
                     ...addProductParams,
-                    fileId                 //ШЕР
+                    fileId: 1                 //ШЕР
                 },
             });
         },
