@@ -165,7 +165,6 @@ function Identification({onFinish}: IProps) {
                                     >
                                         <Input
                                             placeholder="..."
-                                            value={"51704005120015"}  //  шу жойни кушдим
                                             className="!w-full"
                                             type={errorMessages.pinfl ? "error" : "default"}
                                             {...register("pinfl")}
