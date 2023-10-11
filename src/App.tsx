@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "@/tailwind.css";
 import Admin from "@/pages/admin";
+import SalePoints from "@/pages/sale-points";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/sale-points/:companyId",
+    element: <SalePoints />,
   },
   {
     path: "/*",

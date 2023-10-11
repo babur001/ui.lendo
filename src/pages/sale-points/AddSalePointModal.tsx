@@ -17,16 +17,32 @@ interface IProps {
 }
 
 interface ICompanyForm {
-  stir: string | number;
-  company_name: string | number;
-  admin_stir: string | number;
-  admin_name: string | number;
-  admin_phone: string | number;
-  login: string | number;
-  password: string | number;
+  dokon_nomi: string;
+  dokon_joylashgan_viloyat: string;
+  tuman: string;
+  manzil: string;
+  //
+  // id?: number | string;
+  // latitude?: number | string;
+  // longitude?: number | string;
+  // name?: number | string;
+  // regionName?: number | string;
+  // regionCode?: 0;
+  // districtName?: number | string;
+  // districtCode?: 0;
+  // user?: {
+  //   fullName?: number | string;
+  //   username?: number | string;
+  //   manzil?: number | string;
+  //   phone?: number | string;
+  //   companyId?: 0;
+  //   salePointId?: 0;
+  //   role?: ["SUPER_ADMIN"];
+  //   pinfl?: 0;
+  // };
 }
 
-function AddCompanyModal({}: IProps) {
+function AddSalePointModal({}: IProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,50 +51,31 @@ function AddCompanyModal({}: IProps) {
   const forms: {
     title: React.ReactNode;
     name: keyof ICompanyForm;
-    format: string;
+    format?: string;
   }[] = [
     {
-      title: t("Korxona STIRi"),
-      name: "stir",
-      format: "###############",
+      title: t("Do'kon nomi"),
+      name: "dokon_nomi",
     },
     {
-      title: t("Korxona nomi"),
-      name: "company_name",
-      format: "",
+      title: t("Do'kon joylashgan viloyat"),
+      name: "dokon_joylashgan_viloyat",
     },
     {
-      title: t("Adminstrator JShShIRi"),
-      name: "admin_stir",
-      format: "",
+      title: t("Do'kon joylashgan tuman"),
+      name: "tuman",
     },
     {
-      title: t("Adminstrator FISh"),
-      name: "admin_name",
-      format: "",
-    },
-    {
-      title: t("Telefon nomer"),
-      name: "admin_phone",
-      format: "",
-    },
-    {
-      title: t("Login"),
-      name: "login",
-      format: "",
-    },
-    {
-      title: t("Parol"),
-      name: "password",
-      format: "",
+      title: t("Do'kon joylashgan manzil"),
+      name: "manzil",
     },
   ];
 
-  const mutateAddCompany = useMutation({
+  const mutateAddSalePoint = useMutation({
     mutationFn: (data: ICompanyForm) => {
       return req({
         method: "POST",
-        url: `/admin/create-company`, //ШЕР
+        url: `/company-admin/save-sale-point`,
         data: data,
       });
     },
@@ -91,7 +88,7 @@ function AddCompanyModal({}: IProps) {
     const data = {
       ...values,
     };
-    const res = await mutateAddCompany.mutateAsync(data);
+    const res = await mutateAddSalePoint.mutateAsync(data);
     const success = get(res, "data.success", false);
     if (!success) {
       message.error(t(`Kutilmagan xatolik!`));
@@ -140,7 +137,7 @@ function AddCompanyModal({}: IProps) {
           <Button
             type="primary"
             onClick={handleSubmit(onSubmit)}
-            loading={mutateAddCompany.status === "loading"}
+            loading={mutateAddSalePoint.status === "loading"}
           >
             Qo'shish
           </Button>
@@ -150,4 +147,4 @@ function AddCompanyModal({}: IProps) {
   );
 }
 
-export default AddCompanyModal;
+export default AddSalePointModal;
