@@ -17,7 +17,7 @@ function Graph({ onFinish }: IProps) {
 
       <div className="flex flex-col gap-4">
         <Description title={t("Насия сумма:")} content={"13 500 000"} />
-        <Description title={t("Давр:")} content={t("9 Ой")} />
+        <Description title={t("Давр")} content={t("9 Ой")} />
         <Description title={t("Ойлик тўлов:")} content={"1 500 000"} />
       </div>
 
