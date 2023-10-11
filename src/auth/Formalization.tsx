@@ -133,16 +133,6 @@ function Formalization({onFinish}: IProps) {
                                 {t("Нархи")}
                             </Input>
                         </div>
-                        {/*ШЕР*/}
-                        {/* <div className="col-span-1">
-                            <Select
-                                defaultValue={"ҚҚСсиз"}
-                                options={[
-                                    {value: "ҚҚСсиз"},
-                                    {value: "ҚҚС билан"}]}
-                            />
-                        </div>*/}
-                        {/*------------------------------*/}
                         <div className="col-span-3">
                             <TotalSingleProduct control={control} idx={idx}/>
                         </div>

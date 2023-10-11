@@ -57,7 +57,7 @@ function Contract({onFinish}: IProps) {
                 type="primary"
                 disabled={!isChecked}
             >
-                {t("Шартномани олиш")}
+                {t("Тасдиқлаш")}
             </Button>
             <div className="h-[40px]"/>
         </>

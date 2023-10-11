@@ -98,7 +98,7 @@ function AddSalePointModal({}: IProps) {
   return (
     <>
       <Button size="large" onClick={() => setIsOpen(true)} type="primary">
-        Qo'shish
+        {t("Qo'shish")}
       </Button>
 
       <Modal
@@ -139,7 +139,7 @@ function AddSalePointModal({}: IProps) {
             onClick={handleSubmit(onSubmit)}
             loading={mutateAddSalePoint.status === "loading"}
           >
-            Qo'shish
+            {t("Qo'shish")}
           </Button>
         </div>
       </Modal>

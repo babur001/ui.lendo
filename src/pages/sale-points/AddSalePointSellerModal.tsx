@@ -97,14 +97,14 @@ function AddSalePointSellerModal({}: IProps) {
 
   return (
     <>
-      <Button size="large" onClick={() => setIsOpen(true)} type="primary">
+{/* ШЕР     <Button size="large" onClick={() => setIsOpen(true)} type="primary">
         Sotuvchi qoshish
-      </Button>
+      </Button>*/}
 
       <Modal
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        title={t("Korxona qo'shish")}
+        title={t("Do'kon qo'shish")}
         footer={false}
       >
         <div className="h-[20px]" />
@@ -139,7 +139,7 @@ function AddSalePointSellerModal({}: IProps) {
             onClick={handleSubmit(onSubmit)}
             loading={mutateAddSalePoint.status === "loading"}
           >
-            Qo'shish
+            {t("Qo'shish")}
           </Button>
         </div>
       </Modal>
