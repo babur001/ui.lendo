@@ -124,8 +124,9 @@ function AddCompanyModal({ onAdd }: IProps) {
   return (
     <>
       <Button onClick={() => setIsOpen(true)} type="primary">
-        Qo'shish
+        {t("Qo'shish")}
       </Button>
+      <div className="h-[15px]" />
 
       <Modal
         open={isOpen}
@@ -134,7 +135,6 @@ function AddCompanyModal({ onAdd }: IProps) {
         footer={false}
       >
         <div className="h-[20px]" />
-
         <div className="flex flex-col gap-5">
           {forms.map((form) => {
             return (
@@ -165,7 +165,7 @@ function AddCompanyModal({ onAdd }: IProps) {
             onClick={handleSubmit(onSubmit)}
             loading={mutateAddCompany.status === "loading"}
           >
-            Qo'shish
+            {t("Qo'shish")}
           </Button>
         </div>
       </Modal>

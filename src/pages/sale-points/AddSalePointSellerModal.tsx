@@ -144,7 +144,7 @@ function AddSalePointSellerModal({ onAdd }: IProps) {
             onClick={handleSubmit(onSubmit)}
             loading={mutateAddSeller.status === "loading"}
           >
-            Qo'shish
+            {t("Qo'shish")}
           </Button>
         </div>
       </Modal>

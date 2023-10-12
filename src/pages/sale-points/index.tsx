@@ -37,7 +37,7 @@ export default function SalePoints() {
   const navigate = useNavigate();
 
   const { companyId } = useParams();
-
+  const navigate = useNavigate();
   const querySalePoints = useQuery({
     queryKey: ["querySalePoints", companyId],
     queryFn: () => {
@@ -98,15 +98,52 @@ export default function SalePoints() {
 
   return (
     <div className="px-3 container mx-auto">
-      <div className="h-[20px]" />
+      <Layout>
+        <Layout style={{ padding: "0 24px 24px" }} className="bg-white">
+          <header>
+            <div className="px-3 !mt-3 w-full flex items-center justify-end gap-5">
+              <Select
+                className="w-40"
+                defaultValue={"ru"}
+                onSelect={(e) => {
+                  changeLanguageHandler(e as TLanguages);
+                }}
+                options={
+                  [
+                    {
+                      label: "Русский",
+                      value: "ru",
+                    },
+                    {
+                      label: "Ўзбекча",
+                      value: "uz_kyrl",
+                    },
+                    {
+                      label: "O'zbekcha",
+                      value: "uz_latn",
+                    },
+                  ] satisfies { label: React.ReactNode; value: TLanguages }[]
+                }
+              />
 
+              <Button className="flex items-center" danger onClick={logout}>
+                {t("Chiqish")}
+                <LogOut strokeWidth={1.5} size={14} className="!ml-4" />
+              </Button>
+            </div>
+          </header>
+        </Layout>
+      </Layout>
       <Text h3>{t("Do'kon adminstratorining kabineti")}</Text>
-
-      <div className="h-[20px]" />
+      <div className="h-[10px]" />
+      <div className="w-full flex items-center justify-center gap-5">
+        <Text h3>{t("Do'konlar reyesti")}</Text>
+      </div>
       <div className="w-full flex items-center justify-end gap-5">
         <AddSalePointModal onAdd={() => querySalePoints.refetch()} />
         <AddSalePointSellerModal onAdd={() => querySalePoints.refetch()} />
       </div>
+      <div className="h-[20px]" />
       <Table pagination={false} dataSource={data} columns={columns} />
     </div>
   );
