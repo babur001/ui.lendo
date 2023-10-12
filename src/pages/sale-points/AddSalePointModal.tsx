@@ -17,32 +17,18 @@ interface IProps {
 }
 
 interface ICompanyForm {
-  dokon_nomi: string;
-  dokon_joylashgan_viloyat: string;
-  tuman: string;
-  manzil: string;
-  //
-  // id?: number | string;
-  // latitude?: number | string;
-  // longitude?: number | string;
-  // name?: number | string;
-  // regionName?: number | string;
-  // regionCode?: 0;
-  // districtName?: number | string;
-  // districtCode?: 0;
-  // user?: {
-  //   fullName?: number | string;
-  //   username?: number | string;
-  //   manzil?: number | string;
-  //   phone?: number | string;
-  //   companyId?: 0;
-  //   salePointId?: 0;
-  //   role?: ["SUPER_ADMIN"];
-  //   pinfl?: 0;
-  // };
+  latitude: string;
+  longitude: string;
+  name: string;
+  regionName: string;
+  regionCode: string;
+  districtName: string;
+  districtCode: string;
+  address: string;
+  user: {};
 }
 
-function AddSalePointModal({}: IProps) {
+function AddSalePointModal({ onAdd }: IProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,24 +36,16 @@ function AddSalePointModal({}: IProps) {
 
   const forms: {
     title: React.ReactNode;
-    name: keyof ICompanyForm;
+    name: "name" | "address";
     format?: string;
   }[] = [
     {
       title: t("Do'kon nomi"),
-      name: "dokon_nomi",
-    },
-    {
-      title: t("Do'kon joylashgan viloyat"),
-      name: "dokon_joylashgan_viloyat",
-    },
-    {
-      title: t("Do'kon joylashgan tuman"),
-      name: "tuman",
+      name: "name",
     },
     {
       title: t("Do'kon joylashgan manzil"),
-      name: "manzil",
+      name: "address",
     },
   ];
 
@@ -85,13 +63,28 @@ function AddSalePointModal({}: IProps) {
     if (!values) {
       return message.error(t(`Маълумотлар топилмади`));
     }
+
+    const regionObj = find(regions, (region) => {
+      return region.CODE === values.regionCode;
+    });
+    const tumanObj = find(tumans, (tuman) => {
+      return tuman.DISTRICT_CODE === values.districtCode;
+    });
+
     const data = {
       ...values,
+      regionName: get(regionObj, "NAME_UZ", "-"),
+      districtName: get(tumanObj, "NAME_UZ", "-"),
     };
+
     const res = await mutateAddSalePoint.mutateAsync(data);
     const success = get(res, "data.success", false);
     if (!success) {
       message.error(t(`Kutilmagan xatolik!`));
+    } else {
+      message.success(t(`Qoshildi`));
+      onAdd && onAdd();
+      setIsOpen(false);
     }
   };
 
@@ -133,6 +126,59 @@ function AddSalePointModal({}: IProps) {
               />
             );
           })}
+
+          <div className="flex items-center !gap-3">
+            <Controller
+              control={control}
+              name="regionCode"
+              render={({ field }) => {
+                return (
+                  <Select
+                    {...field}
+                    placeholder={t("Вилоят")}
+                    className="!w-1/2"
+                    defaultValue={field.value}
+                    options={regions.map((region, idx) => {
+                      return {
+                        value: region.CODE,
+                        label: region.NAME_UZ,
+                      };
+                    })}
+                  />
+                );
+              }}
+            />
+
+            <Controller
+              control={control}
+              name="districtCode"
+              render={({ field }) => {
+                const selectedRegionCode = watch("regionCode");
+
+                const tumansOptions = tumans
+                  .filter((tuman) => {
+                    return tuman.NS10_CODE === selectedRegionCode;
+                  })
+                  .map((tuman) => {
+                    return {
+                      value: tuman.DISTRICT_CODE,
+                      label: tuman.NAME_UZ,
+                    };
+                  });
+
+                return (
+                  <Select
+                    className="!w-1/2"
+                    placeholder={t("Туман")}
+                    defaultValue={field.value}
+                    options={tumansOptions}
+                    disabled={!selectedRegionCode}
+                    {...field}
+                  />
+                );
+              }}
+            />
+          </div>
 
           <Button
             type="primary"

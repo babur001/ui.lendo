@@ -10,15 +10,26 @@ import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-interface ICompany {
-  id: string | number;
-  name: string | number;
-  tin: string | number;
-  address: string | number;
-  brandName: string | number;
-  directorName: string | number;
-  contact: string | number;
-  notes: string | number;
+export interface ICompany {
+  createdAt: string;
+  updatedAt: string;
+  createdBy: CreatedByOrUpdatedBy;
+  updatedBy: CreatedByOrUpdatedBy;
+  companyId: number;
+  id: number;
+  latitude: string;
+  longitude: string;
+  name: string;
+  regionName: string;
+  regionCode: number;
+  districtName: string;
+  districtCode: number;
+  address: string;
+}
+
+export interface CreatedByOrUpdatedBy {
+  id: number;
+  companyId: number;
 }
 
 export default function SalePoints() {
@@ -49,27 +60,27 @@ export default function SalePoints() {
 
   const columns: ColumnsType<ICompany> = [
     {
-      title: "",
+      title: "T/R",
       dataIndex: "NONE",
       render(value, record, index) {
-        return <>{1 + index}</>;
+        return <>{index + 1}</>;
       },
     },
     {
       title: t("Dokon nomi"),
-      dataIndex: "tin",
-    },
-    {
-      title: t("Do'kon joylashgan viloyat"),
       dataIndex: "name",
     },
     {
+      title: t("Do'kon joylashgan viloyat"),
+      dataIndex: "regionName",
+    },
+    {
       title: t("Do'kon joylashgan tuman"),
-      dataIndex: "contact",
+      dataIndex: "districtName",
     },
     {
       title: t("Dokon joylashgan manzil"),
-      dataIndex: "directorName",
+      dataIndex: "address",
     },
     {
       title: t("Batafsil"),

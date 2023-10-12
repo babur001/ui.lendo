@@ -16,95 +16,100 @@ interface IProps {
   onAdd?: () => unknown;
 }
 
-interface ICompanyForm {
-  dokon_nomi: string;
-  dokon_joylashgan_viloyat: string;
-  tuman: string;
-  manzil: string;
-  //
-  // id?: number | string;
-  // latitude?: number | string;
-  // longitude?: number | string;
-  // name?: number | string;
-  // regionName?: number | string;
-  // regionCode?: 0;
-  // districtName?: number | string;
-  // districtCode?: 0;
-  // user?: {
-  //   fullName?: number | string;
-  //   username?: number | string;
-  //   manzil?: number | string;
-  //   phone?: number | string;
-  //   companyId?: 0;
-  //   salePointId?: 0;
-  //   role?: ["SUPER_ADMIN"];
-  //   pinfl?: 0;
-  // };
+interface ISellerForm {
+  fullName: string;
+  username: string;
+  password: string;
+  phone: string;
+  companyId: string;
+  salePointId: string;
+  role: ["COMPANY_EMPLOYEE"];
+  pinfl: string;
 }
 
-function AddSalePointSellerModal({}: IProps) {
+function AddSalePointSellerModal({ onAdd }: IProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { register, handleSubmit, control, watch } = useForm<ICompanyForm>();
+  const { register, handleSubmit, control, watch } = useForm<ISellerForm>({
+    defaultValues: { role: ["COMPANY_EMPLOYEE"] },
+  });
 
   const forms: {
     title: React.ReactNode;
-    name: keyof ICompanyForm;
+    name: keyof ISellerForm;
     format?: string;
   }[] = [
     {
-      title: t("Do'kon nomi"),
-      name: "dokon_nomi",
+      title: t("fullname"),
+      name: "fullName",
     },
     {
-      title: t("Do'kon joylashgan viloyat"),
-      name: "dokon_joylashgan_viloyat",
+      title: t("username"),
+      name: "username",
     },
     {
-      title: t("Do'kon joylashgan tuman"),
-      name: "tuman",
+      title: t("password"),
+      name: "password",
     },
     {
-      title: t("Do'kon joylashgan manzil"),
-      name: "manzil",
+      title: t("phone"),
+      name: "phone",
+    },
+    {
+      title: t("companyId"),
+      name: "companyId",
+    },
+    {
+      title: t("salePointId"),
+      name: "salePointId",
+    },
+    {
+      title: t("pinfl"),
+      name: "pinfl",
     },
   ];
 
-  const mutateAddSalePoint = useMutation({
-    mutationFn: (data: ICompanyForm) => {
+  const mutateAddSeller = useMutation({
+    mutationFn: (data: ISellerForm) => {
       return req({
         method: "POST",
-        url: `/company-admin/save-sale-point`,
+        url: `/auth/register`,
         data: data,
       });
     },
   });
 
-  const onSubmit = async (values: ICompanyForm) => {
+  const onSubmit = async (values: ISellerForm) => {
     if (!values) {
       return message.error(t(`Маълумотлар топилмади`));
     }
+
     const data = {
       ...values,
     };
-    const res = await mutateAddSalePoint.mutateAsync(data);
+
+    const res = await mutateAddSeller.mutateAsync(data);
     const success = get(res, "data.success", false);
     if (!success) {
       message.error(t(`Kutilmagan xatolik!`));
+    } else {
+      message.success(t(`Qoshildi`));
+      onAdd && onAdd();
+      setIsOpen(false);
     }
   };
 
   return (
     <>
       <Button size="large" onClick={() => setIsOpen(true)} type="primary">
-        Sotuvchi qoshish
+        Qo'shish
       </Button>
 
       <Modal
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        title={t("Korxona qo'shish")}
+        title={t("Sotuvchi qoshish")}
         footer={false}
       >
         <div className="h-[20px]" />
@@ -137,7 +142,7 @@ function AddSalePointSellerModal({}: IProps) {
           <Button
             type="primary"
             onClick={handleSubmit(onSubmit)}
-            loading={mutateAddSalePoint.status === "loading"}
+            loading={mutateAddSeller.status === "loading"}
           >
             Qo'shish
           </Button>
