@@ -17,16 +17,22 @@ interface IProps {
 }
 
 interface ICompanyForm {
-  stir: string | number;
-  company_name: string | number;
-  admin_stir: string | number;
-  admin_name: string | number;
-  admin_phone: string | number;
-  login: string | number;
-  password: string | number;
+  tin: string;
+  name: string;
+  address: string;
+  brandName: string;
+  directorName: string;
+  contact: string;
+  user: {
+    pinfl: string;
+    fullName: string;
+    username: string;
+    password: string;
+    phone: string;
+  };
 }
 
-function AddCompanyModal({}: IProps) {
+function AddCompanyModal({ onAdd }: IProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,67 +40,84 @@ function AddCompanyModal({}: IProps) {
 
   const forms: {
     title: React.ReactNode;
-    name: keyof ICompanyForm;
-    format: string;
+    name:
+      | Exclude<keyof ICompanyForm, "user">
+      | `user.${keyof ICompanyForm["user"]}`;
   }[] = [
     {
       title: t("Korxona STIRi"),
-      name: "stir",
-      format: "###############",
+      name: "tin",
     },
     {
       title: t("Korxona nomi"),
-      name: "company_name",
-      format: "",
+      name: "name",
+    },
+    {
+      title: t("BrandName"),
+      name: "brandName",
+    },
+    {
+      title: t("DirectorName"),
+      name: "directorName",
+    },
+    {
+      title: t("Contact"),
+      name: "contact",
+    },
+    {
+      title: t("Address dokon"),
+      name: "address",
     },
     {
       title: t("Adminstrator JShShIRi"),
-      name: "admin_stir",
-      format: "",
+      name: "user.pinfl",
     },
     {
       title: t("Adminstrator FISh"),
-      name: "admin_name",
-      format: "",
+      name: "user.fullName",
     },
     {
-      title: t("Telefon nomer"),
-      name: "admin_phone",
-      format: "",
+      title: t("Adminstrator telefon nomeri"),
+      name: "user.phone",
     },
     {
       title: t("Login"),
-      name: "login",
-      format: "",
+      name: "user.username",
     },
     {
       title: t("Parol"),
-      name: "password",
-      format: "",
+      name: "user.password",
     },
   ];
 
   const mutateAddCompany = useMutation({
-    mutationFn: (data: ICompanyForm) => {
+    mutationKey: ["mutateAddCompany"],
+    mutationFn: (companyForm: ICompanyForm) => {
       return req({
         method: "POST",
-        url: `/admin/create-company`, //ШЕР
-        data: data,
+        url: `/admin/create-company`,
+        data: {
+          ...companyForm,
+        },
       });
     },
   });
 
   const onSubmit = async (values: ICompanyForm) => {
+    console.log(values);
+
     if (!values) {
       return message.error(t(`Маълумотлар топилмади`));
     }
-    const data = {
-      ...values,
-    };
-    const res = await mutateAddCompany.mutateAsync(data);
+
+    const res = await mutateAddCompany.mutateAsync(values);
     const success = get(res, "data.success", false);
     if (!success) {
       message.error(t(`Kutilmagan xatolik!`));
+    } else {
+      message.success(t(`Qoshildi`));
+      onAdd && onAdd();
+      setIsOpen(false);
     }
   };
 
