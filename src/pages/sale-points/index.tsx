@@ -8,7 +8,7 @@ import { ColumnsType } from "antd/es/table";
 import { get } from "lodash";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export interface ICompany {
   createdAt: string;
@@ -34,6 +34,7 @@ export interface CreatedByOrUpdatedBy {
 
 export default function SalePoints() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { companyId } = useParams();
 
@@ -87,7 +88,7 @@ export default function SalePoints() {
       dataIndex: "",
       render(value, record, index) {
         return (
-          <Button>
+          <Button onClick={() => navigate(`/sellers/${record.id}`)}>
             <ArrowRight strokeWidth={1} />
           </Button>
         );
