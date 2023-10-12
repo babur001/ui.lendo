@@ -65,7 +65,7 @@ function AddCompanyModal({ onAdd }: IProps) {
       name: "contact",
     },
     {
-      title: t("Address dokon"),
+      title: t("Address company"),
       name: "address",
     },
     {
@@ -85,7 +85,7 @@ function AddCompanyModal({ onAdd }: IProps) {
       name: "user.username",
     },
     {
-      title: t("Parol"),
+      title: t("Пароль"),
       name: "user.password",
     },
   ];

@@ -41,19 +41,19 @@ function AddSalePointSellerModal({ onAdd }: IProps) {
     format?: string;
   }[] = [
     {
-      title: t("fullname"),
+      title: t("Xodim nomi"),
       name: "fullName",
     },
     {
-      title: t("username"),
+      title: t("Login"),
       name: "username",
     },
     {
-      title: t("password"),
+      title: t("Пароль"),
       name: "password",
     },
     {
-      title: t("phone"),
+      title: t("xodim tel raqami"),
       name: "phone",
     },
     {
@@ -65,7 +65,7 @@ function AddSalePointSellerModal({ onAdd }: IProps) {
       name: "salePointId",
     },
     {
-      title: t("pinfl"),
+      title: t("ЖИШШР"),
       name: "pinfl",
     },
   ];
@@ -103,13 +103,13 @@ function AddSalePointSellerModal({ onAdd }: IProps) {
   return (
     <>
       <Button size="large" onClick={() => setIsOpen(true)} type="primary">
-        Qo'shish
+        {t("Xodim qoshish")}
       </Button>
 
       <Modal
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        title={t("Sotuvchi qoshish")}
+        title={t("Xodim qoshish")}
         footer={false}
       >
         <div className="h-[20px]" />
