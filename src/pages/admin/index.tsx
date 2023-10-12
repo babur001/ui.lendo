@@ -97,7 +97,7 @@ export default function Admin() {
     /*{  -------------------------}*/
 
     return (
-        <div className="px-3 container mx-auto" >
+        <div className="px-5 container  mx-auto">
             <Layout>
                 <Layout style={{padding: "0 24px 24px"}} className="bg-white">
                     <header>

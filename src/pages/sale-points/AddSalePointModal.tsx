@@ -97,7 +97,7 @@ function AddSalePointModal({ onAdd }: IProps) {
       <Modal
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        title={t("Korxona qo'shish")}
+        title={t("Do'kon qo'shish")}
         footer={false}
       >
         <div className="h-[20px]" />

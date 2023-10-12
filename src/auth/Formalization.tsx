@@ -66,7 +66,7 @@ function Formalization({onFinish}: IProps) {
     });
 
     useEffect(() => {
-        append({name: "", amount: 1, price: ""});
+        append({name: "", amount: 1, price: "", hasVat: 0});    //ШЕР
 
         return () => remove();
     }, []);
@@ -155,7 +155,7 @@ function Formalization({onFinish}: IProps) {
                 <Button
                     className="col-span-3"
                     type="primary"
-                    onClick={() => append({name: "", amount: 1, price: ""})}
+                    onClick={() => append({name: "", amount: 1, price: "", hasVat: 0})} //ШЕР
                 >
                     {t("Маҳсулот қўшиш")}
                 </Button>
