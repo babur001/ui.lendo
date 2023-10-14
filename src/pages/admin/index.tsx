@@ -12,6 +12,8 @@ import Logo from "@/Logo.tsx";
 import {TLanguages} from "@/auth/i18n.ts";
 import Buyers from "@/pages/buyers";
 import i18n from "i18next";
+import CompanyUsersList from "@/pages/admin/CompanyUsersList.tsx";
+import Header from "@/pages/header/Header.tsx";
 
 
 interface ICompany {
@@ -24,6 +26,7 @@ interface ICompany {
     contact: string | number;
     notes: string | number;
 }
+
 
 export default function Admin() {
     const {t} = useTranslation();
@@ -48,6 +51,8 @@ export default function Admin() {
     ) as number;
     const navigate = useNavigate();
 
+
+    /*{  ШЕР}*/
     const columns: ColumnsType<ICompany> = [
         {
             title: "",
@@ -65,19 +70,42 @@ export default function Admin() {
             dataIndex: "name",
         },
         {
-            title: t("Telefon nomer"),
-            dataIndex: "contact",
+            title: t("BrandName"),
+            dataIndex: "brandName",
+        }, {
+            title: t("Манзили"),
+            dataIndex: "address",
         },
         {
             title: t("Direktor"),
             dataIndex: "directorName",
         },
         {
+            title: t("Telefon nomer"),
+            dataIndex: "contact",
+        },
+        {
+            title: t("Дата регистрации"),
+            dataIndex: "created_at",
+        },
+        {
+            title: t("Всего ролей"),
+            dataIndex: "all_roles",
+        },
+        {
+            title: t("Из них администраторов"),
+            dataIndex: "admins",
+        },
+        {
+            title: t("Из них сотрудников"),
+            dataIndex: "personals",
+        },
+        {
             title: t("Batafsil"),
             dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button /*onClick={() => navigate(`/sale-points/${record.id}`)}*/>
+                    <Button onClick={() => navigate(`/admin/company/${record.id}`)}>
                         <ArrowRight strokeWidth={1}/>
                     </Button>
                 );
@@ -85,66 +113,30 @@ export default function Admin() {
         },
     ];
 
-
-    /*{  ШЕР}*/
     const changeLanguageHandler = (lang: TLanguages) => {
         i18n.changeLanguage(lang);
     };
+    /*{  -------------------------}*/
     const logout = () => {
         localStorage.removeItem("token");
         navigate("/auth");
     };
-    /*{  -------------------------}*/
 
     return (
         <div className="px-5 container  mx-auto">
-            <Layout>
-                <Layout style={{padding: "0 24px 24px"}} className="bg-white">
-                    <header>
-                        <div className="px-3 !mt-3 w-full flex items-center justify-end gap-5">
-
-                            <Select
-                                className="w-40"
-                                defaultValue={"ru"}
-                                onSelect={(e) => {
-                                    changeLanguageHandler(e as TLanguages);
-                                }}
-                                options={
-                                    [
-                                        {
-                                            label: "Русский",
-                                            value: "ru",
-                                        },
-                                        {
-                                            label: "Ўзбекча",
-                                            value: "uz_kyrl",
-                                        },
-                                        {
-                                            label: "O'zbekcha",
-                                            value: "uz_latn",
-                                        },
-                                    ] satisfies { label: React.ReactNode; value: TLanguages }[]
-                                }
-                            />
-
-                            <Button className="flex items-center" danger onClick={logout}>
-                                {t("Chiqish")}
-                                <LogOut strokeWidth={1.5} size={14} className="!ml-4"/>
-                            </Button>
-                        </div>
-                    </header>
-                </Layout>
-            </Layout>
+            <Header/>
             <Text h3>{t("Operator shaxsiy kabineti")}</Text>
             <div className="w-full flex items-center justify-center gap-5"><Text h3>{t("Korxonalar reyesti")}</Text>
             </div>
             <div className="h-[20px]"/>
             <div className="w-full flex items-center justify-end">
                 <AddCompanyModal onAdd={() => queryCompanies.refetch()}/>
+                <div className="w-[40px]"/>
             </div>
             <div className="h-[20px]"/>
             <Table pagination={false} dataSource={data} columns={columns}/>
         </div>
+
 
     );
 }

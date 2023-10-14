@@ -1,5 +1,5 @@
 import AddSalePointModal from "@/pages/sale-points/AddSalePointModal";
-import AddSalePointSellerModal from "@/pages/sale-points/AddSalePointSellerModal";
+import AddSellersModal from "@/pages/sale-points/AddSellersModal.tsx";
 import {req} from "@/services/api";
 import {Text} from "@geist-ui/core";
 import {useQuery} from "@tanstack/react-query";
@@ -12,6 +12,8 @@ import {Calculator, LayoutDashboard, LogOut, User} from "lucide-react";
 import {useNavigate, useParams} from "react-router-dom";
 import {TLanguages} from "@/auth/i18n.ts";
 import i18n from "i18next";
+import AddSellersModal2 from "@/pages/sale-points/AddSellersModal2.tsx";
+import Header from "@/pages/header/Header.tsx";
 
 export interface ICompany {
     createdAt: string;
@@ -91,7 +93,7 @@ export default function SalePoints() {
             dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button onClick={() => navigate(`/sellers/${record.id}`)}>
+                    <Button onClick={() => navigate(`/sale-points/users`)}>
                         <ArrowRight strokeWidth={1}/>
                     </Button>
                 );
@@ -109,42 +111,7 @@ export default function SalePoints() {
 
     return (
         <div className="px-3 container mx-auto">
-            <Layout>
-                <Layout style={{padding: "0 24px 24px"}} className="bg-white">
-                    <header>
-                        <div className="px-3 !mt-3 w-full flex items-center justify-end gap-5">
-                            <Select
-                                className="w-40"
-                                defaultValue={"ru"}
-                                onSelect={(e) => {
-                                    changeLanguageHandler(e as TLanguages);
-                                }}
-                                options={
-                                    [
-                                        {
-                                            label: "Русский",
-                                            value: "ru",
-                                        },
-                                        {
-                                            label: "Ўзбекча",
-                                            value: "uz_kyrl",
-                                        },
-                                        {
-                                            label: "O'zbekcha",
-                                            value: "uz_latn",
-                                        },
-                                    ] satisfies { label: React.ReactNode; value: TLanguages }[]
-                                }
-                            />
-
-                            <Button className="flex items-center" danger onClick={logout}>
-                                {t("Chiqish")}
-                                <LogOut strokeWidth={1.5} size={14} className="!ml-4"/>
-                            </Button>
-                        </div>
-                    </header>
-                </Layout>
-            </Layout>
+            <Header/>
             <Text h3>{t("Do'kon adminstratorining kabineti")}</Text>
             <div className="h-[10px]"/>
             <div className="w-full flex items-center justify-center gap-5">
@@ -152,7 +119,8 @@ export default function SalePoints() {
             </div>
             <div className="w-full flex items-center justify-end gap-5">
                 <AddSalePointModal onAdd={() => querySalePoints.refetch()}/>
-                <AddSalePointSellerModal onAdd={() => querySalePoints.refetch()}/>
+
+                <div className="w-[10px]"/>
             </div>
             <div className="h-[20px]"/>
             <Table pagination={false} dataSource={data} columns={columns}/>

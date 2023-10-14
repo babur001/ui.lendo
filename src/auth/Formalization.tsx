@@ -1,11 +1,10 @@
 import TotalContractedSum from "@/auth/TotalContractedSum";
 import TotalSingleProduct from "@/auth/TotalSingleProduct";
 import {req} from "@/services/api";
-import {IProducts, useBuyerStore} from "@/stores/buyer";
+import {IProducts, IUserInfo, useBuyerStore} from "@/stores/buyer";
 import {Description, Divider, Input, Text} from "@geist-ui/core";
 import {useMutation} from "@tanstack/react-query";
-import {Button, Segmented, message} from "antd";
-import {ColumnsType} from "antd/es/table";
+import {Button, Segmented, message, Select} from "antd";
 import {get} from "lodash";
 import {ArrowRight, X} from "lucide-react";
 import {useEffect, useState} from "react";
@@ -32,7 +31,7 @@ function Formalization({onFinish}: IProps) {
             clientScoringId: store.clientScoringId,
         }));
 
-    const {control, register, handleSubmit} = useForm<IProducts>({
+    const {control, register, handleSubmit } = useForm<IProducts>({
         defaultValues: {
             paymentSum: 0,
             paymentPeriod: 4,
@@ -128,11 +127,43 @@ function Formalization({onFinish}: IProps) {
                                 {t("Миқдори")}
                             </Input>
                         </div>
-                        <div className="col-span-3">
+                        <div className="col-span-2">
                             <Input width={"100%"} {...register(`items.${idx}.price`)}>
                                 {t("Нархи")}
                             </Input>
                         </div>
+                        {/*ШЕР*/}
+                        <div className="col-span-1">
+                            <Controller
+                                control={control}
+                                name={`items.${idx}.hasVat`}
+                                render={({field}) => {
+                                    return (
+                                        <Description
+                                            title={t("ҚҚС")}
+                                            content={
+                                                <Select
+                                                    className={"w-[80px]"}
+                                                    {...field}
+                                                    size="large"
+                                                    options={[
+                                                        {label: t("ҚҚСсиз"), value: 1},
+                                                        {label: t("ҚҚС билан"), value: 2}
+                                                    ]}
+                                                />
+                                            }
+                                        />
+                                    );
+                                }}
+                            />
+                        </div>
+                        <div className="col-span-2">
+                            <Input width={"100%"} {...register(`items.${idx}.price`)}>
+                                {t("Сумма с НСД")}
+                            </Input>
+                        </div>
+                        {/*------------*/}
+
                         <div className="col-span-3">
                             <TotalSingleProduct control={control} idx={idx}/>
                         </div>

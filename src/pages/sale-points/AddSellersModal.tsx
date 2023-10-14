@@ -27,7 +27,7 @@ interface ISellerForm {
   pinfl: string;
 }
 
-function AddSalePointSellerModal({ onAdd }: IProps) {
+function AddSellersModal({ onAdd }: IProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -103,13 +103,13 @@ function AddSalePointSellerModal({ onAdd }: IProps) {
   return (
     <>
       <Button size="large" onClick={() => setIsOpen(true)} type="primary">
-        {t("Xodim qoshish")}
+        {t("admin xodim qoshish")}
       </Button>
 
       <Modal
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        title={t("Xodim qoshish")}
+        title={t("admin xodim qoshish")}
         footer={false}
       >
         <div className="h-[20px]" />
@@ -152,4 +152,4 @@ function AddSalePointSellerModal({ onAdd }: IProps) {
   );
 }
 
-export default AddSalePointSellerModal;
+export default AddSellersModal;
