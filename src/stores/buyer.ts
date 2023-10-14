@@ -37,7 +37,7 @@ export interface IProducts {
     name: string;
     amount: number | "";
     price: number | "";
-    hasVat: number| 0;
+    hasVat: number| "";
   }[];
 }
 

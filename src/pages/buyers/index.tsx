@@ -18,7 +18,8 @@ function Buyers() {
                 method: "GET",
                 url: `/home/get-clients`, //ШЕР
                 params: {
-                    //
+                    "page": 0,
+                    "size": 2
                 },
             });
         },
@@ -55,16 +56,16 @@ function Buyers() {
         },
 
         {
+            title: t("Сумма покупки"),
+            dataIndex: "paymentSum",
+        },
+        {
             title: t("Рассрочка суммаси"),
             dataIndex: "paymentSum",
         },
         {
-            title: t("Епилган сумма"),
+            title: t("Период рассрочки"),
             dataIndex: "paidSum",  //ШЕР
-        },
-        {
-            title: t("Қолдиқ сумма"),
-            dataIndex: "",
         },
         {
             title: t("Шартнома имзоланган сана"),
@@ -84,8 +85,6 @@ function Buyers() {
         },
         /*---------------*/
     ];
-
-
     return (
         <>
 

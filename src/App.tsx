@@ -8,6 +8,7 @@ import {
 import "@/tailwind.css";
 import Admin from "@/pages/admin";
 import SalePoints from "@/pages/sale-points";
+import CompanyUsersList from "@/pages/admin/CompanyUsersList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,16 @@ const router = createBrowserRouter([
     element: <Admin />,
   },
   {
-    path: "/sale-points/:companyId",
+    path: "/admin/company/:companyId",
+    element: <CompanyUsersList />,
+  },
+  {
+    path: "/sale-points",
     element: <SalePoints />,
+  },
+  {
+    path: "/sale-points/users",
+    element: <CompanyUsersList />,
   },
   {
     path: "/*",
