@@ -58,7 +58,8 @@
   "Туман": "Tuman",
   "Махалла номи*": "Maxalla nomi*",
   "Кўча номи*": "Koʼcha nomi*",
-  "Уй ва хонодон рақами*": "Uy va xonodon raqami*",
+  "Уй рақами*": "Uy raqami*",
+  "Xонодон рақами*": "Xonadon raqami*",
   "Сақлаш": "Saqlash",
   "Скоринг тизимидан ўта олмадингиз.": "Skoring tizimidan oʼta olmadingiz",
   "Табриклаймиз, скоринг муваффақиятли ўтилди": "Tabriklaymiz, skoring (toʼlov qobiliyatini baholash) muvaffaqiyatli yakunlandi",
@@ -107,5 +108,12 @@
   "Xodim nomi": "Xodim FISH",
   "xodim tel raqami": "Xodimning telefon raqami",
   "Role": "Rol",
+  "Администратор магазина": "Do'kon administratori",
+  "Продавец": "Sotuvchi",
+  "Бухгалтер": "Buxgalter",
+  "Менеджер": "Menejer",
+  "Ходим СТИРи": "Xodim JISHSHRi",
+  "Ходим ФИШ": "Xodim FISH",
+  "Ходим телефон рақами": "Xodim telefon raqami",
   "Asosiy": "Asosiy"
 }

@@ -6,10 +6,7 @@ import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
 import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
-import {TLanguages} from "@/auth/i18n.ts";
-import i18n from "i18next";
-import AddSellersModal2 from "@/pages/sale-points/AddSellersModal2.tsx";
+import AddCompanyUsersModal from "@/pages/company/AddCompanyUsersModal.tsx";
 import Header from "@/pages/header/Header.tsx";
 
 interface ICompanyUsers {
@@ -19,10 +16,10 @@ interface ICompanyUsers {
     phone: string;
     username: string;
     password: string;
-    roles: {
+    roles: [{
         id: string;
         name: string;
-    };
+    }];
 }
 
 export default function CompanyUsersList() {
@@ -40,12 +37,15 @@ export default function CompanyUsersList() {
             });
         },
     });
+
+
     const data = get(queryCompanyUsers, "data.data.data.content", []) as ICompanyUsers[];
     const total = get(
         queryCompanyUsers,
         "data.data.data.totalElements",
         0
     ) as number;
+
 
     const columnsUser: ColumnsType<ICompanyUsers> = [
         {
@@ -72,7 +72,11 @@ export default function CompanyUsersList() {
         },
         {
             title: t("Роль"),
-            dataIndex: "roles.name",
+            dataIndex: "roles.[name]",
+        },
+        {
+            title: t("Создатель"),
+            dataIndex: "roles.[name]",
         },
         {
             title: t("Batafsil"),
@@ -96,12 +100,11 @@ export default function CompanyUsersList() {
             </div>
             <div className="h-[20px]"/>
             <div className="w-full flex items-center justify-end">
-                <AddSellersModal2 onAdd={() => queryCompanyUsers.refetch()}/>
+                <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()}/>
                 <div className="w-[40px]"/>
             </div>
             <div className="h-[20px]"/>
             <Table pagination={false} dataSource={data} columns={columnsUser}/>
-
         </div>
     );
 }

@@ -150,6 +150,7 @@ export interface ProfilesEntityOrActiveProfileOrClientProfile {
     neighborhood: string;
     street: string;
     homeNumber: string;
+    flatNumber: string;
     clientPinfl: number;
     createdAt?: null;
     updatedAt?: null;

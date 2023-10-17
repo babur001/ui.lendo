@@ -1,12 +1,13 @@
 import {req} from "@/services/api";
 import {Description, Divider, Input, Text} from "@geist-ui/core";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {Button, Modal, message, Select, Input as AntdInput} from "antd";
 import {get} from "lodash";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {PatternFormat} from "react-number-format";
+import {LockOutlined} from "@ant-design/icons";
 
 interface ISellerForm {
     fullName: string;
@@ -15,15 +16,17 @@ interface ISellerForm {
     phone: string;
     companyId: string;
     salePointId: string;
-    role: ["COMPANY_EMPLOYEE"];
+    role: [string];
     pinfl: string;
+    managerId: string;
+    fileGuid: string;
 }
 
 interface IProps {
     onAdd: () => unknown;
 }
 
-function AddSellersModal2({onAdd}: IProps) {
+function AddCompanyUsersModal({onAdd}: IProps) {
     const {t, i18n} = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -49,7 +52,9 @@ function AddSellersModal2({onAdd}: IProps) {
         }
 
         const data = {
-            ...values
+            ...values,
+            fileGuid: "1",
+            companyId: "1"
         };
 
         const res = await mutateAddSeller.mutateAsync(data);
@@ -76,11 +81,10 @@ function AddSellersModal2({onAdd}: IProps) {
             >
                 <div className="h-[20px]"/>
                 <div className="flex flex-col gap-5">
-
-                    <div className="col-span-1">
+                    <div className="col-span-2">
                         <Controller
                             control={control}
-                            name={"salePointId"}
+                            name={"role"}
                             render={({field}) => {
                                 return (
                                     <Description
@@ -91,8 +95,36 @@ function AddSellersModal2({onAdd}: IProps) {
                                                 {...field}
                                                 size="large"
                                                 options={[
-                                                    {label: t("admin"), value: 1},
-                                                    {label: t("sotrudnik"), value: 2}
+                                                    {label: t("Администратор магазина"), value: ["COMPANY_EMPLOYEE"]},
+                                                    {label: t("Продавец"), value: ["COMPANY_EMPLOYEE"]},
+                                                    {label: t("Бухгалтер"), value: ["COMPANY_EMPLOYEE"]},
+                                                    {label: t("Менеджер"), value: ["COMPANY_EMPLOYEE"]}
+                                                ]}
+                                            />
+                                        }
+                                    />
+                                );
+                            }}
+                        />
+                    </div>
+                    <div className="col-span-2">
+                        <Controller
+                            control={control}
+                            name={"managerId"}
+                            render={({field}) => {
+                                return (
+                                    <Description
+                                        title={t("Менеджер")}
+                                        content={
+                                            <Select
+                                                className={"w-[100%]"}
+                                                {...field}
+                                                size="large"
+                                                options={[
+                                                    {label: t("Менеджер1"), value: 1},
+                                                    {label: t("Менеджер2"), value: 2},
+                                                    {label: t("Менеджер3"), value: 3},
+                                                    {label: t("Менеджер4"), value: 4}
                                                 ]}
                                             />
                                         }
@@ -112,7 +144,7 @@ function AddSellersModal2({onAdd}: IProps) {
                                         return (
                                             <PatternFormat
                                                 placeholder="..."
-                                                format="##################"
+                                                format="##############"
                                                 mask={" "}
                                                 customInput={AntdInput}
                                                 {...field}
@@ -124,25 +156,35 @@ function AddSellersModal2({onAdd}: IProps) {
                         />
                     </div>
                     <div className="col-span-2">
-                        <Input placeholder="..."
-                               width={"100%"} {...register("fullName")}>
-                            {t("Xodim nomi")}
-                        </Input>
+                        <Description
+                            title={t("Xodim nomi")}
+                            content={
+                                <Input placeholder="..."
+                                       width={"100%"} {...register("fullName")}/>
+                            }
+                        />
                     </div>
                     <div className="col-span-2">
-                        <Input
-                            placeholder="..."
-                            width={"100%"}
-                            {...register("username" as const)}
-                        >
-                            {t("Login")}
-                        </Input>
+                        <Description
+                            title={t("Login")}
+                            content={
+                                <Input
+                                    placeholder="..."
+                                    width={"100%"}
+                                    {...register("username" as const)}
+                                />
+                            }
+                        />
                     </div>
                     <div className="col-span-2">
-                        <Input placeholder="..."
-                               width={"100%"} {...register("password")}>
-                            {t("Пароль")}
-                        </Input>
+                        <Description
+                            title={t("Пароль")}
+                            content={
+                                <Input placeholder="..."
+                                       width={"100%"} {...register("password")}/>
+
+                            }
+                        />
                     </div>
                     <div className="col-span-2">
                         <Description
@@ -191,39 +233,14 @@ function AddSellersModal2({onAdd}: IProps) {
                             }}
                         />
                     </div>
-                    <div className="col-span-1">
-                        <Controller
-                            control={control}
-                            name={"salePointId"}
-                            render={({field}) => {
-                                return (
-                                    <Description
-                                        title={t("Role")}
-                                        content={
-                                            <Select
-                                                className={"w-[100%]"}
-                                                {...field}
-                                                size="large"
-                                                options={[
-                                                    {label: t("admin"), value: 1},
-                                                    {label: t("sotrudnik"), value: 2}
-                                                ]}
-                                            />
-                                        }
-                                    />
-                                );
-                            }}
-                        />
-                    </div>
+
                     <div className="col-span-2">
                         <Input disabled={true} defaultValue={"1"}
-                               width={"100%"} {...register("companyId")}>
-                            {t("companyId")}
+                               width={"100%"} {...register("fileGuid")}>
+                            {t("fileGuid")}
                         </Input>
                     </div>
-
                     <div className="h-[20px]"/>
-
                     <Button
                         type="primary"
                         onClick={handleSubmit(onSubmit)}
@@ -237,4 +254,4 @@ function AddSellersModal2({onAdd}: IProps) {
     );
 }
 
-export default AddSellersModal2;
+export default AddCompanyUsersModal;
