@@ -1,5 +1,4 @@
-import AddSalePointModal from "@/pages/sale-points/AddSalePointModal";
-import AddSellersModal from "@/pages/sale-points/AddSellersModal.tsx";
+import AddSalePointModal from "@/pages/company/AddSalePointModal";
 import {req} from "@/services/api";
 import {Text} from "@geist-ui/core";
 import {useQuery} from "@tanstack/react-query";
@@ -8,11 +7,9 @@ import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
 import {ArrowRight} from "lucide-react";
 import {useTranslation} from "react-i18next";
-import {Calculator, LayoutDashboard, LogOut, User} from "lucide-react";
 import {useNavigate, useParams} from "react-router-dom";
 import {TLanguages} from "@/auth/i18n.ts";
 import i18n from "i18next";
-import AddSellersModal2 from "@/pages/sale-points/AddSellersModal2.tsx";
 import Header from "@/pages/header/Header.tsx";
 
 export interface ICompany {

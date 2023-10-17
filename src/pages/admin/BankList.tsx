@@ -1,4 +1,4 @@
-import AddCompanyModal from "@/pages/admin/AddCompanyModal";
+
 import {req} from "@/services/api";
 import {Text} from "@geist-ui/core";
 import {useQuery} from "@tanstack/react-query";
@@ -9,38 +9,38 @@ import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import Header from "@/pages/header/Header.tsx";
+import AddBankModal from "@/pages/admin/AddBankModal.tsx";
 
 
-interface ICompany {
+interface IBank {
     id: string | number;
-    name: string | number;
-    tin: string | number;
-    address: string | number;
-    brandName: string | number;
-    directorName: string | number;
-    contact: string | number;
-    notes: string | number;
+    bankName: string | number;
+    bankTin: string | number;
+    bankShare: string | number;
+    bankInsurance: string | number;
+    operatorShare: string | number;
+    createdAt: string | number;
 }
 
 
-export default function Admin() {
+export default function BankList() {
     const {t} = useTranslation();
 
-    const queryCompanies = useQuery({
-        queryKey: ["queryCompanies"],
+    const queryBanks = useQuery({
+        queryKey: ["queryBanks"],
         queryFn: () => {
             return req({
                 method: "GET",
-                url: `/admin/get-companies`,
+                url: `/admin/get-banks`,
                 params: {
                     //
                 },
             });
         },
     });
-    const data = get(queryCompanies, "data.data.data.content", []) as ICompany[];
+    const data = get(queryBanks, "data.data.data", []) as IBank[];
     const total = get(
-        queryCompanies,
+        queryBanks,
         "data.data.data.totalElements",
         0
     ) as number;
@@ -48,7 +48,7 @@ export default function Admin() {
 
 
     /*{  ШЕР}*/
-    const columns: ColumnsType<ICompany> = [
+    const columns: ColumnsType<IBank> = [
         {
             title: "",
             dataIndex: "NONE",
@@ -57,56 +57,41 @@ export default function Admin() {
             },
         },
         {
-            title: t("Korxona STIRi"),
-            dataIndex: "tin",
+            title: t("bankTin"),
+            dataIndex: "bankTin",
         },
         {
-            title: t("Korxona nomi"),
-            dataIndex: "name",
+            title: t("bankName"),
+            dataIndex: "bankName",
         },
         {
-            title: t("BrandName"),
-            dataIndex: "brandName",
+            title: t("bankShare"),
+            dataIndex: "bankShare",
         }, {
-            title: t("Манзили"),
-            dataIndex: "address",
+            title: t("bankInsurance"),
+            dataIndex: "bankInsurance",
         },
         {
-            title: t("Direktor"),
-            dataIndex: "directorName",
+            title: t("operatorShare"),
+            dataIndex: "operatorShare",
         },
         {
-            title: t("Telefon nomer"),
-            dataIndex: "contact",
-        },
-        {
-            title: t("Дата регистрации"),
-            dataIndex: "created_at",
-        },
-        {
-            title: t("Всего ролей"),
-            dataIndex: "all_roles",
-        },
-        {
-            title: t("Из них администраторов"),
-            dataIndex: "admins",
-        },
-        {
-            title: t("Из них сотрудников"),
-            dataIndex: "personals",
+            title: t("createdAt"),
+            dataIndex: "createdAt",
         },
         {
             title: t("Batafsil"),
             dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button onClick={() => navigate(`/admin/company/${record.id}`)}>
+                    <Button onClick={() => navigate(`/BankList/company/${record.id}`)}>
                         <ArrowRight strokeWidth={1}/>
                     </Button>
                 );
             },
         },
     ];
+
 
     return (
         <div className="px-5 container  mx-auto">
@@ -116,11 +101,7 @@ export default function Admin() {
             </div>
             <div className="h-[20px]"/>
             <div className="w-full flex items-center justify-end">
-                <AddCompanyModal onAdd={() => queryCompanies.refetch()}/>
-                <div className="w-[40px]"/>
-                <Button onClick={() => navigate(`/admin/bank`)} type="primary">
-                    {t("Банк")}
-                </Button>
+                <AddBankModal onAdd={() => queryBanks.refetch()}/>
                 <div className="w-[40px]"/>
             </div>
             <div className="h-[20px]"/>

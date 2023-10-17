@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 import "@/tailwind.css";
 import Admin from "@/pages/admin";
-import SalePoints from "@/pages/sale-points";
 import CompanyUsersList from "@/pages/admin/CompanyUsersList.tsx";
+import SalePoints from "@/pages/company";
+import BankList from "@/pages/admin/BankList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/sale-points/users",
     element: <CompanyUsersList />,
+  },
+  {
+    path: "/admin/bank",
+    element: <BankList />,
   },
   {
     path: "/*",

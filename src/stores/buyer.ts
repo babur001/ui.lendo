@@ -27,6 +27,7 @@ export interface IUserInfo {
   neighborhood: string;
   street: string;
   homeNumber: string;
+  flatNumber: string;
 }
 
 export interface IProducts {
