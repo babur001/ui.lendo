@@ -12,6 +12,7 @@ import SalePoints from "@/pages/company";
 import BankList from "@/pages/admin/BankList.tsx";
 import BusinessAnalytics from "@/pages/business-analytics";
 import Buxgalteriya from "@/pages/buxgalteriya";
+import AnalyticsByDate from "@/pages/analytics";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/buxgalter",
     element: <Buxgalteriya />,
+  },
+  {
+    path: "/analytics",
+    element: <AnalyticsByDate />,
   },
   {
     path: "/auth",
