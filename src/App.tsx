@@ -10,11 +10,16 @@ import Admin from "@/pages/admin";
 import CompanyUsersList from "@/pages/admin/CompanyUsersList.tsx";
 import SalePoints from "@/pages/company";
 import BankList from "@/pages/admin/BankList.tsx";
+import BusinessAnalytics from "@/pages/business-analytics";
 
 const router = createBrowserRouter([
   {
     path: "/nasiya",
     element: <Nasiya />,
+  },
+  {
+    path: "/business-analytics",
+    element: <BusinessAnalytics />,
   },
   {
     path: "/auth",
