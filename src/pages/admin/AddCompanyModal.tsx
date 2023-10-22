@@ -1,7 +1,6 @@
 import { Description, Input, Text } from "@geist-ui/core";
 import { Controller, useForm } from "react-hook-form";
-import regions from "@/data/ns10.json";
-import tumans from "@/data/ns11.json";
+
 import { Button, Modal, Select, message } from "antd";
 import { IUserInfo, useBuyerStore } from "@/stores/buyer";
 import { useMutation } from "@tanstack/react-query";
@@ -107,23 +106,23 @@ function AddCompanyModal({ onAdd }: IProps) {
             />
           </div>
           <div className="col-span-2">
-            <Input placeholder="..." width={"100%"} {...register("name")}>
+            <AntdInput placeholder="..." width={"100%"} {...register("name")}>
               {t("Korxona nomi")}
-            </Input>
+            </AntdInput>
           </div>
           <div className="col-span-2">
-            <Input placeholder="..." width={"100%"} {...register("brandName")}>
+            <AntdInput placeholder="..." width={"100%"} {...register("brandName")}>
               {t("BrandName")}
-            </Input>
+            </AntdInput>
           </div>
           <div className="col-span-2">
-            <Input
+            <AntdInput
               placeholder="..."
               width={"100%"}
               {...register("directorName")}
             >
               {t("DirectorName")}
-            </Input>
+            </AntdInput>
           </div>
           <div className="col-span-2">
             <Description
