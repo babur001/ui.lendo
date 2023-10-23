@@ -10,7 +10,6 @@ import {Input as AntdInput} from "antd";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import regions from "@/data/ns10.json";
-import BankList from "@/pages/admin/BankList.tsx";
 
 interface IProps {
     onAdd?: () => unknown;
@@ -24,6 +23,7 @@ interface ICompanyForm {
     directorName: string;
     contact: string;
     bankId: string;
+    operatorShare: string;
     user: {
         pinfl: string;
         fullName: string;
@@ -309,6 +309,27 @@ function AddCompanyModal({onAdd}: IProps) {
                                     />
                                 );
                             }}
+                        />
+                    </div>
+                    <div className="col-span-2">
+                        <Description
+                            title={t("Доля оператора")}
+                            content={
+                                <Controller
+                                    control={control}
+                                    name="operatorShare"
+                                    render={({field}) => {
+                                        return (
+                                            <PatternFormat
+                                                placeholder="..."
+                                                format="###"
+                                                customInput={AntdInput}
+                                                {...field}
+                                            />
+                                        );
+                                    }}
+                                />
+                            }
                         />
                     </div>
                     <div className="col-span-2">
