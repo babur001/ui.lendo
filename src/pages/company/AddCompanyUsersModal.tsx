@@ -7,7 +7,6 @@ import React, {useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {PatternFormat} from "react-number-format";
-import {LockOutlined} from "@ant-design/icons";
 
 interface ISellerForm {
     fullName: string;
@@ -16,7 +15,7 @@ interface ISellerForm {
     phone: string;
     companyId: string;
     salePointId: string;
-    role: [string];
+    role: string[];
     pinfl: string;
     managerId: string;
     fileGuid: string;
@@ -31,9 +30,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
     const [isOpen, setIsOpen] = useState(false);
 
 
-    const {control, register, handleSubmit} = useForm<ISellerForm>({
-        defaultValues: {role: ["COMPANY_EMPLOYEE"]},
-    });
+    const {control, register, handleSubmit} = useForm<ISellerForm>({});
 
 
     const mutateAddSeller = useMutation({
@@ -41,7 +38,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
             return req({
                 method: "POST",
                 url: `/auth/register`,
-                data: data,
+                data: data
             });
         },
     });
@@ -54,7 +51,8 @@ function AddCompanyUsersModal({onAdd}: IProps) {
         const data = {
             ...values,
             fileGuid: "1",
-            companyId: "1"
+            companyId: "1",
+            role: ["COMPANY_EMPLOYEE"]
         };
 
         const res = await mutateAddSeller.mutateAsync(data);
@@ -95,10 +93,10 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 {...field}
                                                 size="large"
                                                 options={[
-                                                    {label: t("Администратор магазина"), value: ["COMPANY_EMPLOYEE"]},
-                                                    {label: t("Продавец"), value: ["COMPANY_EMPLOYEE"]},
-                                                    {label: t("Бухгалтер"), value: ["COMPANY_EMPLOYEE"]},
-                                                    {label: t("Менеджер"), value: ["COMPANY_EMPLOYEE"]}
+                                                    {label: t("Администратор магазина"), value: "COMPANY_EMPLOYEE"},
+                                                    {label: t("Продавец"), value: "COMPANY_EMPLOYEE"},
+                                                    {label: t("Бухгалтер"), value: "COMPANY_ACCOUNTANT"},
+                                                    {label: t("Менеджер"), value: "COMPANY_MANAGER"}
                                                 ]}
                                             />
                                         }
