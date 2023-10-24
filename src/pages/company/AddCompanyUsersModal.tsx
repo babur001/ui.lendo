@@ -15,7 +15,7 @@ interface ISellerForm {
     phone: string;
     companyId: string;
     salePointId: string;
-    role: string[];
+    role: any;
     pinfl: string;
     managerId: string;
     fileGuid: string;
@@ -52,7 +52,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
             ...values,
             fileGuid: "1",
             companyId: "1",
-            role: ["COMPANY_EMPLOYEE"]
+            role: [values.role]
         };
 
         const res = await mutateAddSeller.mutateAsync(data);

@@ -10,7 +10,7 @@ import {ArrowRight, X} from "lucide-react";
 import {useEffect, useState} from "react";
 import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
-import {log} from "console";
+
 
 interface ITableEDIT {
     //
@@ -31,7 +31,7 @@ function Formalization({onFinish}: IProps) {
             clientScoringId: store.clientScoringId,
         }));
 
-    const {control, register, handleSubmit } = useForm<IProducts>({
+    const {control, register, handleSubmit} = useForm<IProducts>({
         defaultValues: {
             paymentSum: 0,
             paymentPeriod: 4,
@@ -65,8 +65,7 @@ function Formalization({onFinish}: IProps) {
     });
 
     useEffect(() => {
-        append({name: "", amount: 1, price: "", hasVat: 0});    //ШЕР
-
+        append({name: "", amount: 1, price: "", hasVat: 0, priceWithVat: 0});
         return () => remove();
     }, []);
 
@@ -132,7 +131,6 @@ function Formalization({onFinish}: IProps) {
                                 {t("Нархи")}
                             </Input>
                         </div>
-                        {/*ШЕР*/}
                         <div className="col-span-1">
                             <Controller
                                 control={control}
@@ -158,7 +156,9 @@ function Formalization({onFinish}: IProps) {
                             />
                         </div>
                         <div className="col-span-2">
-                            <Input width={"100%"} {...register(`items.${idx}.price`)}>
+                            <Input width={"100%"}
+                                   defaultValue={(`items.${idx}.price`)}
+                                   {...register(`items.${idx}.priceWithVat`)}>
                                 {t("Сумма с НСД")}
                             </Input>
                         </div>
@@ -186,7 +186,7 @@ function Formalization({onFinish}: IProps) {
                 <Button
                     className="col-span-3"
                     type="primary"
-                    onClick={() => append({name: "", amount: 1, price: "", hasVat: 0})} //ШЕР
+                    onClick={() => append({name: "", amount: 1, price: "", hasVat: 0, priceWithVat: 0})} //ШЕР
                 >
                     {t("Маҳсулот қўшиш")}
                 </Button>

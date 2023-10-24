@@ -1,7 +1,7 @@
 import Logo from "@/Logo";
 import { TLanguages } from "@/auth/i18n";
 import AnalyticsByDate from "@/pages/analytics";
-import BusinessAnalytics from "@/pages/business-analytics";
+import BusinessAnalytics from "../admin/business-analytics";
 import Header from "@/pages/header/Header";
 import { req } from "@/services/api";
 import { Text } from "@geist-ui/core";
