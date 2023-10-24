@@ -2,7 +2,7 @@ import {Description, Input, Text} from "@geist-ui/core";
 import {Controller, useForm} from "react-hook-form";
 
 import {Button, Modal, Select, message, Upload} from "antd";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {req} from "@/services/api";
 import {find, get} from "lodash";
 import {PatternFormat} from "react-number-format";
@@ -32,6 +32,10 @@ interface ICompanyForm {
         phone: string;
         fileGuid: string;
     };
+}
+interface IBank {
+    id: string | number;
+    bankName: string | number;
 }
 
 function AddCompanyModal({onAdd}: IProps) {
@@ -71,6 +75,20 @@ function AddCompanyModal({onAdd}: IProps) {
         }
     };
 
+    const queryBanks = useQuery({
+        queryKey: ["queryBanks"],
+        queryFn: () => {
+            return req({
+                method: "GET",
+                url: `/admin/get-banks`,
+                params: {
+                    //
+                },
+            });
+        },
+    });
+
+    const bankData = get(queryBanks, "data.data.data", []) as IBank[];
     return (
         <>
             <Button onClick={() => setIsOpen(true)} type="primary">
@@ -300,10 +318,10 @@ function AddCompanyModal({onAdd}: IProps) {
                                         placeholder={t("...")}
                                         className="!w-full"
                                         defaultValue={field.value}
-                                        options={regions.map((region, idx) => {
+                                        options={bankData.map((bank, idx) => {
                                             return {
-                                                value: region.CODE,
-                                                label: region.NAME_UZ,
+                                                value: bank.id,
+                                                label: bank.bankName,
                                             };
                                         })}
                                     />
