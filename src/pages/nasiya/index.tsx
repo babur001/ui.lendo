@@ -13,6 +13,7 @@ import Buyers from "@/pages/buyers";
 import { useTranslation } from "react-i18next";
 import { TLanguages } from "@/auth/i18n";
 import { useNavigate } from "react-router-dom";
+import Header from "@/pages/header/Header.tsx";
 
 const { Sider } = Layout;
 
@@ -236,7 +237,9 @@ function Wrapper() {
         </Sider>
 
         <Layout style={{ padding: "0 24px 24px" }} className="bg-white">
-          <header>
+          <Header/>
+
+          {/*ШЕР*/}{/*         <header>
             <div className="px-3 !mt-3 w-full flex items-center justify-end gap-5">
               <Select
                 className="w-40"
@@ -267,7 +270,8 @@ function Wrapper() {
                 <LogOut strokeWidth={1.5} size={14} className="!ml-4" />
               </Button>
             </div>
-          </header>
+          </header>*/}{/*-----*/}
+
           {menu === "register" ? <Nasiya /> : null}
           {menu === "buyers" ? <Buyers /> : null}
         </Layout>

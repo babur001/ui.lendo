@@ -72,11 +72,11 @@ export default function CompanyUsersList() {
         },
         {
             title: t("Роль"),
-            dataIndex: "roles.[name]",
+            dataIndex: "roles.name",
         },
         {
             title: t("Создатель"),
-            dataIndex: "roles.[name]",
+            dataIndex: "roles.name",
         },
         {
             title: t("Batafsil"),
