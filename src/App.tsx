@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 import "@/tailwind.css";
 import Admin from "@/pages/admin";
-import CompanyUsersList from "@/pages/admin/CompanyUsersList.tsx";
+import CompanyUsersList from "@/pages/admin/company/companyUsers/CompanyUsersList.tsx";
 import SalePoints from "@/pages/company";
-import BankList from "@/pages/admin/BankList.tsx";
-import BusinessAnalytics from "@/pages/business-analytics";
+import BankList from "@/pages/admin/bank/BankList.tsx";
 import Buxgalteriya from "@/pages/buxgalteriya";
 import AnalyticsByDate from "@/pages/analytics";
+import BusinessAnalytics from "@/pages/admin/business-analytics";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     element: <Admin />,
   },
   {
-    path: "/admin/company/:companyId",
+    path: "/admin/company/companyUsers/:companyId",
     element: <CompanyUsersList />,
   },
   {

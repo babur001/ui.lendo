@@ -3,7 +3,7 @@ import {Controller, useForm} from "react-hook-form";
 
 import {Button, Modal, Select, message, Upload} from "antd";
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {req} from "@/services/api";
+import {req} from "@/services/api.ts";
 import {find, get} from "lodash";
 import {PatternFormat} from "react-number-format";
 import {Input as AntdInput} from "antd";

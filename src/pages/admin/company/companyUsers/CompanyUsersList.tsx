@@ -1,4 +1,4 @@
-import {req} from "@/services/api";
+import {req} from "@/services/api.ts";
 import {Text} from "@geist-ui/core";
 import {useQuery} from "@tanstack/react-query";
 import {Button, Layout, Select, Table, theme} from "antd";
@@ -8,6 +8,7 @@ import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import AddCompanyUsersModal from "@/pages/company/AddCompanyUsersModal.tsx";
 import Header from "@/pages/header/Header.tsx";
+import Wrapper from "@/pages/admin";
 
 interface ICompanyUsers {
     id: string | number;
@@ -105,18 +106,20 @@ export default function CompanyUsersList() {
 
 
     return (
-        <div className="px-5 container  mx-auto">
-            <Header/>
-            <Text h3>{t("Operator shaxsiy kabineti")}</Text>
-            <div className="w-full flex items-center justify-center gap-5"><Text h3>{t("Xodim reyesti")}</Text>
+        <>
+            <div className="px-5 container  mx-auto">
+                <Header/>
+                <Text h3>{t("Operator shaxsiy kabineti")}</Text>
+                <div className="w-full flex items-center justify-center gap-5"><Text h3>{t("Xodim reyesti")}</Text>
+                </div>
+                <div className="h-[20px]"/>
+                <div className="w-full flex items-center justify-end">
+                    <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()}/>
+                    <div className="w-[40px]"/>
+                </div>
+                <div className="h-[20px]"/>
+                <Table pagination={false} dataSource={data} columns={columnsUser}/>
             </div>
-            <div className="h-[20px]"/>
-            <div className="w-full flex items-center justify-end">
-                <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()}/>
-                <div className="w-[40px]"/>
-            </div>
-            <div className="h-[20px]"/>
-            <Table pagination={false} dataSource={data} columns={columnsUser}/>
-        </div>
+        </>
     );
 }

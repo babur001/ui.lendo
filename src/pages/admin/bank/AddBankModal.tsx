@@ -3,9 +3,9 @@ import { Controller, useForm } from "react-hook-form";
 import regions from "@/data/ns10.json";
 import tumans from "@/data/ns11.json";
 import { Button, Modal, Select, message } from "antd";
-import { IUserInfo, useBuyerStore } from "@/stores/buyer";
+import { IUserInfo, useBuyerStore } from "@/stores/buyer.ts";
 import { useMutation } from "@tanstack/react-query";
-import { req } from "@/services/api";
+import { req } from "@/services/api.ts";
 import { find, get } from "lodash";
 import { PatternFormat } from "react-number-format";
 import { Input as AntdInput } from "antd";
@@ -65,7 +65,7 @@ function AddBankModal({ onAdd }: IProps) {
   return (
     <>
       <Button onClick={() => setIsOpen(true)} type="primary">
-        {t("Korxona qo'shish")}
+        {t("Bank qo'shish")}
       </Button>
 
       <Modal
