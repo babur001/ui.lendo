@@ -58,7 +58,7 @@ function Login() {
           navigate("/nasiya");
           break;
         case Roles.COMPANY_ACCOUNTANT:
-          navigate("/buxgalteriya");
+          navigate("/buxgalter");
           break;
       }
     } catch (error) {
