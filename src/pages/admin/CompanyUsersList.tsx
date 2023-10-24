@@ -16,10 +16,10 @@ interface ICompanyUsers {
     phone: string;
     username: string;
     password: string;
-    roles: [{
+    roles: {
         id: string;
         name: string;
-    }];
+    }[];
 }
 
 export default function CompanyUsersList() {
@@ -72,11 +72,23 @@ export default function CompanyUsersList() {
         },
         {
             title: t("Роль"),
-            dataIndex: "roles.name",
+            dataIndex: "roles",
+            render(value, record, index) {
+                const role = get(value, '0.name', 'Sher')
+                return (
+                    t(role)
+                );
+            },
         },
         {
             title: t("Создатель"),
-            dataIndex: "roles.name",
+            dataIndex: "roles",
+            render(value, record, index) {
+                const role = get(value, '0.name', '-')
+                return (
+                    t(role)
+                );
+            },
         },
         {
             title: t("Batafsil"),
