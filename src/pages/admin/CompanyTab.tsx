@@ -66,13 +66,7 @@ function CompanyTab() {
 
   return (
     <>
-      <div className="h-[20px]" />
-
       <div className="w-full flex items-center justify-between">
-        <Text h3 my={0}>
-          {"Korxonalar reyesti"}
-        </Text>
-
         <AddCompanyModal onAdd={() => queryCompanies.refetch()} />
       </div>
 

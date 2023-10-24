@@ -30,13 +30,7 @@ export default function Header() {
   return (
     <header className="py-3">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-7">
-          <Button className="flex items-center" onClick={goback}>
-            <ArrowBigLeft strokeWidth={1.5} size={14} className="" />
-            <div className="px-2" />
-            {t("Orqaga")}
-          </Button>
-        </div>
+        <div />
 
         <div className="px-3 flex items-center justify-end gap-5">
           {user.data ? (
