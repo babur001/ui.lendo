@@ -70,8 +70,6 @@ function BusinessAnalytics() {
   return (
     <>
       <div className="px-5 container  mx-auto">
-        <Header />
-        <div className="h-[30px]" />
         <Text h3>Бизнес аналитика</Text>
         <Segmented
           onChange={(tab) => setFilter({ ...filter, tab: tab as string })}

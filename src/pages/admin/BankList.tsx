@@ -92,7 +92,6 @@ export default function BankList() {
   return (
     <>
       <div className="px-5 container mx-auto">
-        <Header />
         <Text h3>{t("Operator shaxsiy kabineti")}</Text>
 
         <Segmented
@@ -112,15 +111,11 @@ export default function BankList() {
           }
         />
 
+        <div className="h-[20px]" />
+
         {tab === "bank" ? (
           <>
-            <div className="h-[20px]" />
-
             <div className="w-full flex items-center justify-between">
-              <Text h3 my={0}>
-                {t("Korxonalar reyesti")}
-              </Text>
-
               <AddBankModal onAdd={() => queryBanks.refetch()} />
             </div>
 
