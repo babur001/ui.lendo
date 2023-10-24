@@ -191,9 +191,6 @@ function Wrapper() {
 
           {menu === "business-analytics" ? <BusinessAnalytics /> : null}
           {menu === "analytics" ? <AnalyticsByDate /> : null}
-
-          {/* {menu === "register" ? <Nasiya /> : null}
-          {menu === "buyers" ? <Buyers /> : null} */}
         </Layout>
       </Layout>
     </div>
