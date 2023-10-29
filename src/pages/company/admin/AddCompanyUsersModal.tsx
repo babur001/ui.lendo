@@ -1,4 +1,4 @@
-import {req} from "@/services/api";
+import {req} from "@/services/api.ts";
 import {Description, Divider, Input, Text} from "@geist-ui/core";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {Button, Modal, message, Select, Input as AntdInput} from "antd";
@@ -7,6 +7,8 @@ import React, {useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {PatternFormat} from "react-number-format";
+import useAuthUser from "@/auth/useAuthUser.tsx";
+import {ICompany} from "@/pages/company/admin/SalePointList.tsx";
 
 interface ISellerForm {
     fullName: string;
@@ -25,13 +27,17 @@ interface IProps {
     onAdd: () => unknown;
 }
 
+interface ICompanyUsers {
+    id: string | number;
+    fullName: string;
+}
+
 function AddCompanyUsersModal({onAdd}: IProps) {
     const {t, i18n} = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
-
-
     const {control, register, handleSubmit} = useForm<ISellerForm>({});
-
+    const user = useAuthUser();
+    const companyId = get(user, "data.data.data.companyId", null);
 
     const mutateAddSeller = useMutation({
         mutationFn: (data: ISellerForm) => {
@@ -43,6 +49,38 @@ function AddCompanyUsersModal({onAdd}: IProps) {
         },
     });
 
+    const queryCompanyUsers = useQuery({
+        queryKey: ["queryCompanies"],
+        queryFn: () => {
+            return req({
+                method: "GET",
+                url: `/auth/get-users-list`,
+                params: {
+                    "companyId": companyId,
+                },
+            });
+        },
+    });
+    const UsersListData = get(queryCompanyUsers, "data.data.data.content", []) as ICompanyUsers[];
+
+    const querySalePoints = useQuery({
+        queryKey: ["querySalePoints", companyId],
+        queryFn: () => {
+            return req({
+                method: "GET",
+                url: `/company-admin/get-sale-points`,
+                params: {
+                    companyId: companyId,
+                    page: 0,
+                    size: 20,
+                },
+            });
+        },
+    });
+    const salePointData = get(querySalePoints, "data.data.data.content", []) as ICompany[];
+
+
+
     const onSubmit = async (values: ISellerForm) => {
         if (!values) {
             return message.error(t(`Маълумотлар топилмади`));
@@ -51,7 +89,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
         const data = {
             ...values,
             fileGuid: "1",
-            companyId: "1",
+            companyId: companyId,
             role: [values.role]
         };
 
@@ -93,7 +131,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 {...field}
                                                 size="large"
                                                 options={[
-                                                    {label: t("Администратор магазина"), value: "COMPANY_EMPLOYEE"},
+                                                    {label: t("Администратор магазина"), value: "COMPANY_ADMIN"},
                                                     {label: t("Продавец"), value: "COMPANY_EMPLOYEE"},
                                                     {label: t("Бухгалтер"), value: "COMPANY_ACCOUNTANT"},
                                                     {label: t("Менеджер"), value: "COMPANY_MANAGER"}
@@ -118,12 +156,13 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 className={"w-[100%]"}
                                                 {...field}
                                                 size="large"
-                                                options={[
-                                                    {label: t("Менеджер1"), value: 1},
-                                                    {label: t("Менеджер2"), value: 2},
-                                                    {label: t("Менеджер3"), value: 3},
-                                                    {label: t("Менеджер4"), value: 4}
-                                                ]}
+                                                defaultValue={field.value}
+                                                options={UsersListData.map((user, idx) => {
+                                                    return {
+                                                        value: user.id,
+                                                        label: user.fullName,
+                                                    };
+                                                })}
                                             />
                                         }
                                     />
@@ -220,10 +259,13 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 className={"w-[100%]"}
                                                 {...field}
                                                 size="large"
-                                                options={[
-                                                    {label: t("Дукон1"), value: 1},
-                                                    {label: t("Дукон2"), value: 2}
-                                                ]}
+                                                defaultValue={field.value}
+                                                options={salePointData.map((salePoint, idx) => {
+                                                    return {
+                                                        value: salePoint.id,
+                                                        label: salePoint.name,
+                                                    };
+                                                })}
                                             />
                                         }
                                     />

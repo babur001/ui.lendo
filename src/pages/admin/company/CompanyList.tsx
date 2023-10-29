@@ -8,7 +8,6 @@ import {get} from "lodash";
 import {ArrowRight, Building, List, LogOut, Users} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
-import Wrapper from "@/pages/admin";
 
 interface ICompany {
     id: string | number;

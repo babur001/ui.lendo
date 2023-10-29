@@ -1,9 +1,9 @@
 import Nasiya from "@/pages/nasiya";
 import Auth from "@/pages/auth";
 import {
-  Navigate,
-  RouterProvider,
-  createBrowserRouter,
+    Navigate,
+    RouterProvider,
+    createBrowserRouter,
 } from "react-router-dom";
 import "@/tailwind.css";
 import Admin from "@/pages/admin";
@@ -13,60 +13,67 @@ import BankList from "@/pages/admin/bank/BankList.tsx";
 import Buxgalteriya from "@/pages/buxgalteriya";
 import AnalyticsByDate from "@/pages/analytics";
 import BusinessAnalytics from "@/pages/admin/business-analytics";
+import Company from "@/pages/company";
+import WrapperCompany from "@/pages/company";
+import UsersList from "@/pages/company/admin/UsersList.tsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/nasiya",
-    element: <Nasiya />,
-  },
-  {
-    path: "/business-analytics",
-    element: <BusinessAnalytics />,
-  },
-  {
-    path: "/buxgalter",
-    element: <Buxgalteriya />,
-  },
-  {
-    path: "/analytics",
-    element: <AnalyticsByDate />,
-  },
-  {
-    path: "/auth",
-    element: <Auth />,
-  },
-  {
-    path: "/admin",
-    element: <Admin />,
-  },
-  {
-    path: "/admin/company/companyUsers/:companyId",
-    element: <CompanyUsersList />,
-  },
-  {
-    path: "/sale-points",
-    element: <SalePoints />,
-  },
-  {
-    path: "/sale-points/users",
-    element: <CompanyUsersList />,
-  },
-  {
-    path: "/admin/bank",
-    element: <BankList />,
-  },
-  {
-    path: "/*",
-    element: <Navigate to={"/auth"} />,
-  },
+    {
+        path: "/nasiya",
+        element: <Nasiya/>,
+    },
+    {
+        path: "/business-analytics",
+        element: <BusinessAnalytics/>,
+    },
+    {
+        path: "/buxgalter",
+        element: <Buxgalteriya/>,
+    },
+    {
+        path: "/analytics",
+        element: <AnalyticsByDate/>,
+    },
+    {
+        path: "/auth",
+        element: <Auth/>,
+    },
+    {
+        path: "/admin",
+        element: <Admin/>,
+    },
+    {
+        path: "/admin/company/companyUsers/:companyId",
+        element: <CompanyUsersList/>,
+    },
+    {
+        path: "/sale-points",
+        element: <SalePoints/>,
+    },
+    {
+        path: "/sale-points/users",
+        element: <UsersList/>,
+    },
+    {
+        path: "/admin/bank",
+        element: <BankList/>,
+    },
+    {
+        path: "/company-admin",
+        element: <WrapperCompany/>,
+    },
+    {
+        path: "/*",
+        element: <Navigate to={"/auth"}/>,
+    },
 ]);
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+    return (
+        <>
+            <RouterProvider router={router}/>
+        </>
+    );
 }
 
 export default App;
