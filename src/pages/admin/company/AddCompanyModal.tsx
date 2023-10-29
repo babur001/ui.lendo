@@ -331,7 +331,7 @@ function AddCompanyModal({onAdd}: IProps) {
                     </div>
                     <div className="col-span-2">
                         <Description
-                            title={t("Доля оператора")}
+                            title={t("Оператор улуши")}
                             content={
                                 <Controller
                                     control={control}

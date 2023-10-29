@@ -8,9 +8,9 @@ import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import AddCompanyUsersModal from "@/pages/company/admin/AddCompanyUsersModal.tsx";
 import Header from "@/pages/header/Header.tsx";
-import Wrapper from "@/pages/admin";
+import {useParams} from "react-router-dom";
 import useAuthUser from "@/auth/useAuthUser.tsx";
-import {useNavigate, useParams} from "react-router-dom";
+
 
 interface ICompanyUsers {
     id: string | number;
@@ -26,9 +26,12 @@ interface ICompanyUsers {
 }
 
 
-export default function CompanyUsersList() {
+
+export default function UsersList() {
     const {t} = useTranslation();
-    const params = useParams();
+
+    const user = useAuthUser();
+    const companyId = get(user, "data.data.data.companyId", null);
     const queryCompanyUsers = useQuery({
         queryKey: ["queryCompanies"],
         queryFn: () => {
@@ -36,7 +39,7 @@ export default function CompanyUsersList() {
                 method: "GET",
                 url: `/auth/get-users-list`,
                 params: {
-                    "companyId": params.companyId,
+                    "companyId": companyId,
                 },
             });
         },
@@ -110,11 +113,7 @@ export default function CompanyUsersList() {
     return (
         <>
             <div className="px-5 container  mx-auto">
-                <Header/>
-                <Text h3>{t("Operator shaxsiy kabineti")}</Text>
-                <div className="w-full flex items-center justify-center gap-5"><Text h3>{t("Xodim reyesti")}</Text>
-                </div>
-                <div className="h-[20px]"/>
+                <Text h3>{t("Xodim reyesti")}</Text>
                 <div className="w-full flex items-center justify-end">
                     <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()}/>
                     <div className="w-[40px]"/>

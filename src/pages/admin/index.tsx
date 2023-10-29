@@ -32,21 +32,11 @@ function Wrapper() {
             label: t(`Реестр кредитующих организации`),
         },
     ];
-
-    const changeLanguageHandler = (lang: TLanguages) => {
-        i18n.changeLanguage(lang);
-    };
-
     const {
         token: {colorBgContainer},
     } = theme.useToken();
-
     const [menu, setMenu] = useState("business-analytics");
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        navigate("/auth");
-    };
     return (
         <div>
             <Layout>
