@@ -8,14 +8,16 @@ import {
 } from "react-router-dom";
 import "@/tailwind.css";
 import Admin from "@/pages/admin";
-import CompanyUsersList from "@/pages/admin/CompanyUsersList.tsx";
+import CompanyUsersList from "@/pages/admin/company/companyUsers/CompanyUsersList.tsx";
 import SalePoints from "@/pages/company";
-import BankList from "@/pages/admin/BankList.tsx";
-import BusinessAnalytics from "@/pages/business-analytics";
+import BankList from "@/pages/admin/bank/BankList.tsx";
 import Buxgalteriya from "@/pages/buxgalteriya";
 import AnalyticsByDate from "@/pages/analytics";
 import AdminLayout from "@/pages/admin/AdminLayout";
+import BusinessAnalytics from "@/pages/admin/business-analytics";
 import Company from "@/pages/company";
+import WrapperCompany from "@/pages/company";
+import UsersList from "@/pages/company/admin/UsersList.tsx";
 
 export type TAdminPages =
   | "business-analytics"
@@ -72,7 +74,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <Admin />,
   },
-
+  {
+    path: "/admin/company/:companyId",
+    element: <CompanyUsersList />,
+  },
   {
     path: "/sale-points",
     element: <SalePoints />,

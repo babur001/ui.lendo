@@ -60,6 +60,9 @@ function Login() {
         case Roles.COMPANY_ACCOUNTANT:
           navigate("/buxgalter");
           break;
+        case Roles.COMPANY_ADMIN:
+          navigate("/company-admin");
+          break;
       }
     } catch (error) {
       console.log(error);

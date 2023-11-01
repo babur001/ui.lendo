@@ -1,20 +1,19 @@
-import AddCompanyModal from "@/pages/admin/AddCompanyModal";
-import { req } from "@/services/api";
-import { Text } from "@geist-ui/core";
-import { useQuery } from "@tanstack/react-query";
-import { Button, Layout, Menu, MenuProps, Select, Table, theme } from "antd";
-import { ColumnsType } from "antd/es/table";
-import { get } from "lodash";
-import { ArrowRight, Building, List, LogOut, Users } from "lucide-react";
+import { Button, Table, Layout, Menu, MenuProps, theme } from "antd";
+
+import { ArrowRight, Building, List, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Header from "@/pages/header/Header.tsx";
 import { TLanguages } from "@/auth/i18n";
 import Logo from "@/Logo";
 import { useState } from "react";
-import BusinessAnalytics from "@/pages/business-analytics";
 import Company from "@/pages/company";
-import BankList from "@/pages/admin/BankList";
+import { useQuery } from "@tanstack/react-query";
+import { req } from "@/services/api";
+import { get } from "lodash";
+import { ColumnsType } from "antd/es/table";
+import { Text } from "@geist-ui/core";
+import AddCompanyModal from "@/pages/admin/company/AddCompanyModal";
 
 interface ICompany {
   id: string | number;

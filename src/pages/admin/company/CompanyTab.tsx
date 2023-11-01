@@ -1,5 +1,5 @@
-import AddCompanyModal from "@/pages/admin/AddCompanyModal";
-import { req } from "@/services/api";
+import AddCompanyModal from "@/pages/admin/company/AddCompanyModal.tsx";
+import { req } from "@/services/api.ts";
 import { Text } from "@geist-ui/core";
 import { useQuery } from "@tanstack/react-query";
 import { Table } from "antd";
@@ -66,10 +66,9 @@ function CompanyTab() {
 
   return (
     <>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-end">
         <AddCompanyModal onAdd={() => queryCompanies.refetch()} />
       </div>
-
       <div className="h-[20px]" />
 
       <Table pagination={false} dataSource={data} columns={columns} />

@@ -65,7 +65,7 @@ function Formalization({ onFinish }: IProps) {
   });
 
   useEffect(() => {
-    append({ name: "", amount: 1, price: "", hasVat: 1 }); //ШЕР
+    append({ name: "", amount: 1, price: "", hasVat: 0, priceWithVat: 0 }); //ШЕР
 
     return () => remove();
   }, []);
@@ -132,8 +132,8 @@ function Formalization({ onFinish }: IProps) {
                 {t("Нархи")}
               </Input>
             </div>
-
-            <div className="col-span-2">
+            {/*ШЕР*/}
+            <div className="col-span-1">
               <Controller
                 control={control}
                 name={`items.${idx}.hasVat`}
@@ -143,8 +143,8 @@ function Formalization({ onFinish }: IProps) {
                       title={t("ҚҚС")}
                       content={
                         <Select
+                          className={"w-[80px]"}
                           {...field}
-                          className={"w-full"}
                           size="large"
                           options={[
                             { label: t("ҚҚСсиз"), value: 1 },
@@ -186,7 +186,15 @@ function Formalization({ onFinish }: IProps) {
         <Button
           className="col-span-3"
           type="primary"
-          onClick={() => append({ name: "", amount: 1, price: "", hasVat: 1 })} //ШЕР
+          onClick={() =>
+            append({
+              name: "",
+              amount: 1,
+              price: "",
+              hasVat: 1,
+              priceWithVat: 0,
+            })
+          } //ШЕР
         >
           {t("Маҳсулот қўшиш")}
         </Button>
