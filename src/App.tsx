@@ -2,6 +2,7 @@ import Nasiya from "@/pages/nasiya";
 import Auth from "@/pages/auth";
 import {
   Navigate,
+  RouteObject,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
@@ -13,8 +14,32 @@ import BankList from "@/pages/admin/BankList.tsx";
 import BusinessAnalytics from "@/pages/business-analytics";
 import Buxgalteriya from "@/pages/buxgalteriya";
 import AnalyticsByDate from "@/pages/analytics";
+import AdminLayout from "@/pages/admin/AdminLayout";
+import Company from "@/pages/company";
+
+export type TAdminPages = "business-analytics" | "clients" | "companies";
+
+const adminRoutes = [
+  {
+    path: "business-analytics",
+    element: <AdminLayout />,
+  },
+  {
+    path: "clients",
+    element: <Company />,
+  },
+  {
+    path: "companies",
+    element: <BankList />,
+  },
+] satisfies (RouteObject & { path: TAdminPages })[];
 
 const router = createBrowserRouter([
+  {
+    path: "/admin/",
+    element: <AdminLayout />,
+    children: adminRoutes,
+  },
   {
     path: "/nasiya",
     element: <Nasiya />,
