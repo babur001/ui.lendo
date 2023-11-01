@@ -30,8 +30,9 @@ enum TEnumSteps {
 function Nasiya() {
   const { t, i18n } = useTranslation();
   const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-    active: TEnumSteps.IDENTIFICATION,
-    actual: TEnumSteps.IDENTIFICATION,
+    // @remove
+    active: TEnumSteps.FORMALIZATION,
+    actual: TEnumSteps.FORMALIZATION,
   });
 
   return (
@@ -237,9 +238,10 @@ function Wrapper() {
         </Sider>
 
         <Layout style={{ padding: "0 24px 24px" }} className="bg-white">
-          <Header/>
+          <Header />
 
-          {/*ШЕР*/}{/*         <header>
+          {/*ШЕР*/}
+          {/*         <header>
             <div className="px-3 !mt-3 w-full flex items-center justify-end gap-5">
               <Select
                 className="w-40"
@@ -270,7 +272,8 @@ function Wrapper() {
                 <LogOut strokeWidth={1.5} size={14} className="!ml-4" />
               </Button>
             </div>
-          </header>*/}{/*-----*/}
+          </header>*/}
+          {/*-----*/}
 
           {menu === "register" ? <Nasiya /> : null}
           {menu === "buyers" ? <Buyers /> : null}

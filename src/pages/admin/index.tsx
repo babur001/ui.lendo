@@ -114,7 +114,6 @@ function Admin() {
 
   return (
     <div className="px-5 container  mx-auto">
-      <Header />
       <Text h3>{t("Operator shaxsiy kabineti")}</Text>
       <div className="w-full flex items-center justify-center gap-5">
         <Text h3>{t("Korxonalar reyesti")}</Text>

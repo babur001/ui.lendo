@@ -17,12 +17,16 @@ import AnalyticsByDate from "@/pages/analytics";
 import AdminLayout from "@/pages/admin/AdminLayout";
 import Company from "@/pages/company";
 
-export type TAdminPages = "business-analytics" | "clients" | "companies";
+export type TAdminPages =
+  | "business-analytics"
+  | "clients"
+  | "companies"
+  | "company/:companyId";
 
 const adminRoutes = [
   {
     path: "business-analytics",
-    element: <AdminLayout />,
+    element: <Admin />,
   },
   {
     path: "clients",
@@ -31,6 +35,10 @@ const adminRoutes = [
   {
     path: "companies",
     element: <BankList />,
+  },
+  {
+    path: "company/:companyId",
+    element: <CompanyUsersList />,
   },
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
@@ -64,10 +72,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <Admin />,
   },
-  {
-    path: "/admin/company/:companyId",
-    element: <CompanyUsersList />,
-  },
+
   {
     path: "/sale-points",
     element: <SalePoints />,
