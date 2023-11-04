@@ -158,7 +158,7 @@ function Formalization({onFinish}: IProps) {
                             />
                         </div>
 
-                        <div className="col-span-3">
+                        <div className="col-span-2">
                             <TotalSingleProduct control={control} idx={idx}/>
                         </div>
 
@@ -260,7 +260,6 @@ function Formalization({onFinish}: IProps) {
                         );
                     }}
                 />
-
                 <TotalContractedSum control={control}/>
             </div>
 
