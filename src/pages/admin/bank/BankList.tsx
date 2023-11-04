@@ -86,15 +86,14 @@ export default function BankList() {
     ];
     return (
         <>
-            <div className="px-5 container mx-auto">
-                <Text h3>{t("Реестр кредитующих организации")}</Text>
-                <div className="h-[20px]"/>
-                <div className="w-full flex items-center justify-end">
-                    <AddBankModal onAdd={() => queryBanks.refetch()}/>
-                </div>
-                <div className="h-[20px]"/>
-                <Table pagination={false} dataSource={data} columns={columns}/>
+            <Text h3>{t("Реестр кредитующих организации")}</Text>
+            <div className="h-[20px]"/>
+            <div className="w-full flex items-center justify-end">
+                <AddBankModal onAdd={() => queryBanks.refetch()}/>
             </div>
+            <div className="h-[20px]"/>
+            <Table pagination={false} dataSource={data} columns={columns}/>
+
         </>
     );
 }

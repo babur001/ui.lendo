@@ -70,25 +70,25 @@ function BusinessAnalytics() {
 
     return (
         <>
-            <div className="px-5 container  mx-auto">
-                <Text h3>Бизнес аналитика</Text>
-                <Segmented
-                    onChange={(tab) => setFilter({...filter, tab: tab as string})}
-                    value={filter.tab}
-                    options={[
-                        {
-                            label: t("Фаолият бошидан"),
-                            value: "all",
-                        },
-                        {
-                            label: t("Жорий ой"),
-                            value: "current_month",
-                        },
-                    ]}
-                />
-                <div className="h-[20px]"/>
-                <Table pagination={false} dataSource={data} columns={columns}/>
-            </div>
+            <Text h3>Бизнес аналитика</Text>
+            <div className="h-[20px]"/>
+            <div className="w-full flex items-center justify-start"><Segmented
+                onChange={(tab) => setFilter({...filter, tab: tab as string})}
+                value={filter.tab}
+                options={[
+                    {
+                        label: t("Фаолият бошидан"),
+                        value: "all",
+                    },
+                    {
+                        label: t("Жорий ой"),
+                        value: "current_month",
+                    },
+                ]}
+            /></div>
+
+            <div className="h-[20px]"/>
+            <Table pagination={false} dataSource={data} columns={columns}/>
         </>
     );
 }
