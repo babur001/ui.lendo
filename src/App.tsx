@@ -18,6 +18,7 @@ import BusinessAnalytics from "@/pages/admin/business-analytics";
 import Company from "@/pages/company";
 import WrapperCompany from "@/pages/company";
 import UsersList from "@/pages/company/admin/UsersList.tsx";
+import CompanyList from "@/pages/admin/company/CompanyList";
 
 export type TAdminPages =
   | "business-analytics"
@@ -32,7 +33,7 @@ const adminRoutes = [
   },
   {
     path: "clients",
-    element: <Company />,
+    element: <CompanyList />,
   },
   {
     path: "companies",
