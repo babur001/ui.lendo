@@ -28,7 +28,7 @@ export type TAdminPages =
 const adminRoutes = [
   {
     path: "business-analytics",
-    element: <Admin />,
+    element: <BusinessAnalytics />,
   },
   {
     path: "clients",
@@ -37,6 +37,10 @@ const adminRoutes = [
   {
     path: "companies",
     element: <BankList />,
+  },
+  {
+    path: "company/:companyId",
+    element: <CompanyUsersList />,
   },
   {
     path: "company/:companyId",
