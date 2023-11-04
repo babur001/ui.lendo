@@ -17,16 +17,12 @@ export default function Header() {
         localStorage.removeItem("token");
         navigate("/auth");
     };
-    const goback = () => {
-        navigate("/nasiya");
-    };
 
     const user = useAuthUser();
 
     const name = get(user, "data.data.data.fullName", null);
     const companyName = get(user, "data.data.data.company.name", null);
     const rolesName = get(user, "data.data.data.roles.0.name", null);
-    console.log("rolesName", rolesName);
 
     return (
         <header className="py-3">

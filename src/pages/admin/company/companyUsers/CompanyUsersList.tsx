@@ -6,11 +6,7 @@ import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
 import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
-import AddCompanyUsersModal from "@/pages/company/admin/AddCompanyUsersModal.tsx";
-import Header from "@/pages/header/Header.tsx";
-import Wrapper from "@/pages/admin";
-import useAuthUser from "@/auth/useAuthUser.tsx";
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 
 interface ICompanyUsers {
     id: string | number;

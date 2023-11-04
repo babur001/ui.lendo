@@ -30,6 +30,7 @@ interface IProps {
 interface ICompanyUsers {
     id: string | number;
     fullName: string;
+    roles: string[];
 }
 
 function AddCompanyUsersModal({onAdd}: IProps) {
@@ -62,6 +63,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
         },
     });
     const UsersListData = get(queryCompanyUsers, "data.data.data.content", []) as ICompanyUsers[];
+    const rolesName = get(queryCompanyUsers, "data.data.data.content.0.roles.0.name", []) as ICompanyUsers[];
 
     const querySalePoints = useQuery({
         queryKey: ["querySalePoints", companyId],
@@ -78,7 +80,6 @@ function AddCompanyUsersModal({onAdd}: IProps) {
         },
     });
     const salePointData = get(querySalePoints, "data.data.data.content", []) as ICompany[];
-
 
 
     const onSubmit = async (values: ISellerForm) => {
@@ -131,7 +132,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 {...field}
                                                 size="large"
                                                 options={[
-                                                    {label: t("Администратор магазина"), value: "COMPANY_ADMIN"},
+                                                    {label: t("Администратор магазина"), value: "SALE_POINT_ADMIN"},
                                                     {label: t("Продавец"), value: "COMPANY_EMPLOYEE"},
                                                     {label: t("Бухгалтер"), value: "COMPANY_ACCOUNTANT"},
                                                     {label: t("Менеджер"), value: "COMPANY_MANAGER"}
@@ -158,10 +159,12 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 size="large"
                                                 defaultValue={field.value}
                                                 options={UsersListData.map((user, idx) => {
+                                                    //              if (String(rolesName).valueOf() == new String("COMPANY_MANAGER").valueOf()) {
                                                     return {
                                                         value: user.id,
                                                         label: user.fullName,
                                                     };
+                                                    //            }
                                                 })}
                                             />
                                         }
