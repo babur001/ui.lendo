@@ -33,7 +33,6 @@ export interface CreatedByOrUpdatedBy {
     id: number;
     companyId: number;
 }
-
 export default function SalePointList() {
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -89,7 +88,7 @@ export default function SalePointList() {
             dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button onClick={() => navigate(`/sale-points/users`)}>
+                    <Button onClick={() => navigate(`/company-admin/sale-points/${record.id}`)}>
                         <ArrowRight strokeWidth={1}/>
                     </Button>
                 );
@@ -97,23 +96,14 @@ export default function SalePointList() {
         },
     ];
 
-    const changeLanguageHandler = (lang: TLanguages) => {
-        i18n.changeLanguage(lang);
-    };
-    const logout = () => {
-        localStorage.removeItem("token");
-        navigate("/auth");
-    };
-
     return (
-        <div className="px-5 container mx-auto">
+        <>
             <Text h3>{t("Реестр магазинов")}</Text>
             <div className="w-full flex items-center justify-end">
                 <AddSalePointModal onAdd={() => querySalePoints.refetch()}/>
             </div>
-
             <div className="h-[20px]"/>
             <Table pagination={false} dataSource={data} columns={columns}/>
-        </div>
+        </>
     );
 }

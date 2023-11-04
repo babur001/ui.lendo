@@ -24,7 +24,7 @@ function TotalSingleProduct({
 
     return (
         <Input width={"100%"} value={String(total)} readOnly>
-            {t("Жами сумма")}
+            {t("Жами сумма (ҚҚС билан)")}
         </Input>
     );
 }

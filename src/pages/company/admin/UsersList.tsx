@@ -26,7 +26,6 @@ interface ICompanyUsers {
 }
 
 
-
 export default function UsersList() {
     const {t} = useTranslation();
 
@@ -97,30 +96,28 @@ export default function UsersList() {
                 );
             },
         },
-        {
+     /*   {
             title: t("Batafsil"),
             dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button /*onClick={() => navigate(`/sale-points/${record.id}`)}*/>
+                    <Button /!*onClick={() => navigate(`/sale-points/${record.id}`)}*!/>
                         <ArrowRight strokeWidth={1}/>
                     </Button>
                 );
             },
-        },
+        },*/
     ];
 
     return (
         <>
-            <div className="px-5 container  mx-auto">
-                <Text h3>{t("Xodim reyesti")}</Text>
-                <div className="w-full flex items-center justify-end">
-                    <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()}/>
-                    <div className="w-[40px]"/>
-                </div>
-                <div className="h-[20px]"/>
-                <Table pagination={false} dataSource={data} columns={columnsUser}/>
+            <Text h3>{t("Xodim reyesti")}</Text>
+            <div className="w-full flex items-center justify-end">
+                <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()}/>
+                <div className="w-[40px]"/>
             </div>
+            <div className="h-[20px]"/>
+            <Table pagination={false} dataSource={data} columns={columnsUser}/>
         </>
     );
 }
