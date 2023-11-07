@@ -65,7 +65,7 @@ function Formalization({onFinish}: IProps) {
     });
 
     useEffect(() => {
-        append({name: "", amount: 1, price: "", hasVat: 0, priceWithVat: 0}); //ШЕР
+        append({name: "", amount: 1, price: "", hasVat: 0, priceWithVat: 0});
 
         return () => remove();
     }, []);
@@ -80,6 +80,7 @@ function Formalization({onFinish}: IProps) {
             clientPinfl: get(user, "pinfl", ""),
             clientProfileId,
             clientScoringId,
+
         };
 
         setProducts(values);
@@ -132,6 +133,7 @@ function Formalization({onFinish}: IProps) {
                                 {t("Нархи")}
                             </Input>
                         </div>
+
                         <div className="col-span-2">
                             <Controller
                                 control={control}

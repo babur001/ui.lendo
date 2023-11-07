@@ -3,17 +3,11 @@ import Info from "@/auth/Info";
 import {Button, Layout, Menu, MenuProps, Select, Steps, theme} from "antd";
 import {useState} from "react";
 import Scoring from "@/auth/Scoring";
-import Logo from "@/Logo";
 import Formalization from "@/auth/Formalization";
 import Contract from "@/auth/Contract";
 import Approval from "@/auth/Approval";
 import Graph from "@/auth/Graph";
-import {Calculator, LayoutDashboard, LogOut, User} from "lucide-react";
-import Buyers from "@/pages/buyers";
 import {useTranslation} from "react-i18next";
-import {TLanguages} from "@/auth/i18n";
-import {useNavigate} from "react-router-dom";
-import Header from "@/pages/header/Header.tsx";
 
 const {Sider} = Layout;
 

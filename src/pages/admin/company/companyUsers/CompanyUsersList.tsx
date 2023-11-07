@@ -6,7 +6,7 @@ import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
 import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
-import { useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 interface ICompanyUsers {
     id: string | number;

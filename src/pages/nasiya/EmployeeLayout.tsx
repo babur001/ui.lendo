@@ -29,7 +29,7 @@ function EmployeeLayout() {
         {
             key: "buyers",
             icon: <Users strokeWidth={1.5} className="!h-5"/>,
-            label: t(`Ҳаридорлар рўйхати`),
+            label: t(`Список заявлений`),
         },
     ];
 

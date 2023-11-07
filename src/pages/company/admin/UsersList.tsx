@@ -1,15 +1,14 @@
 import {req} from "@/services/api.ts";
 import {Text} from "@geist-ui/core";
 import {useQuery} from "@tanstack/react-query";
-import {Button, Layout, Select, Table, theme} from "antd";
+import {Table} from "antd";
 import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
-import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import AddCompanyUsersModal from "@/pages/company/admin/AddCompanyUsersModal.tsx";
-import Header from "@/pages/header/Header.tsx";
-import {useParams} from "react-router-dom";
+
 import useAuthUser from "@/auth/useAuthUser.tsx";
+import moment from "moment/moment";
 
 
 interface ICompanyUsers {
@@ -19,10 +18,19 @@ interface ICompanyUsers {
     phone: string;
     username: string;
     password: string;
+    createdAt: string;
     roles: {
         id: string;
         name: string;
     }[];
+    createdBy: {
+        fullName: string;
+        roles: {
+            name: string;
+        }[];
+    };
+    manager: { fullName: string; };
+    salePoint: { name: string; regionName: string; districtName: string; address: string; };
 }
 
 
@@ -88,25 +96,43 @@ export default function UsersList() {
         },
         {
             title: t("Создатель"),
-            dataIndex: "roles",
+            dataIndex: "createdBy",
             render(value, record, index) {
-                const role = get(value, '0.name', '-')
+                const fullName = get(value, 'fullName', '-');
+                const role = get(value, 'roles', '-');
+                const role_ch = get(role, '0.name', '-');
                 return (
-                    t(role)
+                    t(fullName) + " (" + t(role_ch) + ")"
                 );
             },
         },
-     /*   {
-            title: t("Batafsil"),
-            dataIndex: "",
+        {
+            title: t("createdAt"),
+            dataIndex: "createdAt",
             render(value, record, index) {
                 return (
-                    <Button /!*onClick={() => navigate(`/sale-points/${record.id}`)}*!/>
-                        <ArrowRight strokeWidth={1}/>
-                    </Button>
+                    moment(value).format("DD.MM.YYYY")
                 );
             },
-        },*/
+        },
+        {
+            title: t("Do'kon nomi"),
+            dataIndex: "salePoint",
+            render(value, record, index) {
+                const salePointName = get(value, 'name', '-')
+                const regionName = get(value, 'regionName', '-')
+                const districtName = get(value, 'districtName', '-')
+                const address = get(value, 'address', '-')
+                if (salePointName === '-') {
+                    return (
+                        "-"
+                    );
+                } else return (
+                    t(salePointName) + " (" + districtName + ", " + address + ")"
+                );
+
+            },
+        },
     ];
 
     return (

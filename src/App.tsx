@@ -14,6 +14,7 @@ import Buyers from '@/pages/buyers';
 import EmployeeLayout from '@/pages/nasiya/EmployeeLayout.tsx';
 import Nasiya from '@/pages/nasiya';
 import AccountantLayout from '@/pages/buxgalteriya/AccountantLayout.tsx';
+import Applications from "@/pages/buyers/applicationsList.tsx";
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
 
@@ -29,10 +30,6 @@ const adminRoutes = [
 	{
 		path: 'companies',
 		element: <BankList />,
-	},
-	{
-		path: 'company/:companyId',
-		element: <CompanyUsersList />,
 	},
 	{
 		path: 'company/:companyId',
@@ -74,11 +71,11 @@ const EmployeeRoutes = [
 	},
 	{
 		path: 'buyers',
-		element: <Buyers />,
+		element: <Applications />,
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 
-export type TAccountantPages = 'business-analytics' | 'analytics' | 'buyers';
+export type TAccountantPages = 'business-analytics' | 'analytics' | 'buyers' | 'buyers/:pinfl';
 
 const AccountantRoutes = [
 	{
@@ -93,7 +90,14 @@ const AccountantRoutes = [
 		path: 'buyers',
 		element: <Buyers />,
 	},
+	{
+		path: 'buyers/:pinfl',
+		element: <Applications />,
+	},
 ] satisfies (RouteObject & { path: TAccountantPages })[];
+
+
+
 
 const router = createBrowserRouter([
 	{
