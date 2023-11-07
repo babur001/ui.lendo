@@ -17,14 +17,14 @@ function BusinessAnalytics() {
         queryFn: () => {
             return req({
                 method: "GET",
-                url: `/admin/get-companies`,
+                url: `/stat/get-analytic-stat-monthly`,
                 params: {
                     //
                 },
             });
         },
     });
-    const data = get(queryBusinessAnalytics, "data.data.data.content", []);
+    const data = get(queryBusinessAnalytics, "data.data.data", []);
     const {t, i18n} = useTranslation();
     const columns: ColumnsType<any> = [
         {
@@ -36,35 +36,35 @@ function BusinessAnalytics() {
         },
         {
             title: t("Савдо белгиси (бренд)"),
-            dataIndex: "",
+            dataIndex: "companyBrand",
         },
         {
             title: t("Харидорлар сони"),
-            dataIndex: "",
+            dataIndex: "consumerCnt",
         },
         {
             title: t("Аризалар сони"),
-            dataIndex: "",
+            dataIndex: "applicationCnt",
         },
         {
             title: t("Маҳсулотлар сони"),
-            dataIndex: "",
+            dataIndex: "productCnt",
         },
         {
             title: t("Харид суммаси"),
-            dataIndex: "",
+            dataIndex: "purchaseSum",
         },
         {
             title: t("Хизмат кўрсатувчи банк"),
-            dataIndex: "",
+            dataIndex: "bankName",
         },
         {
             title: t("Оператор улуши"),
-            dataIndex: "",
+            dataIndex: "operatorShare",
         },
         {
             title: t("Оператор фойдаси"),
-            dataIndex: "",
+            dataIndex: "operatorProfit",
         },
     ];
 
