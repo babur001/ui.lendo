@@ -4,13 +4,9 @@ import {useQuery} from "@tanstack/react-query";
 import {Button, Layout, Menu, Segmented, Select, Table, theme} from "antd";
 import {ColumnsType} from "antd/es/table";
 import {get} from "lodash";
-import {ArrowRight, LogOut} from "lucide-react";
 import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
-import Header from "@/pages/header/Header.tsx";
 import AddBankModal from "@/pages/admin/bank/AddBankModal.tsx";
-import {useState} from "react";
-import CompanyTab from "@/pages/admin/company/CompanyTab.tsx";
+import moment from "moment";
 
 interface IBank {
     id: string | number;
@@ -39,7 +35,7 @@ export default function BankList() {
     });
     const data = get(queryBanks, "data.data.data", []) as IBank[];
     const total = get(queryBanks, "data.data.data.totalElements", 0) as number;
-    const navigate = useNavigate();
+
     const columns: ColumnsType<IBank> = [
         {
             title: "",
@@ -71,15 +67,9 @@ export default function BankList() {
         {
             title: t("createdAt"),
             dataIndex: "createdAt",
-        },
-        {
-            title: t("Batafsil"),
-            dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button onClick={() => navigate(``)}>
-                        <ArrowRight strokeWidth={1}/>
-                    </Button>
+                    moment(value).format("DD.MM.YYYY")
                 );
             },
         },

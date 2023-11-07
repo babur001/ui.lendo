@@ -1,5 +1,5 @@
 import {req} from "@/services/api";
-import {Description, Spinner, Text} from "@geist-ui/core";
+import {Text} from "@geist-ui/core";
 import {useQuery} from "@tanstack/react-query";
 import {Alert, Button, Table} from "antd";
 import {ColumnsType} from "antd/es/table";
@@ -7,28 +7,30 @@ import {get} from "lodash";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {ArrowRight} from "lucide-react";
-import {useNavigate} from "react-router-dom";
+import moment from "moment/moment";
+import {useParams} from "react-router-dom";
 
-function Buyers() {
-    const navigate = useNavigate();
+function Applications() {
+    const params = useParams();
     const {t, i18n} = useTranslation();
-    const queryBuyers = useQuery({
-        queryKey: ["queryBuyers"],
+    const queryApplications = useQuery({
+        queryKey: ["queryApplications"],
         queryFn: () => {
             return req({
                 method: "GET",
-                url: `/home/get-clients`,
+                url: `/registration/get-applications`,
                 params: {
+                    "pinfl": params.pinfl,
                     "page": 0,
-                    "size": 1
+                    "size": 10
                 },
             });
         },
     });
-    const data = get(queryBuyers, "data.data.data.content", []);
-    const total = get(queryBuyers, "data.data.data.totalElements", []);
+    const data = get(queryApplications, "data.data.data.content", []);
+    const total = get(queryApplications, "data.data.data.totalElements", []);
 
-    const columns: ColumnsType<IBuyer> = [
+    const columns: ColumnsType<IApplications> = [
         {
             title: "№",
             dataIndex: "NONE",
@@ -38,51 +40,55 @@ function Buyers() {
         },
         {
             title: t("ПИНФЛ"),
-            dataIndex: "pinfl",
+            dataIndex: "clientPinfl",
         },
         {
             title: t("ФИО"),
             dataIndex: "",
             render(value, record, index) {
                 const fullName = "".concat(
-                    get(record, "firstName", ""),
+                    get(record, "client.firstName", ""),
                     " ",
-                    get(record, "lastName", ""),
+                    get(record, "client.lastName", ""),
                     " ",
-                    get(record, "middleName", "")
+                    get(record, "client.middleName", "")
                 );
-
                 return <>{fullName}</>;
             },
         },
 
-        {
-            title: t("Сумма покупки"),
-            dataIndex: "paymentSum",
-        },
         {
             title: t("Рассрочка суммаси"),
             dataIndex: "paymentSum",
         },
         {
             title: t("Период рассрочки"),
-            dataIndex: "paidSum",  //ШЕР
+            dataIndex: "paymentPeriod",
+            render(value, record, index) {
+                return (
+                    value + " " + "мес."
+                );
+            },
         },
         {
-            title: t("Шартнома имзоланган сана"),
-            dataIndex: "lastPaymentDate",  //ШЕР
-        },
-        {
+            title: t("createdAt"),
+            dataIndex: "createdAt",
+            render(value, record, index) {
+                return (
+                    moment(value).format("DD.MM.YYYY")
+                );
+            },
+        },/*        {
             title: t("Batafsil"),
             dataIndex: "",
             render(value, record, index) {
                 return (
-                    <Button onClick={() => navigate(`/buxgalter/buyers/${record.pinfl}`)}>
+                    <Button>
                         <ArrowRight strokeWidth={1}/>
                     </Button>
                 );
             },
-        },
+        },*/
     ];
     return (
         <>
@@ -90,7 +96,7 @@ function Buyers() {
 
             <div className="h-[20px]"/>
 
-            <Text h3>{t("Ҳаридорлар рўйхати")}</Text>
+            <Text h3>{t("Список заявлений")}</Text>
 
             <div className="h-[20px]"/>
 
@@ -99,24 +105,27 @@ function Buyers() {
     );
 }
 
-export interface IBuyer {
-    pinfl: number;
-    clientProfileId: number;
+export interface IApplications {
+    clientPinfl: number;
     paymentPeriod: number;
     paymentSum: number;
     paymentDayOfMonth: number;
     clientScoringId: number;
-    clientPaymentConfirmationId?: null;
+    paidSum: number;
+    lastPaymentDate?: null;
     items?: ItemsEntity[] | null;
     client: Client;
     clientProfile: ProfilesEntityOrActiveProfileOrClientProfile;
     clientPaymentConfirmation?: null;
+    createdAt: string | number;
 }
 
 export interface ItemsEntity {
     name: string;
     amount: number;
     price?: null;
+    hasVat?: null;
+    priceWithVat?: null;
 }
 
 export interface Client {
@@ -155,4 +164,4 @@ export interface ProfilesEntityOrActiveProfileOrClientProfile {
     updatedAt?: null;
 }
 
-export default Buyers;
+export default Applications;

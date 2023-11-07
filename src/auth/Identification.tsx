@@ -163,14 +163,12 @@ function Identification({onFinish}: IProps) {
                                         className="flex flex-col gap-5"
                                         onSubmit={handleSubmit(onSubmit)}
                                     >
+                                        51704005120013
                                         <Input
                                             placeholder="..."
                                             className="!w-full"
-                                            value={"51704005120013"}
                                             type={errorMessages.pinfl ? "error" : "default"}
-                                            {...register("pinfl")}
-
-                                        >
+                                            {...register("pinfl")}                                        >
                                             <div className="flex items-center justify-between">
                                                 <span>ПИНФЛ*</span>
                                                 <span

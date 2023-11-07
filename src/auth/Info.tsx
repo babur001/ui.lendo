@@ -11,6 +11,7 @@ import {PatternFormat} from "react-number-format";
 import {Input as AntdInput} from "antd";
 import {useTranslation} from "react-i18next";
 import CompanyUsersList from "@/pages/admin/company/companyUsers/CompanyUsersList.tsx";
+import {formatNumber} from "@/auth/Scoring.tsx";
 
 interface IProps {
     onFinish: () => unknown;
@@ -124,6 +125,7 @@ function Info({onFinish}: IProps) {
             message.error(t("Xatolik yuz berdi!"));
         }
     };
+
 
     return (
         <>
@@ -302,9 +304,11 @@ function Info({onFinish}: IProps) {
                                 <Input className="!w-full" {...register("homeNumber")}>
                                     {t("Уй рақами*")}
                                 </Input>
-                                <Input className="!w-full" {...register("flatNumber")}>
+                                <Input className="!w-full"
+                                       {...register("flatNumber")} >
                                     {t("Xонодон рақами*")}
                                 </Input>
+
                             </div>
 
                         </div>

@@ -9,6 +9,8 @@ import {useTranslation} from "react-i18next";
 import {PatternFormat} from "react-number-format";
 import useAuthUser from "@/auth/useAuthUser.tsx";
 import {ICompany} from "@/pages/company/admin/SalePointList.tsx";
+import {render} from "react-dom";
+
 
 interface ISellerForm {
     fullName: string;
@@ -36,7 +38,7 @@ interface ICompanyUsers {
 function AddCompanyUsersModal({onAdd}: IProps) {
     const {t, i18n} = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
-    const {control, register, handleSubmit} = useForm<ISellerForm>({});
+    const {control, register, handleSubmit, watch} = useForm<ISellerForm>({});
     const user = useAuthUser();
     const companyId = get(user, "data.data.data.companyId", null);
 
@@ -63,7 +65,6 @@ function AddCompanyUsersModal({onAdd}: IProps) {
         },
     });
     const UsersListData = get(queryCompanyUsers, "data.data.data.content", []) as ICompanyUsers[];
-    const rolesName = get(queryCompanyUsers, "data.data.data.content.0.roles.0.name", []) as ICompanyUsers[];
 
     const querySalePoints = useQuery({
         queryKey: ["querySalePoints", companyId],
@@ -103,6 +104,8 @@ function AddCompanyUsersModal({onAdd}: IProps) {
             onAdd && onAdd();
             setIsOpen(false);
         }
+
+
     };
     return (
         <>
@@ -149,6 +152,7 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                             control={control}
                             name={"managerId"}
                             render={({field}) => {
+                                const selectedRoleCode = watch("role");
                                 return (
                                     <Description
                                         title={t("Менеджер")}
@@ -158,13 +162,12 @@ function AddCompanyUsersModal({onAdd}: IProps) {
                                                 {...field}
                                                 size="large"
                                                 defaultValue={field.value}
+                                                disabled={selectedRoleCode != "COMPANY_EMPLOYEE"}
                                                 options={UsersListData.map((user, idx) => {
-                                                    //              if (String(rolesName).valueOf() == new String("COMPANY_MANAGER").valueOf()) {
                                                     return {
                                                         value: user.id,
                                                         label: user.fullName,
                                                     };
-                                                    //            }
                                                 })}
                                             />
                                         }
