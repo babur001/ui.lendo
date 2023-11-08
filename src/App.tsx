@@ -14,7 +14,7 @@ import Buyers from '@/pages/buyers';
 import EmployeeLayout from '@/pages/nasiya/EmployeeLayout.tsx';
 import Nasiya from '@/pages/nasiya';
 import AccountantLayout from '@/pages/buxgalteriya/AccountantLayout.tsx';
-import Applications from "@/pages/buyers/applicationsList.tsx";
+import Applications from '@/pages/buyers/applicationsList.tsx';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
 
@@ -95,9 +95,6 @@ const AccountantRoutes = [
 		element: <Applications />,
 	},
 ] satisfies (RouteObject & { path: TAccountantPages })[];
-
-
-
 
 const router = createBrowserRouter([
 	{
