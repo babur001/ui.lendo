@@ -74,7 +74,7 @@ function Applications() {
 			render(value, record, index) {
 				return moment(value).format('DD.MM.YYYY');
 			},
-		} /*        {
+		},         {
             title: t("Batafsil"),
             dataIndex: "",
             render(value, record, index) {
@@ -84,7 +84,7 @@ function Applications() {
                     </Button>
                 );
             },
-        },*/,
+        },
 	];
 	return (
 		<>

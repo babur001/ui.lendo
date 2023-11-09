@@ -1,5 +1,5 @@
 import {Layout, Menu, MenuProps, theme} from "antd";
-import {Building, LineChart, List, Users} from "lucide-react";
+import { BarChart2, Building, LineChart, List, Users } from 'lucide-react';
 import {useTranslation} from "react-i18next";
 import {Outlet, useNavigate} from "react-router-dom";
 import Header from "@/pages/header/Header.tsx";
@@ -16,6 +16,11 @@ function CompanyLayout() {
         icon: React.ReactNode;
         label: string;
     }[] = [
+        {
+            key: "business-report",
+            icon: <BarChart2 strokeWidth={1.5} className="!h-5"/>,
+            label: t(`Отчет по реализациям`),
+        },
         {
             key: "analytics",
             icon: <LineChart strokeWidth={1.5} className="!h-5"/>,

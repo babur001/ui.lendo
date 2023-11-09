@@ -271,7 +271,7 @@ function Info({ onFinish }: IProps) {
 										})
 										.map((tuman) => {
 											return {
-												value: tuman.NS10_CODE,
+												value: tuman.DISTRICT_CODE,
 												label: tuman.NAME_UZ,
 											};
 										});

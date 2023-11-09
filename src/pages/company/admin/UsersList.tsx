@@ -55,7 +55,7 @@ export default function UsersList() {
 
 	const columnsUser: ColumnsType<ICompanyUsers> = [
 		{
-			title: '',
+			title: '№',
 			dataIndex: 'NONE',
 			render(value, record, index) {
 				return <>{1 + index}</>;

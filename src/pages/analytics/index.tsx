@@ -87,7 +87,7 @@ function AnalyticsByDate() {
     return (
         <>
             <div>
-                <Text h3>{'Analytics'}</Text>
+                <Text h3>{t('Analytics')}</Text>
 
                 <div className='grid grid-cols-12 !gap-7'>
                     <div className='col-span-4 rounded-md border border-gray-200 h-full'>

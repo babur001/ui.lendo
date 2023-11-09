@@ -72,6 +72,8 @@
   "Миқдори": "Miqdori",
   "Нархи": "Narxi",
   "Жами сумма (ҚҚС билан)": "Jami summa (QQS bilan)",
+  "ҚҚС билан": "QQS bilan",
+  "Cумма (ҚҚС билан)": "Summa (QQS bilan)",
   "Шартномани олиш": "Shartnoma bilan tanishib chiqish",
   "Шартнома(Оммавий оферта)": "Shartnoma",
   "Shartnoma shartlari bilan tanishildi": "Shartnoma shartlari bilan tanishildi",
@@ -140,5 +142,7 @@
   "Хизмат кўрсатувчи банк": "Xizmat ko'rsatuvchi bank",
   "Оператор улуши": "Operator ulushi",
   "Оператор фойдаси": "Operator foydasi",
+  "ҚҚС": "QQS",
+  "ҚҚСсиз": "QQSsiz",
   "Asosiy": "Asosiy"
 }
