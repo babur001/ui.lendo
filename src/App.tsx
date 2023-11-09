@@ -15,6 +15,7 @@ import EmployeeLayout from '@/pages/nasiya/EmployeeLayout.tsx';
 import Nasiya from '@/pages/nasiya';
 import AccountantLayout from '@/pages/buxgalteriya/AccountantLayout.tsx';
 import Applications from '@/pages/buyers/applicationsList.tsx';
+import BusinessReport from '@/pages/buxgalteriya/Report.tsx';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
 
@@ -37,9 +38,13 @@ const adminRoutes = [
 	},
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
-export type TCompanyPages = 'analytics' | 'sale-points' | 'company-users' | 'sale-points/:salePointId';
+export type TCompanyPages = 'business-report' | 'analytics' | 'sale-points' | 'company-users' | 'sale-points/:salePointId';
 
 const CompanyRoutes = [
+	{
+		path: 'business-report',
+		element: <BusinessReport />,
+	},
 	{
 		path: 'analytics',
 		element: <AnalyticsByDate />,
@@ -75,12 +80,12 @@ const EmployeeRoutes = [
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 
-export type TAccountantPages = 'business-analytics' | 'analytics' | 'buyers' | 'buyers/:pinfl';
+export type TAccountantPages = 'business-report' | 'analytics' | 'buyers' | 'buyers/:pinfl';
 
 const AccountantRoutes = [
 	{
-		path: 'business-analytics',
-		element: <BusinessAnalytics />,
+		path: 'business-report',
+		element: <BusinessReport />,
 	},
 	{
 		path: 'analytics',

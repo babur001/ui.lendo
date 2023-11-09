@@ -1,7 +1,7 @@
 import { req } from '@/services/api.ts';
 import { Description, Divider, Input, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Modal, message, Select, Input as AntdInput } from 'antd';
+import { Button, Modal, message, Select, Input as AntdInput, Upload } from 'antd';
 import { get } from 'lodash';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -9,8 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { PatternFormat } from 'react-number-format';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { ICompany } from '@/pages/company/admin/SalePointList.tsx';
-
-
+import { UploadIcon } from 'lucide-react';
 
 interface ISellerForm {
 	fullName: string;
@@ -22,7 +21,8 @@ interface ISellerForm {
 	role: any;
 	pinfl: string;
 	managerId: string;
-	fileGuid: string;
+	fileGuid: any;
+	file: any;
 }
 
 interface IProps {
@@ -38,12 +38,10 @@ interface ICompanyUsers {
 function AddCompanyUsersModal({ onAdd }: IProps) {
 	const { t, i18n } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
-	const { control, register, handleSubmit, watch } = useForm<ISellerForm>({});
+	const { control, register, handleSubmit, watch, setValue } = useForm<ISellerForm>({});
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const userId = get(user, 'data.data.data.id', null);
-
-
 	const mutateAddSeller = useMutation({
 		mutationFn: (data: ISellerForm) => {
 			return req({
@@ -61,7 +59,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 				method: 'GET',
 				url: `/auth/get-users-list`,
 				params: {
-					'companyId': companyId,
+					companyId: companyId,
 				},
 			});
 		},
@@ -84,11 +82,11 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 	});
 	const salePointData = get(querySalePoints, 'data.data.data.content', []) as ICompany[];
 
-
 	const onSubmit = async (values: ISellerForm) => {
 		if (!values) {
 			return message.error(t(`Маълумотлар топилмади`));
 		}
+
 
 		const data = {
 			...values,
@@ -107,8 +105,6 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 			onAdd && onAdd();
 			setIsOpen(false);
 		}
-
-
 	};
 	return (
 		<>
@@ -116,12 +112,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 				{t('admin xodim qoshish')}
 			</Button>
 
-			<Modal
-				open={isOpen}
-				onCancel={() => setIsOpen(false)}
-				title={t('admin xodim qoshish')}
-				footer={false}
-			>
+			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t('admin xodim qoshish')} footer={false}>
 				<div className='h-[20px]' />
 				<div className='flex flex-col gap-5'>
 					<div className='col-span-2'>
@@ -138,10 +129,10 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 												{...field}
 												size='large'
 												options={[
-													/*{label: t("Администратор магазина"), value: "SALE_POINT_ADMIN"},*/
+													/*{ label: t('Администратор магазина'), value: 'SALE_POINT_ADMIN' },*/
 													{ label: t('Продавец'), value: 'COMPANY_EMPLOYEE' },
 													{ label: t('Бухгалтер'), value: 'COMPANY_ACCOUNTANT' },
-													/*{label: t("Менеджер"), value: "COMPANY_MANAGER"}*/
+													/*{ label: t('Менеджер'), value: 'COMPANY_MANAGER' },*/
 												]}
 											/>
 										}
@@ -150,35 +141,35 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 							}}
 						/>
 					</div>
-					{/*                    <div className="col-span-2">
-                        <Controller
-                            control={control}
-                            name={"managerId"}
-                            render={({field}) => {
-                                const selectedRoleCode = watch("role");
-                                return (
-                                    <Description
-                                        title={t("Менеджер")}
-                                        content={
-                                            <Select
-                                                className={"w-[100%]"}
-                                                {...field}
-                                                size="large"
-                                                defaultValue={field.value}
-                                                disabled={selectedRoleCode != "COMPANY_EMPLOYEE"}
-                                                options={UsersListData.map((user, idx) => {
-                                                    return {
-                                                        value: user.id,
-                                                        label: user.fullName,
-                                                    };
-                                                })}
-                                            />
-                                        }
-                                    />
-                                );
-                            }}
-                        />
-                    </div>*/}
+					{/*<div className='col-span-2'>
+						<Controller
+							control={control}
+							name={'managerId'}
+							render={({ field }) => {
+								const selectedRoleCode = watch('role');
+								return (
+									<Description
+										title={t('Менеджер')}
+										content={
+											<Select
+												className={'w-[100%]'}
+												{...field}
+												size='large'
+												defaultValue={field.value}
+												disabled={selectedRoleCode != 'COMPANY_EMPLOYEE'}
+												options={UsersListData.map((user, idx) => {
+													return {
+														value: user.id,
+														label: user.fullName,
+													};
+												})}
+											/>
+										}
+									/>
+								);
+							}}
+						/>
+					</div>*/}
 					<div className='col-span-2'>
 						<Description
 							title={t('ЖИШШР')}
@@ -204,32 +195,19 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 					<div className='col-span-2'>
 						<Description
 							title={t('Xodim nomi')}
-							content={
-								<Input placeholder='...'
-											 width={'100%'} {...register('fullName')} />
-							}
+							content={<Input placeholder='...' width={'100%'} {...register('fullName')} />}
 						/>
 					</div>
 					<div className='col-span-2'>
 						<Description
 							title={t('Login')}
-							content={
-								<Input
-									placeholder='...'
-									width={'100%'}
-									{...register('username' as const)}
-								/>
-							}
+							content={<Input placeholder='...' width={'100%'} {...register('username' as const)} />}
 						/>
 					</div>
 					<div className='col-span-2'>
 						<Description
 							title={t('Пароль')}
-							content={
-								<Input placeholder='...'
-											 width={'100%'} {...register('password')} />
-
-							}
+							content={<Input placeholder='...' width={'100%'} {...register('password')} />}
 						/>
 					</div>
 					<div className='col-span-2'>
@@ -283,18 +261,39 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 						/>
 					</div>
 
-					<div className='col-span-2'>
-						<Input disabled={true} defaultValue={'1'}
-									 width={'100%'} {...register('fileGuid')}>
-							{t('fileGuid')}
-						</Input>
+					<div className='col-span-1'>
+						<Controller
+							name='file'
+							control={control}
+							render={({ field }: any) => (
+								<>
+									<Upload
+										maxCount={1}
+										multiple={false}
+										// @ts-ignore
+										fileList={field.value ? [field.value] : undefined}
+										beforeUpload={(file: any) => {
+											setValue('file', file);
+
+											return false;
+										}}
+										className='w-full'
+									>
+										<Button
+											icon={<UploadIcon strokeWidth={1.5} size={16} />}
+											className='flex items-center justify-center'
+											block
+										>
+											{t('Загрузить фото сотрудника')}
+										</Button>
+									</Upload>
+								</>
+							)}
+						/>
 					</div>
+
 					<div className='h-[20px]' />
-					<Button
-						type='primary'
-						onClick={handleSubmit(onSubmit)}
-						loading={mutateAddSeller.status === 'loading'}
-					>
+					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddSeller.status === 'loading'}>
 						{t('Qo\'shish')}
 					</Button>
 				</div>

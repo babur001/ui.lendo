@@ -18,3 +18,7 @@
 ::after {
 	--tw-content: "";
 }
+
+.ant-upload-select {
+	width: 100% !important;
+}

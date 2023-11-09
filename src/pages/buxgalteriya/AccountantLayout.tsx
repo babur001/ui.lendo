@@ -17,9 +17,9 @@ function AccountantLayout() {
         label: string;
     }[] = [
         {
-            key: "business-analytics",
+            key: "business-report",
             icon: <BarChart2 strokeWidth={1.5} className="!h-5"/>,
-            label: t(`Бизнес аналитика`),
+            label: t(`Отчет по реализациям`),
         },
         {
             key: "analytics",

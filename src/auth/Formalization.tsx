@@ -10,7 +10,7 @@ import {ArrowRight, X} from "lucide-react";
 import {useEffect, useState} from "react";
 import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
-import {log} from "console";
+
 
 interface ITableEDIT {
     //
@@ -58,15 +58,14 @@ function Formalization({onFinish}: IProps) {
                 url: `/registration/set-application`,
                 data: {
                     ...addProductParams,
-                    fileId: 1, //ШЕР
+                    fileId: 1,
                 },
             });
         },
     });
 
     useEffect(() => {
-        append({name: "", amount: 1, price: "", hasVat: 0, priceWithVat: 0});
-
+        append({name: "", amount: 1, price: "", hasVat: 1, priceWithVat: ""});
         return () => remove();
     }, []);
 
@@ -188,9 +187,9 @@ function Formalization({onFinish}: IProps) {
                             amount: 1,
                             price: "",
                             hasVat: 1,
-                            priceWithVat: 0,
+                            priceWithVat: "",
                         })
-                    } //ШЕР
+                    }
                 >
                     {t("Маҳсулот қўшиш")}
                 </Button>
