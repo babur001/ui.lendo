@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { saveAs } from 'file-saver';
+/*import { saveAs } from 'file-saver';*/
 
 function BusinessReport() {
 	const { RangePicker } = DatePicker;
@@ -49,11 +49,11 @@ function BusinessReport() {
 	});
 
 
-	const excelDownload = () => {
+/*	const excelDownload = () => {
 		excelDownloadMutation.mutateAsync().then((res) => {
 			saveAs(res.data, 'excel.xlsx', { autoBom: true });
 		});
-	};
+	};*/
 
 	const columns: ColumnsType<any> = [
 		{
@@ -128,7 +128,7 @@ function BusinessReport() {
 			<Table pagination={false} dataSource={data} columns={columns} />
 			<div className='h-[10px]' />
 			<div className='flex items-center justify-end w-full'>
-				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
+				<Button size='large' loading={excelDownloadMutation.isLoading} type='primary'>
 					{t('Загрузить в Excel')}
 				</Button>
 			</div>
