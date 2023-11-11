@@ -11,8 +11,8 @@ import moment from 'moment/moment';
 import { useParams } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 
-function Applications() {
-	const params = useParams();
+function CompanyApplications() {
+	const { companyId } = useParams();
 	const { t, i18n } = useTranslation();
 	const queryApplications = useQuery({
 		queryKey: ['queryApplications'],
@@ -21,11 +21,12 @@ function Applications() {
 				method: 'GET',
 				url: `/registration/get-applications`,
 				params: {
-					pinfl: params.pinfl,
+					companyId: companyId,
 				},
 			});
 		},
 	});
+
 	const data = get(queryApplications, 'data.data.data.content', []);
 	const total = get(queryApplications, 'data.data.data.totalElements', []);
 
@@ -36,8 +37,8 @@ function Applications() {
 			return req({
 				url: `/excel/get-applications`,
 				params: {
-					/*	'dateFrom': '01.01.2022',
-						'dateTo': '01.01.2024',*/
+				/*	'dateFrom': '01.01.2022',
+					'dateTo': '01.01.2024',*/
 				},
 				method: 'GET',
 				responseType: 'blob',
@@ -56,6 +57,7 @@ function Applications() {
 		{
 			title: '№',
 			dataIndex: 'NONE',
+			align: 'center',
 			render(value, record, index) {
 				return <>{1 + index}</>;
 			},
@@ -63,10 +65,12 @@ function Applications() {
 		{
 			title: t('ПИНФЛ'),
 			dataIndex: 'clientPinfl',
+			align: 'center',
 		},
 		{
 			title: t('ФИО'),
 			dataIndex: '',
+			align: 'center',
 			render(value, record, index) {
 				const fullName = ''.concat(
 					get(record, 'client.firstName', ''),
@@ -86,6 +90,7 @@ function Applications() {
 		{
 			title: t('Период рассрочки'),
 			dataIndex: 'paymentPeriod',
+			align: 'center',
 			render(value, record, index) {
 				return value + ' ' + 'мес.';
 			},
@@ -93,12 +98,14 @@ function Applications() {
 		{
 			title: t('createdAt'),
 			dataIndex: 'createdAt',
+			align: 'center',
 			render(value, record, index) {
 				return moment(value).format('DD.MM.YYYY');
 			},
 		}, {
 			title: t('Batafsil'),
 			dataIndex: '',
+			align: 'center',
 			render(value, record, index) {
 				return (
 					<Button>
@@ -111,7 +118,6 @@ function Applications() {
 	return (
 		<>
 			<div className='h-[20px]' />
-
 			<Text h3>{t('Список заявлений')}</Text>
 			<div className='flex items-center justify-end w-full'>
 				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
@@ -119,7 +125,6 @@ function Applications() {
 				</Button>
 			</div>
 			<div className='h-[20px]' />
-
 			<Table pagination={false} dataSource={data} columns={columns} />
 		</>
 	);
@@ -184,4 +189,4 @@ export interface ProfilesEntityOrActiveProfileOrClientProfile {
 	updatedAt?: null;
 }
 
-export default Applications;
+export default CompanyApplications;

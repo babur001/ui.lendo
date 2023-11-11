@@ -47,26 +47,32 @@ export default function BankList() {
         {
             title: t("bankTin"),
             dataIndex: "bankTin",
+            align: 'center',
         },
         {
             title: t("bankName"),
             dataIndex: "bankName",
+            align: 'center',
         },
         {
             title: t("bankShare"),
             dataIndex: "bankShare",
+            align: 'center',
         },
         {
             title: t("bankInsurance"),
             dataIndex: "bankInsurance",
+            align: 'center',
         },
         {
             title: t("operatorShare"),
             dataIndex: "operatorShare",
+            align: 'center',
         },
         {
             title: t("createdAt"),
             dataIndex: "createdAt",
+            align: 'center',
             render(value, record, index) {
                 return (
                     moment(value).format("DD.MM.YYYY")

@@ -8,6 +8,7 @@ import { get } from "lodash";
 import { ArrowRight, Building, List, LogOut, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment/moment';
 
 interface ICompany {
   id: string | number;
@@ -45,8 +46,9 @@ function CompanyList() {
 
   const columns: ColumnsType<ICompany> = [
     {
-      title: "",
+      title: "№",
       dataIndex: "NONE",
+      align: 'center',
       render(value, record, index) {
         return <>{1 + index}</>;
       },
@@ -54,46 +56,48 @@ function CompanyList() {
     {
       title: t("Korxona STIRi"),
       dataIndex: "tin",
+      align: 'center',
     },
     {
       title: t("Korxona nomi"),
       dataIndex: "name",
+      align: 'center',
     },
     {
       title: t("BrandName"),
       dataIndex: "brandName",
+      align: 'center',
     },
     {
       title: t("Манзили"),
       dataIndex: "address",
+      align: 'center',
     },
     {
       title: t("Direktor"),
       dataIndex: "directorName",
+      align: 'center',
     },
     {
       title: t("Telefon nomer"),
       dataIndex: "contact",
+      align: 'center',
     },
     {
       title: t("Дата регистрации"),
       dataIndex: "created_at",
+      align: 'center',
+      render(value, record, index) {
+        return (
+          moment(value).format("DD.MM.YYYY")
+        );
+      },
     },
-    /*{
-            title: t("Всего ролей"),
-            dataIndex: "all_roles",
-        },
-        {
-            title: t("Из них администраторов"),
-            dataIndex: "admins",
-        },
-        {
-            title: t("Из них сотрудников"),
-            dataIndex: "personals",
-        },*/
+
     {
       title: t("Batafsil"),
       dataIndex: "",
+      align: 'center',
       render(value, record, index) {
         return (
           <Button onClick={() => navigate(`/admin/company/${record.id}`)}>

@@ -1,16 +1,14 @@
 import AddSalePointModal from '@/pages/company/admin/AddSalePointModal.tsx';
 import { req } from '@/services/api';
 import { Text } from '@geist-ui/core';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Table, Layout, Select } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TLanguages } from '@/auth/i18n.ts';
-import i18n from 'i18next';
-import Header from '@/pages/header/Header.tsx';
+import moment from 'moment';
 
 export interface ICompany {
 	createdAt: string;
@@ -33,11 +31,12 @@ export interface CreatedByOrUpdatedBy {
 	id: number;
 	companyId: number;
 }
+
 export default function SalePointList() {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
-
 	const { companyId } = useParams();
+
 	const querySalePoints = useQuery({
 		queryKey: ['querySalePoints', companyId],
 		queryFn: () => {
@@ -52,6 +51,10 @@ export default function SalePointList() {
 			});
 		},
 	});
+
+
+
+
 	const data = get(querySalePoints, 'data.data.data.content', []) as ICompany[];
 	const total = get(querySalePoints, 'data.data.data.totalElements', 0) as number;
 
@@ -59,32 +62,48 @@ export default function SalePointList() {
 		{
 			title: '№',
 			dataIndex: 'NONE',
+			align: 'center',
 			render(value, record, index) {
 				return <>{index + 1}</>;
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'name',
+			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan viloyat"),
+			title: t('Do\'kon joylashgan viloyat'),
 			dataIndex: 'regionName',
+			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan tuman"),
+			title: t('Do\'kon joylashgan tuman'),
 			dataIndex: 'districtName',
+			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan manzil"),
+			title: t('Do\'kon joylashgan manzil'),
 			dataIndex: 'address',
+			align: 'center',
+		},
+		{
+			title: t('Дата регистрации'),
+			dataIndex: 'created_at',
+			align: 'center',
+			render(value, record, index) {
+				return (
+					moment(value).format('DD.MM.YYYY')
+				);
+			},
 		},
 		{
 			title: t('Batafsil'),
 			dataIndex: '',
+			align: 'center',
 			render(value, record, index) {
 				return (
-					<Button onClick={() => navigate(`/company-admin/sale-points/${record.id}`)}>
+					<Button onClick={() => navigate(`/company-admin/sale-points/${record.id}/${record.name}`)}>
 						<ArrowRight strokeWidth={1} />
 					</Button>
 				);
@@ -100,6 +119,8 @@ export default function SalePointList() {
 			</div>
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columns} />
+
+
 		</>
 	);
 }
