@@ -78,10 +78,13 @@ function Applications() {
 				return <>{fullName}</>;
 			},
 		},
-
+		{
+			title: t('Суммаси всего товара'),
+			dataIndex: 'paymentSumWithVat',
+		},
 		{
 			title: t('Рассрочка суммаси'),
-			dataIndex: 'paymentSum',
+			dataIndex: '',
 		},
 		{
 			title: t('Период рассрочки'),
