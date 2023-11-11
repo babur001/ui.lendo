@@ -16,6 +16,8 @@ import Nasiya from '@/pages/nasiya';
 import AccountantLayout from '@/pages/buxgalteriya/AccountantLayout.tsx';
 import Applications from '@/pages/buyers/applicationsList.tsx';
 import BusinessReport from '@/pages/buxgalteriya/Report.tsx';
+import CompanyBuyers from '@/pages/company/admin/CompanyBuyers.tsx';
+import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.tsx';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
 
@@ -38,7 +40,15 @@ const adminRoutes = [
 	},
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
-export type TCompanyPages = 'business-report' | 'analytics' | 'sale-points' | 'company-users' | 'sale-points/:salePointId';
+export type TCompanyPages =
+	'business-report'
+	| 'analytics'
+	| 'sale-points'
+	| 'company-users'
+	| 'sale-points/:salePointId/:salePointName'
+	| 'company-buyers'
+	| 'company-applications'
+	;
 
 const CompanyRoutes = [
 	{
@@ -58,8 +68,16 @@ const CompanyRoutes = [
 		element: <UsersList />,
 	},
 	{
-		path: 'sale-points/:salePointId',
+		path: 'sale-points/:salePointId/:salePointName',
 		element: <UsersList />,
+	},
+	{
+		path: 'company-buyers',
+		element: <CompanyBuyers />,
+	},
+	{
+		path: 'company-applications',
+		element: <CompanyApplications />,
 	},
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 

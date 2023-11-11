@@ -148,8 +148,8 @@ function Formalization({onFinish}: IProps) {
                                                     size="large"
                                                     defaultValue={1}
                                                     options={[
-                                                        {label: t("ҚҚСсиз"), value: 1},
-                                                        {label: t("ҚҚС билан"), value: 2},
+                                                        {label: t("ҚҚСсиз"), value: 2},
+                                                        {label: t("ҚҚС билан"), value: 1},
                                                     ]}
                                                 />
                                             }

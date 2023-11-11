@@ -1,7 +1,7 @@
 import { req } from '@/services/api.ts';
 import { Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
-import { Table } from 'antd';
+import { Button, Segmented, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,10 @@ import AddCompanyUsersModal from '@/pages/company/admin/AddCompanyUsersModal.tsx
 
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import moment from 'moment/moment';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import React, { useState } from 'react';
+import { log } from 'console';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -34,17 +38,20 @@ interface ICompanyUsers {
 
 export default function UsersList() {
 	const { t } = useTranslation();
-
+	const navigate = useNavigate();
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
+	const params = useParams();
+	const { Title } = Typography;
 	const queryCompanyUsers = useQuery({
-		queryKey: ['queryCompanies'],
+		queryKey: ['queryCompanies', companyId, params.salePointId],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/auth/get-users-list`,
 				params: {
 					companyId: companyId,
+					salePointId: params.salePointId,
 				},
 			});
 		},
@@ -53,10 +60,18 @@ export default function UsersList() {
 	const data = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
 	const total = get(queryCompanyUsers, 'data.data.data.totalElements', 0) as number;
 
+	const [filter, setFilter] = useState({
+		tab: 'users',
+	});
+
+	const [visible, setVisible] = useState(false);
+
+
 	const columnsUser: ColumnsType<ICompanyUsers> = [
 		{
 			title: '№',
 			dataIndex: 'NONE',
+			align: 'center',
 			render(value, record, index) {
 				return <>{1 + index}</>;
 			},
@@ -64,6 +79,7 @@ export default function UsersList() {
 		{
 			title: t('Ходим СТИРи'),
 			dataIndex: 'pinfl',
+			align: 'center',
 		},
 		{
 			title: t('Ходим ФИШ'),
@@ -72,6 +88,7 @@ export default function UsersList() {
 		{
 			title: t('Ходим телефон рақами'),
 			dataIndex: 'phone',
+			align: 'center',
 		},
 		{
 			title: t('Login'),
@@ -86,7 +103,7 @@ export default function UsersList() {
 			},
 		},
 		{
-			title: t('Создатель'),
+			title: t('Генератор роли'),
 			dataIndex: 'createdBy',
 			render(value, record, index) {
 				const fullName = get(value, 'fullName', '-');
@@ -98,16 +115,16 @@ export default function UsersList() {
 		{
 			title: t('createdAt'),
 			dataIndex: 'createdAt',
+			align: 'center',
 			render(value, record, index) {
 				return moment(value).format('DD.MM.YYYY');
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'salePoint',
 			render(value, record, index) {
 				const salePointName = get(value, 'name', '-');
-				const regionName = get(value, 'regionName', '-');
 				const districtName = get(value, 'districtName', '-');
 				const address = get(value, 'address', '-');
 				if (salePointName === '-') {
@@ -119,10 +136,35 @@ export default function UsersList() {
 
 	return (
 		<>
-			<Text h3>{t('Xodim reyesti')}</Text>
-			<div className='w-full flex items-center justify-end'>
+			<div className='w-full flex items-center justify-start'>
+				<Segmented
+					onChange={(tab) => setFilter({ ...filter, tab: tab as string })}
+					value={filter.tab}
+					options={[
+						{
+							label: (<div style={{ padding: 4, width: 200 }}>{t('Xodim reyesti')}</div>),
+							value: 'users',
+						},
+						{
+							label: (<div style={{ padding: 4, width: 200 }}>{t('Покупатели')}</div>),
+							value: 'buyers',
+						},
+					]}
+				/></div>
+			<div className='h-[20px]' />
+			<div className='flex justify-between'>
+				<div className='pr-400'>
+					<Button onClick={() => navigate(`/company-admin/sale-points`)}>
+						<div className='flex space-x-1 '>
+							<div><ArrowLeft strokeWidth={2} /></div>
+							<div>{t('Nazad')}</div>
+						</div>
+					</Button>
+				</div>
+				{/*{params.salePointName ? !visible : visible &&*/}
+				{!visible && <p><Title level={2}>{t('Магазин')}: {params.salePointName}</Title></p>}
+
 				<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
-				<div className='w-[40px]' />
 			</div>
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columnsUser} />

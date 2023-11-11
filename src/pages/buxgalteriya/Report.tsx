@@ -1,16 +1,18 @@
 import Header from '@/pages/header/Header.tsx';
 import { req } from '@/services/api.ts';
 import { Text } from '@geist-ui/core';
-import { useQuery } from '@tanstack/react-query';
-import { Button, Segmented, Table, Tabs } from 'antd';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Button, Segmented, Table, DatePicker } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { saveAs } from 'file-saver';
 
 function BusinessReport() {
+	const { RangePicker } = DatePicker;
 	const navigate = useNavigate();
 	const [filter, setFilter] = useState({
 		tab: 'all',
@@ -20,19 +22,44 @@ function BusinessReport() {
 		queryFn: () => {
 			return req({
 				method: 'GET',
-				url: `/stat/get-sale-point-stat?dateFrom=01.01.2023&dateTo=01.01.2023`,
+				url: `/stat/get-sale-point-stat`,
 				params: {
-					//
+					'dateFrom': '01.01.2022',
+					'dateTo': '01.01.2024',
 				},
 			});
 		},
 	});
 	const data = get(queryBusinessAnalytics, 'data.data.data', []);
 	const { t, i18n } = useTranslation();
+
+	const excelDownloadMutation = useMutation({
+		mutationKey: ['mutateExcel'],
+		mutationFn: () => {
+			return req({
+				url: `/excel/get-sale-point-stat`,
+				params: {
+					'dateFrom': '01.01.2022',
+					'dateTo': '01.01.2024',
+				},
+				method: 'GET',
+				responseType: 'blob',
+			});
+		},
+	});
+
+
+	const excelDownload = () => {
+		excelDownloadMutation.mutateAsync().then((res) => {
+			saveAs(res.data, 'excel.xlsx', { autoBom: true });
+		});
+	};
+
 	const columns: ColumnsType<any> = [
 		{
-			title: '',
+			title: '№',
 			dataIndex: '',
+			align:'center',
 			render(value, record, index) {
 				return <>{1 + index}</>;
 			},
@@ -40,10 +67,12 @@ function BusinessReport() {
 		{
 			title: t('Do\'kon nomi'),
 			dataIndex: 'salePointName',
+			align:'center',
 		},
 		{
 			title: t('Харидорлар сони'),
 			dataIndex: 'clientCount',
+			align:'center',
 		},
 		{
 			title: t('Аризалар сони'),
@@ -77,12 +106,12 @@ function BusinessReport() {
 			dataIndex: 'unpaidBuyersSum',
 		},
 		{
-			title: t("Batafsil"),
-			dataIndex: "",
+			title: t('Batafsil'),
+			dataIndex: '',
 			render(value, record, index) {
 				return (
 					<Button onClick={() => navigate(`/buxgalter/buyers/${record.salePointId}`)}>
-						<ArrowRight strokeWidth={1}/>
+						<ArrowRight strokeWidth={1} />
 					</Button>
 				);
 			},
@@ -91,12 +120,18 @@ function BusinessReport() {
 
 	return (
 		<>
-			<Text h3>{t("Отчет по реализациям")}</Text>
+			<Text h3>{t('Отчет по реализациям')}</Text>
 			<div className='h-[20px]' />
-
+			<RangePicker className='w-[250px]' />
 
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columns} />
+			<div className='h-[10px]' />
+			<div className='flex items-center justify-end w-full'>
+				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
+					{t('Загрузить в Excel')}
+				</Button>
+			</div>
 		</>
 	);
 }

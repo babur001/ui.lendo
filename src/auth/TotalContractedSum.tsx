@@ -11,13 +11,13 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 	});
 
 	let total = 0;
-	let hasVat = 1;
+	let hasVat = 2;
 
 	get(values, 'items', []).forEach((product: any) => {
 		total += (isNaN(+product.price) ? 0 : product.price) * product.amount;
 		hasVat = product.hasVat;
 	});
-	if (hasVat === 2) {
+	if (hasVat === 1) {
 		total += total* 12 / 112
 	}
 	total -= isNaN(+values.paymentSum) ? 0 : values.paymentSum;

@@ -23,7 +23,7 @@ function TotalSingleProduct({
 	let total = 0;
 	total = validateNumber(count, 1) * validateNumber(price, 0);
 
-	if (hasVat === 2) {
+	if (hasVat === 1) {
 		total += total * 12 / 112;
 	}
 

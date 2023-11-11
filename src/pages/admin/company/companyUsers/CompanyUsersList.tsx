@@ -4,9 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import { Button, Layout, Select, Table, theme } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
-import { ArrowRight, LogOut } from 'lucide-react';
+import { ArrowLeft, ArrowRight, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -38,13 +39,15 @@ export default function CompanyUsersList() {
 		},
 	});
 
+	const navigate = useNavigate();
 	const data = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
 	const total = get(queryCompanyUsers, 'data.data.data.totalElements', 0) as number;
 
 	const columnsUser: ColumnsType<ICompanyUsers> = [
 		{
-			title: '',
+			title: '№',
 			dataIndex: 'NONE',
+			align: 'center',
 			render(value, record, index) {
 				return <>{1 + index}</>;
 			},
@@ -52,43 +55,48 @@ export default function CompanyUsersList() {
 		{
 			title: t('Ходим СТИРи'),
 			dataIndex: 'pinfl',
+			align: 'center',
 		},
 		{
 			title: t('Ходим ФИШ'),
 			dataIndex: 'fullName',
+			align: 'center',
 		},
 		{
 			title: t('Ходим телефон рақами'),
 			dataIndex: 'phone',
+			align: 'center',
 		},
 		{
 			title: t('Login'),
 			dataIndex: 'username',
+			align: 'center',
 		},
 		{
 			title: t('Роль'),
 			dataIndex: 'roles',
+			align: 'center',
 			render(value, record, index) {
 				const role = get(value, '0.name', '-');
 				return t(role);
 			},
 		},
 		{
-			title: t('Создатель'),
+			title: t('Генератор роли'),
 			dataIndex: 'roles',
+			align: 'center',
 			render(value, record, index) {
 				const role = get(value, '0.name', '-');
 				return t(role);
 			},
 		},
 		{
-			title: t('Batafsil'),
-			dataIndex: '',
+			title: t("Дата регистрации"),
+			dataIndex: "created_at",
+			align: 'center',
 			render(value, record, index) {
 				return (
-					<Button /*onClick={() => navigate(`/sale-points/${record.id}`)}*/>
-						<ArrowRight strokeWidth={1} />
-					</Button>
+					moment(value).format("DD.MM.YYYY")
 				);
 			},
 		},
@@ -97,12 +105,21 @@ export default function CompanyUsersList() {
 	return (
 		<>
 			<Text h3>{t('Xodim reyesti')}</Text>
-			<div className='h-[60px]' />
+			<div className='h-[20px]' />
+			<div>
+				<Button onClick={() => navigate(`/admin/clients`)}>
+					<div className='flex space-x-1'>
+						<div><ArrowLeft strokeWidth={2} /></div>
+							<div>{t('Nazad')}</div>
+						</div>
+
+				</Button>
+			</div>
 			<div className='w-full flex items-center justify-end'>
 				<div className='w-[40px]' />
 			</div>
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columnsUser} />
 		</>
-	);
+);
 }
