@@ -8,8 +8,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import moment from 'moment/moment';
-import { useParams } from 'react-router-dom';
-import { saveAs } from 'file-saver';
+import { useParams } from 'react-router-dom';/*
+import { saveAs } from 'file-saver';*/
 
 function Applications() {
 	const params = useParams();
@@ -45,12 +45,14 @@ function Applications() {
 		},
 	});
 
+/*
 
 	const excelDownload = () => {
 		excelDownloadMutation.mutateAsync().then((res) => {
 			saveAs(res.data, 'excel.xlsx', { autoBom: true });
 		});
 	};
+*/
 
 	const columns: ColumnsType<IApplications> = [
 		{
@@ -117,7 +119,7 @@ function Applications() {
 
 			<Text h3>{t('Список заявлений')}</Text>
 			<div className='flex items-center justify-end w-full'>
-				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
+				<Button size='large' loading={excelDownloadMutation.isLoading} type='primary'>
 					{t('Загрузить в Excel')}
 				</Button>
 			</div>
