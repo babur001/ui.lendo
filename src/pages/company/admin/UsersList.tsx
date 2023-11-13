@@ -43,8 +43,11 @@ export default function UsersList() {
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const params = useParams();
 	const { Title } = Typography;
+	const [filter, setFilter] = useState({
+		tab: 'users',
+	});
 	const queryCompanyUsers = useQuery({
-		queryKey: ['queryCompanies', companyId, params.salePointId],
+		queryKey: ['queryCompanies', companyId, params.salePointId, filter.tab],
 		queryFn: () => {
 			return req({
 				method: 'GET',
@@ -60,12 +63,7 @@ export default function UsersList() {
 	const data = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
 	const total = get(queryCompanyUsers, 'data.data.data.totalElements', 0) as number;
 
-	const [filter, setFilter] = useState({
-		tab: 'users',
-	});
-
 	const [visible, setVisible] = useState(false);
-
 
 	const columnsUser: ColumnsType<ICompanyUsers> = [
 		{
@@ -121,7 +119,7 @@ export default function UsersList() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePoint',
 			render(value, record, index) {
 				const salePointName = get(value, 'name', '-');
@@ -142,27 +140,36 @@ export default function UsersList() {
 					value={filter.tab}
 					options={[
 						{
-							label: (<div style={{ padding: 4, width: 200 }}>{t('Xodim reyesti')}</div>),
+							label: <div style={{ padding: 4, width: 200 }}>{t('Xodim reyesti')}</div>,
 							value: 'users',
 						},
 						{
-							label: (<div style={{ padding: 4, width: 200 }}>{t('Покупатели')}</div>),
+							label: <div style={{ padding: 4, width: 200 }}>{t('Покупатели')}</div>,
 							value: 'buyers',
 						},
 					]}
-				/></div>
+				/>
+			</div>
 			<div className='h-[20px]' />
 			<div className='flex justify-between'>
 				<div className='pr-400'>
 					<Button onClick={() => navigate(`/company-admin/sale-points`)}>
 						<div className='flex space-x-1 '>
-							<div><ArrowLeft strokeWidth={2} /></div>
+							<div>
+								<ArrowLeft strokeWidth={2} />
+							</div>
 							<div>{t('Nazad')}</div>
 						</div>
 					</Button>
 				</div>
-				{/*{params.salePointName ? !visible : visible &&*/}
-				{!visible && <p><Title level={2}>{t('Магазин')}: {params.salePointName}</Title></p>}
+
+				{params.salePointName ? (
+					<p>
+						<Title level={2}>
+							{t('Магазин')}: {params.salePointName}
+						</Title>
+					</p>
+				) : null}
 
 				<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
 			</div>

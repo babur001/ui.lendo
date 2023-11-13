@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 /*import { saveAs } from 'file-saver';*/
 
 function BusinessReport() {
@@ -16,16 +17,20 @@ function BusinessReport() {
 	const navigate = useNavigate();
 	const [filter, setFilter] = useState({
 		tab: 'all',
+		date: {
+			from: '',
+			to: '',
+		},
 	});
 	const queryBusinessAnalytics = useQuery({
-		queryKey: ['queryBusinessAnalytics', filter.tab],
+		queryKey: ['queryBusinessAnalytics', filter.tab, filter.date],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/stat/get-sale-point-stat`,
 				params: {
-					'dateFrom': '01.01.2022',
-					'dateTo': '01.01.2024',
+					dateFrom: filter.date.from,
+					dateTo: filter.date.to,
 				},
 			});
 		},
@@ -34,13 +39,13 @@ function BusinessReport() {
 	const { t, i18n } = useTranslation();
 
 	const excelDownloadMutation = useMutation({
-		mutationKey: ['mutateExcel'],
+		mutationKey: ['mutateExcel', filter.date],
 		mutationFn: () => {
 			return req({
 				url: `/excel/get-sale-point-stat`,
 				params: {
-					'dateFrom': '01.01.2022',
-					'dateTo': '01.01.2024',
+					dateFrom: filter.date.from,
+					dateTo: filter.date.to,
 				},
 				method: 'GET',
 				responseType: 'blob',
@@ -48,8 +53,7 @@ function BusinessReport() {
 		},
 	});
 
-
-/*	const excelDownload = () => {
+	/*	const excelDownload = () => {
 		excelDownloadMutation.mutateAsync().then((res) => {
 			saveAs(res.data, 'excel.xlsx', { autoBom: true });
 		});
@@ -59,20 +63,20 @@ function BusinessReport() {
 		{
 			title: '№',
 			dataIndex: '',
-			align:'center',
+			align: 'center',
 			render(value, record, index) {
 				return <>{1 + index}</>;
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePointName',
-			align:'center',
+			align: 'center',
 		},
 		{
 			title: t('Харидорлар сони'),
 			dataIndex: 'clientCount',
-			align:'center',
+			align: 'center',
 		},
 		{
 			title: t('Аризалар сони'),
@@ -85,7 +89,8 @@ function BusinessReport() {
 		{
 			title: t('Харид суммаси'),
 			dataIndex: 'summaWithVat',
-		}, {
+		},
+		{
 			title: t('Жами сумма (ҚҚС билан)'),
 			dataIndex: 'summaWithVat',
 		},
@@ -122,7 +127,21 @@ function BusinessReport() {
 		<>
 			<Text h3>{t('Отчет по реализациям')}</Text>
 			<div className='h-[20px]' />
-			<RangePicker className='w-[250px]' />
+			<RangePicker
+				className='w-[250px]'
+				onChange={(e) => {
+					const fromDate = get(e, '0', moment(new Date()));
+					const toDate = get(e, '1', moment(new Date()));
+
+					setFilter({
+						...filter,
+						date: {
+							from: fromDate ? fromDate.format('DD.MM.YYYY') : filter.date.from,
+							to: toDate ? toDate.format('DD.MM.YYYY') : filter.date.to,
+						},
+					});
+				}}
+			/>
 
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columns} />
