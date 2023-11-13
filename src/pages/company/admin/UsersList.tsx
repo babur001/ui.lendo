@@ -1,5 +1,4 @@
 import { req } from '@/services/api.ts';
-import { Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
 import { Button, Segmented, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -11,8 +10,8 @@ import useAuthUser from '@/auth/useAuthUser.tsx';
 import moment from 'moment/moment';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import React, { useState } from 'react';
-import { log } from 'console';
+import { useState } from 'react';
+import Buyers from '@/pages/buyers';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -47,7 +46,7 @@ export default function UsersList() {
 		tab: 'users',
 	});
 	const queryCompanyUsers = useQuery({
-		queryKey: ['queryCompanies', companyId, params.salePointId, filter.tab],
+		queryKey: ['queryCompanies', companyId, params.salePointId],
 		queryFn: () => {
 			return req({
 				method: 'GET',
@@ -150,31 +149,39 @@ export default function UsersList() {
 					]}
 				/>
 			</div>
+
 			<div className='h-[20px]' />
-			<div className='flex justify-between'>
-				<div className='pr-400'>
-					<Button onClick={() => navigate(`/company-admin/sale-points`)}>
-						<div className='flex space-x-1 '>
-							<div>
-								<ArrowLeft strokeWidth={2} />
-							</div>
-							<div>{t('Nazad')}</div>
+
+			{filter.tab === 'users' ? (
+				<>
+					<div className='flex justify-between'>
+						<div className='pr-400'>
+							<Button onClick={() => navigate(`/company-admin/sale-points`)}>
+								<div className='flex space-x-1 '>
+									<div>
+										<ArrowLeft strokeWidth={2} />
+									</div>
+									<div>{t('Nazad')}</div>
+								</div>
+							</Button>
 						</div>
-					</Button>
-				</div>
 
-				{params.salePointName ? (
-					<p>
-						<Title level={2}>
-							{t('Магазин')}: {params.salePointName}
-						</Title>
-					</p>
-				) : null}
+						{params.salePointName ? (
+							<p>
+								<Title level={2}>
+									{t('Магазин')}: {params.salePointName}
+								</Title>
+							</p>
+						) : null}
 
-				<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
-			</div>
-			<div className='h-[20px]' />
-			<Table pagination={false} dataSource={data} columns={columnsUser} />
+						<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
+					</div>
+					<div className='h-[20px]' />
+					<Table pagination={false} dataSource={data} columns={columnsUser} />
+				</>
+			) : null}
+
+			{filter.tab === 'buyers' ? <Buyers /> : null}
 		</>
 	);
 }

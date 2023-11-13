@@ -24,8 +24,6 @@ export default function Header() {
 	const companyName = get(user, 'data.data.data.company.name', null);
 	const rolesName = get(user, 'data.data.data.roles.0.name', null);
 
-	console.log(user.data);
-
 	return (
 		<header className='py-3'>
 			<div className='flex items-center justify-between'>
