@@ -72,7 +72,8 @@ function BusinessAnalytics() {
         <>
             <Text h3>Бизнес аналитика</Text>
             <div className="h-[20px]"/>
-            <div className="w-full flex items-center justify-start"><Segmented
+            <div className="w-full flex items-center justify-start">
+                <Segmented
                 onChange={(tab) => setFilter({...filter, tab: tab as string})}
                 value={filter.tab}
                 options={[

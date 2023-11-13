@@ -41,11 +41,11 @@ function AddSalePointModal({ onAdd }: IProps) {
 		format?: string;
 	}[] = [
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			name: 'name',
 		},
 		{
-			title: t("Do'kon joylashgan manzil"),
+			title: t('Do\'kon joylashgan manzil'),
 			name: 'address',
 		},
 	];
@@ -92,10 +92,10 @@ function AddSalePointModal({ onAdd }: IProps) {
 	return (
 		<>
 			<Button size='large' onClick={() => setIsOpen(true)} type='primary'>
-				{t("Qo'shish")}
+				{t('Qo\'shish')}
 			</Button>
 
-			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t("Do'kon qo'shish")} footer={false}>
+			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t('Do\'kon qo\'shish')} footer={false}>
 				<div className='h-[20px]' />
 
 				<div className='flex flex-col gap-5'>
@@ -169,7 +169,10 @@ function AddSalePointModal({ onAdd }: IProps) {
 							}}
 						/>
 					</div>
-					<div>
+					<div >
+						<div> {t('Геолокация магазина')}</div>
+						<div className='h-[20px]' />
+
 						<YMaps>
 							<Map height={300} width={`100%`} defaultState={{ center: [41.2995, 69.2401], zoom: 9 }}>
 								<Placemark
@@ -188,7 +191,7 @@ function AddSalePointModal({ onAdd }: IProps) {
 					</div>
 
 					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddSalePoint.status === 'loading'}>
-						{t("Qo'shish")}
+						{t('Qo\'shish')}
 					</Button>
 				</div>
 			</Modal>

@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { PatternFormat } from 'react-number-format';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { ICompany } from '@/pages/company/admin/SalePointList.tsx';
-import { render } from 'react-dom';
 import { UploadIcon } from 'lucide-react';
 
 interface ISellerForm {
@@ -22,7 +21,7 @@ interface ISellerForm {
 	role: any;
 	pinfl: string;
 	managerId: string;
-	fileGuid: string;
+	fileGuid: any;
 	file: any;
 }
 
@@ -42,7 +41,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 	const { control, register, handleSubmit, watch, setValue } = useForm<ISellerForm>({});
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
-
+	const userId = get(user, 'data.data.data.id', null);
 	const mutateAddSeller = useMutation({
 		mutationFn: (data: ISellerForm) => {
 			return req({
@@ -88,11 +87,13 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 			return message.error(t(`Маълумотлар топилмади`));
 		}
 
+
 		const data = {
 			...values,
 			fileGuid: '1',
 			companyId: companyId,
 			role: [values.role],
+			managerId: userId,
 		};
 
 		const res = await mutateAddSeller.mutateAsync(data);
@@ -128,10 +129,10 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 												{...field}
 												size='large'
 												options={[
-													{ label: t('Администратор магазина'), value: 'SALE_POINT_ADMIN' },
+													/*{ label: t('Администратор магазина'), value: 'SALE_POINT_ADMIN' },*/
 													{ label: t('Продавец'), value: 'COMPANY_EMPLOYEE' },
 													{ label: t('Бухгалтер'), value: 'COMPANY_ACCOUNTANT' },
-													{ label: t('Менеджер'), value: 'COMPANY_MANAGER' },
+													/*{ label: t('Менеджер'), value: 'COMPANY_MANAGER' },*/
 												]}
 											/>
 										}
@@ -140,7 +141,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 							}}
 						/>
 					</div>
-					<div className='col-span-2'>
+					{/*<div className='col-span-2'>
 						<Controller
 							control={control}
 							name={'managerId'}
@@ -168,7 +169,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 								);
 							}}
 						/>
-					</div>
+					</div>*/}
 					<div className='col-span-2'>
 						<Description
 							title={t('ЖИШШР')}
@@ -239,7 +240,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 							render={({ field }) => {
 								return (
 									<Description
-										title={t("Do'kon nomi")}
+										title={t('Do\'kon nomi')}
 										content={
 											<Select
 												className={'w-[100%]'}
@@ -283,7 +284,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 											className='flex items-center justify-center'
 											block
 										>
-											{t('Файл юклаш')}
+											{t('Загрузить фото сотрудника')}
 										</Button>
 									</Upload>
 								</>
@@ -291,14 +292,9 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 						/>
 					</div>
 
-					<div className='col-span-2'>
-						<Input disabled={true} defaultValue={'1'} width={'100%'} {...register('fileGuid')}>
-							{t('fileGuid')}
-						</Input>
-					</div>
 					<div className='h-[20px]' />
 					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddSeller.status === 'loading'}>
-						{t("Qo'shish")}
+						{t('Qo\'shish')}
 					</Button>
 				</div>
 			</Modal>
