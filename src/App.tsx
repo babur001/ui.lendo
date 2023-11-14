@@ -80,7 +80,7 @@ const CompanyRoutes = [
 	},
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 
-export type TEmployeePages = 'analytics' | 'nasiya' | 'buyers';
+export type TEmployeePages = 'analytics' | 'default' | 'buyers';
 
 const EmployeeRoutes = [
 	{
@@ -88,7 +88,7 @@ const EmployeeRoutes = [
 		element: <AnalyticsByDate />,
 	},
 	{
-		path: 'nasiya',
+		path: 'default',
 		element: <Nasiya />,
 	},
 	{
