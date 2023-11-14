@@ -8,8 +8,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import moment from 'moment/moment';
-import { useParams } from 'react-router-dom';/*
+import { useParams } from 'react-router-dom'; /*
 import { saveAs } from 'file-saver';*/
+import { formatNumber } from '@/auth/Scoring';
 
 function Applications() {
 	const params = useParams();
@@ -29,7 +30,6 @@ function Applications() {
 	const data = get(queryApplications, 'data.data.data.content', []);
 	const total = get(queryApplications, 'data.data.data.totalElements', []);
 
-
 	const excelDownloadMutation = useMutation({
 		mutationKey: ['mutateExcel'],
 		mutationFn: () => {
@@ -45,7 +45,7 @@ function Applications() {
 		},
 	});
 
-/*
+	/*
 
 	const excelDownload = () => {
 		excelDownloadMutation.mutateAsync().then((res) => {
@@ -75,7 +75,7 @@ function Applications() {
 					' ',
 					get(record, 'client.lastName', ''),
 					' ',
-					get(record, 'client.middleName', ''),
+					get(record, 'client.middleName', '')
 				);
 				return <>{fullName}</>;
 			},
@@ -83,10 +83,16 @@ function Applications() {
 		{
 			title: t('Суммаси всего товара'),
 			dataIndex: 'paymentSumWithVat',
+			render(value, record, index) {
+				return formatNumber(value);
+			},
 		},
 		{
 			title: t('Рассрочка суммаси'),
 			dataIndex: '',
+			render(value, record, index) {
+				return formatNumber(value);
+			},
 		},
 		{
 			title: t('Период рассрочки'),
@@ -101,7 +107,8 @@ function Applications() {
 			render(value, record, index) {
 				return moment(value).format('DD.MM.YYYY');
 			},
-		}, {
+		},
+		{
 			title: t('Batafsil'),
 			dataIndex: '',
 			render(value, record, index) {
@@ -125,7 +132,7 @@ function Applications() {
 			</div>
 			<div className='h-[20px]' />
 
-			<Table pagination={false} dataSource={data} columns={columns} />
+			<Table bordered pagination={false} dataSource={data} columns={columns} />
 		</>
 	);
 }
