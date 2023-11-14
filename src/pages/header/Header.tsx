@@ -36,30 +36,6 @@ export default function Header() {
 						</div>
 					) : null}
 
-					<Select
-						className='w-40'
-						defaultValue={'ru'}
-						onSelect={(e) => {
-							changeLanguageHandler(e as TLanguages);
-						}}
-						options={
-							[
-								{
-									label: 'Русский',
-									value: 'ru',
-								},
-								{
-									label: 'Ўзбекча',
-									value: 'uz_kyrl',
-								},
-								{
-									label: "O'zbekcha",
-									value: 'uz_latn',
-								},
-							] satisfies { label: React.ReactNode; value: TLanguages }[]
-						}
-					/>
-
 					<Button className='flex items-center' danger onClick={logout}>
 						{t('Chiqish')}
 						<LogOut strokeWidth={1.5} size={14} className='!ml-4' />

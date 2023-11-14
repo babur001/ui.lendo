@@ -41,14 +41,13 @@ const adminRoutes = [
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
 export type TCompanyPages =
-	'business-report'
+	| 'business-report'
 	| 'analytics'
 	| 'sale-points'
 	| 'company-users'
 	| 'sale-points/:salePointId/:salePointName'
 	| 'company-buyers'
-	| 'company-applications'
-	;
+	| 'company-applications';
 
 const CompanyRoutes = [
 	{
