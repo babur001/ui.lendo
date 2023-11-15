@@ -8,8 +8,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import moment from 'moment/moment';
-import { useParams } from 'react-router-dom'; /*
-import { saveAs } from 'file-saver';*/
+import { useParams } from 'react-router-dom';
+import { saveAs } from 'file-saver';
 import { formatNumber } from '@/auth/Scoring';
 
 function Applications() {
@@ -45,14 +45,12 @@ function Applications() {
 		},
 	});
 
-	/*
 
 	const excelDownload = () => {
 		excelDownloadMutation.mutateAsync().then((res) => {
 			saveAs(res.data, 'excel.xlsx', { autoBom: true });
 		});
 	};
-*/
 
 	const columns: ColumnsType<IApplications> = [
 		{

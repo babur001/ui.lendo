@@ -18,6 +18,7 @@ import Applications from '@/pages/buyers/applicationsList.tsx';
 import BusinessReport from '@/pages/buxgalteriya/Report.tsx';
 import CompanyBuyers from '@/pages/company/admin/CompanyBuyers.tsx';
 import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.tsx';
+import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
 
@@ -42,6 +43,7 @@ const adminRoutes = [
 
 export type TCompanyPages =
 	| 'business-report'
+	| 'business-report-scoring'
 	| 'analytics'
 	| 'sale-points'
 	| 'company-users'
@@ -53,6 +55,10 @@ const CompanyRoutes = [
 	{
 		path: 'business-report',
 		element: <BusinessReport />,
+	},
+	{
+		path: 'business-report-scoring',
+		element: <BusinessReportScoring />,
 	},
 	{
 		path: 'analytics',

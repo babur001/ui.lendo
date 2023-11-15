@@ -18,6 +18,13 @@ function CompanyLayout() {
 			icon: <LineChart strokeWidth={1.5} className='!h-5' />,
 			label: t(`Статистика реализации`),
 		},
+
+		{
+			key: 'business-report-scoring',
+			icon: <LineChart strokeWidth={1.5} className='!h-5' />,
+			label: t(`Отчет скоринг`),
+		},
+
 		{
 			key: 'business-report',
 			icon: <BarChart2 strokeWidth={1.5} className='!h-5' />,
