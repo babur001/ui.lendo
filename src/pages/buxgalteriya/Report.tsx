@@ -73,6 +73,23 @@ function BusinessReport() {
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
+
+		// {
+		// 	title: t("Результаты скоринга банка"),
+		// 	dataIndex: '',
+		// 	children: [
+		// 		{
+		// 			title: t("Do'kon nomi"),
+		// 			dataIndex: 'salePointName',
+		// 			align: 'center',
+		// 			render(value, record, index) {
+						
+		// 			},
+		// 		},
+		// 	]
+		// },
+
+
 		{
 			title: t('Харидорлар сони'),
 			dataIndex: 'clientCount',
@@ -129,6 +146,7 @@ function BusinessReport() {
 			<div className='h-[20px]' />
 			<RangePicker
 				className='w-[250px]'
+				placeholder={[t('дан'), t('гача')]}
 				onChange={(e) => {
 					const fromDate = get(e, '0', moment(new Date()));
 					const toDate = get(e, '1', moment(new Date()));
