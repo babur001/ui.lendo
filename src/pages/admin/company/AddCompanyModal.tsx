@@ -8,8 +8,9 @@ import { find, get } from 'lodash';
 import { PatternFormat } from 'react-number-format';
 import { Input as AntdInput } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import regions from '@/data/ns10.json';
+import { UploadIcon } from 'lucide-react';
 
 interface IProps {
 	onAdd?: () => unknown;
@@ -33,6 +34,7 @@ interface ICompanyForm {
 		fileGuid: string;
 	};
 }
+
 interface IBank {
 	id: string | number;
 	bankName: string | number;
@@ -42,7 +44,7 @@ function AddCompanyModal({ onAdd }: IProps) {
 	const { t } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 
-	const { register, handleSubmit, control, watch } = useForm<ICompanyForm>();
+	const { handleSubmit, control, setValue } = useForm<ICompanyForm>();
 
 	const mutateAddCompany = useMutation({
 		mutationKey: ['mutateAddCompany'],
@@ -53,7 +55,6 @@ function AddCompanyModal({ onAdd }: IProps) {
 				data: {
 					...companyForm,
 					role: ['COMPANY_ADMIN'],
-					bankId: 1,
 				},
 			});
 		},
@@ -93,10 +94,10 @@ function AddCompanyModal({ onAdd }: IProps) {
 	return (
 		<>
 			<Button onClick={() => setIsOpen(true)} type='primary'>
-				{t("Korxona qo'shish")}
+				{t('Korxona qo\'shish')}
 			</Button>
 
-			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t("Korxona qo'shish")} footer={false}>
+			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t('Korxona qo\'shish')} footer={false}>
 				<div className='h-[20px]' />
 				<div className='flex flex-col gap-5'>
 					<div className='col-span-2'>
@@ -306,9 +307,37 @@ function AddCompanyModal({ onAdd }: IProps) {
 							}}
 						/>
 					</div>
+
+
+					<div className='col-span-1'>
+						<Controller
+							control={control}
+							name='user.fileGuid'
+							render={({ field }: any) => (
+								<>
+									<Upload
+										maxCount={1}
+										multiple={false}
+										fileList={field.value ? [field.value] : undefined}
+										beforeUpload={(file: any) => {
+											setValue('user.fileGuid', file);
+											return false;
+										}} className='w-full'>
+										<Button
+											icon={<UploadIcon strokeWidth={1.5} size={16} />}
+											className='flex items-center justify-center'
+											block>
+											{t('Загрузить фото администратора')}
+										</Button>
+									</Upload>
+								</>
+							)}
+						/>
+					</div>
+
 					<div className='h-[20px]' />
 					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddCompany.status === 'loading'}>
-						{t("Qo'shish")}
+						{t('Qo\'shish')}
 					</Button>
 				</div>
 			</Modal>

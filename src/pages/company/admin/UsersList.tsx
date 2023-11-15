@@ -12,6 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import Buyers from '@/pages/buyers';
+import { Text } from '@geist-ui/core';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -118,7 +119,7 @@ export default function UsersList() {
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'salePoint',
 			render(value, record, index) {
 				const salePointName = get(value, 'name', '-');
@@ -133,22 +134,32 @@ export default function UsersList() {
 
 	return (
 		<>
-			<div className='w-full flex items-center justify-start'>
-				<Segmented
-					onChange={(tab) => setFilter({ ...filter, tab: tab as string })}
-					value={filter.tab}
-					options={[
-						{
-							label: <div style={{ padding: 4, width: 200 }}>{t('Xodim reyesti')}</div>,
-							value: 'users',
-						},
-						{
-							label: <div style={{ padding: 4, width: 200 }}>{t('Покупатели')}</div>,
-							value: 'buyers',
-						},
-					]}
-				/>
-			</div>
+
+			{!params.salePointName ? (
+				<p>
+					<Text h3>{t('Xodim reyesti')}</Text>
+				</p>
+			) : null}
+
+			{params.salePointName ? (
+				<div className='w-full flex items-center justify-start'>
+					<Segmented
+						onChange={(tab) => setFilter({ ...filter, tab: tab as string })}
+						value={filter.tab}
+						options={[
+							{
+								label: <div style={{ padding: 4, width: 200 }}>{t('Xodim reyesti')}</div>,
+								value: 'users',
+							},
+							{
+								label: <div style={{ padding: 4, width: 200 }}>{t('Покупатели')}</div>,
+								value: 'buyers',
+							},
+						]}
+					/>
+				</div>
+			) : null}
+
 
 			<div className='h-[20px]' />
 
@@ -156,16 +167,17 @@ export default function UsersList() {
 				<>
 					<div className='flex justify-between'>
 						<div className='pr-400'>
-							<Button onClick={() => navigate(`/company-admin/sale-points`)}>
-								<div className='flex space-x-1 '>
-									<div>
-										<ArrowLeft strokeWidth={2} />
+							{params.salePointName ? (
+								<Button onClick={() => navigate(`/company-admin/sale-points`)}>
+									<div className='flex space-x-1 '>
+										<div>
+											<ArrowLeft strokeWidth={2} />
+										</div>
+										<div>{t('Nazad')}</div>
 									</div>
-									<div>{t('Nazad')}</div>
-								</div>
-							</Button>
+								</Button>
+							) : null}
 						</div>
-
 						{params.salePointName ? (
 							<p>
 								<Title level={2}>
