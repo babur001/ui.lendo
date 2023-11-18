@@ -115,7 +115,7 @@ function CompanyBuyers() {
 
 		{
 			title: t("Количество сделок"),
-			dataIndex: "",
+			dataIndex: "applicationCount",
 		},
 		{
 			title: t("Рассрочка суммаси"),

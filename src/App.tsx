@@ -19,6 +19,7 @@ import BusinessReport from '@/pages/buxgalteriya/Report.tsx';
 import CompanyBuyers from '@/pages/company/admin/CompanyBuyers.tsx';
 import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.tsx';
 import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
+import ApplicationDetails from '@/pages/buyers/applicationsDetails.tsx';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
 
@@ -44,6 +45,8 @@ const adminRoutes = [
 export type TCompanyPages =
 	| 'business-report'
 	| 'business-report-scoring'
+	| 'applications/:sale_point_id/:salePointName'
+	| 'applications/:applicationId'
 	| 'analytics'
 	| 'sale-points'
 	| 'company-users'
@@ -59,6 +62,14 @@ const CompanyRoutes = [
 	{
 		path: 'business-report-scoring',
 		element: <BusinessReportScoring />,
+	},
+	{
+		path: 'applications/:sale_point_id/:salePointName',
+		element: <Applications />,
+	},
+	{
+		path: 'applications/:applicationId',
+		element: <ApplicationDetails />,
 	},
 	{
 		path: 'analytics',
@@ -86,7 +97,7 @@ const CompanyRoutes = [
 	},
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 
-export type TEmployeePages = 'analytics' | 'default' | 'buyers';
+export type TEmployeePages = 'analytics' | 'default' | 'applications' | 'applications/:applicationId';
 
 const EmployeeRoutes = [
 	{
@@ -98,8 +109,12 @@ const EmployeeRoutes = [
 		element: <Nasiya />,
 	},
 	{
-		path: 'buyers',
+		path: 'applications',
 		element: <Applications />,
+	},
+	{
+		path: 'applications/:applicationId',
+		element: <ApplicationDetails />,
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 

@@ -2,35 +2,35 @@ import Header from '@/pages/header/Header.tsx';
 import { req } from '@/services/api.ts';
 import { Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Segmented, Table, DatePicker } from 'antd';
+import { Button, Table, DatePicker } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
+
 import { saveAs } from 'file-saver';
+import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 
 function BusinessReport() {
 	const { RangePicker } = DatePicker;
 	const navigate = useNavigate();
-	const [filter, setFilter] = useState({
-		tab: 'all',
-		date: {
-			from: '',
-			to: '',
-		},
-	});
+	const { dateFrom, dateTo, setRangeDate } = useReceiptsStore((store) => ({
+		dateFrom: store.dateFrom,
+		dateTo: store.dateTo,
+		setRangeDate: store.setRangeDate,
+	}));
+
 	const queryBusinessAnalytics = useQuery({
-		queryKey: ['queryBusinessAnalytics', filter.tab, filter.date],
+		queryKey: ['queryBusinessAnalytics'],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/stat/get-sale-point-stat`,
 				params: {
-					dateFrom: filter.date.from,
-					dateTo: filter.date.to,
+					dateFrom: dateFrom,
+					dateTo: dateTo,
 				},
 			});
 		},
@@ -39,13 +39,13 @@ function BusinessReport() {
 	const { t, i18n } = useTranslation();
 
 	const excelDownloadMutation = useMutation({
-		mutationKey: ['mutateExcel', filter.date],
+		mutationKey: ['mutateExcel'],
 		mutationFn: () => {
 			return req({
 				url: `/excel/get-sale-point-stat`,
 				params: {
-					dateFrom: filter.date.from,
-					dateTo: filter.date.to,
+					dateFrom: dateFrom,
+					dateTo: dateTo,
 				},
 				method: 'GET',
 				responseType: 'blob',
@@ -116,7 +116,7 @@ function BusinessReport() {
 			dataIndex: '',
 			render(value, record, index) {
 				return (
-					<Button onClick={() => navigate(`/buxgalter/buyers/${record.salePointId}`)}>
+					<Button onClick={() => navigate(`/company-admin/applications/${record.salePointId}/${record.salePointName}`)}>
 						<ArrowRight strokeWidth={1} />
 					</Button>
 				);
@@ -127,29 +127,33 @@ function BusinessReport() {
 	return (
 		<>
 			<Text h3>{t('Отчет по реализациям')}</Text>
-			<div className='h-[20px]' />
-			<RangePicker
-				className='w-[250px]'
-				placeholder={[t('дан'), t('гача')]}
-				onChange={(e) => {
-					const fromDate = get(e, '0', moment(new Date()));
-					const toDate = get(e, '1', moment(new Date()));
 
-					setFilter({
-						...filter,
-						date: {
-							from: fromDate ? fromDate.format('DD.MM.YYYY') : filter.date.from,
-							to: toDate ? toDate.format('DD.MM.YYYY') : filter.date.to,
-						},
-					});
-				}}
-			/>
+			<div className='h-[20px]' />
+			<div className='flex items-center justify-between  w-full'>
+				<div>
+					<RangePicker
+						allowClear={false}
+						placeholder={[t('дан'), t('гача')]}
+						className='w-full'
+						/*defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}*/
+						onChange={(m) => {
+							if (m && m[1] && m[0]) {
+								setRangeDate({
+									dateFrom: m[0].format(DATE_FORMAT) as IReceiptsStore['dateFrom'],
+									dateTo: m[1].format(DATE_FORMAT) as IReceiptsStore['dateTo'],
+								});
+							}
+						}}
+					/>
+				</div>
+				<div></div>
+			</div>
 
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columns} />
 			<div className='h-[10px]' />
 			<div className='flex items-center justify-end w-full'>
-				<Button size='large' loading={excelDownloadMutation.isLoading} type='primary'>
+				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
 					{t('Загрузить в Excel')}
 				</Button>
 			</div>
