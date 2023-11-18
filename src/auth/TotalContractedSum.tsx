@@ -22,10 +22,9 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 	}
 	total -= isNaN(+values.paymentSum) ? 0 : values.paymentSum;
 	const percentages = {
-		4: 23,
+		3: 23,
 		6: 30,
-		9: 35,
-		12: 40,
+		18: 35,
 	} as any;
 
 	const percentage =

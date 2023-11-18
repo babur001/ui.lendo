@@ -8,56 +8,55 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
+import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
+
 
 function BusinessReportScoring() {
+	const { t, i18n } = useTranslation();
 	const { RangePicker } = DatePicker;
+	const { dateFrom, dateTo, setRangeDate } = useReceiptsStore((store) => ({
+		dateFrom: store.dateFrom,
+		dateTo: store.dateTo,
+		setRangeDate: store.setRangeDate,
+	}));
+	console.log('dateFrom', dateFrom);
+	console.log('dateTo', dateTo);
 	const navigate = useNavigate();
-	const [filter, setFilter] = useState({
-		tab: 'all',
-		date: {
-			from: '',
-			to: '',
-		},
-	});
 	const queryBusinessAnalytics = useQuery({
-		queryKey: ['queryBusinessAnalytics', filter.tab, filter.date],
+		queryKey: ['queryBusinessAnalytics'],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/stat/get-sale-point-bank-stat`,
 				params: {
-					dateFrom: filter.date.from,
-					dateTo: filter.date.to,
+					dateFrom: dateFrom,
+					dateTo: dateTo,
 				},
 			});
 		},
 	});
 	const data = get(queryBusinessAnalytics, 'data.data.data', []);
-	const { t, i18n } = useTranslation();
-
 	const excelDownloadMutation = useMutation({
-		mutationKey: ['mutateExcel', filter.date],
+		mutationKey: ['mutateExcel'],
 		mutationFn: () => {
 			return req({
 				url: `/excel/get-sale-point-stat`,
 				params: {
-					dateFrom: filter.date.from,
-					dateTo: filter.date.to,
+					dateFrom: dateFrom,
+					dateTo: dateTo,
 				},
 				method: 'GET',
 				responseType: 'blob',
 			});
 		},
 	});
-
 	const excelDownload = () => {
 		excelDownloadMutation.mutateAsync().then((res) => {
 			saveAs(res.data, 'excel.xlsx', { autoBom: true });
 		});
 	};
-
 	const columns: ColumnsType<any> = [
 		{
 			title: '№',
@@ -72,7 +71,6 @@ function BusinessReportScoring() {
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
-
 		{
 			title: t('Результаты скоринга банка'),
 			dataIndex: '',
@@ -80,22 +78,22 @@ function BusinessReportScoring() {
 			children: [
 				{
 					title: t('Заявка отказана банком (раз'),
-					dataIndex: '',
+					dataIndex: 'bankRejectedAppCount',
 					align: 'center',
 				},
 				{
 					title: t('Заявка одобрена банком (раз)'),
-					dataIndex: '',
+					dataIndex: 'bankApprovedAppCount',
 					align: 'center',
 				},
 				{
 					title: t('Количество товара указанного в заявках'),
-					dataIndex: '',
+					dataIndex: 'approvedProductCount',
 					align: 'center',
 				},
 				{
 					title: t('Сумма товара указанного в заявках (сум)'),
-					dataIndex: '',
+					dataIndex: 'approvedSummaWithVat',
 					align: 'center',
 				},
 			],
@@ -114,29 +112,29 @@ function BusinessReportScoring() {
 					children: [
 						{
 							title: t('ед'),
-							dataIndex: '',
+							dataIndex: 'bankPaidAppCount',
 							align: 'center',
 						},
 						{
 							title: t('в % к одобренным'),
-							dataIndex: '',
+							dataIndex: 'bankPaidAppPercent',
 							align: 'center',
 						},
 					],
 				},
 				{
-					title: t('Количество оплаченного банком товара '),
+					title: t('Количество оплаченного банком товара'),
 					dataIndex: '',
 					align: 'center',
 					children: [
 						{
 							title: t('ед'),
-							dataIndex: '',
+							dataIndex: 'bankPaidProductCount',
 							align: 'center',
 						},
 						{
 							title: t('в % к одобренным'),
-							dataIndex: '',
+							dataIndex: 'bankPaidProductPercent',
 							align: 'center',
 						},
 					],
@@ -148,12 +146,12 @@ function BusinessReportScoring() {
 					children: [
 						{
 							title: t('сум'),
-							dataIndex: '',
+							dataIndex: 'bankPaidProductTotal',
 							align: 'center',
 						},
 						{
 							title: t('в % к одобренным'),
-							dataIndex: '',
+							dataIndex: 'bankPaidProductTotalPercent',
 							align: 'center',
 						},
 					],
@@ -166,15 +164,15 @@ function BusinessReportScoring() {
 			align: 'center',
 			children: [{
 				title: t('заявки'),
-				dataIndex: '',
+				dataIndex: 'bankPendingAppCount',
 				align: 'center',
 			}, {
 				title: t('количество товара'),
-				dataIndex: '',
+				dataIndex: 'bankPendingProductCount',
 				align: 'center',
 			}, {
 				title: t('сумма'),
-				dataIndex: '',
+				dataIndex: 'bankPendingProductTotal',
 				align: 'center',
 			},
 			],
@@ -185,11 +183,11 @@ function BusinessReportScoring() {
 			align: 'center',
 			children: [{
 				title: t('заявки'),
-				dataIndex: '',
+				dataIndex: 'bankPending3DaysAppCount',
 				align: 'center',
 			}, {
 				title: t('сумма'),
-				dataIndex: '',
+				dataIndex: 'bankPending3DaysProductTotal',
 				align: 'center',
 			}],
 		},
@@ -198,40 +196,41 @@ function BusinessReportScoring() {
 			dataIndex: '',
 			render(value, record, index) {
 				return (
-					<Button onClick={() => navigate(`/buxgalter/buyers/${record.salePointId}`)}>
+					<Button onClick={() => navigate(`/company-admin/applications/${record.salePointId}/${record.salePointName}`)}>
 						<ArrowRight strokeWidth={1} />
 					</Button>
 				);
 			},
 		},
 	];
-
 	return (
 		<>
 			<Text h3>{t('Отчет по скорингу')}</Text>
 			<div className='h-[20px]' />
-			<RangePicker
-				className='w-[250px]'
-				placeholder={[t('дан'), t('гача')]}
-				onChange={(e) => {
-					const fromDate = get(e, '0', moment(new Date()));
-					const toDate = get(e, '1', moment(new Date()));
-
-					setFilter({
-						...filter,
-						date: {
-							from: fromDate ? fromDate.format('DD.MM.YYYY') : filter.date.from,
-							to: toDate ? toDate.format('DD.MM.YYYY') : filter.date.to,
-						},
-					});
-				}}
-			/>
-
+			<div className='flex items-center justify-between  w-full'>
+				<div>
+					<RangePicker
+						allowClear={false}
+						placeholder={[t('дан'), t('гача')]}
+						className='w-full'
+						/*defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}*/
+						onChange={(m) => {
+							if (m && m[1] && m[0]) {
+								setRangeDate({
+									dateFrom: m[0].format(DATE_FORMAT) as IReceiptsStore['dateFrom'],
+									dateTo: m[1].format(DATE_FORMAT) as IReceiptsStore['dateTo'],
+								});
+							}
+						}}
+					/>
+				</div>
+				<div></div>
+			</div>
 			<div className='h-[20px]' />
 			<Table pagination={false} dataSource={data} columns={columns} />
 			<div className='h-[10px]' />
 			<div className='flex items-center justify-end w-full'>
-				<Button size='large' loading={excelDownloadMutation.isLoading} type='primary'>
+				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
 					{t('Загрузить в Excel')}
 				</Button>
 			</div>

@@ -24,7 +24,7 @@ function EmployeeLayout() {
 			label: t(`Рўйхатдан ўтказиш`),
 		},
 		{
-			key: 'buyers',
+			key: 'applications',
 			icon: <Users strokeWidth={1.5} className='!h-5' />,
 			label: t(`Список заявлений`),
 		},

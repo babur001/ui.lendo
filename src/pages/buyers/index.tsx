@@ -59,7 +59,7 @@ function Buyers() {
 
 		{
 			title: t('Количество сделок'),
-			dataIndex: '',
+			dataIndex: 'applicationCount',
 			render(value, record, index) {
 				return formatNumber(value);
 			},

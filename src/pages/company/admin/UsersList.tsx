@@ -186,7 +186,11 @@ export default function UsersList() {
 							</p>
 						) : null}
 
-						<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
+						{!params.salePointName ? (
+							<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
+						) : <div></div>}
+
+
 					</div>
 					<div className='h-[20px]' />
 					<Table pagination={false} dataSource={data} columns={columnsUser} />
