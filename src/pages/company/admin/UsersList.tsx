@@ -134,11 +134,14 @@ export default function UsersList() {
 
 	return (
 		<>
-
 			{!params.salePointName ? (
-				<p>
-					<Text h3>{t('Xodim reyesti')}</Text>
-				</p>
+				<div className='w-full flex items-center justify-between'>
+					<div></div>
+					<Title level={2}>
+						{t('Сотрудники')}
+					</Title>
+					<div></div>
+				</div>
 			) : null}
 
 			{params.salePointName ? (
@@ -159,9 +162,6 @@ export default function UsersList() {
 					/>
 				</div>
 			) : null}
-
-
-			<div className='h-[20px]' />
 
 			{filter.tab === 'users' ? (
 				<>

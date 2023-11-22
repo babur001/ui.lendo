@@ -2,13 +2,16 @@ import AddSalePointModal from '@/pages/company/admin/AddSalePointModal.tsx';
 import { req } from '@/services/api';
 import { Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Table, Layout, Select } from 'antd';
+import { Button, Table, Layout, Select, Segmented, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useState } from 'react';
+import Buyers from '@/pages/buyers';
+import UsersList from '@/pages/company/admin/UsersList.tsx';
 
 export interface ICompany {
 	createdAt: string;
@@ -34,8 +37,12 @@ export interface CreatedByOrUpdatedBy {
 
 export default function SalePointList() {
 	const { t } = useTranslation();
+	const { Title } = Typography;
 	const navigate = useNavigate();
 	const { companyId } = useParams();
+	const [filter, setFilter] = useState({
+		tab: 'sale_points',
+	});
 
 	const querySalePoints = useQuery({
 		queryKey: ['querySalePoints', companyId],
@@ -51,8 +58,6 @@ export default function SalePointList() {
 			});
 		},
 	});
-
-
 
 
 	const data = get(querySalePoints, 'data.data.data.content', []) as ICompany[];
@@ -97,7 +102,7 @@ export default function SalePointList() {
 				);
 			},
 		},
-		{
+		/*{
 			title: t('Batafsil'),
 			dataIndex: '',
 			align: 'center',
@@ -108,18 +113,45 @@ export default function SalePointList() {
 					</Button>
 				);
 			},
-		},
+		},*/
 	];
 
 	return (
 		<>
-			<Text h3>{t('Реестр магазинов')}</Text>
-			<div className='w-full flex items-center justify-end'>
-				<AddSalePointModal onAdd={() => querySalePoints.refetch()} />
+			<div className='w-full flex items-center justify-start'>
+				<Segmented
+					onChange={(tab) => setFilter({ ...filter, tab: tab as string })}
+					value={filter.tab}
+					options={[
+						{
+							label: <div style={{ padding: 4, width: 200 }}>{t('Пункты продаж')}</div>,
+							value: 'sale_points',
+						},
+						{
+							label: <div style={{ padding: 4, width: 200 }}>{t('Сотрудники')}</div>,
+							value: 'users',
+						},
+					]}
+				/>
 			</div>
-			<div className='h-[20px]' />
-			<Table pagination={false} dataSource={data} columns={columns} />
+			{filter.tab === 'sale_points' ? (
+				<>
+					<div className='w-full flex items-center justify-between'>
+						<div></div>
+						<Title level={2}>
+							{t('Пункты продаж')}
+						</Title>
+						<div></div>
+					</div>
+					<div className='w-full flex items-center justify-end'>
+						<AddSalePointModal onAdd={() => querySalePoints.refetch()} />
+					</div>
+					<div className='h-[20px]' />
+					<Table pagination={false} dataSource={data} columns={columns} />
+				</>
+			) : null}
 
+			{filter.tab === 'users' ? <UsersList /> : null}
 
 		</>
 	);
