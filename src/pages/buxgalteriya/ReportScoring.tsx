@@ -205,7 +205,7 @@ function BusinessReportScoring() {
 	];
 	return (
 		<>
-			<Text h3>{t('Отчет по скорингу')}</Text>
+			<Text h3>{t('Продажи')}</Text>
 			<div className='h-[20px]' />
 			<div className='flex items-center justify-between  w-full'>
 				<div>
