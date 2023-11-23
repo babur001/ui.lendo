@@ -19,7 +19,7 @@ function Logo(props: any) {
         fontWeight="600"
         transform="translate(19 38.881)"
       >
-        <tspan y="0">NASIYA</tspan>
+        <tspan y="0">TAQSIT</tspan>
       </text>
     </svg>
   );

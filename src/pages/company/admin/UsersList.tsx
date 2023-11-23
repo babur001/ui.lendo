@@ -1,6 +1,6 @@
 import { req } from '@/services/api.ts';
-import { useQuery } from '@tanstack/react-query';
-import { Button, Segmented, Table, Typography } from 'antd';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Button, message, Modal, Segmented, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -9,10 +9,10 @@ import AddCompanyUsersModal from '@/pages/company/admin/AddCompanyUsersModal.tsx
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import moment from 'moment/moment';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, ArrowRight, Delete } from 'lucide-react';
+import React, { useState } from 'react';
 import Buyers from '@/pages/buyers';
-import { Text } from '@geist-ui/core';
+
 
 interface ICompanyUsers {
 	id: string | number;
@@ -42,6 +42,7 @@ export default function UsersList() {
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const params = useParams();
+	const [isOpen, setIsOpen] = useState(false);
 	const { Title } = Typography;
 	const [filter, setFilter] = useState({
 		tab: 'users',
@@ -59,11 +60,39 @@ export default function UsersList() {
 			});
 		},
 	});
-
 	const data = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
 	const total = get(queryCompanyUsers, 'data.data.data.totalElements', 0) as number;
 
-	const [visible, setVisible] = useState(false);
+
+	const [userId, setUserId] = useState(0);
+
+	const mutateDeleteUser = useMutation({
+		mutationKey: ['queryDeleteUser'],
+		mutationFn: (user_id) => {
+			return req({
+				method: 'PUT',
+				url: `/1111`,
+				data: {user_id:user_id},
+			});
+		},
+	});
+
+	const onSubmit = async (values: any) => {
+		setIsOpen(false);
+		if (!values) {
+			return message.error(t(`Маълумотлар топилмади`));
+		}
+		const res = await mutateDeleteUser.mutateAsync(values);
+		/*const success = get(res, 'data.success', false);
+		if (!success) {
+			message.error(t(`Kutilmagan xatolik!`));
+			setIsOpen(false);
+		} else {
+			message.success(t(`O'chirildi`));
+			setIsOpen(false);
+		}*/
+	};
+
 
 	const columnsUser: ColumnsType<ICompanyUsers> = [
 		{
@@ -130,6 +159,23 @@ export default function UsersList() {
 				} else return t(salePointName) + ' (' + districtName + ', ' + address + ')';
 			},
 		},
+		{
+			title: t('Удалить'),
+			dataIndex: '',
+			align: 'center',
+			render(value, record, index) {
+				return (
+					<Button
+						type='primary'
+						danger
+						onClick={() => setIsOpen(true)}
+						size='middle'
+					>
+						{t('Удалить')}
+					</Button>
+				);
+			},
+		},
 	];
 
 	return (
@@ -193,11 +239,40 @@ export default function UsersList() {
 
 					</div>
 					<div className='h-[20px]' />
-					<Table pagination={false} dataSource={data} columns={columnsUser} />
+					<Table pagination={false}
+								 dataSource={data}
+								 columns={columnsUser}
+								 rowClassName={(row, idx) => {
+									 if (idx % 2 === 0) {
+										 return '';
+									 }
+									 return '!bg-gray-50';
+								 }} />
 				</>
 			) : null}
-
 			{filter.tab === 'buyers' ? <Buyers /> : null}
+
+			<Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={false}>
+				<div className='h-[20px]' />
+				<p className='flex justify-center'>
+					<Title level={4}>
+						{t('Уверены что хотите удалить из системы !')}
+					</Title>
+				</p>
+				<div className='h-[20px]' />
+				<div className='flex justify-between gap-5'>
+
+					<Button className='w-full' type='primary' onClick={() => onSubmit(1)}
+									loading={mutateDeleteUser.status === 'loading'}>
+						{t('Да')}
+					</Button>
+
+					<Button className='w-full' type='primary' onClick={() => setIsOpen(false)} danger>
+						{t('Нет')}
+					</Button>
+				</div>
+			</Modal>
+
 		</>
 	);
 }
