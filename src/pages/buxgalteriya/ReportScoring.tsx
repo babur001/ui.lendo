@@ -64,7 +64,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -239,9 +239,9 @@ function BusinessReportScoring() {
 				columns={columns}
 				rowClassName={(row, idx) => {
 					if (idx % 2 === 0) {
-						return '!bg-gray-50';
+						return '';
 					}
-					return '';
+					return '!bg-gray-50';
 				}}
 			/>
 			<div className='h-[10px]' />
