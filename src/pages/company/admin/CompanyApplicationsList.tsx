@@ -13,6 +13,7 @@ import { saveAs } from 'file-saver';
 import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
+import dayjs from 'dayjs';
 
 function CompanyApplications() {
 	const user = useAuthUser();
@@ -32,13 +33,13 @@ function CompanyApplications() {
 
 
 	const queryApplications = useQuery({
-		queryKey: ['queryApplications', params.pinfl, search],
-
+		queryKey: ['queryApplications', params.pinfl, search, params.sale_point_id],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/registration/get-applications`,
 				params: {
+					salePointId: params.sale_point_id,
 					pinfl: search ? search : params.pinfl,
 					dateFrom: dateFrom,
 					dateTo: dateTo,
@@ -50,11 +51,12 @@ function CompanyApplications() {
 	const total = get(queryApplications, 'data.data.data.totalElements', []);
 
 	const excelDownloadMutation = useMutation({
-		mutationKey: ['mutateExcel', params.pinfl, search],
+		mutationKey: ['mutateExcel', params.pinfl, search, params.sale_point_id],
 		mutationFn: () => {
 			return req({
 				url: `/excel/get-applications`,
 				params: {
+					salePointId: params.sale_point_id,
 					pinfl: search ? search : params.pinfl,
 					dateFrom: dateFrom,
 					dateTo: dateTo,
@@ -151,7 +153,7 @@ function CompanyApplications() {
 			render(value, record, index) {
 				if (rolesName === 'COMPANY_ADMIN') {
 					return (
-						<Button onClick={() => navigate(`/company-admin/applications/${record.id}`)}>
+						<Button onClick={() => navigate(`/company-admin/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}>
 							<ArrowRight strokeWidth={1} />
 						</Button>
 					);
@@ -194,10 +196,11 @@ function CompanyApplications() {
 
 				<div className='flex gap-6'>
 					<RangePicker
+						format={DATE_FORMAT}
 						allowClear={false}
 						placeholder={[t('дан'), t('гача')]}
 						className='w-full'
-						/*defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}*/
+						defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}
 						onChange={(m) => {
 							if (m && m[1] && m[0]) {
 								setRangeDate({

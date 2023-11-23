@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
+import dayjs from 'dayjs';
 
 function BusinessReport() {
 	const { RangePicker } = DatePicker;
@@ -132,10 +133,11 @@ function BusinessReport() {
 			<div className='flex items-center justify-between  w-full'>
 				<div>
 					<RangePicker
+						format={DATE_FORMAT}
 						allowClear={false}
 						placeholder={[t('дан'), t('гача')]}
 						className='w-full'
-						/*defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}*/
+						defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}
 						onChange={(m) => {
 							if (m && m[1] && m[0]) {
 								setRangeDate({

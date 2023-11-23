@@ -46,7 +46,7 @@ export type TCompanyPages =
 	| 'business-report'
 	| 'business-report-scoring'
 	| 'applications/:sale_point_id/:salePointName'
-	| 'applications/:applicationId'
+	| 'applications/:applicationId/:sale_point_id/:salePointName'
 	| 'analytics'
 	| 'sale-points'
 	| 'company-users'
@@ -68,7 +68,7 @@ const CompanyRoutes = [
 		element: <Applications />,
 	},
 	{
-		path: 'applications/:applicationId',
+		path: 'applications/:applicationId/:sale_point_id/:salePointName',
 		element: <ApplicationDetails />,
 	},
 	{

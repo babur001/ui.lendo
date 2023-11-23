@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import { formatNumber } from '@/auth/Scoring.tsx';
+import useAuthUser from '@/auth/useAuthUser.tsx';
 
 
 function ApplicationDetails() {
@@ -18,17 +19,19 @@ function ApplicationDetails() {
 	const { Title } = Typography;
 	const params = useParams();
 	const { t, i18n } = useTranslation();
+	const user = useAuthUser();
+	const rolesName = get(user, 'data.data.data.roles.0.name', null);
 
 
 	const queryApplications = useQuery({
-		queryKey: ['queryApplications', params.pinfl],
+		queryKey: ['queryApplications', params.applicationId],
 
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/registration/get-applications`,
 				params: {
-					pinfl: params.pinfl,
+					id: params.applicationId,
 				},
 			});
 		},
@@ -130,14 +133,24 @@ function ApplicationDetails() {
 					</Title>
 				</p>
 			</div>
-			<Button onClick={() => navigate(`/nasiya/applications`)}>
+
+			{rolesName === 'COMPANY_ADMIN' ? (<Button onClick={() => navigate(`/company-admin/applications/${params.sale_point_id}/${params.salePointName}`)}>
 				<div className='flex space-x-1 '>
 					<div>
 						<ArrowLeft strokeWidth={2} />
 					</div>
 					<div>{t('Nazad')}</div>
 				</div>
-			</Button>
+			</Button>) : (<Button onClick={() => navigate(`/nasiya/applications`)}>
+				<div className='flex space-x-1 '>
+					<div>
+						<ArrowLeft strokeWidth={2} />
+					</div>
+					<div>{t('Nazad')}</div>
+				</div>
+			</Button>)}
+
+
 			<Table bordered pagination={false} dataSource={data} columns={columns} />
 		</>
 	);

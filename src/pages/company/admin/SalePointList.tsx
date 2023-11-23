@@ -59,7 +59,6 @@ export default function SalePointList() {
 		},
 	});
 
-
 	const data = get(querySalePoints, 'data.data.data.content', []) as ICompany[];
 	const total = get(querySalePoints, 'data.data.data.totalElements', 0) as number;
 
@@ -73,22 +72,22 @@ export default function SalePointList() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'name',
 			align: 'center',
 		},
 		{
-			title: t('Do\'kon joylashgan viloyat'),
+			title: t("Do'kon joylashgan viloyat"),
 			dataIndex: 'regionName',
 			align: 'center',
 		},
 		{
-			title: t('Do\'kon joylashgan tuman'),
+			title: t("Do'kon joylashgan tuman"),
 			dataIndex: 'districtName',
 			align: 'center',
 		},
 		{
-			title: t('Do\'kon joylashgan manzil'),
+			title: t("Do'kon joylashgan manzil"),
 			dataIndex: 'address',
 			align: 'center',
 		},
@@ -97,9 +96,7 @@ export default function SalePointList() {
 			dataIndex: 'created_at',
 			align: 'center',
 			render(value, record, index) {
-				return (
-					moment(value).format('DD.MM.YYYY')
-				);
+				return moment(value).format('DD.MM.YYYY');
 			},
 		},
 		/*{
@@ -138,21 +135,28 @@ export default function SalePointList() {
 				<>
 					<div className='w-full flex items-center justify-between'>
 						<div></div>
-						<Title level={2}>
-							{t('Пункты продаж')}
-						</Title>
+						<Title level={2}>{t('Пункты продаж')}</Title>
 						<div></div>
 					</div>
 					<div className='w-full flex items-center justify-end'>
 						<AddSalePointModal onAdd={() => querySalePoints.refetch()} />
 					</div>
 					<div className='h-[20px]' />
-					<Table pagination={false} dataSource={data} columns={columns} />
+					<Table
+						pagination={false}
+						dataSource={data}
+						columns={columns}
+						rowClassName={(row, idx) => {
+							if (idx % 2 === 0) {
+								return '';								
+							}
+							return '!bg-gray-50';
+						}}
+					/>
 				</>
 			) : null}
 
 			{filter.tab === 'users' ? <UsersList /> : null}
-
 		</>
 	);
 }
