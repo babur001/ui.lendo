@@ -12,7 +12,6 @@ import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 
-
 function BusinessReportScoring() {
 	const { t, i18n } = useTranslation();
 	const { RangePicker } = DatePicker;
@@ -21,11 +20,9 @@ function BusinessReportScoring() {
 		dateTo: store.dateTo,
 		setRangeDate: store.setRangeDate,
 	}));
-	console.log('dateFrom', dateFrom);
-	console.log('dateTo', dateTo);
 	const navigate = useNavigate();
 	const queryBusinessAnalytics = useQuery({
-		queryKey: ['queryBusinessAnalytics'],
+		queryKey: ['queryBusinessAnalytics', dateFrom, dateTo],
 		queryFn: () => {
 			return req({
 				method: 'GET',
@@ -67,7 +64,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -77,7 +74,7 @@ function BusinessReportScoring() {
 			align: 'center',
 			children: [
 				{
-					title: t('Заявка отказана банком (раз'),
+					title: t('Заявка отказана банком (раз)'),
 					dataIndex: 'bankRejectedAppCount',
 					align: 'center',
 				},
@@ -87,26 +84,25 @@ function BusinessReportScoring() {
 					align: 'center',
 				},
 				{
-					title: t('Количество товара указанного в заявках'),
+					title: t('Количество указанного в заявках товара'),
 					dataIndex: 'approvedProductCount',
 					align: 'center',
 				},
 				{
-					title: t('Сумма товара указанного в заявках (сум)'),
+					title: t('Сумма указанного в заявках товара (сум)'),
 					dataIndex: 'approvedSummaWithVat',
 					align: 'center',
 				},
 			],
 		},
 
-
 		{
-			title: t('Оплочено банком'),
+			title: t('Оплачено банком'),
 			dataIndex: '',
 			align: 'center',
 			children: [
 				{
-					title: t('Количество оплоченных заявок банком магазину'),
+					title: t('Количество оплаченных заявок банком магазину'),
 					dataIndex: '',
 					align: 'center',
 					children: [
@@ -162,34 +158,40 @@ function BusinessReportScoring() {
 			title: t('В процессе оплаты'),
 			dataIndex: '',
 			align: 'center',
-			children: [{
-				title: t('заявки'),
-				dataIndex: 'bankPendingAppCount',
-				align: 'center',
-			}, {
-				title: t('количество товара'),
-				dataIndex: 'bankPendingProductCount',
-				align: 'center',
-			}, {
-				title: t('сумма'),
-				dataIndex: 'bankPendingProductTotal',
-				align: 'center',
-			},
+			children: [
+				{
+					title: t('заявки'),
+					dataIndex: 'bankPendingAppCount',
+					align: 'center',
+				},
+				{
+					title: t('количество товара'),
+					dataIndex: 'bankPendingProductCount',
+					align: 'center',
+				},
+				{
+					title: t('сумма'),
+					dataIndex: 'bankPendingProductTotal',
+					align: 'center',
+				},
 			],
 		},
 		{
 			title: t('Из них не оплачено более трех рабочих дней'),
 			dataIndex: '',
 			align: 'center',
-			children: [{
-				title: t('заявки'),
-				dataIndex: 'bankPending3DaysAppCount',
-				align: 'center',
-			}, {
-				title: t('сумма'),
-				dataIndex: 'bankPending3DaysProductTotal',
-				align: 'center',
-			}],
+			children: [
+				{
+					title: t('заявки'),
+					dataIndex: 'bankPending3DaysAppCount',
+					align: 'center',
+				},
+				{
+					title: t('сумма'),
+					dataIndex: 'bankPending3DaysProductTotal',
+					align: 'center',
+				},
+			],
 		},
 		{
 			title: t('Batafsil'),
@@ -203,6 +205,7 @@ function BusinessReportScoring() {
 			},
 		},
 	];
+
 	return (
 		<>
 			<Text h3>{t('Продажи')}</Text>
@@ -210,10 +213,11 @@ function BusinessReportScoring() {
 			<div className='flex items-center justify-between  w-full'>
 				<div>
 					<RangePicker
+						format={DATE_FORMAT}
 						allowClear={false}
 						placeholder={[t('дан'), t('гача')]}
 						className='w-full'
-						/*defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}*/
+						defaultValue={dateFrom ? [dayjs(dateFrom, DATE_FORMAT), dayjs(dateTo, DATE_FORMAT)] : [null, null]}
 						onChange={(m) => {
 							if (m && m[1] && m[0]) {
 								setRangeDate({
@@ -227,7 +231,19 @@ function BusinessReportScoring() {
 				<div></div>
 			</div>
 			<div className='h-[20px]' />
-			<Table pagination={false} dataSource={data} columns={columns} />
+			<Table
+				size='small'
+				bordered
+				pagination={false}
+				dataSource={data}
+				columns={columns}
+				rowClassName={(row, idx) => {
+					if (idx % 2 === 0) {
+						return '!bg-gray-50';
+					}
+					return '';
+				}}
+			/>
 			<div className='h-[10px]' />
 			<div className='flex items-center justify-end w-full'>
 				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>

@@ -26,3 +26,8 @@ html, body {
 .ant-upload-select {
 	width: 100% !important;
 }
+
+
+.ant-table-thead .ant-table-cell {
+	@apply !bg-blue-50 border border-blue-500/30
+  }
