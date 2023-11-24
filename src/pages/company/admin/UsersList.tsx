@@ -1,6 +1,6 @@
 import { req } from '@/services/api.ts';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, message, Modal, Segmented, Table, Typography } from 'antd';
+import { Button, message, Modal, Segmented, Spin, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Delete } from 'lucide-react';
 import React, { useState } from 'react';
 import Buyers from '@/pages/buyers';
-
+import { Pagination } from '@geist-ui/core';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -36,19 +36,23 @@ interface ICompanyUsers {
 	salePoint: { name: string; regionName: string; districtName: string; address: string };
 }
 
+const SIZE = 20;
+
 export default function UsersList() {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const params = useParams();
-	const [isOpen, setIsOpen] = useState(false);
+	const [modalId, setModalId] = useState<string | number | null>(null);
 	const { Title } = Typography;
 	const [filter, setFilter] = useState({
 		tab: 'users',
 	});
+	const [page, setPage] = useState(1);
+
 	const queryCompanyUsers = useQuery({
-		queryKey: ['queryCompanies', companyId, params.salePointId],
+		queryKey: ['queryCompanies', companyId, params.salePointId, page],
 		queryFn: () => {
 			return req({
 				method: 'GET',
@@ -56,6 +60,8 @@ export default function UsersList() {
 				params: {
 					companyId: companyId,
 					salePointId: params.salePointId,
+					page: page - 1,
+					size: SIZE,
 				},
 			});
 		},
@@ -63,36 +69,34 @@ export default function UsersList() {
 	const data = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
 	const total = get(queryCompanyUsers, 'data.data.data.totalElements', 0) as number;
 
-
-	const [userId, setUserId] = useState(0);
-
 	const mutateDeleteUser = useMutation({
 		mutationKey: ['queryDeleteUser'],
-		mutationFn: (user_id) => {
+		mutationFn: (user_id: string | number) => {
 			return req({
-				method: 'PUT',
-				url: `/1111`,
-				data: {user_id:user_id},
+				method: 'POST',
+				url: `/auth/disables-users`,
+				data: [user_id],
 			});
 		},
 	});
 
-	const onSubmit = async (values: any) => {
-		setIsOpen(false);
-		if (!values) {
+	const onDelete = async () => {
+		if (!modalId) {
 			return message.error(t(`Маълумотлар топилмади`));
 		}
-		const res = await mutateDeleteUser.mutateAsync(values);
-		/*const success = get(res, 'data.success', false);
+
+		const res = await mutateDeleteUser.mutateAsync(modalId as string);
+
+		const success = get(res, 'data.success', false);
+
 		if (!success) {
 			message.error(t(`Kutilmagan xatolik!`));
-			setIsOpen(false);
+			setModalId(null);
 		} else {
 			message.success(t(`O'chirildi`));
-			setIsOpen(false);
-		}*/
+			setModalId(null);
+		}
 	};
-
 
 	const columnsUser: ColumnsType<ICompanyUsers> = [
 		{
@@ -140,14 +144,6 @@ export default function UsersList() {
 			},
 		},
 		{
-			title: t('createdAt'),
-			dataIndex: 'createdAt',
-			align: 'center',
-			render(value, record, index) {
-				return moment(value).format('DD.MM.YYYY');
-			},
-		},
-		{
 			title: t('Do\'kon nomi'),
 			dataIndex: 'salePoint',
 			render(value, record, index) {
@@ -160,17 +156,30 @@ export default function UsersList() {
 			},
 		},
 		{
+			title: t('createdAt'),
+			dataIndex: 'createdAt',
+			align: 'center',
+			render(value, record, index) {
+				return moment(value).format('DD.MM.YYYY');
+			},
+		},
+		{
+			title: t('Статус'),
+			dataIndex: 'enabled',
+			align: 'center',
+			render(value, record, index) {
+				if (value) return <div>Актив</div>;
+				return <div>Неактив</div>;
+			},
+		},
+
+		{
 			title: t('Удалить'),
 			dataIndex: '',
 			align: 'center',
 			render(value, record, index) {
 				return (
-					<Button
-						type='primary'
-						danger
-						onClick={() => setIsOpen(true)}
-						size='middle'
-					>
+					<Button type='primary' danger onClick={() => setModalId(record.id)} size='middle'>
 						{t('Удалить')}
 					</Button>
 				);
@@ -183,9 +192,7 @@ export default function UsersList() {
 			{!params.salePointName ? (
 				<div className='w-full flex items-center justify-between'>
 					<div></div>
-					<Title level={2}>
-						{t('Сотрудники')}
-					</Title>
+					<Title level={2}>{t('Сотрудники')}</Title>
 					<div></div>
 				</div>
 			) : null}
@@ -232,47 +239,58 @@ export default function UsersList() {
 							</p>
 						) : null}
 
-						{!params.salePointName ? (
-							<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
-						) : <div></div>}
-
-
+						{!params.salePointName ? <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} /> : <div></div>}
 					</div>
 					<div className='h-[20px]' />
-					<Table pagination={false}
-								 dataSource={data}
-								 columns={columnsUser}
-								 rowClassName={(row, idx) => {
-									 if (idx % 2 === 0) {
-										 return '';
-									 }
-									 return '!bg-gray-50';
-								 }} />
+					<Spin spinning={queryCompanyUsers.status === 'loading'}>
+						<Table
+							pagination={false}
+							dataSource={data}
+							columns={columnsUser}
+							rowClassName={(row, idx) => {
+								if (idx % 2 === 0) {
+									return '';
+								}
+								return '!bg-gray-50';
+							}}
+						/>
+						<div className='h-[20px]' />
+						<div className='flex gap-5'>
+							<div>
+								<Pagination count={Math.ceil(total / SIZE)} page={page} onChange={setPage}>
+									<Pagination.Previous>{t('Oldin')}</Pagination.Previous>
+									<Pagination.Next>{t('Keyin')}</Pagination.Next>
+								</Pagination>
+							</div>
+							<div className='mr-10 pt-1.5'>{t('Всего записей')}: {total}</div>
+						</div>
+					</Spin>
 				</>
 			) : null}
+
 			{filter.tab === 'buyers' ? <Buyers /> : null}
 
-			<Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={false}>
+			<Modal open={!!modalId} onCancel={() => setModalId(null)} footer={false}>
 				<div className='h-[20px]' />
 				<p className='flex justify-center'>
-					<Title level={4}>
-						{t('Уверены что хотите удалить из системы !')}
-					</Title>
+					<Title level={4}>{t('Уверены что хотите удалить из системы !')}</Title>
 				</p>
 				<div className='h-[20px]' />
 				<div className='flex justify-between gap-5'>
-
-					<Button className='w-full' type='primary' onClick={() => onSubmit(1)}
-									loading={mutateDeleteUser.status === 'loading'}>
+					<Button
+						className='w-full'
+						type='primary'
+						onClick={() => onDelete()}
+						loading={mutateDeleteUser.status === 'loading'}
+					>
 						{t('Да')}
 					</Button>
 
-					<Button className='w-full' type='primary' onClick={() => setIsOpen(false)} danger>
+					<Button className='w-full' type='primary' onClick={() => setModalId(null)} danger>
 						{t('Нет')}
 					</Button>
 				</div>
 			</Modal>
-
 		</>
 	);
 }

@@ -1,16 +1,14 @@
 import AddSalePointModal from '@/pages/company/admin/AddSalePointModal.tsx';
 import { req } from '@/services/api';
-import { Text } from '@geist-ui/core';
+import { Pagination, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Table, Layout, Select, Segmented, Typography } from 'antd';
+import { Button, Table, Layout, Select, Segmented, Typography, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
-import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
-import { useState } from 'react';
-import Buyers from '@/pages/buyers';
+import React, { useState } from 'react';
 import UsersList from '@/pages/company/admin/UsersList.tsx';
 
 export interface ICompany {
@@ -35,11 +33,13 @@ export interface CreatedByOrUpdatedBy {
 	companyId: number;
 }
 
+const SIZE = 20;
 export default function SalePointList() {
 	const { t } = useTranslation();
 	const { Title } = Typography;
 	const navigate = useNavigate();
 	const { companyId } = useParams();
+	const [page, setPage] = useState(1);
 	const [filter, setFilter] = useState({
 		tab: 'sale_points',
 	});
@@ -72,22 +72,22 @@ export default function SalePointList() {
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'name',
 			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan viloyat"),
+			title: t('Do\'kon joylashgan viloyat'),
 			dataIndex: 'regionName',
 			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan tuman"),
+			title: t('Do\'kon joylashgan tuman'),
 			dataIndex: 'districtName',
 			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan manzil"),
+			title: t('Do\'kon joylashgan manzil'),
 			dataIndex: 'address',
 			align: 'center',
 		},
@@ -142,20 +142,34 @@ export default function SalePointList() {
 						<AddSalePointModal onAdd={() => querySalePoints.refetch()} />
 					</div>
 					<div className='h-[20px]' />
-					<Table
-						pagination={false}
-						dataSource={data}
-						columns={columns}
-						rowClassName={(row, idx) => {
-							if (idx % 2 === 0) {
-								return '';								
-							}
-							return '!bg-gray-50';
-						}}
-					/>
+					<Spin spinning={querySalePoints.status === 'loading'}>
+						<Table
+							pagination={false}
+							dataSource={data}
+							columns={columns}
+							rowClassName={(row, idx) => {
+								if (idx % 2 === 0) {
+									return '';
+								}
+								return '!bg-gray-50';
+							}}
+						/>
+						<div>
+							<div className='h-[20px]' />
+							<div className='flex gap-5'>
+								<div>
+									<Pagination count={Math.ceil(total / SIZE)} page={page} onChange={setPage}>
+										<Pagination.Previous>{t('Oldin')}</Pagination.Previous>
+										<Pagination.Next>{t('Keyin')}</Pagination.Next>
+									</Pagination>
+								</div>
+								<div className='mr-10 pt-1.5'>{t('Всего записей')}: {total}</div>
+							</div>
+						</div>
+					</Spin>
 				</>
-			) : null}
 
+			) : null}
 			{filter.tab === 'users' ? <UsersList /> : null}
 		</>
 	);

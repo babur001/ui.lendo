@@ -52,7 +52,8 @@ export type TCompanyPages =
 	| 'company-users'
 	| 'sale-points/:salePointId/:salePointName'
 	| 'company-buyers'
-	| 'company-applications';
+	| 'company-applications'
+	| '*';
 
 const CompanyRoutes = [
 	{
@@ -95,9 +96,14 @@ const CompanyRoutes = [
 		path: 'company-applications',
 		element: <CompanyApplications />,
 	},
+	{
+		path: '*',
+		index: true,
+		element: <Navigate to={`analytics`}/>,
+	},
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 
-export type TEmployeePages = 'analytics' | 'default' | 'applications' | 'applications/:applicationId';
+export type TEmployeePages = 'analytics' | 'default' | 'applications' | 'applications/:applicationId' | '*';
 
 const EmployeeRoutes = [
 	{
@@ -115,6 +121,11 @@ const EmployeeRoutes = [
 	{
 		path: 'applications/:applicationId',
 		element: <ApplicationDetails />,
+	},
+	{
+		path: '*',
+		index: true,
+		element: <Navigate to={`default`}/>,
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 
