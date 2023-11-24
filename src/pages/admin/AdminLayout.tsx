@@ -1,4 +1,4 @@
-import { Building, List, Users } from 'lucide-react';
+import { Building, CalendarDays, List, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 import { TAdminPages } from '@/App';
@@ -26,6 +26,11 @@ function AdminLayout() {
 			key: '/admin/companies',
 			icon: <List strokeWidth={1.5} className='!h-5' />,
 			label: t(`Реестр кредитующих организации`),
+		},
+		{
+			key: '/admin/cards',
+			icon: <CalendarDays strokeWidth={1.5} className='!h-5' />,
+			label: t(`CARDS`),
 		},
 	];
 

@@ -1,16 +1,16 @@
-import { Description, Input, Text } from '@geist-ui/core';
+import { Description } from '@geist-ui/core';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button, Modal, Select, message, Upload } from 'antd';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { req } from '@/services/api.ts';
-import { find, get } from 'lodash';
+import { get } from 'lodash';
 import { PatternFormat } from 'react-number-format';
 import { Input as AntdInput } from 'antd';
 import { useTranslation } from 'react-i18next';
-import React, { useState } from 'react';
-import regions from '@/data/ns10.json';
+import { useState } from 'react';
 import { UploadIcon } from 'lucide-react';
+import FileUpload from '@/pages/admin/company/FileUpload';
 
 interface IProps {
 	onAdd?: () => unknown;
@@ -94,10 +94,10 @@ function AddCompanyModal({ onAdd }: IProps) {
 	return (
 		<>
 			<Button onClick={() => setIsOpen(true)} type='primary'>
-				{t('Korxona qo\'shish')}
+				{t("Korxona qo'shish")}
 			</Button>
 
-			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t('Korxona qo\'shish')} footer={false}>
+			<Modal open={isOpen} onCancel={() => setIsOpen(false)} title={t("Korxona qo'shish")} footer={false}>
 				<div className='h-[20px]' />
 				<div className='flex flex-col gap-5'>
 					<div className='col-span-2'>
@@ -308,36 +308,13 @@ function AddCompanyModal({ onAdd }: IProps) {
 						/>
 					</div>
 
-
 					<div className='col-span-1'>
-						<Controller
-							control={control}
-							name='user.fileGuid'
-							render={({ field }: any) => (
-								<>
-									<Upload
-										maxCount={1}
-										multiple={false}
-										fileList={field.value ? [field.value] : undefined}
-										beforeUpload={(file: any) => {
-											setValue('user.fileGuid', file);
-											return false;
-										}} className='w-full'>
-										<Button
-											icon={<UploadIcon strokeWidth={1.5} size={16} />}
-											className='flex items-center justify-center'
-											block>
-											{t('Загрузить фото администратора')}
-										</Button>
-									</Upload>
-								</>
-							)}
-						/>
+						<FileUpload type='CLIENT_PHOTO' accept={'image/png, image/gif, image/jpeg, image/jpg'} />
 					</div>
 
 					<div className='h-[20px]' />
 					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddCompany.status === 'loading'}>
-						{t('Qo\'shish')}
+						{t("Qo'shish")}
 					</Button>
 				</div>
 			</Modal>

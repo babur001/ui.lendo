@@ -20,8 +20,9 @@ import CompanyBuyers from '@/pages/company/admin/CompanyBuyers.tsx';
 import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.tsx';
 import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
 import ApplicationDetails from '@/pages/buyers/applicationsDetails.tsx';
+import AdminCards from '@/pages/admin/AdminCards';
 
-export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId';
+export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | 'cards';
 
 const adminRoutes = [
 	{
@@ -39,6 +40,10 @@ const adminRoutes = [
 	{
 		path: 'company/:companyId',
 		element: <CompanyUsersList />,
+	},
+	{
+		path: 'cards',
+		element: <AdminCards />,
 	},
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
@@ -99,7 +104,7 @@ const CompanyRoutes = [
 	{
 		path: '*',
 		index: true,
-		element: <Navigate to={`analytics`}/>,
+		element: <Navigate to={`analytics`} />,
 	},
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 
@@ -125,7 +130,7 @@ const EmployeeRoutes = [
 	{
 		path: '*',
 		index: true,
-		element: <Navigate to={`default`}/>,
+		element: <Navigate to={`default`} />,
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 
