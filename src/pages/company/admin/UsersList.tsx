@@ -45,6 +45,7 @@ export default function UsersList() {
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const params = useParams();
 	const [modalId, setModalId] = useState<string | number | null>(null);
+	const [activModalId, setActivModalId] = useState<string | number | null>(null);
 	const { Title } = Typography;
 	const [filter, setFilter] = useState({
 		tab: 'users',
@@ -80,6 +81,17 @@ export default function UsersList() {
 		},
 	});
 
+	const mutateActivUser = useMutation({
+		mutationKey: ['queryDeleteUser'],
+		mutationFn: (user_id: string | number) => {
+			return req({
+				method: 'POST',
+				url: `/auth/enable-users`,
+				data: [user_id],
+			});
+		},
+	});
+
 	const onDelete = async () => {
 		if (!modalId) {
 			return message.error(t(`Маълумотлар топилмади`));
@@ -90,11 +102,31 @@ export default function UsersList() {
 		const success = get(res, 'data.success', false);
 
 		if (!success) {
-			message.error(t(`Kutilmagan xatolik!`));
+			message.error(t(`Непредвиденная ошибка!`));
 			setModalId(null);
 		} else {
-			message.success(t(`O'chirildi`));
+			message.success(t(`Удалено успешно`));
 			setModalId(null);
+			queryCompanyUsers.refetch();
+		}
+	};
+
+	const onActivUser = async () => {
+		if (!activModalId) {
+			return message.error(t(`Маълумотлар топилмади`));
+		}
+
+		const res = await mutateActivUser.mutateAsync(activModalId as string);
+
+		const success = get(res, 'data.success', false);
+
+		if (!success) {
+			message.error(t(`Непредвиденная ошибка!`));
+			setActivModalId(null);
+		} else {
+			message.success(t(`Пользователь восстановлен`));
+			setActivModalId(null);
+			queryCompanyUsers.refetch();
 		}
 	};
 
@@ -168,21 +200,30 @@ export default function UsersList() {
 			dataIndex: 'enabled',
 			align: 'center',
 			render(value, record, index) {
-				if (value) return <div>Актив</div>;
-				return <div>Неактив</div>;
+				if (value) return <div>Активный</div>;
+				return <div className='bg-red-400'>Неактивый</div>;
 			},
 		},
 
 		{
 			title: t('Удалить'),
-			dataIndex: '',
+			dataIndex: 'enabled',
 			align: 'center',
 			render(value, record, index) {
+				if (value) {
+					return (
+						<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
+							{t('Удалить')}
+						</Button>
+					);
+				}
 				return (
-					<Button type='primary' danger onClick={() => setModalId(record.id)} size='middle'>
-						{t('Удалить')}
+					<Button type='primary' onClick={() => setActivModalId(record.id)} size='middle'>
+						{t('Восстановить')}
 					</Button>
 				);
+
+
 			},
 		},
 	];
@@ -285,8 +326,28 @@ export default function UsersList() {
 					>
 						{t('Да')}
 					</Button>
-
 					<Button className='w-full' type='primary' onClick={() => setModalId(null)} danger>
+						{t('Нет')}
+					</Button>
+				</div>
+			</Modal>
+
+			<Modal open={!!activModalId} onCancel={() => setActivModalId(null)} footer={false}>
+				<div className='h-[20px]' />
+				<p className='flex justify-center'>
+					<Title level={4}>{t('Уверены что хотите восстановить пользователя !')}</Title>
+				</p>
+				<div className='h-[20px]' />
+				<div className='flex justify-between gap-5'>
+					<Button
+						className='w-full'
+						type='primary'
+						onClick={() => onActivUser()}
+						loading={mutateDeleteUser.status === 'loading'}
+					>
+						{t('Да')}
+					</Button>
+					<Button className='w-full' type='primary' onClick={() => setActivModalId(null)} danger>
 						{t('Нет')}
 					</Button>
 				</div>
