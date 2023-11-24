@@ -1,27 +1,26 @@
 import { req } from '@/services/api';
-import { Text } from '@geist-ui/core';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { Input, Button, Table, DatePicker, Typography } from 'antd';
+import { Pagination, Text } from '@geist-ui/core';
+import { useQuery } from '@tanstack/react-query';
+import { Button, Table, DatePicker, Typography, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import moment from 'moment';
 import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 
+const SIZE = 20;
 
 function ApplicationDetails() {
-
 	const navigate = useNavigate();
 	const { Title } = Typography;
 	const params = useParams();
 	const { t, i18n } = useTranslation();
 	const user = useAuthUser();
 	const rolesName = get(user, 'data.data.data.roles.0.name', null);
-
+	const [page, setPage] = useState(1);
 
 	const queryApplications = useQuery({
 		queryKey: ['queryApplications', params.applicationId],
@@ -37,92 +36,59 @@ function ApplicationDetails() {
 		},
 	});
 	const data = get(queryApplications, 'data.data.data.content', []);
+	console.log(data);
 	const total = get(queryApplications, 'data.data.data.totalElements', []);
 
-
-	const columns: ColumnsType<IApplications> = [
+	const columns: ColumnsType<any> = [
 		{
 			title: t('№'),
 			dataIndex: '',
 			render(value, record: any, index) {
 				return <div>{index + 1}</div>;
-
 			},
+			align: 'center',
 		},
 
 		{
 			title: t('Товары'),
-			dataIndex: 'items',
-			render(value, record: any, index) {
-				return record.items.map((item: any, index: any) => {
-					return <div><Text className='underline'>{item.name}</Text></div>;
-				});
-			},
+			dataIndex: 'name',
+			align: 'center',
 		},
 		{
 			title: t('Цена'),
-			dataIndex: 'items',
-			render(value, record: any, index) {
-				return record.items.map((item: any, index: any) => {
-					return <div><Text className='underline'> {item.price}</Text></div>;
-				});
+			dataIndex: 'price',
+			align: 'center',
+			render(value, record, index) {
+				return formatNumber(value);
+			},
+		},
+		{
+			title: t('Количества товара'),
+			dataIndex: 'amount',
+			align: 'center',
+			render(value, record, index) {
+				return formatNumber(value);
 			},
 		},
 		{
 			title: t('НДС'),
-			dataIndex: 'items',
-			render(value, record: any, index) {
-				return record.items.map((item: any, index: any) => {
-					if (item.hasVat == 1) {
-						return <div><Text className='underline'>Товара с НДС</Text></div>;
-					} else return <div><Text className='underline'>Товара без НДС</Text></div>;
-
-				});
+			dataIndex: 'hasVat',
+			align: 'center',
+			render(value, record, index) {
+				if (value) return t('ҚҚС билан');
+				return t('ҚҚСсиз');
 			},
 		},
 		{
 			title: t('Цена с НДС'),
-			dataIndex: 'items',
-			render(value, record: any, index) {
-				return record.items.map((item: any, index: any) => {
-					return <div><Text className='underline'>{item.priceWithVat}</Text></div>;
-				});
-			},
-		},
-		{
-			title: t('Суммаси всего товара'),
-			dataIndex: 'paymentSumWithVat',
+			dataIndex: 'priceWithVat',
 			align: 'center',
 			render(value, record, index) {
 				return formatNumber(value);
 			},
 		},
-		{
-			title: t('Рассрочка суммаси'),
-			dataIndex: 'paymentSumDeferral',
-			align: 'center',
-			render(value, record, index) {
-				return formatNumber(value);
-			},
-		},
-		{
-			title: t('Период рассрочки'),
-			dataIndex: 'paymentPeriod',
-			align: 'center',
-			render(value, record, index) {
-				return value + ' ' + 'мес.';
-			},
-		},
-		{
-			title: t('createdAt'),
-			dataIndex: 'Дата заявления',
-			align: 'center',
-			render(value, record, index) {
-				return moment(value).format('DD.MM.YYYY');
-			},
-		},
-	];
 
+	];
 
 	return (
 		<>
@@ -134,24 +100,47 @@ function ApplicationDetails() {
 				</p>
 			</div>
 
-			{rolesName === 'COMPANY_ADMIN' ? (<Button onClick={() => navigate(`/company-admin/applications/${params.sale_point_id}/${params.salePointName}`)}>
-				<div className='flex space-x-1 '>
-					<div>
-						<ArrowLeft strokeWidth={2} />
+			{rolesName === 'COMPANY_ADMIN' ? (
+				<Button onClick={() => navigate(`/company-admin/applications/${params.sale_point_id}/${params.salePointName}`)}>
+					<div className='flex space-x-1 '>
+						<div>
+							<ArrowLeft strokeWidth={2} />
+						</div>
+						<div>{t('Nazad')}</div>
 					</div>
-					<div>{t('Nazad')}</div>
-				</div>
-			</Button>) : (<Button onClick={() => navigate(`/nasiya/applications`)}>
-				<div className='flex space-x-1 '>
-					<div>
-						<ArrowLeft strokeWidth={2} />
+				</Button>
+			) : (
+				<Button onClick={() => navigate(`/nasiya/applications`)}>
+					<div className='flex space-x-1 '>
+						<div>
+							<ArrowLeft strokeWidth={2} />
+						</div>
+						<div>{t('Nazad')}</div>
 					</div>
-					<div>{t('Nazad')}</div>
+				</Button>
+			)}
+			<Spin spinning={queryApplications.status === 'loading'}>
+				<Table bordered
+							 pagination={false}
+							 dataSource={get(data, '0.items', [])}
+							 columns={columns}
+							 rowClassName={(row, idx) => {
+								 if (idx % 2 === 0) {
+									 return '';
+								 }
+								 return '!bg-gray-50';
+							 }} />
+				<div className='h-[20px]' />
+				<div className='flex gap-5'>
+					<div>
+						<Pagination count={Math.ceil(total / SIZE)} page={page} onChange={setPage}>
+							<Pagination.Previous>{t('Oldin')}</Pagination.Previous>
+							<Pagination.Next>{t('Keyin')}</Pagination.Next>
+						</Pagination>
+					</div>
+					<div className='mr-10 pt-1.5'>{t('Всего записей')}: {total}</div>
 				</div>
-			</Button>)}
-
-
-			<Table bordered pagination={false} dataSource={data} columns={columns} />
+			</Spin>
 		</>
 	);
 }

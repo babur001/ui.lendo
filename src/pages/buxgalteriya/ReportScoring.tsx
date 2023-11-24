@@ -1,7 +1,7 @@
 import { req } from '@/services/api.ts';
-import { Text } from '@geist-ui/core';
+import { Pagination, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Table, DatePicker } from 'antd';
+import { Button, Table, DatePicker, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import React, { useState } from 'react';
@@ -12,9 +12,12 @@ import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 
+
+const SIZE = 20;
 function BusinessReportScoring() {
 	const { t, i18n } = useTranslation();
 	const { RangePicker } = DatePicker;
+	const [page, setPage] = useState(1);
 	const { dateFrom, dateTo, setRangeDate } = useReceiptsStore((store) => ({
 		dateFrom: store.dateFrom,
 		dateTo: store.dateTo,
@@ -35,6 +38,8 @@ function BusinessReportScoring() {
 		},
 	});
 	const data = get(queryBusinessAnalytics, 'data.data.data', []);
+	console.log("data",data);
+	const total = get(queryBusinessAnalytics, 'data.data.data.totalElements', 100) as number;
 	const excelDownloadMutation = useMutation({
 		mutationKey: ['mutateExcel'],
 		mutationFn: () => {
@@ -231,19 +236,33 @@ function BusinessReportScoring() {
 				<div></div>
 			</div>
 			<div className='h-[20px]' />
-			<Table
-				size='small'
-				bordered
-				pagination={false}
-				dataSource={data}
-				columns={columns}
-				rowClassName={(row, idx) => {
-					if (idx % 2 === 0) {
-						return '';
-					}
-					return '!bg-gray-50';
-				}}
-			/>
+			<Spin spinning={queryBusinessAnalytics.status === 'loading'}>
+				<Table
+					size='small'
+					bordered
+					pagination={false}
+					dataSource={data}
+					columns={columns}
+					rowClassName={(row, idx) => {
+						if (idx % 2 === 0) {
+							return '';
+						}
+						return '!bg-gray-50';
+					}}
+				/>
+				<div>
+					<div className='h-[20px]' />
+					<div className='flex gap-5'>
+						<div>
+							<Pagination count={Math.ceil(total / SIZE)} page={page} onChange={setPage}>
+								<Pagination.Previous>{t('Oldin')}</Pagination.Previous>
+								<Pagination.Next>{t('Keyin')}</Pagination.Next>
+							</Pagination>
+						</div>
+						<div className='mr-10 pt-1.5'>{t("Всего записей")}: {total}</div>
+					</div>
+				</div>
+			</Spin>
 			<div className='h-[10px]' />
 			<div className='flex items-center justify-end w-full'>
 				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
