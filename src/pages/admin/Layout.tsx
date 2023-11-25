@@ -8,6 +8,8 @@ import clsx from 'clsx';
 import useAuthUser from '@/auth/useAuthUser';
 import { get } from 'lodash';
 import { TLanguages } from '@/auth/i18n';
+import { useQuery } from '@tanstack/react-query';
+import { req } from '@/services/api';
 
 interface IProps {
 	items: {
@@ -42,6 +44,15 @@ function Layout({ items, children }: IProps) {
 			key: '1',
 		},
 	];
+	const queryImage = useQuery({
+		queryKey: ['queryImage'],
+		queryFn: () => {
+			return req({
+				url: `/files/get-file/1`,
+				method: 'GET',
+			});
+		},
+	});
 
 	return (
 		<>

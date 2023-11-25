@@ -297,22 +297,15 @@ function AddCompanyModal({ onAdd }: IProps) {
 							}
 						/>
 					</div>
-					<div className='col-span-2'>
-						{t('Загрузить фото администратора')}
-						<Controller
-							control={control}
-							name='user.fileGuid'
-							render={({ field }) => {
-								return <AntdInput className='!w-full' size='middle' {...field} />;
-							}}
+
+					<div className='col-span-1'>
+						<FileUpload
+							type='CLIENT_PHOTO'
+							accept={'image/png, image/gif, image/jpeg, image/jpg'}
+							onUpload={(pkey) => setValue('user.fileGuid', pkey)}
 						/>
 					</div>
 
-					<div className='col-span-1'>
-						<FileUpload type='CLIENT_PHOTO' accept={'image/png, image/gif, image/jpeg, image/jpg'} />
-					</div>
-
-					<div className='h-[20px]' />
 					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddCompany.status === 'loading'}>
 						{t("Qo'shish")}
 					</Button>
