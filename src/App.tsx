@@ -20,9 +20,9 @@ import CompanyBuyers from '@/pages/company/admin/CompanyBuyers.tsx';
 import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.tsx';
 import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
 import ApplicationDetails from '@/pages/buyers/applicationsDetails.tsx';
-import AdminCards from '@/pages/admin/AdminCards';
+import BusinessReportScoringDetails from '@/pages/buxgalteriya/ReportScoringDetails.tsx';
 
-export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | 'cards' | '*';
+export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | '*';
 
 const adminRoutes = [
 	{
@@ -42,10 +42,6 @@ const adminRoutes = [
 		element: <CompanyUsersList />,
 	},
 	{
-		path: 'cards',
-		element: <AdminCards />,
-	},
-	{
 		path: '*',
 		index: true,
 		element: <Navigate to={`business-analytics`} />,
@@ -55,6 +51,7 @@ const adminRoutes = [
 export type TCompanyPages =
 	| 'business-report'
 	| 'business-report-scoring'
+	| 'business-report-scoring-details/:sale_point_id/:salePointName'
 	| 'applications/:sale_point_id/:salePointName'
 	| 'applications/:applicationId/:sale_point_id/:salePointName'
 	| 'analytics'
@@ -73,6 +70,10 @@ const CompanyRoutes = [
 	{
 		path: 'business-report-scoring',
 		element: <BusinessReportScoring />,
+	},
+	{
+		path: 'business-report-scoring-details/:sale_point_id/:salePointName',
+		element: <BusinessReportScoringDetails />,
 	},
 	{
 		path: 'applications/:sale_point_id/:salePointName',
@@ -113,7 +114,13 @@ const CompanyRoutes = [
 	},
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 
-export type TEmployeePages = 'analytics' | 'default' | 'applications' | 'applications/:applicationId' | '*';
+export type TEmployeePages =
+	'analytics'
+	| 'default'
+	| 'business-report-scoring'
+	| 'business-report-scoring-details/:sale_point_id/:salePointName'
+	| 'applications/:applicationId/:sale_point_id/:salePointName'
+	| '*';
 
 const EmployeeRoutes = [
 	{
@@ -125,11 +132,15 @@ const EmployeeRoutes = [
 		element: <Nasiya />,
 	},
 	{
-		path: 'applications',
-		element: <Applications />,
+		path: 'business-report-scoring',
+		element: <BusinessReportScoring />,
 	},
 	{
-		path: 'applications/:applicationId',
+		path: 'business-report-scoring-details/:sale_point_id/:salePointName',
+		element: <BusinessReportScoringDetails />,
+	},
+	{
+		path: 'applications/:applicationId/:sale_point_id/:salePointName',
 		element: <ApplicationDetails />,
 	},
 	{

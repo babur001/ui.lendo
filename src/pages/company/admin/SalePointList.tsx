@@ -33,7 +33,7 @@ export interface CreatedByOrUpdatedBy {
 	companyId: number;
 }
 
-const SIZE = 20;
+const SIZE = 10;
 
 export default function SalePointList() {
 	const { t } = useTranslation();

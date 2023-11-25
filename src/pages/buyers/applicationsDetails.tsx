@@ -3,15 +3,16 @@ import { Pagination, Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
 import { Button, Table, DatePicker, Typography, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { get } from 'lodash';
+import { concat, get } from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
+import moment from 'moment/moment';
 
-const SIZE = 20;
+const SIZE = 10;
 
 function ApplicationDetails() {
 	const navigate = useNavigate();
@@ -36,8 +37,19 @@ function ApplicationDetails() {
 		},
 	});
 	const data = get(queryApplications, 'data.data.data.content', []);
-	console.log(data);
 	const total = get(queryApplications, 'data.data.data.totalElements', []);
+	const createdAtApplication = get(queryApplications, 'data.data.data.content.0.createdAt', []);
+	const createdByApplication = get(queryApplications, 'data.data.data.content.0.createdBy.fullName', []);
+	const createdByPinflApplication = get(queryApplications, 'data.data.data.content.0.createdBy.pinfl', []);
+	const client = get(queryApplications, 'data.data.data.content.0.client', []);
+	const clientPinfl = get(queryApplications, 'data.data.data.content.0.client.pinfl', []);
+	const clientFio = concat(get(client, 'firstName', ''), ' ',
+		get(client, 'lastName', ''), ' ', get(client, 'middleName', ''));
+
+	const paymentSumWithVat = get(queryApplications, 'data.data.data.content.0.paymentSumWithVat', []);
+	const paymentSumDeferral = get(queryApplications, 'data.data.data.content.0.paymentSumDeferral', []);
+	const paymentPeriod = get(queryApplications, 'data.data.data.content.0.paymentPeriod', []);
+
 
 	const columns: ColumnsType<any> = [
 		{
@@ -50,7 +62,7 @@ function ApplicationDetails() {
 		},
 
 		{
-			title: t('Товары'),
+			title: t('Наименование товара'),
 			dataIndex: 'name',
 			align: 'center',
 		},
@@ -63,20 +75,11 @@ function ApplicationDetails() {
 			},
 		},
 		{
-			title: t('Количества товара'),
-			dataIndex: 'amount',
+			title: t('НДС на 1 ед.товара'),
+			dataIndex: '',
 			align: 'center',
 			render(value, record, index) {
-				return formatNumber(value);
-			},
-		},
-		{
-			title: t('НДС'),
-			dataIndex: 'hasVat',
-			align: 'center',
-			render(value, record, index) {
-				if (value) return t('ҚҚС билан');
-				return t('ҚҚСсиз');
+				return formatNumber(record.price / record.amount);
 			},
 		},
 		{
@@ -87,21 +90,58 @@ function ApplicationDetails() {
 				return formatNumber(value);
 			},
 		},
-
+		{
+			title: t('Количество'),
+			dataIndex: 'amount',
+			align: 'center',
+			render(value, record, index) {
+				return formatNumber(value);
+			},
+		},
+		{
+			title: t('Сумма всей покупки'),
+			dataIndex: '',
+			align: 'center',
+			render(value, record, index) {
+				return formatNumber(paymentSumWithVat);
+			},
+		},
+		{
+			title: t('Сумма рассрочки'),
+			dataIndex: '',
+			align: 'center',
+			render(value, record, index) {
+				return formatNumber(paymentSumDeferral);
+			},
+		},
+		{
+			title: t('Период рассрочки'),
+			dataIndex: '',
+			align: 'center',
+			render(value, record, index) {
+				return <div>{paymentPeriod} {t('мес.')}</div>;
+			},
+		},
 	];
-
 	return (
 		<>
 			<div className='flex justify-center'>
-				<p>
-					<Title level={2}>
-						{t('Заявление №')} {params.applicationId}
-					</Title>
-				</p>
+				<div></div>
+				<div>
+					<div><Title level={4}>Информация о покупке</Title></div>
+					<div>{t('Заявление №')} {params.applicationId}</div>
+					<div>{t('Дата создания заявки')}: {moment(createdAtApplication).format('DD.MM.YYYY')}
+					</div>
+					<div>Покупатель: {clientFio}, {clientPinfl}</div>
+					<div>Продавец: {createdByApplication}, {createdByPinflApplication}</div>
+				</div>
+				<div></div>
 			</div>
+			<div className='h-[20px]' />
 
 			{rolesName === 'COMPANY_ADMIN' ? (
-				<Button onClick={() => navigate(`/company-admin/applications/${params.sale_point_id}/${params.salePointName}`)}>
+				<Button
+					onClick={() => navigate(`/company-admin/business-report-scoring-details/${params.sale_point_id}/${params.salePointName}`)}>
 					<div className='flex space-x-1 '>
 						<div>
 							<ArrowLeft strokeWidth={2} />
@@ -110,7 +150,8 @@ function ApplicationDetails() {
 					</div>
 				</Button>
 			) : (
-				<Button onClick={() => navigate(`/nasiya/applications`)}>
+				<Button
+					onClick={() => navigate(`/nasiya/business-report-scoring-details/${params.sale_point_id}/${params.salePointName}`)}>
 					<div className='flex space-x-1 '>
 						<div>
 							<ArrowLeft strokeWidth={2} />

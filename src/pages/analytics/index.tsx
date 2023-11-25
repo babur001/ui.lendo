@@ -9,9 +9,8 @@ import { get, toPairsIn } from 'lodash';
 import { formatNumber } from '@/auth/Scoring';
 import AnalyticsByDateLineChart from '@/pages/analytics/AnalyticsByDateLineChart';
 import { Spinner, Text } from '@geist-ui/core';
-import Header from '@/pages/header/Header';
 import { useTranslation } from 'react-i18next';
-import AdminCards from '@/pages/admin/AdminCards.tsx';
+import AdminCards from '@/pages/analytics/AdminCards.tsx';
 
 export type IAnalyticsByDateTabs = 'MONTHLY' | 'QUARTERLY' | 'YEARLY';
 
@@ -78,7 +77,7 @@ function AnalyticsByDate() {
 						title: t('payment_summa'),
 						value: humanizeNumber(analytics.summa, 1, true),
 					},
-				]
+				],
 			);
 		} catch (error) {
 			console.log(error);
@@ -91,7 +90,7 @@ function AnalyticsByDate() {
 				{t('Статистика')}
 			</Title>
 			<div className='h-[20px]' />
-			<AdminCards />
+						<AdminCards />
 
 			<div className='h-[20px]' />
 			<div>

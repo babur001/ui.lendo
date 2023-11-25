@@ -27,11 +27,7 @@ function AdminLayout() {
 			icon: <List strokeWidth={1.5} className='!h-5' />,
 			label: t(`Реестр кредитующих организации`),
 		},
-		{
-			key: '/admin/cards',
-			icon: <CalendarDays strokeWidth={1.5} className='!h-5' />,
-			label: t(`CARDS`),
-		},
+
 	];
 
 	return (

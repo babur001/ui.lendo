@@ -11,10 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
+import useAuthUser from '@/auth/useAuthUser.tsx';
 
-const SIZE = 20;
+const SIZE = 10;
+
 function BusinessReportScoring() {
 	const { t, i18n } = useTranslation();
+	const user = useAuthUser();
+	const rolesName = get(user, 'data.data.data.roles.0.name', null);
 	const { RangePicker } = DatePicker;
 	const [page, setPage] = useState(1);
 	const { dateFrom, dateTo, setRangeDate } = useReceiptsStore((store) => ({
@@ -68,7 +72,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -202,9 +206,16 @@ function BusinessReportScoring() {
 			dataIndex: '',
 			render(value, record, index) {
 				return (
-					<Button onClick={() => navigate(`/company-admin/applications/${record.salePointId}/${record.salePointName}`)}>
-						<ArrowRight strokeWidth={1} />
-					</Button>
+					rolesName === 'COMPANY_ADMIN' ?
+						(<Button
+							onClick={() => navigate(`/company-admin/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}>
+							<ArrowRight strokeWidth={1} />
+						</Button>) :
+						(<Button
+							onClick={() => navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}>
+							<ArrowRight strokeWidth={1} />
+						</Button>)
+
 				);
 			},
 		},
