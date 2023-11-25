@@ -36,7 +36,7 @@ interface ICompanyUsers {
 	salePoint: { name: string; regionName: string; districtName: string; address: string };
 }
 
-const SIZE = 20;
+const SIZE = 10;
 
 export default function UsersList() {
 	const { t } = useTranslation();

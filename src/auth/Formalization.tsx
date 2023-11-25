@@ -22,7 +22,12 @@ interface IProps {
 
 function Formalization({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
-	const { user, clientProfileId, clientScoringId, products, setProducts } =
+	const {
+		user, clientProfileId,
+		clientScoringId,
+		products,
+		setProducts,
+	} =
 		useBuyerStore((store) => ({
 			user: store.user,
 			products: store.products,
@@ -87,7 +92,8 @@ function Formalization({ onFinish }: IProps) {
 		const res = await mutateAddProduct.mutateAsync(data);
 
 		const success = get(res, 'data.success', false);
-
+		const application_id = get(res, 'data.data.id', 0);
+		console.log('application_id', application_id);
 		if (success) {
 			onFinish();
 		}

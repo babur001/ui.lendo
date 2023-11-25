@@ -14,7 +14,7 @@ import { formatNumber } from '@/auth/Scoring';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 import dayjs from 'dayjs';
-const SIZE = 20;
+const SIZE = 10;
 
 function Applications() {
 
