@@ -87,7 +87,6 @@ function AnalyticsByDate() {
 
 	return (
 		<>
-			<Header />
 			<Title className='flex justify-center' level={2}>
 				{t('Статистика')}
 			</Title>

@@ -1,5 +1,5 @@
 import { Dropdown, MenuProps, Select, Tag } from 'antd';
-import { Lock, LogOut, User2Icon } from 'lucide-react';
+import { Lamp, Lock, LockIcon, LogOut, User, User2Icon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '@/Logo';
@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import useAuthUser from '@/auth/useAuthUser';
 import { get } from 'lodash';
 import { TLanguages } from '@/auth/i18n';
+import TotalSingleProduct from '@/auth/TotalSingleProduct.tsx';
 
 interface IProps {
 	items: {
@@ -76,7 +77,7 @@ function Layout({ items, children }: IProps) {
 				<div className='flex-grow bg-gray-50/20'>
 					<header className='flex items-center justify-between border-b border-gray-300 !px-5 !py-1'>
 						<Tag className='flex items-center justify-center !gap-2'>
-							<Lock size={15} />
+							<User size={15} />
 							{t(rolesName)} - {name}
 							{''} {t('Органиция')}- "{companyName}"
 						</Tag>
