@@ -8,9 +8,10 @@ import { useTranslation } from 'react-i18next';
 interface IProps {
 	type: 'CLIENT_PHOTO' | 'APPLICATION_ATTACHED_FILE';
 	accept: string;
+	onUpload: (pkey: string) => unknown;
 }
 
-function FileUpload({ type, accept }: IProps) {
+function FileUpload({ type, accept, onUpload }: IProps) {
 	const { t } = useTranslation();
 
 	const mutateFileUpload = useMutation({
@@ -46,6 +47,7 @@ function FileUpload({ type, accept }: IProps) {
 							return true;
 						}
 
+						onUpload(pkey);
 						return false;
 					} catch (error) {
 						return true;
