@@ -12,7 +12,6 @@ import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 
-
 const SIZE = 20;
 function BusinessReportScoring() {
 	const { t, i18n } = useTranslation();
@@ -33,13 +32,13 @@ function BusinessReportScoring() {
 				params: {
 					dateFrom: dateFrom,
 					dateTo: dateTo,
+					size: SIZE,
 				},
 			});
 		},
 	});
 	const data = get(queryBusinessAnalytics, 'data.data.data', []);
-	console.log("data",data);
-	const total = get(queryBusinessAnalytics, 'data.data.data.totalElements', 100) as number;
+	const total = get(queryBusinessAnalytics, 'data.data.data.totalElements', 0) as number;
 	const excelDownloadMutation = useMutation({
 		mutationKey: ['mutateExcel'],
 		mutationFn: () => {
@@ -69,7 +68,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -250,25 +249,28 @@ function BusinessReportScoring() {
 						return '!bg-gray-50';
 					}}
 				/>
-				<div>
-					<div className='h-[20px]' />
-					<div className='flex gap-5'>
-						<div>
-							<Pagination count={Math.ceil(total / SIZE)} page={page} onChange={setPage}>
-								<Pagination.Previous>{t('Oldin')}</Pagination.Previous>
-								<Pagination.Next>{t('Keyin')}</Pagination.Next>
-							</Pagination>
-						</div>
-						<div className='mr-10 pt-1.5'>{t("Всего записей")}: {total}</div>
+				<div className='h-[20px]' />
+
+				<div className='flex items-center justify-between'>
+					<div className='flex items-center !gap-5'>
+						<Pagination count={Math.ceil(total / SIZE)} page={page} onChange={setPage}>
+							<Pagination.Previous>{t('Oldin')}</Pagination.Previous>
+							<Pagination.Next>{t('Keyin')}</Pagination.Next>
+						</Pagination>
+
+						<p className='!my-0'>
+							{t('Всего записей')}: {total}
+						</p>
+					</div>
+
+					<div className='flex items-center justify-end'>
+						<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
+							{t('Загрузить в Excel')}
+						</Button>
 					</div>
 				</div>
 			</Spin>
 			<div className='h-[10px]' />
-			<div className='flex items-center justify-end w-full'>
-				<Button size='large' loading={excelDownloadMutation.isLoading} onClick={excelDownload} type='primary'>
-					{t('Загрузить в Excel')}
-				</Button>
-			</div>
 		</>
 	);
 }

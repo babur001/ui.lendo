@@ -22,7 +22,7 @@ import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
 import ApplicationDetails from '@/pages/buyers/applicationsDetails.tsx';
 import AdminCards from '@/pages/admin/AdminCards';
 
-export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | 'cards';
+export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | 'cards' | '*';
 
 const adminRoutes = [
 	{
@@ -44,6 +44,11 @@ const adminRoutes = [
 	{
 		path: 'cards',
 		element: <AdminCards />,
+	},
+	{
+		path: '*',
+		index: true,
+		element: <Navigate to={`business-analytics`} />,
 	},
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
@@ -134,7 +139,7 @@ const EmployeeRoutes = [
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 
-export type TAccountantPages = 'business-report' | 'analytics' | 'buyers' | 'buyers/:pinfl';
+export type TAccountantPages = 'business-report' | 'analytics' | 'buyers' | 'buyers/:pinfl' | '*';
 
 const AccountantRoutes = [
 	{
@@ -153,11 +158,16 @@ const AccountantRoutes = [
 		path: 'buyers/:pinfl',
 		element: <Applications />,
 	},
+	{
+		path: '*',
+		index: true,
+		element: <Navigate to={`business-report`} />,
+	},
 ] satisfies (RouteObject & { path: TAccountantPages })[];
 
 const router = createBrowserRouter([
 	{
-		path: '/admin/',
+		path: '/admin',
 		element: <AdminLayout />,
 		children: adminRoutes,
 	},

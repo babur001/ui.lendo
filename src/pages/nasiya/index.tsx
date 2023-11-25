@@ -30,8 +30,6 @@ function Nasiya() {
 	return (
 		<>
 			<div>
-				<div className='h-[30px]' />
-
 				<div className='flex gap-7 h-full'>
 					<div className='w-1/4'>
 						<div className='h-[10px]' />
