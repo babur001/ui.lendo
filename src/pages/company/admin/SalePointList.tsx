@@ -1,14 +1,14 @@
 import AddSalePointModal from '@/pages/company/admin/AddSalePointModal.tsx';
 import { req } from '@/services/api';
-import { Pagination, Text } from '@geist-ui/core';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Table, Layout, Select, Segmented, Typography, Spin } from 'antd';
+import { Pagination } from '@geist-ui/core';
+import { useQuery } from '@tanstack/react-query';
+import { Table, Segmented, Typography, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UsersList from '@/pages/company/admin/UsersList.tsx';
 
 export interface ICompany {
@@ -34,10 +34,10 @@ export interface CreatedByOrUpdatedBy {
 }
 
 const SIZE = 20;
+
 export default function SalePointList() {
 	const { t } = useTranslation();
 	const { Title } = Typography;
-	const navigate = useNavigate();
 	const { companyId } = useParams();
 	const [page, setPage] = useState(1);
 	const [filter, setFilter] = useState({
@@ -72,22 +72,22 @@ export default function SalePointList() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'name',
 			align: 'center',
 		},
 		{
-			title: t('Do\'kon joylashgan viloyat'),
+			title: t("Do'kon joylashgan viloyat"),
 			dataIndex: 'regionName',
 			align: 'center',
 		},
 		{
-			title: t('Do\'kon joylashgan tuman'),
+			title: t("Do'kon joylashgan tuman"),
 			dataIndex: 'districtName',
 			align: 'center',
 		},
 		{
-			title: t('Do\'kon joylashgan manzil'),
+			title: t("Do'kon joylashgan manzil"),
 			dataIndex: 'address',
 			align: 'center',
 		},
@@ -131,17 +131,18 @@ export default function SalePointList() {
 					]}
 				/>
 			</div>
+
+			<div className='h-[20px]' />
+
 			{filter.tab === 'sale_points' ? (
 				<>
 					<div className='w-full flex items-center justify-between'>
-						<div></div>
-						<Title level={2}>{t('Пункты продаж')}</Title>
-						<div></div>
-					</div>
-					<div className='w-full flex items-center justify-end'>
+						<Title level={2} my-0>
+							{t('Пункты продаж')}
+						</Title>
 						<AddSalePointModal onAdd={() => querySalePoints.refetch()} />
 					</div>
-					<div className='h-[20px]' />
+
 					<Spin spinning={querySalePoints.status === 'loading'}>
 						<Table
 							pagination={false}
@@ -163,13 +164,15 @@ export default function SalePointList() {
 										<Pagination.Next>{t('Keyin')}</Pagination.Next>
 									</Pagination>
 								</div>
-								<div className='mr-10 pt-1.5'>{t('Всего записей')}: {total}</div>
+								<div className='mr-10 pt-1.5'>
+									{t('Всего записей')}: {total}
+								</div>
 							</div>
 						</div>
 					</Spin>
 				</>
-
 			) : null}
+
 			{filter.tab === 'users' ? <UsersList /> : null}
 		</>
 	);

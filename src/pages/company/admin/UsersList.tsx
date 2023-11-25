@@ -1,6 +1,6 @@
 import { req } from '@/services/api.ts';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, message, Modal, Segmented, Spin, Table, Typography } from 'antd';
+import { Button, message, Modal, Segmented, Spin, Table, Tag, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -176,7 +176,7 @@ export default function UsersList() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePoint',
 			render(value, record, index) {
 				const salePointName = get(value, 'name', '-');
@@ -200,8 +200,8 @@ export default function UsersList() {
 			dataIndex: 'enabled',
 			align: 'center',
 			render(value, record, index) {
-				if (value) return <div>Активный</div>;
-				return <div className='bg-red-400'>Неактивый</div>;
+				if (value) return <Tag color='success'>Активный</Tag>;
+				return <Tag color={'error'}>Неактивый</Tag>;
 			},
 		},
 
@@ -212,7 +212,7 @@ export default function UsersList() {
 			render(value, record, index) {
 				if (value) {
 					return (
-						<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
+						<Button type='primary' danger onClick={() => setModalId(record.id)} size='middle'>
 							{t('Удалить')}
 						</Button>
 					);
@@ -222,8 +222,6 @@ export default function UsersList() {
 						{t('Восстановить')}
 					</Button>
 				);
-
-
 			},
 		},
 	];
@@ -303,7 +301,9 @@ export default function UsersList() {
 									<Pagination.Next>{t('Keyin')}</Pagination.Next>
 								</Pagination>
 							</div>
-							<div className='mr-10 pt-1.5'>{t('Всего записей')}: {total}</div>
+							<div className='mr-10 pt-1.5'>
+								{t('Всего записей')}: {total}
+							</div>
 						</div>
 					</Spin>
 				</>

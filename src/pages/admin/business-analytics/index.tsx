@@ -1,18 +1,20 @@
 import { formatNumber } from '@/auth/Scoring';
-import Header from '@/pages/header/Header.tsx';
 import { req } from '@/services/api.ts';
 import { Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
-import { Segmented, Table, Tabs } from 'antd';
+import { Segmented, Spin, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 function BusinessAnalytics() {
+	const { t, i18n } = useTranslation();
+
 	const [filter, setFilter] = useState({
 		tab: 'all',
 	});
+
 	const queryBusinessAnalytics = useQuery({
 		queryKey: ['queryBusinessAnalytics', filter.tab],
 		queryFn: () => {
@@ -25,11 +27,10 @@ function BusinessAnalytics() {
 			});
 		},
 	});
-	const data = get(queryBusinessAnalytics, 'data.data.data', []);
-	const { t, i18n } = useTranslation();
+
 	const columns: ColumnsType<any> = [
 		{
-			title: '',
+			title: '№',
 			dataIndex: '',
 			render(value, record, index) {
 				return <>{1 + index}</>;
@@ -78,10 +79,14 @@ function BusinessAnalytics() {
 		},
 	];
 
+	const data = get(queryBusinessAnalytics, 'data.data.data', []);
+
 	return (
 		<>
 			<Text h3>Бизнес аналитика</Text>
+
 			<div className='h-[20px]' />
+
 			<div className='w-full flex items-center justify-start'>
 				<Segmented
 					onChange={(tab) => setFilter({ ...filter, tab: tab as string })}
@@ -100,7 +105,10 @@ function BusinessAnalytics() {
 			</div>
 
 			<div className='h-[20px]' />
-			<Table pagination={false} dataSource={data} columns={columns} />
+
+			<Spin spinning={queryBusinessAnalytics.status === 'loading'}>
+				<Table pagination={false} dataSource={data} columns={columns} />
+			</Spin>
 		</>
 	);
 }

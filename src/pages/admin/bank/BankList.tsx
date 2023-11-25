@@ -1,7 +1,7 @@
 import { req } from '@/services/api.ts';
 import { Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
-import { Table } from 'antd';
+import { Spin, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -39,7 +39,7 @@ export default function BankList() {
 
 	const columns: ColumnsType<IBank> = [
 		{
-			title: '',
+			title: '№',
 			dataIndex: 'NONE',
 			render(value, record, index) {
 				return <>{1 + index}</>;
@@ -88,6 +88,7 @@ export default function BankList() {
 			},
 		},
 	];
+
 	return (
 		<>
 			<Text h3>{t('Реестр кредитующих организации')}</Text>
@@ -96,7 +97,9 @@ export default function BankList() {
 				<AddBankModal onAdd={() => queryBanks.refetch()} />
 			</div>
 			<div className='h-[20px]' />
-			<Table pagination={false} dataSource={data} columns={columns} />
+			<Spin spinning={queryBanks.status === 'loading'}>
+				<Table pagination={false} dataSource={data} columns={columns} />
+			</Spin>
 		</>
 	);
 }

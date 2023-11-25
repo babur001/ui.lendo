@@ -22,7 +22,7 @@ import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
 import ApplicationDetails from '@/pages/buyers/applicationsDetails.tsx';
 import AdminCards from '@/pages/admin/AdminCards';
 
-export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | 'cards';
+export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | 'cards' | '*';
 
 const adminRoutes = [
 	{
@@ -44,6 +44,11 @@ const adminRoutes = [
 	{
 		path: 'cards',
 		element: <AdminCards />,
+	},
+	{
+		path: '*',
+		index: true,
+		element: <Navigate to={`business-analytics`} />,
 	},
 ] satisfies (RouteObject & { path: TAdminPages })[];
 
@@ -157,7 +162,7 @@ const AccountantRoutes = [
 
 const router = createBrowserRouter([
 	{
-		path: '/admin/',
+		path: '/admin',
 		element: <AdminLayout />,
 		children: adminRoutes,
 	},
