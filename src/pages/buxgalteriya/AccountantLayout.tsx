@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Outlet, useNavigate} from "react-router-dom";
 import Header from "@/pages/header/Header.tsx";
 import Logo from "@/Logo";
-import {TAccountantPages, TEmployeePages} from "@/App";
+import {TAccountantPages} from "@/App";
 import React from "react";
 
 function AccountantLayout() {
