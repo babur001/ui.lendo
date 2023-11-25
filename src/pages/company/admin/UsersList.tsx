@@ -212,7 +212,7 @@ export default function UsersList() {
 			render(value, record, index) {
 				if (value) {
 					return (
-						<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
+						<Button type='text' color="error" className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
 							{t('Удалить')}
 						</Button>
 					);
