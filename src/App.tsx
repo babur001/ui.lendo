@@ -139,7 +139,7 @@ const EmployeeRoutes = [
 	},
 ] satisfies (RouteObject & { path: TEmployeePages })[];
 
-export type TAccountantPages = 'business-report' | 'analytics' | 'buyers' | 'buyers/:pinfl';
+export type TAccountantPages = 'business-report' | 'analytics' | 'buyers' | 'buyers/:pinfl' | '*';
 
 const AccountantRoutes = [
 	{
@@ -157,6 +157,11 @@ const AccountantRoutes = [
 	{
 		path: 'buyers/:pinfl',
 		element: <Applications />,
+	},
+	{
+		path: '*',
+		index: true,
+		element: <Navigate to={`business-report`} />,
 	},
 ] satisfies (RouteObject & { path: TAccountantPages })[];
 
