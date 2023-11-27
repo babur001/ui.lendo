@@ -87,15 +87,15 @@ function AnalyticsByDate() {
 	return (
 		<>
 			<Title className='flex justify-center' level={2}>
-				{t('Статистика')}
+				<div className='text-[#325ecd]'>{t('Статистика')}</div>
 			</Title>
 			<div className='h-[20px]' />
 						<AdminCards />
 
-			<div className='h-[20px]' />
+			<div className='h-[40px]' />
 			<div>
-				<Title className='flex justify-center' level={2}>
-					{t('Analytics')}
+				<Title className='flex justify-center'  level={2}>
+					<div className='text-[#325ecd]'>{t('Analytics')}</div>
 				</Title>
 				<div className='grid grid-cols-12 !gap-7'>
 					<div className='col-span-4 rounded-md border border-gray-200 h-full'>
