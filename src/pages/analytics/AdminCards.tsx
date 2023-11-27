@@ -49,7 +49,7 @@ function AdminCards() {
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py-2  border-y-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#eeac00] bg-[#fff] font-bold !text-center !px-3 py-2  border-y-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							12ta - 39mln
 							<br />
 							(Qoratosh)
@@ -67,7 +67,7 @@ function AdminCards() {
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py-2  border-y-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#8000ff] bg-[#fff] font-bold !text-center !px-3 py-2  border-y-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							15.5 mln
 							<br />
 							(Qoratosh)
@@ -85,7 +85,7 @@ function AdminCards() {
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py-2  border-y-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#9c4a09] bg-[#fff] font-bold !text-center !px-3 py-2  border-y-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							15 ta
 							<br />
 							Samsung - S21
