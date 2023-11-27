@@ -13,7 +13,7 @@ function AdminCards() {
 				{titles.map((title) => {
 					return (
 						<div
-							className='col-span-1 | bg-[#0150CD] text-white flex items-center justify-center py-2 rounded-lg shadow-xl text-2xl font-bold'>
+							className='col-span-1 | bg-[#fff] text-[#325ecd] border-y-2 flex items-center justify-center py-2 rounded-lg shadow-xl  text-2xl font-bold'>
 							{title}:
 						</div>
 					);
@@ -22,14 +22,14 @@ function AdminCards() {
 
 			<div className='grid grid-cols-4 gap-5'>
 				<div
-					className='text-center min-h-[100px] bg-[#F0F5FF] flex items-center justify-center border-2 !border-spacing-96 border-dashed border-[#203864] rounded-xl text-3xl text-[#9C4A09] font-bold'>
+					className='text-center min-h-[100px] bg-[#fff] flex items-center justify-center border-2 !border-spacing-96 border-dashed border-[#203864] rounded-xl text-3xl text-[#325ecd] font-bold'>
 					{t('Продажи')}:
 				</div>
 
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#9C4A09] bg-[#fff7d8] font-bold !text-center !px-3 py2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							5ta /
 							<br />
 							125mln.sum
@@ -42,14 +42,14 @@ function AdminCards() {
 
 			<div className='grid grid-cols-4 gap-5'>
 				<div
-					className='text-center min-h-[100px] bg-[#F0F5FF] flex items-center justify-center border-2 !border-spacing-80 border-dashed border-[#203864] rounded-xl text-3xl text-[#9C4A09] font-bold'>
+					className='text-center min-h-[100px] bg-[#fff] flex items-center justify-center border-2 !border-spacing-80 border-dashed border-[#203864] rounded-xl text-3xl text-[#325ecd] font-bold'>
 					{t('Лидер продаж (магазин)')}:
 				</div>
 
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#9C4A09] bg-[#fff7d8] font-bold !text-center !px-3 py-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							12ta - 39mln
 							<br />
 							(Qoratosh)
@@ -60,14 +60,14 @@ function AdminCards() {
 
 			<div className='grid grid-cols-4 gap-5'>
 				<div
-					className='text-center min-h-[100px] bg-[#F0F5FF] flex items-center justify-center border-2 !border-spacing-80 border-dashed border-[#203864] rounded-xl text-3xl text-[#9C4A09] font-bold'>
+					className='text-center min-h-[100px] bg-[#fff] flex items-center justify-center border-2 !border-spacing-80 border-dashed border-[#203864] rounded-xl text-3xl text-[#325ecd] font-bold'>
 					{t('Самая крупная покупка')}:
 				</div>
 
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#9C4A09] bg-[#fff7d8] font-bold !text-center !px-3 py-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							15.5 mln
 							<br />
 							(Qoratosh)
@@ -78,14 +78,14 @@ function AdminCards() {
 
 			<div className='grid grid-cols-4 gap-5'>
 				<div
-					className='text-center min-h-[100px] bg-[#F0F5FF] flex items-center justify-center border-2 !border-spacing-80 border-dashed border-[#203864] rounded-xl text-3xl text-[#9C4A09] font-bold'>
+					className='text-center min-h-[100px] bg-[#fff] flex items-center justify-center border-2 !border-spacing-80 border-dashed border-[#203864] rounded-xl text-3xl text-[#325ecd] font-bold'>
 					{t('Бестселлеры')}:
 				</div>
 
 				{new Array(3).fill('').map(() => {
 					return (
 						<div
-							className='col-span-1 | text-[#9C4A09] bg-[#fff7d8] font-bold !text-center !px-3 py-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
+							className='col-span-1 | text-[#6b8b48] bg-[#fff] font-bold !text-center !px-3 py-2 rounded-xl shadow-md flex items-center justify-center text-2xl'>
 							15 ta
 							<br />
 							Samsung - S21
