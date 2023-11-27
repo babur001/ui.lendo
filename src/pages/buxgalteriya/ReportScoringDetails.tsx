@@ -199,7 +199,7 @@ function BusinessReportScoringDetails() {
 				},
 				{
 					title: t('Количество товара'),
-					dataIndex: 'id',
+					dataIndex: 'itemsCount',
 					align: 'center',
 
 					render(value, record, index) {
