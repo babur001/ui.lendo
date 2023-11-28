@@ -144,7 +144,7 @@ function BusinessReportScoring() {
 					],
 				},
 				{
-					title: t('Сумма оплоченных банком товаров'),
+					title: t('Сумма неоплоченных банком товаров'),
 					dataIndex: '',
 					align: 'center',
 					children: [

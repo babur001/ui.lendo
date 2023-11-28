@@ -1,6 +1,6 @@
 import { req } from '@/services/api.ts';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, message, Modal, Segmented, Spin, Table, Typography } from 'antd';
+import { Button, Image, message, Modal, Segmented, Spin, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -44,7 +44,7 @@ export default function UsersList() {
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const params = useParams();
-	const [modalId, setModalId] = useState<string | number | null>(null);
+	const [modalId, setModalId] = useState<any | number | null>(null);
 	const [activModalId, setActivModalId] = useState<string | number | null>(null);
 	const { Title } = Typography;
 	const [filter, setFilter] = useState({
@@ -194,6 +194,20 @@ export default function UsersList() {
 			render(value, record, index) {
 				return moment(value).format('DD.MM.YYYY');
 			},
+		}, {
+			title: t('Фото пользователя'),
+			dataIndex: 'fileGuid',
+			align: 'center',
+			render(value, record, index) {
+				return <div>
+					<Image
+					src='https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_960_720.jpg'
+					alt='man_image'
+					width={70}
+					height={70}
+					className='rounded-lg object-contain'
+				/></div>;
+			},
 		},
 		{
 			title: t('Статус'),
@@ -204,17 +218,21 @@ export default function UsersList() {
 				return <div className='bg-red-400'>Неактивый</div>;
 			},
 		},
-
 		{
-			title: t('Удалить'),
+			title: t('Приостановить/Удалить'),
 			dataIndex: 'enabled',
 			align: 'center',
 			render(value, record, index) {
 				if (value) {
 					return (
-						<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
-							{t('Удалить')}
-						</Button>
+						<div className='flex gap-1'>
+							<Button type='text' className='bg-yellow-200' onClick={() => setModalId(record.id)} size='middle'>
+								{t('Приостановить')}
+							</Button>
+							<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
+								{t('Удалить')}
+							</Button>
+						</div>
 					);
 				}
 				return (

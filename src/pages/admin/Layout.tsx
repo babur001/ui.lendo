@@ -69,7 +69,7 @@ function Layout({ items, children }: IProps) {
 
 			return () => window.removeEventListener('resize', cb);
 		},
-		() => window.innerWidth
+		() => window.innerWidth,
 	);
 
 	return (
@@ -106,10 +106,17 @@ function Layout({ items, children }: IProps) {
 					<header className='flex items-center justify-between border-b border-gray-300 !px-5 !py-1'>
 						<Tag className='flex items-center justify-center !gap-2'>
 							<User size={15} />
-							{t(rolesName)} - {name}
-							{''} {t('Органиция')}- "{companyName}"
+							<div>
+								<div className='grid grid-cols-2 gap-1'>
+									<div className='font-bold'>{t(rolesName)}</div>
+									- {name}
+								</div>
+								<div className='grid grid-cols-2 gap-1'>
+									<div className='font-bold'>{''} {t('Органиция')}</div>
+									- "{companyName}"
+								</div>
+							</div>
 						</Tag>
-
 						<div className='space-x-5 flex items-center justify-end'>
 							<div className='px-3'>
 								<Select
@@ -128,7 +135,7 @@ function Layout({ items, children }: IProps) {
 												value: 'uz_kyrl',
 											},
 											{
-												label: "O'zbekcha",
+												label: 'O\'zbekcha',
 												value: 'uz_latn',
 											},
 										] satisfies { label: React.ReactNode; value: TLanguages }[]
@@ -138,7 +145,8 @@ function Layout({ items, children }: IProps) {
 
 							<Dropdown menu={{ items: navItems }} trigger={['click']} className='hover:bg-gray-100 px-3 py-3'>
 								<div className='flex items-center !gap-3 cursor-pointer'>
-									{queryImage.status === 'loading' ? null : <img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
+									{queryImage.status === 'loading' ? null :
+										<img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
 									{user.data ? <div className='font-medium text-sm'>{name}</div> : null}
 								</div>
 							</Dropdown>

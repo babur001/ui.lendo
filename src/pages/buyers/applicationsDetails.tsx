@@ -1,12 +1,12 @@
 import { req } from '@/services/api';
 import { Pagination, Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
-import { Button, Table, DatePicker, Typography, Spin } from 'antd';
+import { Button, Table, Typography, Spin, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { concat, get } from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, User } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
@@ -125,17 +125,28 @@ function ApplicationDetails() {
 	];
 	return (
 		<>
-			<div className='flex justify-center'>
-				<div></div>
-				<div>
-					<div><Title level={4}>Информация о покупке</Title></div>
-					<div>{t('Заявление №')} {params.applicationId}</div>
-					<div>{t('Дата создания заявки')}: {moment(createdAtApplication).format('DD.MM.YYYY')}
+			<div className='flex items-center justify-between !py-1'>
+				<Tag>
+					<div className='justify-center'><Title level={4}>Информация о покупке</Title></div>
+					<div>
+						<div className='grid grid-cols-2 gap-1'>
+							<div className='font-bold'>{t('Заявление №')}</div>
+							: {params.applicationId}
+						</div>
+						<div className='grid grid-cols-2 gap-1'>
+							<div className='font-bold'>{t('Дата создания заявки')}</div>
+							: {moment(createdAtApplication).format('DD.MM.YYYY')} {t('год')}
+						</div>
+						<div className='grid grid-cols-2 gap-1'>
+							<div className='font-bold'>Покупатель</div>
+							: {clientFio}, {clientPinfl}
+						</div>
+						<div className='grid grid-cols-2 gap-1'>
+							<div className='font-bold'>Продавец</div>
+							: {createdByApplication}, {createdByPinflApplication}
+						</div>
 					</div>
-					<div>Покупатель: {clientFio}, {clientPinfl}</div>
-					<div>Продавец: {createdByApplication}, {createdByPinflApplication}</div>
-				</div>
-				<div></div>
+				</Tag>
 			</div>
 			<div className='h-[20px]' />
 
