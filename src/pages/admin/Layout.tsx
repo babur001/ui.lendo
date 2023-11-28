@@ -11,6 +11,7 @@ import { TLanguages } from '@/auth/i18n';
 import { useQuery } from '@tanstack/react-query';
 import { req } from '@/services/api';
 import TotalSingleProduct from '@/auth/TotalSingleProduct.tsx';
+import { useSyncExternalStore } from 'react';
 
 interface IProps {
 	items: {
@@ -29,6 +30,8 @@ function Layout({ items, children }: IProps) {
 	const name = get(user, 'data.data.data.fullName', null);
 	const companyName = get(user, 'data.data.data.company.name', null);
 	const rolesName = get(user, 'data.data.data.roles.0.name', null);
+
+	const fileGuid = get(user, 'data.data.data.fileGuid', null);
 
 	const changeLanguageHandler = (lang: TLanguages) => {
 		i18n.changeLanguage(lang);
@@ -49,16 +52,26 @@ function Layout({ items, children }: IProps) {
 		queryKey: ['queryImage'],
 		queryFn: () => {
 			return req({
-				url: `/files/get-file/1`,
+				url: `/files/get-file/${fileGuid}`,
 				method: 'GET',
 			});
 		},
 	});
 
+	const sidebarWidth = 320;
+	const windowWidth = useSyncExternalStore(
+		(cb) => {
+			window.addEventListener('resize', cb);
+
+			return () => window.removeEventListener('resize', cb);
+		},
+		() => window.innerWidth
+	);
+
 	return (
 		<>
 			<div className='flex h-screen'>
-				<div className='w-[320px] border-r border-gray-100 flex-shrink-0'>
+				<div style={{ width: sidebarWidth }} className='border-r border-gray-100 flex-shrink-0'>
 					<div className='h-full flex flex-col justify-between'>
 						<div className='!px-3'>
 							<div className='!py-4 !pt-5'>
@@ -85,7 +98,7 @@ function Layout({ items, children }: IProps) {
 					</div>
 				</div>
 
-				<div className='flex-grow bg-gray-50/20'>
+				<div className='bg-gray-50/20' style={{ width: windowWidth - sidebarWidth }}>
 					<header className='flex items-center justify-between border-b border-gray-300 !px-5 !py-1'>
 						<Tag className='flex items-center justify-center !gap-2'>
 							<User size={15} />

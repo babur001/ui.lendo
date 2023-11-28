@@ -72,7 +72,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -205,17 +205,20 @@ function BusinessReportScoring() {
 			title: t('Batafsil'),
 			dataIndex: '',
 			render(value, record, index) {
-				return (
-					rolesName === 'COMPANY_ADMIN' ?
-						(<Button
-							onClick={() => navigate(`/company-admin/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}>
-							<ArrowRight strokeWidth={1} />
-						</Button>) :
-						(<Button
-							onClick={() => navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}>
-							<ArrowRight strokeWidth={1} />
-						</Button>)
-
+				return rolesName === 'COMPANY_ADMIN' ? (
+					<Button
+						onClick={() =>
+							navigate(`/company-admin/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)
+						}
+					>
+						<ArrowRight strokeWidth={1} />
+					</Button>
+				) : (
+					<Button
+						onClick={() => navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}
+					>
+						<ArrowRight strokeWidth={1} />
+					</Button>
 				);
 			},
 		},
@@ -248,6 +251,7 @@ function BusinessReportScoring() {
 			<div className='h-[20px]' />
 			<Spin spinning={queryBusinessAnalytics.status === 'loading'}>
 				<Table
+					scroll={{ x: 1800 }}
 					size='small'
 					bordered
 					pagination={false}
