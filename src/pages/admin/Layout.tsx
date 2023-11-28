@@ -49,14 +49,18 @@ function Layout({ items, children }: IProps) {
 		},
 	];
 	const queryImage = useQuery({
-		queryKey: ['queryImage'],
+		queryKey: ['queryImage', fileGuid],
 		queryFn: () => {
 			return req({
 				url: `/files/get-file/${fileGuid}`,
 				method: 'GET',
+				responseType: 'blob',
 			});
 		},
+		enabled: !!fileGuid,
 	});
+	const image = get(queryImage, 'data.data', null);
+	const url = image ? URL.createObjectURL(image) : '';
 
 	const sidebarWidth = 320;
 	const windowWidth = useSyncExternalStore(
@@ -134,12 +138,8 @@ function Layout({ items, children }: IProps) {
 
 							<Dropdown menu={{ items: navItems }} trigger={['click']} className='hover:bg-gray-100 px-3 py-3'>
 								<div className='flex items-center !gap-3 cursor-pointer'>
-									<img
-										className='rounded-full w-8 h-8'
-										src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-										alt='image'
-									/>
-									{user.data ? <div className='font-medium text-sm'>{companyName}</div> : null}
+									{queryImage.status === 'loading' ? null : <img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
+									{user.data ? <div className='font-medium text-sm'>{name}</div> : null}
 								</div>
 							</Dropdown>
 						</div>

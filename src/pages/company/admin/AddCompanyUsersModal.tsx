@@ -10,6 +10,7 @@ import { PatternFormat } from 'react-number-format';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { ICompany } from '@/pages/company/admin/SalePointList.tsx';
 import { UploadIcon } from 'lucide-react';
+import FileUpload from '@/pages/admin/company/FileUpload';
 
 interface ISellerForm {
 	fullName: string;
@@ -83,14 +84,8 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 	const salePointData = get(querySalePoints, 'data.data.data.content', []) as ICompany[];
 
 	const onSubmit = async (values: ISellerForm) => {
-		if (!values) {
-			return message.error(t(`Маълумотлар топилмади`));
-		}
-
-
 		const data = {
 			...values,
-			fileGuid: '1',
 			companyId: companyId,
 			role: [values.role],
 			managerId: userId,
@@ -240,7 +235,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 							render={({ field }) => {
 								return (
 									<Description
-										title={t('Do\'kon nomi')}
+										title={t("Do'kon nomi")}
 										content={
 											<Select
 												className={'w-[100%]'}
@@ -262,39 +257,18 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 					</div>
 
 					<div className='col-span-1'>
-						<Controller
-							name='file'
-							control={control}
-							render={({ field }: any) => (
-								<>
-									<Upload
-										maxCount={1}
-										multiple={false}
-										// @ts-ignore
-										fileList={field.value ? [field.value] : undefined}
-										beforeUpload={(file: any) => {
-											setValue('file', file);
-
-											return false;
-										}}
-										className='w-full'
-									>
-										<Button
-											icon={<UploadIcon strokeWidth={1.5} size={16} />}
-											className='flex items-center justify-center'
-											block
-										>
-											{t('Загрузить фото сотрудника')}
-										</Button>
-									</Upload>
-								</>
-							)}
+						<FileUpload
+							accept='*'
+							type='CLIENT_PHOTO'
+							onUpload={(pkey) => {
+								setValue('fileGuid', pkey);
+							}}
 						/>
 					</div>
 
 					<div className='h-[20px]' />
 					<Button type='primary' onClick={handleSubmit(onSubmit)} loading={mutateAddSeller.status === 'loading'}>
-						{t('Qo\'shish')}
+						{t("Qo'shish")}
 					</Button>
 				</div>
 			</Modal>
