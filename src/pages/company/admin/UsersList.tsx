@@ -195,21 +195,6 @@ export default function UsersList() {
 				return moment(value).format('DD.MM.YYYY');
 			},
 		}, {
-			title: t('Фото пользователя'),
-			dataIndex: 'fileGuid',
-			align: 'center',
-			render(value, record, index) {
-				return <div>
-					<Image
-					src='https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_960_720.jpg'
-					alt='man_image'
-					width={70}
-					height={70}
-					className='rounded-lg object-contain'
-				/></div>;
-			},
-		},
-		{
 			title: t('Статус'),
 			dataIndex: 'enabled',
 			align: 'center',
