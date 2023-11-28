@@ -11,7 +11,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
-import { IApplications } from '@/pages/buyers/applicationsList.tsx';
 import moment from 'moment/moment';
 import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
@@ -251,6 +250,9 @@ function BusinessReportScoringDetails() {
 					title: t('Статус'),
 					dataIndex: '',
 					align: 'center',
+					render(value, record, index): JSX.Element {
+						return <div>{t('не оплачено')}</div>;
+					},
 				},
 				{
 					title: t('Одобренная сумма'),
@@ -268,7 +270,6 @@ function BusinessReportScoringDetails() {
 			],
 		},
 	];
-
 	return (
 		<>
 
@@ -295,7 +296,7 @@ function BusinessReportScoringDetails() {
 				</div>
 				<div>
 					<Title level={3}>
-						{t('Информация о объемах реализации магазина')}: "{params.salePointName}"
+						{t('Информация об объемах реализации магазина')}: "{params.salePointName}"
 					</Title>
 				</div>
 				<div></div>
