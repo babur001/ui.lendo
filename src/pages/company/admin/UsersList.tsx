@@ -21,6 +21,8 @@ interface ICompanyUsers {
 	phone: string;
 	username: string;
 	password: string;
+	deleted: boolean;
+	enabled: boolean;
 	createdAt: string;
 	roles: {
 		id: string;
@@ -45,6 +47,7 @@ export default function UsersList() {
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const params = useParams();
 	const [modalId, setModalId] = useState<any | number | null>(null);
+	const [modalIdStop, setModalIdStop] = useState<any | number | null>(null);
 	const [activModalId, setActivModalId] = useState<string | number | null>(null);
 	const { Title } = Typography;
 	const [filter, setFilter] = useState({
@@ -72,6 +75,17 @@ export default function UsersList() {
 
 	const mutateDeleteUser = useMutation({
 		mutationKey: ['queryDeleteUser'],
+		mutationFn: (user_id: string | number) => {
+			return req({
+				method: 'POST',
+				url: `/auth/delete-users`,
+				data: [user_id],
+			});
+		},
+
+	});
+	const mutateStopUser = useMutation({
+		mutationKey: ['mutateStopUser'],
 		mutationFn: (user_id: string | number) => {
 			return req({
 				method: 'POST',
@@ -107,6 +121,25 @@ export default function UsersList() {
 		} else {
 			message.success(t(`Удалено успешно`));
 			setModalId(null);
+			queryCompanyUsers.refetch();
+		}
+	};
+
+	const onStop = async () => {
+		if (!modalIdStop) {
+			return message.error(t(`Маълумотлар топилмади`));
+		}
+
+		const res = await mutateStopUser.mutateAsync(modalIdStop as string);
+
+		const success = get(res, 'data.success', false);
+
+		if (!success) {
+			message.error(t(`Непредвиденная ошибка!`));
+			setModalIdStop(null);
+		} else {
+			message.success(t(`Удалено успешно`));
+			setModalIdStop(null);
 			queryCompanyUsers.refetch();
 		}
 	};
@@ -200,6 +233,7 @@ export default function UsersList() {
 			align: 'center',
 			render(value, record, index) {
 				if (value) return <div>Активный</div>;
+				if (record.deleted) return <div className='bg-red-500'>Пользователь удалён</div>;
 				return <div className='bg-red-400'>Неактивый</div>;
 			},
 		},
@@ -211,7 +245,7 @@ export default function UsersList() {
 				if (value) {
 					return (
 						<div className='flex gap-1'>
-							<Button type='text' className='bg-yellow-200' onClick={() => setModalId(record.id)} size='middle'>
+							<Button type='text' className='bg-yellow-200' onClick={() => setModalIdStop(record.id)} size='middle'>
 								{t('Приостановить')}
 							</Button>
 							<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
@@ -220,13 +254,12 @@ export default function UsersList() {
 						</div>
 					);
 				}
-				return (
-					<Button type='primary' onClick={() => setActivModalId(record.id)} size='middle'>
-						{t('Восстановить')}
-					</Button>
-				);
-
-
+				if (!record.deleted)
+					return (
+						<Button type='primary' onClick={() => setActivModalId(record.id)} size='middle'>
+							{t('Восстановить')}
+						</Button>
+					);
 			},
 		},
 	];
@@ -288,6 +321,7 @@ export default function UsersList() {
 					<div className='h-[20px]' />
 					<Spin spinning={queryCompanyUsers.status === 'loading'}>
 						<Table
+							scroll={{ x: 1800 }}
 							pagination={false}
 							dataSource={data}
 							columns={columnsUser}
@@ -313,6 +347,27 @@ export default function UsersList() {
 			) : null}
 
 			{filter.tab === 'buyers' ? <Buyers /> : null}
+
+			<Modal open={!!modalIdStop} onCancel={() => setModalIdStop(null)} footer={false}>
+				<div className='h-[20px]' />
+				<p className='flex justify-center'>
+					<Title level={4}>{t('Уверены что хотите приостановить пользователя !')}</Title>
+				</p>
+				<div className='h-[20px]' />
+				<div className='flex justify-between gap-5'>
+					<Button
+						className='w-full'
+						type='primary'
+						onClick={() => onStop()}
+						loading={mutateStopUser.status === 'loading'}
+					>
+						{t('Да')}
+					</Button>
+					<Button className='w-full' type='primary' onClick={() => setModalIdStop(null)} danger>
+						{t('Нет')}
+					</Button>
+				</div>
+			</Modal>
 
 			<Modal open={!!modalId} onCancel={() => setModalId(null)} footer={false}>
 				<div className='h-[20px]' />
