@@ -321,8 +321,9 @@ export default function UsersList() {
 					<div className='h-[20px]' />
 					<Spin spinning={queryCompanyUsers.status === 'loading'}>
 						<Table
-							scroll={{ x: 1800 }}
+							/*scroll={{ x: 1800 }}*/
 							pagination={false}
+							size="small"
 							dataSource={data}
 							columns={columnsUser}
 							rowClassName={(row, idx) => {
