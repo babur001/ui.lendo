@@ -13,7 +13,7 @@ interface ILogin {
 	password: string;
 }
 
-enum Roles {
+export enum Roles {
 	SUPER_ADMIN = 'SUPER_ADMIN',
 	COMPANY_ADMIN = 'COMPANY_ADMIN',
 	COMPANY_EMPLOYEE = 'COMPANY_EMPLOYEE',

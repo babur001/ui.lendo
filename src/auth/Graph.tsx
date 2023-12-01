@@ -6,6 +6,7 @@ import { Download } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 
 import { useTranslation } from 'react-i18next';
+import { useBuyerStore } from '@/stores/buyer';
 
 interface IProps {
 	onFinish: () => unknown;
@@ -13,14 +14,15 @@ interface IProps {
 
 function Graph({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
+	const { applicationId } = useBuyerStore((store) => ({ applicationId: store.applicationId }));
 
 	const pdfDownloadMutation = useMutation({
-		mutationKey: ['mutateExcel' /*params.pinfl, search, params.sale_point_id*/],
+		mutationKey: ['mutateExcel', applicationId],
 		mutationFn: () => {
 			return req({
 				url: `/pdf/get-application-pdf`,
 				params: {
-					applicationId: 1,
+					applicationId,
 				},
 				method: 'POST',
 				responseType: 'blob',
