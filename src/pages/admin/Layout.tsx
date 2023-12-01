@@ -69,7 +69,7 @@ function Layout({ items, children }: IProps) {
 
 			return () => window.removeEventListener('resize', cb);
 		},
-		() => window.innerWidth
+		() => window.innerWidth,
 	);
 
 	return (
@@ -103,16 +103,21 @@ function Layout({ items, children }: IProps) {
 				</div>
 
 				<div className='bg-gray-50/20' style={{ width: windowWidth - sidebarWidth }}>
-					<header className='flex items-center justify-between border-b border-gray-300 !px-5 !py-1'>
-						<div className='flex items-center !gap-3'>
-							<Tag className='flex items-center justify-center !gap-2'>
-								<User size={15} strokeWidth={1.5} />
-								<div className='font-bold'>{t(rolesName)}</div> - {name}
-							</Tag>
-
-							<Tag className='flex items-center justify-center !gap-2'>
-								<Building size={15} strokeWidth={1.5} />
-								<div className='font-bold'>{t('Органиция')}</div> - "{companyName}"
+					<header className='flex items-start justify-between border-b border-gray-300 !px-5 !py-1'>
+						<div>
+							<Tag>
+								<div className='flex'>
+									<div className='flex gap-2'><User className='mt-0.5' size={15} strokeWidth={1.5} />
+										<div className='font-bold mr-1'>{t(rolesName)}</div>
+									</div>
+									- {name}
+								</div>
+								<div className='flex'>
+									<div className='flex gap-2'><Building className='mt-0.5' size={15} strokeWidth={1.5} />
+										<div className='font-bold mr-1'>{t('Органиция')}</div>
+									</div>
+									- "{companyName}"
+								</div>
 							</Tag>
 						</div>
 
@@ -134,7 +139,7 @@ function Layout({ items, children }: IProps) {
 												value: 'uz_kyrl',
 											},
 											{
-												label: "O'zbekcha",
+												label: 'O\'zbekcha',
 												value: 'uz_latn',
 											},
 										] satisfies { label: React.ReactNode; value: TLanguages }[]
@@ -144,7 +149,8 @@ function Layout({ items, children }: IProps) {
 
 							<Dropdown menu={{ items: navItems }} trigger={['click']} className='hover:bg-gray-100 px-3 py-3'>
 								<div className='flex items-center !gap-3 cursor-pointer'>
-									{queryImage.status === 'loading' ? null : <img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
+									{queryImage.status === 'loading' ? null :
+										<img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
 									{user.data ? <div className='font-medium text-sm'>{name}</div> : null}
 								</div>
 							</Dropdown>
