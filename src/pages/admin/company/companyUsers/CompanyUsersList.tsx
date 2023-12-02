@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 
-interface ICompanyUsers {
+export interface ICompanyUsers {
 	id: string | number;
 	pinfl: string;
 	fullName: string;

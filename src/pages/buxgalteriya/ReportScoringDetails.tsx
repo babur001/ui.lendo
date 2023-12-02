@@ -1,9 +1,9 @@
 import { req } from '@/services/api.ts';
 import { Pagination, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Table, DatePicker, Spin, Typography, Input } from 'antd';
+import { Button, Table, DatePicker, Spin, Typography, Input, Select } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { get } from 'lodash';
+import { concat, get, values } from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -14,6 +14,7 @@ import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx'
 import moment from 'moment/moment';
 import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
+import { ICompanyUsers } from '@/pages/admin/company/companyUsers/CompanyUsersList.tsx';
 import { Roles } from '@/pages/auth';
 
 const SIZE = 10;
@@ -21,11 +22,13 @@ const SIZE = 10;
 function BusinessReportScoringDetails() {
 	const user = useAuthUser();
 	const rolesName = get(user, 'data.data.data.roles.0.name', null);
+	const companyId = get(user, 'data.data.data.companyId', null);
 	const { t, i18n } = useTranslation();
 	const { Title } = Typography;
 	const { Search } = Input;
 	const { RangePicker } = DatePicker;
 	const [page, setPage] = useState(1);
+	const [employeeId, setUser] = useState(null);
 	const params = useParams();
 	const [search, getCustomerPinfl] = useState<string | undefined>('');
 	const { dateFrom, dateTo, setRangeDate } = useReceiptsStore((store) => ({
@@ -33,16 +36,21 @@ function BusinessReportScoringDetails() {
 		dateTo: store.dateTo,
 		setRangeDate: store.setRangeDate,
 	}));
+	const setUserSelect = (value: any) => {
+		setUser(value);
+	};
+
 	const navigate = useNavigate();
 
 
 	const queryApplications = useQuery({
-		queryKey: ['queryApplications', params.pinfl, search, params.sale_point_id],
+		queryKey: ['queryApplications', params.pinfl, search, params.sale_point_id, employeeId],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/registration/get-applications`,
 				params: {
+					employeeId: employeeId,
 					salePointId: params.sale_point_id,
 					pinfl: search ? search : params.pinfl,
 					dateFrom: dateFrom,
@@ -78,6 +86,24 @@ function BusinessReportScoringDetails() {
 			saveAs(res.data, 'excel.xlsx', { autoBom: true });
 		});
 	};
+
+	const queryCompanyUsers =
+		rolesName === Roles.COMPANY_ADMIN ? (useQuery({
+			queryKey: ['queryCompanies', companyId],
+			queryFn: () => {
+				return req({
+					method: 'GET',
+					url: `/auth/get-users-list`,
+					params: {
+						companyId: companyId,
+						salePointId: params.salePointId,
+					},
+				});
+			},
+		})) : ([]);
+
+	const dataUsers = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
+
 	const columns: ColumnsType<any> = [
 		{
 			title: '№',
@@ -249,6 +275,35 @@ function BusinessReportScoringDetails() {
 							render(value, record, index) {
 								return <>{get(record, 'createdBy.fullName', '')}</>;
 							},
+
+							filterDropdown: () => {
+								if (rolesName === Roles.COMPANY_ADMIN) {
+									return (
+										<Select
+											onChange={setUserSelect}
+											allowClear
+											placeholder={t('...')}
+											className='!w-96'
+											options={dataUsers.map((user, idx) => {
+												return {
+													value: user.id,
+													label: user.fullName,
+												};
+											})}
+										/>);
+								} else {
+									return (
+										<Select
+											style={{ width: 120 }}
+											options={[
+												{
+													value: null,
+													label: null,
+												},
+											]}
+										/>);
+								}
+							},
 						},
 						{
 							title: t('Статус'),
@@ -276,9 +331,9 @@ function BusinessReportScoringDetails() {
 			],
 		},
 	];
-	 /*	if (rolesName === Roles.COMPANY_ADMIN) {
-			columns.push();
-		}*/
+	/*	if (rolesName === Roles.COMPANY_ADMIN) {
+		 columns.push();
+	 }*/
 
 	return (
 		<>
