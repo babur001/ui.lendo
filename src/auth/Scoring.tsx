@@ -110,8 +110,8 @@ function Scoring({ onFinish }: IProps) {
 
 							<div className='h-[20px]' />
 								<Description
-									title={<div className='text-3xl'>{t('Мавжуд лимит:')}</div>}
-									content={<div className='text-3xl'>{formatNumber(get(result, 'scoringSum', 0))}</div>}
+									title={<div className='text-2xl'>{t('Мавжуд лимит:')}</div>}
+									content={<div className='text-2xl'>{formatNumber(get(result, 'scoringSum', 0))}</div>}
 									scale={1.25}
 								/>
 

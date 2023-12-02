@@ -276,61 +276,9 @@ function BusinessReportScoringDetails() {
 			],
 		},
 	];
-/*	if (rolesName === Roles.COMPANY_ADMIN) {
-		columns.push(
-			{
-				title: t('Информация о транзакциях'),
-				dataIndex: '',
-				align: 'center',
-				children: [
-					{
-						title: t('Номер заявления'),
-						dataIndex: 'id',
-						align: 'center',
-					},
-					{
-						title: t('Дата создания'),
-						dataIndex: 'createdAt',
-						align: 'center',
-						render(value, record, index) {
-							return (
-								moment(value).format('DD.MM.YYYY')
-							);
-						},
-					},
-					{
-						title: t('Продавец'),
-						dataIndex: '',
-						align: 'center',
-						render(value, record, index) {
-							return <>{get(record, 'createdBy.fullName', '')}</>;
-						},
-					},
-					{
-						title: t('Статус'),
-						dataIndex: '',
-						align: 'center',
-						render(value, record, index): JSX.Element {
-							return <div>{t('не оплачено')}</div>;
-						},
-					},
-					{
-						title: t('Одобренная сумма'),
-						dataIndex: '',
-						align: 'center',
-						render(value, record, index) {
-							return <>{formatNumber(get(record, 'clientScoring.scoringSum', ''))}</>;
-						},
-					},
-					{
-						title: t('Оплата'),
-						dataIndex: '',
-						align: 'center',
-					},
-				],
-			},
-		);
-	}*/
+	 /*	if (rolesName === Roles.COMPANY_ADMIN) {
+			columns.push();
+		}*/
 
 	return (
 		<>
@@ -345,21 +293,20 @@ function BusinessReportScoringDetails() {
 								</div>
 								<div>{t('Nazad')}</div>
 							</div>
-						</Button>) :
-						(<Button onClick={() => navigate(`/nasiya/business-report-scoring`)}>
-							<div className='flex space-x-1 '>
-								<div>
-									<ArrowLeft strokeWidth={2} />
-								</div>
-								<div>{t('Nazad')}</div>
-							</div>
-						</Button>)
+						</Button>) : null
 					}
 				</div>
 				<div>
-					<Title level={3}>
-						{t('Информация об объемах реализации магазина')}: "{params.salePointName}"
-					</Title>
+					{rolesName === 'COMPANY_ADMIN' ?
+						(<Title level={3}>
+								{t('Информация об объемах реализации магазина')}: "{params.salePointName}"
+							</Title>
+						) :
+						(<Title level={3}>
+								{t('Информация об объемах реализации')}
+							</Title>
+						)}
+
 				</div>
 				<div></div>
 			</div>
@@ -397,6 +344,7 @@ function BusinessReportScoringDetails() {
 			<Spin spinning={queryApplications.status === 'loading'}>
 				<Table
 					size='small'
+					scroll={{ x: 1800 }}
 					bordered
 					pagination={false}
 					dataSource={data}

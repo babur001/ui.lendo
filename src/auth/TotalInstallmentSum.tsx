@@ -3,8 +3,9 @@ import { get } from 'lodash';
 import React from 'react';
 import { Control, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { log } from 'console';
 
-function TotalAllProdcutsSum({ control }: { control: Control<any> }) {
+function TotalInstallmentSum({ control }: { control: Control<any> }) {
 	const { t, i18n } = useTranslation();
 	const values = useWatch({
 		control,
@@ -18,7 +19,7 @@ function TotalAllProdcutsSum({ control }: { control: Control<any> }) {
 		hasVat = product.hasVat;
 	});
 	if (hasVat === 1) {
-		total += total* 12 / 112
+		total += total * 12 / 112;
 	}
 	total -= isNaN(+values.paymentSum) ? 0 : values.paymentSum;
 	const percentages = {
@@ -27,16 +28,15 @@ function TotalAllProdcutsSum({ control }: { control: Control<any> }) {
 		18: 35,
 	} as any;
 
-	const percentage =
-		percentages[isNaN(+values.paymentPeriod) ? 4 : values.paymentPeriod];
 
-	/*total = total + total * (percentage / 100);
-	*/total = Math.round(total * 100) / 100;
+	const percentage = percentages[isNaN(+values.paymentPeriod) ? 3 : values.paymentPeriod];
 
+	total = total + total * (percentage / 100);
+	total = Math.round(total * 100 / values.paymentPeriod) / 100;
 	return (
 		<Description
 			className='flex-grow'
-			title={t('Сумма рассрочки')}
+			title={t('Сумма рассрочки в месяц')}
 			content={
 				<Input scale={1.2} readOnly value={String(total)} width={'100%'} />
 			}
@@ -44,4 +44,4 @@ function TotalAllProdcutsSum({ control }: { control: Control<any> }) {
 	);
 }
 
-export default TotalAllProdcutsSum;
+export default TotalInstallmentSum;

@@ -10,7 +10,9 @@ import { ArrowRight, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import TotalAllProdcutsSum from '@/auth/TotalAllProdcutsSum.tsx';
+import TotalAllProdcutsSum from '@/auth/TotalAllProduсtsSum.tsx';
+import TotalAllProduсtsSum from '@/auth/TotalAllProduсtsSum.tsx';
+import TotalInstallmentSum from '@/auth/TotalInstallmentSum.tsx';
 
 interface ITableEDIT {
 	//
@@ -174,11 +176,10 @@ function Formalization({ onFinish }: IProps) {
 			})}
 
 			<div className='h-[20px]' />
-
 			<div className='flex justify-between'>
 				<div className='col-span-12 grid grid-cols-12'>
 					<Button
-						className='col-span-3'
+						className='col-span-12'
 						type='primary'
 						onClick={() =>
 							append({
@@ -194,8 +195,8 @@ function Formalization({ onFinish }: IProps) {
 					</Button>
 				</div>
 				<div className='col-span-12 grid grid-cols-12'>
-					<div className='col-span-6'>
-						<TotalAllProdcutsSum control={control} />
+					<div className='col-span-12'>
+						<TotalAllProduсtsSum control={control} />
 					</div>
 				</div>
 			</div>
@@ -258,6 +259,7 @@ function Formalization({ onFinish }: IProps) {
 					}}
 				/>
 				<TotalContractedSum control={control} />
+				<TotalInstallmentSum control={control} />
 			</div>
 
 			<div className='h-[40px]' />

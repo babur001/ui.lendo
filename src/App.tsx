@@ -117,8 +117,7 @@ const CompanyRoutes = [
 export type TEmployeePages =
 	'analytics'
 	| 'default'
-	| 'business-report-scoring'
-	| 'business-report-scoring-details/:sale_point_id/:salePointName'
+	| 'business-report-scoring-details'
 	| 'applications/:applicationId/:sale_point_id/:salePointName'
 	| '*';
 
@@ -132,11 +131,7 @@ const EmployeeRoutes = [
 		element: <Nasiya />,
 	},
 	{
-		path: 'business-report-scoring',
-		element: <BusinessReportScoring />,
-	},
-	{
-		path: 'business-report-scoring-details/:sale_point_id/:salePointName',
+		path: 'business-report-scoring-details',
 		element: <BusinessReportScoringDetails />,
 	},
 	{
