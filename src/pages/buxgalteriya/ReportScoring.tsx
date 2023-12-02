@@ -95,12 +95,17 @@ function BusinessReportScoring() {
 					align: 'center',
 				},
 				{
-					title: t('Количество указанного в заявках товара'),
+					title: t('Заявка оформлена (раз)'),
+					dataIndex: '',
+					align: 'center',
+				},
+				{
+					title: t('Количество указанного в оформленных заявках товара'),
 					dataIndex: 'approvedProductCount',
 					align: 'center',
 				},
 				{
-					title: t('Сумма указанного в заявках товара (сум)'),
+					title: t('Сумма указанного в оформленных заявках товара (сум)'),
 					dataIndex: 'approvedSummaWithVat',
 					align: 'center',
 				},
@@ -122,7 +127,7 @@ function BusinessReportScoring() {
 							align: 'center',
 						},
 						{
-							title: t('в % к одобренным'),
+							title: t('в % к оформленным'),
 							dataIndex: 'bankPaidAppPercent',
 							align: 'center',
 						},
@@ -139,7 +144,7 @@ function BusinessReportScoring() {
 							align: 'center',
 						},
 						{
-							title: t('в % к одобренным'),
+							title: t('в % к оформленным'),
 							dataIndex: 'bankPaidProductPercent',
 							align: 'center',
 						},
@@ -147,7 +152,7 @@ function BusinessReportScoring() {
 				},
 
 				{
-					title: t('Сумма неоплоченных банком товаров'),
+					title: t('Сумма оплаченных банком товаров'),
 					dataIndex: '',
 					align: 'center',
 					children: [
@@ -157,7 +162,7 @@ function BusinessReportScoring() {
 							align: 'center',
 						},
 						{
-							title: t('в % к одобренным'),
+							title: t('в % к оформленным'),
 							dataIndex: 'bankPaidProductTotalPercent',
 							align: 'center',
 						},

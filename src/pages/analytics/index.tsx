@@ -1,16 +1,17 @@
-import { Checkbox, Typography } from 'antd';
+import { Checkbox, Select, Typography } from 'antd';
 import classNames from 'classnames';
-
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-
 import { req } from '@/services/api';
 import { get, toPairsIn } from 'lodash';
 import { formatNumber } from '@/auth/Scoring';
 import AnalyticsByDateLineChart from '@/pages/analytics/AnalyticsByDateLineChart';
-import { Spinner, Text } from '@geist-ui/core';
+import { Description, Spinner, Text } from '@geist-ui/core';
 import { useTranslation } from 'react-i18next';
 import AdminCards from '@/pages/analytics/AdminCards.tsx';
+import { Controller } from 'react-hook-form';
+import useAuthUser from '@/auth/useAuthUser.tsx';
+import { Roles } from '@/pages/auth';
 
 export type IAnalyticsByDateTabs = 'MONTHLY' | 'QUARTERLY' | 'YEARLY';
 
@@ -21,14 +22,43 @@ interface IAnalyticsData {
 	period: 0;
 }
 
+export interface ISalePoints {
+	id: number;
+	name: string;
+	regionName: string;
+	regionCode: number;
+	districtName: string;
+	districtCode: number;
+	address: string;
+}
+
 function AnalyticsByDate() {
 	const { Title } = Typography;
 	const { t, i18n } = useTranslation();
 	const [year, setYear] = useState({
 		year: 2023,
 	});
-	const [activeFilter, setActiveFilter] = useState<IAnalyticsByDateTabs>('MONTHLY');
+	const user = useAuthUser();
+	const companyId = get(user, 'data.data.data.companyId', null);
+	const roleName = get(user, 'data.data.data.roles.0.name', null);
 
+	const querySalePoints = useQuery({
+		queryKey: ['querySalePoints', companyId],
+		queryFn: () => {
+			return req({
+				method: 'GET',
+				url: `/company-admin/get-sale-points`,
+				params: {
+					companyId: companyId,
+				},
+			});
+		},
+	});
+
+	const salePointData = get(querySalePoints, 'data.data.data.content', []) as ISalePoints[];
+	const total = get(querySalePoints, 'data.data.data.totalElements', 0) as number;
+
+	const [activeFilter, setActiveFilter] = useState<IAnalyticsByDateTabs>('MONTHLY');
 	const queryAnalyticsByDate = useQuery({
 		queryKey: ['queryAnalyticsByDate', year],
 		queryFn: () => {
@@ -41,6 +71,7 @@ function AnalyticsByDate() {
 			});
 		},
 	});
+
 
 	const stats: Record<
 		IAnalyticsByDateTabs,
@@ -90,13 +121,32 @@ function AnalyticsByDate() {
 				<div className='text-[#325ecd]'>{t('Статистика')}</div>
 			</Title>
 			<div className='h-[20px]' />
-						<AdminCards />
+			<AdminCards />
 
 			<div className='h-[40px]' />
 			<div>
-				<Title className='flex justify-center'  level={2}>
+				<Title className='flex justify-center' level={2}>
 					<div className='text-[#325ecd]'>{t('Analytics')}</div>
 				</Title>
+				{roleName === Roles.COMPANY_ADMIN ? (<div className='col-span-2'>
+					<Description
+						title={t('Магазины')}
+						content={
+							<Select
+								placeholder={t('...')}
+								className='!w-96'
+								options={salePointData.map((salePoint, idx) => {
+									return {
+										value: salePoint.id,
+										label: salePoint.name,
+									};
+								})}
+							/>}
+					/>
+				</div>) : (<div></div>)}
+
+
+				<div className='h-[20px]' />
 				<div className='grid grid-cols-12 !gap-7'>
 					<div className='col-span-4 rounded-md border border-gray-200 h-full'>
 						{queryAnalyticsByDate.status === 'loading' ? (
