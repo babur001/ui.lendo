@@ -170,7 +170,12 @@ function BusinessReportScoringDetails() {
 			align: 'center',
 			children: [
 				{
-					title: t('Сумма покупки '),
+					title: t('Результат скоринга'),
+					dataIndex: '',
+					align: 'center',
+				},
+				{
+					title: t('Сумма покупки'),
 					dataIndex: 'paymentSumWithVat',
 					align: 'center',
 				},
@@ -217,12 +222,61 @@ function BusinessReportScoringDetails() {
 						);
 					},
 				},
+				{
+					title: t('Информация о транзакциях'),
+					dataIndex: '',
+					align: 'center',
+					children: [
+						{
+							title: t('Номер заявления'),
+							dataIndex: 'id',
+							align: 'center',
+						},
+						{
+							title: t('Дата создания'),
+							dataIndex: 'createdAt',
+							align: 'center',
+							render(value, record, index) {
+								return (
+									moment(value).format('DD.MM.YYYY')
+								);
+							},
+						},
+						{
+							title: t('Продавец'),
+							dataIndex: '',
+							align: 'center',
+							render(value, record, index) {
+								return <>{get(record, 'createdBy.fullName', '')}</>;
+							},
+						},
+						{
+							title: t('Статус'),
+							dataIndex: '',
+							align: 'center',
+							render(value, record, index): JSX.Element {
+								return <div>{t('не оплачено')}</div>;
+							},
+						},
+						{
+							title: t('Одобренная сумма'),
+							dataIndex: '',
+							align: 'center',
+							render(value, record, index) {
+								return <>{formatNumber(get(record, 'clientScoring.scoringSum', ''))}</>;
+							},
+						},
+						{
+							title: t('Оплата'),
+							dataIndex: '',
+							align: 'center',
+						},
+					],
+				},
 			],
 		},
-
-
 	];
-	if (rolesName === Roles.COMPANY_ADMIN) {
+/*	if (rolesName === Roles.COMPANY_ADMIN) {
 		columns.push(
 			{
 				title: t('Информация о транзакциях'),
@@ -276,7 +330,7 @@ function BusinessReportScoringDetails() {
 				],
 			},
 		);
-	}
+	}*/
 
 	return (
 		<>

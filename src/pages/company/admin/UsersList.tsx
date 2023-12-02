@@ -9,11 +9,11 @@ import AddCompanyUsersModal from '@/pages/company/admin/AddCompanyUsersModal.tsx
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import moment from 'moment/moment';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Delete } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import React, { useState } from 'react';
 import Buyers from '@/pages/buyers';
 import { Pagination } from '@geist-ui/core';
-import AddSalePointModal from '@/pages/company/admin/AddSalePointModal.tsx';
+import { Roles } from '@/pages/auth';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -181,6 +181,7 @@ export default function UsersList() {
 		{
 			title: t('Ходим ФИШ'),
 			dataIndex: 'fullName',
+			align: 'center',
 		},
 		{
 			title: t('Ходим телефон рақами'),
@@ -190,28 +191,21 @@ export default function UsersList() {
 		{
 			title: t('Login'),
 			dataIndex: 'username',
+			align: 'center',
 		},
 		{
 			title: t('Роль'),
 			dataIndex: 'roles',
+			align: 'center',
 			render(value, record, index) {
 				const role = get(value, '0.name', '-');
 				return t(role);
 			},
 		},
 		{
-			title: t('Генератор роли'),
-			dataIndex: 'createdBy',
-			render(value, record, index) {
-				const fullName = get(value, 'fullName', '-');
-				const role = get(value, 'roles', '-');
-				const role_ch = get(role, '0.name', '-');
-				return t(fullName) + ' (' + t(role_ch) + ')';
-			},
-		},
-		{
 			title: t('Do\'kon nomi'),
 			dataIndex: 'salePoint',
+			align: 'center',
 			render(value, record, index) {
 				const salePointName = get(value, 'name', '-');
 				const districtName = get(value, 'districtName', '-');
@@ -239,10 +233,28 @@ export default function UsersList() {
 			},
 		},
 		{
+			title: t('Генератор роли'),
+			dataIndex: 'createdBy',
+			align: 'center',
+			render(value, record, index) {
+				const fullName = get(value, 'fullName', '-');
+				const role = get(value, 'roles', '-');
+				const role_ch = get(role, '0.name', '-');
+				return t(fullName) + ' (' + t(role_ch) + ')';
+			},
+		},
+		{
 			title: t('Приостановить/Удалить'),
 			dataIndex: 'enabled',
 			align: 'center',
-			render(value, record, index) {
+			render(value, record, idx) {
+				const roles = record.roles;
+				const rolesName = roles.map((value1, index) => {
+					return {label:value1.name};
+				});
+
+
+
 				if (value) {
 					return (
 						<div className='flex gap-1'>

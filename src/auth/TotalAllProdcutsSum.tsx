@@ -4,7 +4,7 @@ import React from 'react';
 import { Control, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-function TotalContractedSum({ control }: { control: Control<any> }) {
+function TotalAllProdcutsSum({ control }: { control: Control<any> }) {
 	const { t, i18n } = useTranslation();
 	const values = useWatch({
 		control,
@@ -30,8 +30,8 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 	const percentage =
 		percentages[isNaN(+values.paymentPeriod) ? 4 : values.paymentPeriod];
 
-	total = total + total * (percentage / 100);
-	total = Math.round(total * 100) / 100;
+	/*total = total + total * (percentage / 100);
+	*/total = Math.round(total * 100) / 100;
 
 	return (
 		<Description
@@ -44,4 +44,4 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 	);
 }
 
-export default TotalContractedSum;
+export default TotalAllProdcutsSum;
