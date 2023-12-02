@@ -1,17 +1,20 @@
 import { req } from '@/services/api.ts';
 import { Pagination, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Table, DatePicker, Spin } from 'antd';
+import { Button, Table, DatePicker, Spin, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
+const { Title } = Typography;
 import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
+import { Roles } from '../auth';
 
 const SIZE = 10;
 
@@ -72,7 +75,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -103,7 +106,6 @@ function BusinessReportScoring() {
 				},
 			],
 		},
-
 		{
 			title: t('Оплачено банком'),
 			dataIndex: '',
@@ -143,6 +145,7 @@ function BusinessReportScoring() {
 						},
 					],
 				},
+
 				{
 					title: t('Сумма неоплоченных банком товаров'),
 					dataIndex: '',
@@ -215,7 +218,9 @@ function BusinessReportScoring() {
 					</Button>
 				) : (
 					<Button
-						onClick={() => navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}
+						onClick={() =>
+							navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)
+						}
 					>
 						<ArrowRight strokeWidth={1} />
 					</Button>
@@ -226,7 +231,9 @@ function BusinessReportScoring() {
 
 	return (
 		<>
-			<Text h3>{t('Продажи')}</Text>
+			<Title className='flex justify-center' level={2}>
+				<div className=''>{t('Продажи')}</div>
+			</Title>
 			<div className='h-[20px]' />
 			<div className='flex items-center justify-between  w-full'>
 				<div>

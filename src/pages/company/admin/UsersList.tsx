@@ -13,6 +13,7 @@ import { ArrowLeft, ArrowRight, Delete } from 'lucide-react';
 import React, { useState } from 'react';
 import Buyers from '@/pages/buyers';
 import { Pagination } from '@geist-ui/core';
+import AddSalePointModal from '@/pages/company/admin/AddSalePointModal.tsx';
 
 interface ICompanyUsers {
 	id: string | number;
@@ -269,8 +270,10 @@ export default function UsersList() {
 			{!params.salePointName ? (
 				<div className='w-full flex items-center justify-between'>
 					<div></div>
-					<Title level={2}>{t('Сотрудники')}</Title>
-					<div></div>
+					<Title className='flex justify-center' level={2}>
+						<div className=''>{t('Сотрудники')}</div>
+					</Title>
+					<AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} />
 				</div>
 			) : null}
 
@@ -315,14 +318,12 @@ export default function UsersList() {
 								</Title>
 							</p>
 						) : null}
-
-						{!params.salePointName ? <AddCompanyUsersModal onAdd={() => queryCompanyUsers.refetch()} /> : <div></div>}
 					</div>
-					<div className='h-[20px]' />
 					<Spin spinning={queryCompanyUsers.status === 'loading'}>
 						<Table
-							scroll={{ x: 1800 }}
+							/*scroll={{ x: 1800 }}*/
 							pagination={false}
+							size='small'
 							dataSource={data}
 							columns={columnsUser}
 							rowClassName={(row, idx) => {

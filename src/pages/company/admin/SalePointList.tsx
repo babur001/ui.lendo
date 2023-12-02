@@ -8,7 +8,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import UsersList from '@/pages/company/admin/UsersList.tsx';
 
 export interface ICompany {
@@ -72,22 +72,22 @@ export default function SalePointList() {
 			},
 		},
 		{
-			title: t("Do'kon nomi"),
+			title: t('Do\'kon nomi'),
 			dataIndex: 'name',
 			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan viloyat"),
+			title: t('Do\'kon joylashgan viloyat'),
 			dataIndex: 'regionName',
 			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan tuman"),
+			title: t('Do\'kon joylashgan tuman'),
 			dataIndex: 'districtName',
 			align: 'center',
 		},
 		{
-			title: t("Do'kon joylashgan manzil"),
+			title: t('Do\'kon joylashgan manzil'),
 			dataIndex: 'address',
 			align: 'center',
 		},
@@ -137,8 +137,9 @@ export default function SalePointList() {
 			{filter.tab === 'sale_points' ? (
 				<>
 					<div className='w-full flex items-center justify-between'>
-						<Title level={2} my-0>
-							{t('Пункты продаж')}
+						<div></div>
+						<Title className='flex justify-center' level={2}>
+							<div className=''>{t('Пункты продаж')}</div>
 						</Title>
 						<AddSalePointModal onAdd={() => querySalePoints.refetch()} />
 					</div>

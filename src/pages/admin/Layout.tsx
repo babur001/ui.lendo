@@ -1,5 +1,5 @@
 import { Dropdown, MenuProps, Select, Tag } from 'antd';
-import { Lamp, Lock, LockIcon, LogOut, User, User2Icon } from 'lucide-react';
+import { Building, Lamp, Lock, LockIcon, LogOut, User, User2Icon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '@/Logo';
@@ -103,20 +103,24 @@ function Layout({ items, children }: IProps) {
 				</div>
 
 				<div className='bg-gray-50/20' style={{ width: windowWidth - sidebarWidth }}>
-					<header className='flex items-center justify-between border-b border-gray-300 !px-5 !py-1'>
-						<Tag className='flex items-center justify-center !gap-2'>
-							<User size={15} />
-							<div>
-								<div className='grid grid-cols-2 gap-1'>
-									<div className='font-bold'>{t(rolesName)}</div>
+					<header className='flex items-start justify-between border-b border-gray-300 !px-5 !py-1'>
+						<div>
+							<Tag>
+								<div className='flex'>
+									<div className='flex gap-2'><User className='mt-0.5' size={15} strokeWidth={1.5} />
+										<div className='font-bold mr-1'>{t(rolesName)}</div>
+									</div>
 									- {name}
 								</div>
-								<div className='grid grid-cols-2 gap-1'>
-									<div className='font-bold'>{''} {t('Органиция')}</div>
+								<div className='flex'>
+									<div className='flex gap-2'><Building className='mt-0.5' size={15} strokeWidth={1.5} />
+										<div className='font-bold mr-1'>{t('Органиция')}</div>
+									</div>
 									- "{companyName}"
 								</div>
-							</div>
-						</Tag>
+							</Tag>
+						</div>
+
 						<div className='space-x-5 flex items-center justify-end'>
 							<div className='px-3'>
 								<Select

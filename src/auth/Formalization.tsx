@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-
 interface ITableEDIT {
 	//
 }
@@ -22,19 +21,14 @@ interface IProps {
 
 function Formalization({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
-	const {
-		user, clientProfileId,
-		clientScoringId,
-		products,
-		setProducts,
-	} =
-		useBuyerStore((store) => ({
-			user: store.user,
-			products: store.products,
-			setProducts: store.setProducts,
-			clientProfileId: store.clientProfileId,
-			clientScoringId: store.clientScoringId,
-		}));
+	const { user, clientProfileId, clientScoringId, products, setProducts, setApplicationId } = useBuyerStore((store) => ({
+		user: store.user,
+		setApplicationId: store.setApplicationId,
+		products: store.products,
+		setProducts: store.setProducts,
+		clientProfileId: store.clientProfileId,
+		clientScoringId: store.clientScoringId,
+	}));
 
 	const { control, register, handleSubmit } = useForm<IProducts>({
 		defaultValues: {
@@ -56,7 +50,7 @@ function Formalization({ onFinish }: IProps) {
 				clientProfileId: string | number;
 				clientScoringId: string | number;
 				clientPinfl: number | string;
-			},
+			}
 		) => {
 			return req({
 				method: 'POST',
@@ -84,7 +78,6 @@ function Formalization({ onFinish }: IProps) {
 			clientPinfl: get(user, 'pinfl', ''),
 			clientProfileId,
 			clientScoringId,
-
 		};
 
 		setProducts(values);
@@ -93,7 +86,9 @@ function Formalization({ onFinish }: IProps) {
 
 		const success = get(res, 'data.success', false);
 		const application_id = get(res, 'data.data.id', 0);
-		console.log('application_id', application_id);
+
+		setApplicationId(application_id);
+
 		if (success) {
 			onFinish();
 		}
@@ -116,20 +111,12 @@ function Formalization({ onFinish }: IProps) {
 						className='grid grid-cols-12 gap-5 items-end !border !border-gray-300 px-3 py-5 rounded-md !mb-3'
 					>
 						<div className='col-span-3'>
-							<Input
-								placeholder='...'
-								width={'100%'}
-								{...register(`items.${idx}.name` as const)}
-							>
+							<Input placeholder='...' width={'100%'} {...register(`items.${idx}.name` as const)}>
 								{t('Маҳсулот номи')} {idx + 1}
 							</Input>
 						</div>
 						<div className='col-span-2'>
-							<Input
-								initialValue={'1'}
-								width={'100%'}
-								{...register(`items.${idx}.amount` as const)}
-							>
+							<Input initialValue={'1'} width={'100%'} {...register(`items.${idx}.amount` as const)}>
 								{t('Миқдори')}
 							</Input>
 						</div>
@@ -170,10 +157,7 @@ function Formalization({ onFinish }: IProps) {
 						</div>
 
 						<div className='col-span-1' onClick={() => remove(idx)}>
-							<Button
-								className='flex items-center justify-center !w-9 !h-9 !p-0'
-								disabled={fields.length === 1}
-							>
+							<Button className='flex items-center justify-center !w-9 !h-9 !p-0' disabled={fields.length === 1}>
 								<X strokeWidth={1.5} className='!h-5' />
 							</Button>
 						</div>
@@ -211,14 +195,7 @@ function Formalization({ onFinish }: IProps) {
 				<Description
 					title={t('Бошланғич тўлов')}
 					className='flex-grow'
-					content={
-						<Input
-							placeholder={'0'}
-							scale={1.2}
-							width={'100%'}
-							{...register('paymentSum')}
-						/>
-					}
+					content={<Input placeholder={'0'} scale={1.2} width={'100%'} {...register('paymentSum')} />}
 				/>
 
 				<Controller
@@ -278,8 +255,7 @@ function Formalization({ onFinish }: IProps) {
 					size='large'
 					className='!w-full flex items-center justify-center'
 				>
-					{t('Шартномани олиш')}{' '}
-					<ArrowRight strokeWidth={1.5} className='!ml-2 !h-5' />
+					{t('Шартномани олиш')} <ArrowRight strokeWidth={1.5} className='!ml-2 !h-5' />
 				</Button>
 			</div>
 		</>
