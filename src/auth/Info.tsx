@@ -1,4 +1,4 @@
-import { Description, Input, Text } from '@geist-ui/core';
+import { Description, Text } from '@geist-ui/core';
 import { Controller, useForm } from 'react-hook-form';
 import regions from '@/data/ns10.json';
 import tumans from '@/data/ns11.json';
@@ -10,8 +10,6 @@ import { find, get } from 'lodash';
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import { Input as AntdInput } from 'antd';
 import { useTranslation } from 'react-i18next';
-import CompanyUsersList from '@/pages/admin/company/companyUsers/CompanyUsersList.tsx';
-import { formatNumber } from '@/auth/Scoring.tsx';
 
 interface IProps {
 	onFinish: () => unknown;
@@ -114,9 +112,6 @@ function Info({ onFinish }: IProps) {
 			if (!scoringSuccess || !userSuccess) {
 				message.error(t('Xatolik yuz berdi!'));
 			}
-
-			// @remove
-			// onFinish();
 		} catch (error) {
 			message.error(t('Xatolik yuz berdi!'));
 		}
