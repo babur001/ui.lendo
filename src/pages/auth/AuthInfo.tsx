@@ -88,7 +88,6 @@ export default function GetAuthUser() {
         },
     ];
 
-    console.log("columnsUser: ", {data});
 
     return (
         <div className="px-5 container  mx-auto">

@@ -16,6 +16,18 @@ import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { ICompanyUsers } from '@/pages/admin/company/companyUsers/CompanyUsersList.tsx';
 import { Roles } from '@/pages/auth';
+import { returnTrue } from 'react-number-format/types/utils';
+
+export enum ApplicationStatus {
+	NEW = 'NEW',
+	SCORING_ERROR = 'SCORING_ERROR',
+	SCORING_SUCCESS = 'SCORING_SUCCESS',
+	CLIENT_APPROVED = 'CLIENT_APPROVED',
+	SEND_BANK = 'SEND_BANK',
+	BANK_ERROR = 'BANK_ERROR',
+	BANK_APPROVED = 'BANK_APPROVED',
+	BANK_PAID = 'BANK_PAID',
+}
 
 const SIZE = 10;
 
@@ -197,8 +209,11 @@ function BusinessReportScoringDetails() {
 			children: [
 				{
 					title: t('Результат скоринга'),
-					dataIndex: '',
+					dataIndex: 'applicationStatus',
 					align: 'center',
+					render(value, record, index): JSX.Element {
+						return <div>{t(value)}</div>
+					}
 				},
 				{
 					title: t('Сумма покупки'),
@@ -212,7 +227,7 @@ function BusinessReportScoringDetails() {
 				},
 				{
 					title: t('Сумма аванса'),
-					dataIndex: 'paidSum',
+					dataIndex: 'initialPayment',
 					align: 'center',
 				},
 				{
@@ -237,14 +252,13 @@ function BusinessReportScoringDetails() {
 						return (
 							rolesName === 'COMPANY_ADMIN' ?
 								(<Button
-									onClick={() => navigate(`/company-admin/applications/${value}/${params.sale_point_id}/${params.salePointName}`)}>
+									onClick={() => navigate(`/company-admin/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}>
 									{value}
 								</Button>) :
 								(<Button
-									onClick={() => navigate(`/nasiya/applications/${value}/${params.sale_point_id}/${params.salePointName}`)}>
+									onClick={() => navigate(`/nasiya/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}>
 									{value}
 								</Button>)
-
 						);
 					},
 				},
@@ -323,8 +337,9 @@ function BusinessReportScoringDetails() {
 						},
 						{
 							title: t('Оплата'),
-							dataIndex: '',
+							dataIndex: 'applicationStatus',
 							align: 'center',
+
 						},
 					],
 				},

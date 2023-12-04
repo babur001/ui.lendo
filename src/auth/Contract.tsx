@@ -31,7 +31,7 @@ function Contract({ onFinish }: IProps) {
 		useBuyerStore((store) => ({
 			user: store.user,
 		}));
-	console.log("get(user, 'pinfl', '')",get(user, 'pinfl', ''));
+
 
 
 	const { t, i18n } = useTranslation();

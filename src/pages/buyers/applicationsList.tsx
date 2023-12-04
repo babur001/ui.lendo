@@ -254,6 +254,7 @@ export interface IApplications {
 	clientPinfl: number;
 	paymentPeriod: number;
 	paymentSum: number;
+	initialPayment: number;
 	paymentDayOfMonth: number;
 	clientScoringId: number;
 	paidSum: number;

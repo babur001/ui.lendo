@@ -21,7 +21,7 @@ function TotalInstallmentSum({ control }: { control: Control<any> }) {
 	if (hasVat === 1) {
 		total += total * 12 / 112;
 	}
-	total -= isNaN(+values.paymentSum) ? 0 : values.paymentSum;
+	total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
 	const percentages = {
 		3: 23,
 		6: 30,

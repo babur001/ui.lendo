@@ -233,6 +233,7 @@ export interface IApplications {
 	id: number;
 	clientPinfl: number;
 	paymentPeriod: number;
+	initialPayment: number;
 	paymentSum: number;
 	paymentDayOfMonth: number;
 	clientScoringId: number;

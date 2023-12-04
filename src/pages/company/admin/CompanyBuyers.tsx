@@ -14,6 +14,7 @@ export interface IBuyer {
 	pinfl: number;
 	clientProfileId: number;
 	paymentPeriod: number;
+	initialPayment: number;
 	paymentSum: number;
 	paymentDayOfMonth: number;
 	clientScoringId: number;

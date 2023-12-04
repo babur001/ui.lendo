@@ -19,7 +19,7 @@ function TotalAllProduсtsSum({ control }: { control: Control<any> }) {
 	if (hasVat === 1) {
 		total += total * 12 / 112;
 	}
-	total -= isNaN(+values.paymentSum) ? 0 : values.paymentSum;
+	total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
 	total = Math.round(total * 100) / 100;
 	return (
 		<div>{t('Общая сумма товаров')} : {formatNumber(total)}</div>

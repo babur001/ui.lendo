@@ -82,13 +82,7 @@ function Info({ onFinish }: IProps) {
 			});
 
 			const [resScoring, resUser] = await Promise.all([
-				mutateSendForScoring.mutateAsync({
-					cardNumber: values.card,
-					cardExpiry: values.card_date,
-					pinfl: get(user, 'pinfl', ''),
-					loanAmount: 0,
-					applicationId: 0,
-				}),
+
 				mutateAddUserInfo.mutateAsync({
 					...values,
 					livingAddress: values.homeNumber || values.flatNumber,
@@ -97,7 +91,16 @@ function Info({ onFinish }: IProps) {
 					districtName: get(tumanObj, 'NAME_UZ', '-'),
 					clientPinfl: get(user, 'pinfl', ''),
 				}),
-				,
+
+
+
+				mutateSendForScoring.mutateAsync({
+					cardNumber: values.card,
+					cardExpiry: values.card_date,
+					pinfl: get(user, 'pinfl', ''),
+					loanAmount: 0,
+					applicationId: 0,
+				}),
 			]);
 
 			const scoringSuccess = get(resScoring, 'data.success', false);

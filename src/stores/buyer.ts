@@ -31,7 +31,7 @@ export interface IUserInfo {
 }
 
 export interface IProducts {
-	paymentSum: number | string;
+	initialPayment: number | string;
 	paymentPeriod: number | string;
 	paymentDayOfMonth: number | string;
 	items: {

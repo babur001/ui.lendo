@@ -25,7 +25,6 @@ function ApplicationDetails() {
 
 	const queryApplications = useQuery({
 		queryKey: ['queryApplications', params.applicationId],
-
 		queryFn: () => {
 			return req({
 				method: 'GET',
@@ -126,6 +125,7 @@ function ApplicationDetails() {
 	return (
 		<>
 			<div className='flex items-center justify-between !py-1'>
+				<Spin spinning={queryApplications.status === 'loading'}>
 				<Tag>
 					<div className='justify-center'><Title level={4}>Информация о покупке</Title></div>
 					<div>
@@ -147,6 +147,7 @@ function ApplicationDetails() {
 						</div>
 					</div>
 				</Tag>
+				</Spin>
 			</div>
 			<div className='h-[20px]' />
 
@@ -200,7 +201,7 @@ function ApplicationDetails() {
 export interface IApplications {
 	clientPinfl: number;
 	paymentPeriod: number;
-	paymentSum: number;
+	initialPayment: number;
 	paymentDayOfMonth: number;
 	clientScoringId: number;
 	paidSum: number;

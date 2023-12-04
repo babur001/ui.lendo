@@ -10,7 +10,6 @@ import { ArrowRight, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import TotalAllProdcutsSum from '@/auth/TotalAllProduсtsSum.tsx';
 import TotalAllProduсtsSum from '@/auth/TotalAllProduсtsSum.tsx';
 import TotalInstallmentSum from '@/auth/TotalInstallmentSum.tsx';
 
@@ -42,7 +41,7 @@ function Formalization({ onFinish }: IProps) {
 
 	const { control, register, handleSubmit } = useForm<IProducts>({
 		defaultValues: {
-			paymentSum: 0,
+			initialPayment: 0,
 			paymentPeriod: 3,
 			paymentDayOfMonth: 1,
 			...(products ? products : {}),
@@ -210,7 +209,7 @@ function Formalization({ onFinish }: IProps) {
 				<Description
 					title={t('Бошланғич тўлов')}
 					className='flex-grow'
-					content={<Input placeholder={'0'} scale={1.2} width={'100%'} {...register('paymentSum')} />}
+					content={<Input placeholder={'0'} scale={1.2} width={'100%'} {...register('initialPayment')} />}
 				/>
 
 				<Controller
