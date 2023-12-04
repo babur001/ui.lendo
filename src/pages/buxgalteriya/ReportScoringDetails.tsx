@@ -54,7 +54,6 @@ function BusinessReportScoringDetails() {
 
 	const navigate = useNavigate();
 
-
 	const queryApplications = useQuery({
 		queryKey: ['queryApplications', params.pinfl, search, params.sale_point_id, employeeId],
 		queryFn: () => {
@@ -99,20 +98,20 @@ function BusinessReportScoringDetails() {
 		});
 	};
 
-	const queryCompanyUsers =
-		rolesName === Roles.COMPANY_ADMIN ? (useQuery({
-			queryKey: ['queryCompanies', companyId],
-			queryFn: () => {
-				return req({
-					method: 'GET',
-					url: `/auth/get-users-list`,
-					params: {
-						companyId: companyId,
-						salePointId: params.salePointId,
-					},
-				});
-			},
-		})) : ([]);
+	const queryCompanyUsers = useQuery({
+		queryKey: ['queryCompanies', companyId],
+		queryFn: () => {
+			return req({
+				method: 'GET',
+				url: `/auth/get-users-list`,
+				params: {
+					companyId: companyId,
+					salePointId: params.salePointId,
+				},
+			});
+		},
+		enabled: rolesName === Roles.COMPANY_ADMIN,
+	});
 
 	const dataUsers = get(queryCompanyUsers, 'data.data.data.content', []) as ICompanyUsers[];
 
@@ -145,7 +144,7 @@ function BusinessReportScoringDetails() {
 							' ',
 							get(record, 'client.lastName', ''),
 							' ',
-							get(record, 'client.middleName', ''),
+							get(record, 'client.middleName', '')
 						);
 						return <>{fullName}</>;
 					},
@@ -174,7 +173,7 @@ function BusinessReportScoringDetails() {
 						const phoneNumber = ''.concat(
 							get(record, 'clientProfile.phone1', ''),
 							' / ',
-							get(record, 'clientProfile.phone2', ''),
+							get(record, 'clientProfile.phone2', '')
 						);
 						return <>{phoneNumber}</>;
 					},
@@ -190,12 +189,17 @@ function BusinessReportScoringDetails() {
 							get(record, 'clientProfile.districtName', ''),
 							', ',
 							get(record, 'clientProfile.neighborhood', ''),
-							' (', t('махалля'), ') ',
+							' (',
+							t('махалля'),
+							') ',
 							get(record, 'clientProfile.street', ''),
-							' (', t('улица'), ') ', t('дом/квартира: '),
+							' (',
+							t('улица'),
+							') ',
+							t('дом/квартира: '),
 							get(record, 'clientProfile.livingAddress', ''),
 							'/',
-							get(record, 'clientProfile.homeNumber', ''),
+							get(record, 'clientProfile.homeNumber', '')
 						);
 						return <>{address}</>;
 					},
@@ -212,8 +216,8 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'applicationStatus',
 					align: 'center',
 					render(value, record, index): JSX.Element {
-						return <div>{t(value)}</div>
-					}
+						return <div>{t(value)}</div>;
+					},
 				},
 				{
 					title: t('Сумма покупки'),
@@ -240,7 +244,11 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'paymentPeriod',
 					align: 'center',
 					render(value, record, index): JSX.Element {
-						return <div>{value} {t('мес.')}</div>;
+						return (
+							<div>
+								{value} {t('мес.')}
+							</div>
+						);
 					},
 				},
 				{
@@ -249,16 +257,20 @@ function BusinessReportScoringDetails() {
 					align: 'center',
 
 					render(value, record, index) {
-						return (
-							rolesName === 'COMPANY_ADMIN' ?
-								(<Button
-									onClick={() => navigate(`/company-admin/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}>
-									{value}
-								</Button>) :
-								(<Button
-									onClick={() => navigate(`/nasiya/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}>
-									{value}
-								</Button>)
+						return rolesName === 'COMPANY_ADMIN' ? (
+							<Button
+								onClick={() =>
+									navigate(`/company-admin/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)
+								}
+							>
+								{value}
+							</Button>
+						) : (
+							<Button
+								onClick={() => navigate(`/nasiya/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}
+							>
+								{value}
+							</Button>
 						);
 					},
 				},
@@ -277,9 +289,7 @@ function BusinessReportScoringDetails() {
 							dataIndex: 'createdAt',
 							align: 'center',
 							render(value, record, index) {
-								return (
-									moment(value).format('DD.MM.YYYY')
-								);
+								return moment(value).format('DD.MM.YYYY');
 							},
 						},
 						{
@@ -304,7 +314,8 @@ function BusinessReportScoringDetails() {
 													label: user.fullName,
 												};
 											})}
-										/>);
+										/>
+									);
 								} else {
 									return (
 										<Select
@@ -315,7 +326,8 @@ function BusinessReportScoringDetails() {
 													label: null,
 												},
 											]}
-										/>);
+										/>
+									);
 								}
 							},
 						},
@@ -339,7 +351,6 @@ function BusinessReportScoringDetails() {
 							title: t('Оплата'),
 							dataIndex: 'applicationStatus',
 							align: 'center',
-
 						},
 					],
 				},
@@ -352,31 +363,27 @@ function BusinessReportScoringDetails() {
 
 	return (
 		<>
-
 			<div className='flex justify-between'>
 				<div>
-					{rolesName === 'COMPANY_ADMIN' ?
-						(<Button onClick={() => navigate(`/company-admin/business-report-scoring`)}>
+					{rolesName === 'COMPANY_ADMIN' ? (
+						<Button onClick={() => navigate(`/company-admin/business-report-scoring`)}>
 							<div className='flex space-x-1 '>
 								<div>
 									<ArrowLeft strokeWidth={2} />
 								</div>
 								<div>{t('Nazad')}</div>
 							</div>
-						</Button>) : null
-					}
+						</Button>
+					) : null}
 				</div>
 				<div>
-					{rolesName === 'COMPANY_ADMIN' ?
-						(<Title level={3}>
-								{t('Информация об объемах реализации магазина')}: "{params.salePointName}"
-							</Title>
-						) :
-						(<Title level={3}>
-								{t('Информация об объемах реализации')}
-							</Title>
-						)}
-
+					{rolesName === 'COMPANY_ADMIN' ? (
+						<Title level={3}>
+							{t('Информация об объемах реализации магазина')}: "{params.salePointName}"
+						</Title>
+					) : (
+						<Title level={3}>{t('Информация об объемах реализации')}</Title>
+					)}
 				</div>
 				<div></div>
 			</div>
@@ -400,13 +407,7 @@ function BusinessReportScoringDetails() {
 							}
 						}}
 					/>
-					<Search
-						placeholder={t('Поиск по ПИНФЛ')}
-						allowClear
-						enterButton={t('Найти')}
-						size='large'
-						onSearch={onSearch}
-					/>
+					<Search placeholder={t('Поиск по ПИНФЛ')} allowClear enterButton={t('Найти')} size='large' onSearch={onSearch} />
 				</div>
 				<div></div>
 			</div>
