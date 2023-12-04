@@ -81,27 +81,22 @@ function Info({ onFinish }: IProps) {
 				return tuman.DISTRICT_CODE === values.district_code;
 			});
 
-			const [resScoring, resUser] = await Promise.all([
+			const resScoring = await mutateSendForScoring.mutateAsync({
+				cardNumber: values.card,
+				cardExpiry: values.card_date,
+				pinfl: get(user, 'pinfl', ''),
+				loanAmount: 0,
+				applicationId: 0,
+			});
 
-				mutateAddUserInfo.mutateAsync({
-					...values,
-					livingAddress: values.homeNumber || values.flatNumber,
-					country: t('UZBEKISTAN'),
-					regionName: get(regionObj, 'NAME_UZ', '-'),
-					districtName: get(tumanObj, 'NAME_UZ', '-'),
-					clientPinfl: get(user, 'pinfl', ''),
-				}),
-
-
-
-				mutateSendForScoring.mutateAsync({
-					cardNumber: values.card,
-					cardExpiry: values.card_date,
-					pinfl: get(user, 'pinfl', ''),
-					loanAmount: 0,
-					applicationId: 0,
-				}),
-			]);
+			const resUser = await mutateAddUserInfo.mutateAsync({
+				...values,
+				livingAddress: values.homeNumber || values.flatNumber,
+				country: t('UZBEKISTAN'),
+				regionName: get(regionObj, 'NAME_UZ', '-'),
+				districtName: get(tumanObj, 'NAME_UZ', '-'),
+				clientPinfl: get(user, 'pinfl', ''),
+			});
 
 			const scoringSuccess = get(resScoring, 'data.success', false);
 			const userSuccess = get(resUser, 'data.success', false);
