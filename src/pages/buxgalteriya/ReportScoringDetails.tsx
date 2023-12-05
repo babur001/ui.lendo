@@ -57,7 +57,7 @@ function BusinessReportScoringDetails() {
 	};
 
 	const setStatusSelect = (value: any) => {
-		console.log("value",value);
+		console.log('value', value);
 		setStatus(value);
 	};
 
@@ -341,7 +341,6 @@ function BusinessReportScoringDetails() {
 							render(value, record, index) {
 								return <>{get(record, 'createdBy.fullName', '')}</>;
 							},
-
 							filterDropdown: () => {
 								if (rolesName === Roles.COMPANY_ADMIN) {
 									return (
@@ -403,6 +402,23 @@ function BusinessReportScoringDetails() {
 								}
 								return <div></div>;
 							},
+							filterDropdown: () => {
+								return (
+									<Select
+										onChange={setStatusSelect}
+										allowClear
+										placeholder={t('...')}
+										className='!w-96'
+										options={[
+											{ value: 'SEND_BANK', label: t('SEND_BANK') },
+											{ value: 'BANK_ERROR', label: t('BANK_ERROR') },
+											{ value: 'BANK_APPROVED', label: t('BANK_APPROVED') },
+											{ value: 'BANK_PAID', label: t('BANK_PAID')},
+										]}
+									/>
+								);
+							},
+
 						},
 					],
 				},
