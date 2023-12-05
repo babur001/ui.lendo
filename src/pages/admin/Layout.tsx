@@ -1,4 +1,4 @@
-import { Dropdown, MenuProps, Select, Tag } from 'antd';
+import { Dropdown, MenuProps, Select, Tag, Tooltip } from 'antd';
 import { Building, Lamp, Lock, LockIcon, LogOut, User, User2Icon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -62,14 +62,14 @@ function Layout({ items, children }: IProps) {
 	const image = get(queryImage, 'data.data', null);
 	const url = image ? URL.createObjectURL(image) : '';
 
-	const sidebarWidth = 320;
+	const sidebarWidth = 270;
 	const windowWidth = useSyncExternalStore(
 		(cb) => {
 			window.addEventListener('resize', cb);
 
 			return () => window.removeEventListener('resize', cb);
 		},
-		() => window.innerWidth,
+		() => window.innerWidth
 	);
 
 	return (
@@ -94,7 +94,14 @@ function Layout({ items, children }: IProps) {
 										})}
 									>
 										{item.icon}
-										<p className='!my-0 text-sm'>{item.label}</p>
+
+										{item.label.length > 22 ? (
+											<Tooltip title={item.label}>
+												<p className='!my-0 text-sm truncate'>{item.label}</p>
+											</Tooltip>
+										) : (
+											<p className='!my-0 text-sm truncate'>{item.label}</p>
+										)}
 									</div>
 								);
 							})}
@@ -107,13 +114,15 @@ function Layout({ items, children }: IProps) {
 						<div>
 							<Tag>
 								<div className='flex'>
-									<div className='flex gap-2'><User className='mt-0.5' size={15} strokeWidth={1.5} />
+									<div className='flex gap-2'>
+										<User className='mt-0.5' size={15} strokeWidth={1.5} />
 										<div className='font-bold mr-1'>{t(rolesName)}</div>
 									</div>
 									- {name}
 								</div>
 								<div className='flex'>
-									<div className='flex gap-2'><Building className='mt-0.5' size={15} strokeWidth={1.5} />
+									<div className='flex gap-2'>
+										<Building className='mt-0.5' size={15} strokeWidth={1.5} />
 										<div className='font-bold mr-1'>{t('Органиция')}</div>
 									</div>
 									- "{companyName}"
@@ -139,7 +148,7 @@ function Layout({ items, children }: IProps) {
 												value: 'uz_kyrl',
 											},
 											{
-												label: 'O\'zbekcha',
+												label: "O'zbekcha",
 												value: 'uz_latn',
 											},
 										] satisfies { label: React.ReactNode; value: TLanguages }[]
@@ -149,8 +158,7 @@ function Layout({ items, children }: IProps) {
 
 							<Dropdown menu={{ items: navItems }} trigger={['click']} className='hover:bg-gray-100 px-3 py-3'>
 								<div className='flex items-center !gap-3 cursor-pointer'>
-									{queryImage.status === 'loading' ? null :
-										<img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
+									{queryImage.status === 'loading' ? null : <img className='rounded-full !w-8 !h-8' src={url} alt='image' />}
 									{user.data ? <div className='font-medium text-sm'>{name}</div> : null}
 								</div>
 							</Dropdown>
