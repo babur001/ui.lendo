@@ -249,30 +249,28 @@ export default function UsersList() {
 			align: 'center',
 			render(value, record, idx) {
 				const roles = record.roles;
-				const rolesName = roles.map((value1, index) => {
-					return {label:value1.name};
-				});
-
-
-
-				if (value) {
-					return (
-						<div className='flex gap-1'>
-							<Button type='text' className='bg-yellow-200' onClick={() => setModalIdStop(record.id)} size='middle'>
-								{t('Приостановить')}
+				const rolesName = get(roles, '0.name', null);
+				if (rolesName != Roles.COMPANY_ADMIN) {
+					if (value) {
+						return (
+							<div className='flex gap-1'>
+								<Button type='text' className='bg-yellow-200' onClick={() => setModalIdStop(record.id)} size='middle'>
+									{t('Приостановить')}
+								</Button>
+								<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
+									{t('Удалить')}
+								</Button>
+							</div>
+						);
+					}
+					if (!record.deleted)
+						return (
+							<Button type='primary' onClick={() => setActivModalId(record.id)} size='middle'>
+								{t('Восстановить')}
 							</Button>
-							<Button type='text' className='bg-red-400' onClick={() => setModalId(record.id)} size='middle'>
-								{t('Удалить')}
-							</Button>
-						</div>
-					);
+						);
+					return;
 				}
-				if (!record.deleted)
-					return (
-						<Button type='primary' onClick={() => setActivModalId(record.id)} size='middle'>
-							{t('Восстановить')}
-						</Button>
-					);
 			},
 		},
 	];
