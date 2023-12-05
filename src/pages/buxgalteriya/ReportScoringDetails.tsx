@@ -3,10 +3,10 @@ import { Pagination, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Table, DatePicker, Spin, Typography, Input, Select } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { concat, get, values } from 'lodash';
+import { get } from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { saveAs } from 'file-saver';
@@ -16,21 +16,7 @@ import { formatNumber } from '@/auth/Scoring.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { ICompanyUsers } from '@/pages/admin/company/companyUsers/CompanyUsersList.tsx';
 import { Roles } from '@/pages/auth';
-import { returnTrue } from 'react-number-format/types/utils';
 
-export enum ApplicationStatusScoring {
-	NEW = 'NEW',
-	SCORING_ERROR = 'SCORING_ERROR',
-	SCORING_SUCCESS = 'SCORING_SUCCESS',
-	CLIENT_APPROVED = 'CLIENT_APPROVED',
-}
-
-export enum ApplicationStatusBank {
-	SEND_BANK = 'SEND_BANK',
-	BANK_ERROR = 'BANK_ERROR',
-	BANK_APPROVED = 'BANK_APPROVED',
-	BANK_PAID = 'BANK_PAID',
-}
 
 const SIZE = 10;
 
@@ -117,6 +103,7 @@ function BusinessReportScoringDetails() {
 				params: {
 					companyId: companyId,
 					salePointId: params.salePointId,
+					role: Roles.COMPANY_EMPLOYEE,
 				},
 			});
 		},
@@ -131,7 +118,8 @@ function BusinessReportScoringDetails() {
 			dataIndex: '',
 			align: 'center',
 			render(value, record, index) {
-				return <>{1 + index}</>;
+				if (record.id === 0) return <></>;
+				return <>{0 + index}</>;
 			},
 		},
 		{
@@ -143,6 +131,12 @@ function BusinessReportScoringDetails() {
 					title: t('ПИНФЛ'),
 					dataIndex: 'clientPinfl',
 					align: 'center',
+					render(value, record, index) {
+						if (record.id === 0) {
+							return <div className='font-bold'>{t('Всего')}</div>;
+						}
+						return <>{value}</>;
+					},
 				},
 				{
 					title: t('ФИО'),
@@ -156,6 +150,7 @@ function BusinessReportScoringDetails() {
 							' ',
 							get(record, 'client.middleName', ''),
 						);
+						if (record.id === 0) return <></>;
 						return <>{fullName}</>;
 					},
 				},
@@ -165,9 +160,9 @@ function BusinessReportScoringDetails() {
 					render(value, record, index) {
 						const gender = get(record, 'client.gender', '');
 						if (gender == 'MALE') return t('Муж.');
+						if (record.id === 0) return <></>;
 						return t('Жен.');
 					},
-
 					align: 'center',
 				},
 				{
@@ -185,6 +180,7 @@ function BusinessReportScoringDetails() {
 							' / ',
 							get(record, 'clientProfile.phone2', ''),
 						);
+						if (record.id === 0) return <></>;
 						return <>{phoneNumber}</>;
 					},
 				},
@@ -211,6 +207,7 @@ function BusinessReportScoringDetails() {
 							'/',
 							get(record, 'clientProfile.homeNumber', ''),
 						);
+						if (record.id === 0) return <></>;
 						return <>{address}</>;
 					},
 				},
@@ -226,11 +223,12 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'applicationStatus',
 					align: 'center',
 					render(value, record, index): JSX.Element {
+						if (record.id === 0) return <></>;
 						if (value === 'SCORING_ERROR' || value === 'NEW' ||
 							value === 'SCORING_SUCCESS' || value === 'CLIENT_APPROVED') {
 							return <div>{t(value)}</div>;
 						}
-						return <div>{t('Оформлено')}</div>;
+						return <div>{t('CLIENT_APPROVED')}</div>;
 					},
 					filterDropdown: () => {
 						return (
@@ -254,6 +252,7 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'paymentSumWithVat',
 					align: 'center',
 					render(value, record, index) {
+						if (record.id === 0) return <div className='font-bold'>{formatNumber(value)}</div>;
 						return formatNumber(value);
 					},
 				},
@@ -262,6 +261,7 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'paymentSumDeferral',
 					align: 'center',
 					render(value, record, index) {
+						if (record.id === 0) return <div className='font-bold'>{formatNumber(value)}</div>;
 						return formatNumber(value);
 					},
 				},
@@ -270,6 +270,7 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'initialPayment',
 					align: 'center',
 					render(value, record, index) {
+						if (record.id === 0) return <div className='font-bold'>{formatNumber(value)}</div>;
 						return formatNumber(value);
 					},
 				},
@@ -278,6 +279,7 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'paymentMonthLy',
 					align: 'center',
 					render(value, record, index) {
+						if (record.id === 0) return <div className='font-bold'>{formatNumber(value)}</div>;
 						return formatNumber(value);
 					},
 				},
@@ -286,6 +288,7 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'paymentPeriod',
 					align: 'center',
 					render(value, record, index): JSX.Element {
+						if (record.id === 0) return <div className='font-bold'>{formatNumber(value)} {t('мес.')}</div>;
 						return (
 							<div>
 								{formatNumber(value)} {t('мес.')}
@@ -299,6 +302,7 @@ function BusinessReportScoringDetails() {
 					align: 'center',
 
 					render(value, record, index) {
+						if (record.id === 0) return <div className='font-bold'>{value}</div>;
 						return rolesName === 'COMPANY_ADMIN' ? (
 							<Button
 								onClick={() =>
@@ -325,12 +329,17 @@ function BusinessReportScoringDetails() {
 							title: t('Номер заявления'),
 							dataIndex: 'id',
 							align: 'center',
+							render(value, record, index) {
+								if (record.id === 0) return <></>;
+								return value;
+							},
 						},
 						{
 							title: t('Дата создания'),
 							dataIndex: 'createdAt',
 							align: 'center',
 							render(value, record, index) {
+								if (record.id === 0) return <></>;
 								return moment(value).format('DD.MM.YYYY');
 							},
 						},
@@ -339,6 +348,7 @@ function BusinessReportScoringDetails() {
 							dataIndex: '',
 							align: 'center',
 							render(value, record, index) {
+								if (record.id === 0) return <></>;
 								return <>{get(record, 'createdBy.fullName', '')}</>;
 							},
 							filterDropdown: () => {
@@ -377,9 +387,8 @@ function BusinessReportScoringDetails() {
 							dataIndex: 'applicationStatus',
 							align: 'center',
 							render(value, record, index): JSX.Element {
-								if (value === 'BANK_PAID') {
-									return <div>{t(value)}</div>;
-								}
+								if (record.id === 0) return <></>;
+								if (value === 'BANK_PAID') return <div>{t(value)}</div>;
 								return <div>{t('не оплачено')}</div>;
 							},
 						},
@@ -388,6 +397,7 @@ function BusinessReportScoringDetails() {
 							dataIndex: '',
 							align: 'center',
 							render(value, record, index) {
+								if (record.id === 0) return <></>;
 								return <>{formatNumber(get(record, 'clientScoring.scoringSum', ''))}</>;
 							},
 						},
@@ -396,6 +406,7 @@ function BusinessReportScoringDetails() {
 							dataIndex: 'applicationStatus',
 							align: 'center',
 							render(value, record, index): JSX.Element {
+								if (record.id === 0) return <></>;
 								if (value === 'SEND_BANK' || value === 'BANK_ERROR' ||
 									value === 'BANK_APPROVED' || value === 'BANK_PAID') {
 									return <div>{t(value)}</div>;
@@ -413,7 +424,7 @@ function BusinessReportScoringDetails() {
 											{ value: 'SEND_BANK', label: t('SEND_BANK') },
 											{ value: 'BANK_ERROR', label: t('BANK_ERROR') },
 											{ value: 'BANK_APPROVED', label: t('BANK_APPROVED') },
-											{ value: 'BANK_PAID', label: t('BANK_PAID')},
+											{ value: 'BANK_PAID', label: t('BANK_PAID') },
 										]}
 									/>
 								);
