@@ -44,6 +44,7 @@ function BusinessReportScoringDetails() {
 	const { RangePicker } = DatePicker;
 	const [page, setPage] = useState(1);
 	const [employeeId, setUser] = useState(null);
+	const [appStatus, setStatus] = useState(null);
 	const params = useParams();
 	const [search, getCustomerPinfl] = useState<string | undefined>('');
 	const { dateFrom, dateTo, setRangeDate } = useReceiptsStore((store) => ({
@@ -55,16 +56,22 @@ function BusinessReportScoringDetails() {
 		setUser(value);
 	};
 
+	const setStatusSelect = (value: any) => {
+		console.log('value', value);
+		setStatus(value);
+	};
+
 	const navigate = useNavigate();
 
 	const queryApplications = useQuery({
-		queryKey: ['queryApplications', params.pinfl, search, params.sale_point_id, employeeId],
+		queryKey: ['queryApplications', params.pinfl, search, params.sale_point_id, employeeId, appStatus],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/registration/get-applications`,
 				params: {
 					employeeId: employeeId,
+					appStatus: appStatus,
 					salePointId: params.sale_point_id,
 					pinfl: search ? search : params.pinfl,
 					dateFrom: dateFrom,
@@ -225,26 +232,54 @@ function BusinessReportScoringDetails() {
 						}
 						return <div>{t('Оформлено')}</div>;
 					},
+					filterDropdown: () => {
+						return (
+							<Select
+								onChange={setStatusSelect}
+								allowClear
+								placeholder={t('...')}
+								className='!w-96'
+								options={[
+									{ value: 'NEW', label: t('NEW') },
+									{ value: 'SCORING_ERROR', label: t('SCORING_ERROR') },
+									{ value: 'SCORING_SUCCESS', label: t('SCORING_SUCCESS') },
+									{ value: 'CLIENT_APPROVED', label: t('CLIENT_APPROVED') },
+								]}
+							/>
+						);
+					},
 				},
 				{
 					title: t('Сумма покупки'),
 					dataIndex: 'paymentSumWithVat',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 				{
 					title: t('Сумма рассрочки'),
 					dataIndex: 'paymentSumDeferral',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 				{
 					title: t('Сумма аванса'),
 					dataIndex: 'initialPayment',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 				{
 					title: t('Ежемесячный платеж'),
 					dataIndex: 'paymentMonthLy',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 				{
 					title: t('Период рассрочки'),
@@ -253,7 +288,7 @@ function BusinessReportScoringDetails() {
 					render(value, record, index): JSX.Element {
 						return (
 							<div>
-								{value} {t('мес.')}
+								{formatNumber(value)} {t('мес.')}
 							</div>
 						);
 					},
@@ -306,7 +341,6 @@ function BusinessReportScoringDetails() {
 							render(value, record, index) {
 								return <>{get(record, 'createdBy.fullName', '')}</>;
 							},
-
 							filterDropdown: () => {
 								if (rolesName === Roles.COMPANY_ADMIN) {
 									return (
@@ -368,6 +402,23 @@ function BusinessReportScoringDetails() {
 								}
 								return <div></div>;
 							},
+							filterDropdown: () => {
+								return (
+									<Select
+										onChange={setStatusSelect}
+										allowClear
+										placeholder={t('...')}
+										className='!w-96'
+										options={[
+											{ value: 'SEND_BANK', label: t('SEND_BANK') },
+											{ value: 'BANK_ERROR', label: t('BANK_ERROR') },
+											{ value: 'BANK_APPROVED', label: t('BANK_APPROVED') },
+											{ value: 'BANK_PAID', label: t('BANK_PAID')},
+										]}
+									/>
+								);
+							},
+
 						},
 					],
 				},

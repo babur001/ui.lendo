@@ -167,11 +167,11 @@
   "ЖАМИ СУММА": "Общая сумма",
   "NEW": "Отправлено",
   "SCORING_ERROR": "Отказано",
-  "SCORING_SUCCESS": "Успешно",
+  "SCORING_SUCCESS": "Одобрено",
   "CLIENT_APPROVED": "Оформлено",
   "SEND_BANK": "Отправлено",
   "BANK_ERROR": "Отказано",
-  "BANK_APPROVED": "Успешно",
+  "BANK_APPROVED": "Одобрено",
   "BANK_PAID": "Оплата банком",
   "Asosiy": "Главная"
 }
