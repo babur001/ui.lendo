@@ -15,6 +15,7 @@ import { saveAs } from 'file-saver';
 import { DATE_FORMAT, IReceiptsStore, useReceiptsStore } from '@/FiltrStore.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { Roles } from '../auth';
+import { formatNumber } from '@/auth/Scoring.tsx';
 
 const SIZE = 10;
 
@@ -91,23 +92,29 @@ function BusinessReportScoring() {
 				},
 				{
 					title: t('Заявка одобрена банком (раз)'),
-					dataIndex: 'bankApprovedAppCount',
+					dataIndex: 'bankScoringSuccessAppCount',
 					align: 'center',
 				},
 				{
 					title: t('Заявка оформлена (раз)'),
-					dataIndex: '',
+					dataIndex: 'bankApprovedAppCount',
 					align: 'center',
 				},
 				{
 					title: t('Количество указанного в оформленных заявках товара'),
 					dataIndex: 'approvedProductCount',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 				{
 					title: t('Сумма указанного в оформленных заявках товара (сум)'),
 					dataIndex: 'approvedSummaWithVat',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 			],
 		},
@@ -128,8 +135,11 @@ function BusinessReportScoring() {
 						},
 						{
 							title: t('в % к оформленным'),
-							dataIndex: 'bankPaidAppPercent',
+							dataIndex: 'bankPaidAppCount',
 							align: 'center',
+							render(value, record, index) {
+								return Math.round((value/record.bankApprovedAppCount*100)*100)/100;
+							},
 						},
 					],
 				},
@@ -145,8 +155,11 @@ function BusinessReportScoring() {
 						},
 						{
 							title: t('в % к оформленным'),
-							dataIndex: 'bankPaidProductPercent',
+							dataIndex: 'bankPaidProductCount',
 							align: 'center',
+							render(value, record, index) {
+								return Math.round((value/record.approvedProductCount*100)*100)/100;
+							},
 						},
 					],
 				},
@@ -163,8 +176,11 @@ function BusinessReportScoring() {
 						},
 						{
 							title: t('в % к оформленным'),
-							dataIndex: 'bankPaidProductTotalPercent',
+							dataIndex: 'bankPaidProductTotal',
 							align: 'center',
+							render(value, record, index) {
+								return Math.round((value/record.approvedSummaWithVat*100)*100)/100;
+							},
 						},
 					],
 				},

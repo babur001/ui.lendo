@@ -62,7 +62,7 @@ function Layout({ items, children }: IProps) {
 	const image = get(queryImage, 'data.data', null);
 	const url = image ? URL.createObjectURL(image) : '';
 
-	const sidebarWidth = 270;
+	const sidebarWidth = 240;
 	const windowWidth = useSyncExternalStore(
 		(cb) => {
 			window.addEventListener('resize', cb);
@@ -81,7 +81,6 @@ function Layout({ items, children }: IProps) {
 							<div className='!py-4 !pt-5'>
 								<Logo className='!h-6' />
 							</div>
-
 							{items.map((item, idx) => {
 								return (
 									<div

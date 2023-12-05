@@ -56,7 +56,7 @@ function FileUpload({ type, accept, onUpload }: IProps) {
 				className='w-full'
 			>
 				<Button icon={<UploadIcon strokeWidth={1.5} size={16} />} className='flex items-center justify-center' block>
-					{t('Загрузить фото администратора')}
+					{t('Загрузить фото')}
 				</Button>
 			</Upload>
 		</>
