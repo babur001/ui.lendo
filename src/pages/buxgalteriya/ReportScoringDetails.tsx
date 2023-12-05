@@ -18,11 +18,14 @@ import { ICompanyUsers } from '@/pages/admin/company/companyUsers/CompanyUsersLi
 import { Roles } from '@/pages/auth';
 import { returnTrue } from 'react-number-format/types/utils';
 
-export enum ApplicationStatus {
+export enum ApplicationStatusScoring {
 	NEW = 'NEW',
 	SCORING_ERROR = 'SCORING_ERROR',
 	SCORING_SUCCESS = 'SCORING_SUCCESS',
 	CLIENT_APPROVED = 'CLIENT_APPROVED',
+}
+
+export enum ApplicationStatusBank {
 	SEND_BANK = 'SEND_BANK',
 	BANK_ERROR = 'BANK_ERROR',
 	BANK_APPROVED = 'BANK_APPROVED',
@@ -144,7 +147,7 @@ function BusinessReportScoringDetails() {
 							' ',
 							get(record, 'client.lastName', ''),
 							' ',
-							get(record, 'client.middleName', '')
+							get(record, 'client.middleName', ''),
 						);
 						return <>{fullName}</>;
 					},
@@ -173,7 +176,7 @@ function BusinessReportScoringDetails() {
 						const phoneNumber = ''.concat(
 							get(record, 'clientProfile.phone1', ''),
 							' / ',
-							get(record, 'clientProfile.phone2', '')
+							get(record, 'clientProfile.phone2', ''),
 						);
 						return <>{phoneNumber}</>;
 					},
@@ -199,7 +202,7 @@ function BusinessReportScoringDetails() {
 							t('дом/квартира: '),
 							get(record, 'clientProfile.livingAddress', ''),
 							'/',
-							get(record, 'clientProfile.homeNumber', '')
+							get(record, 'clientProfile.homeNumber', ''),
 						);
 						return <>{address}</>;
 					},
@@ -216,7 +219,11 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'applicationStatus',
 					align: 'center',
 					render(value, record, index): JSX.Element {
-						return <div>{t(value)}</div>;
+						if (value === 'SCORING_ERROR' || value === 'NEW' ||
+							value === 'SCORING_SUCCESS' || value === 'CLIENT_APPROVED') {
+							return <div>{t(value)}</div>;
+						}
+						return <div>{t('Оформлено')}</div>;
 					},
 				},
 				{
@@ -333,9 +340,12 @@ function BusinessReportScoringDetails() {
 						},
 						{
 							title: t('Статус'),
-							dataIndex: '',
+							dataIndex: 'applicationStatus',
 							align: 'center',
 							render(value, record, index): JSX.Element {
+								if (value === 'BANK_PAID') {
+									return <div>{t(value)}</div>;
+								}
 								return <div>{t('не оплачено')}</div>;
 							},
 						},
@@ -351,6 +361,13 @@ function BusinessReportScoringDetails() {
 							title: t('Оплата'),
 							dataIndex: 'applicationStatus',
 							align: 'center',
+							render(value, record, index): JSX.Element {
+								if (value === 'SEND_BANK' || value === 'BANK_ERROR' ||
+									value === 'BANK_APPROVED' || value === 'BANK_PAID') {
+									return <div>{t(value)}</div>;
+								}
+								return <div></div>;
+							},
 						},
 					],
 				},
@@ -407,7 +424,8 @@ function BusinessReportScoringDetails() {
 							}
 						}}
 					/>
-					<Search placeholder={t('Поиск по ПИНФЛ')} allowClear enterButton={t('Найти')} size='large' onSearch={onSearch} />
+					<Search placeholder={t('Поиск по ПИНФЛ')} allowClear enterButton={t('Найти')} size='large'
+									onSearch={onSearch} />
 				</div>
 				<div></div>
 			</div>
@@ -415,7 +433,7 @@ function BusinessReportScoringDetails() {
 			<Spin spinning={queryApplications.status === 'loading'}>
 				<Table
 					size='small'
-					scroll={{ x: 2400 }}
+					scroll={{ x: 1800 }}
 					bordered
 					pagination={false}
 					dataSource={data}
