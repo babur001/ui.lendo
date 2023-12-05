@@ -484,7 +484,7 @@ function BusinessReportScoringDetails() {
 			<Spin spinning={queryApplications.status === 'loading'}>
 				<Table
 					size='small'
-					scroll={{ x: 1800 }}
+					scroll={{ x: 2400 }}
 					bordered
 					pagination={false}
 					dataSource={data}

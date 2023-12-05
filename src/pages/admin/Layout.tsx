@@ -81,7 +81,6 @@ function Layout({ items, children }: IProps) {
 							<div className='!py-4 !pt-5'>
 								<Logo className='!h-6' />
 							</div>
-
 							{items.map((item, idx) => {
 								return (
 									<div
