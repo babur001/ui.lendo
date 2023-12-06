@@ -174,6 +174,7 @@ function BusinessReportScoring() {
 							dataIndex: 'bankPaidProductTotal',
 							align: 'center',
 						},
+
 						{
 							title: t('в % к оформленным'),
 							dataIndex: 'bankPaidProductTotal',
@@ -205,6 +206,9 @@ function BusinessReportScoring() {
 					title: t('сумма'),
 					dataIndex: 'bankPendingProductTotal',
 					align: 'center',
+					render(value, record, index) {
+						return formatNumber(value);
+					},
 				},
 			],
 		},
