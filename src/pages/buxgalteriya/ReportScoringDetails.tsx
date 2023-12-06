@@ -288,6 +288,7 @@ function BusinessReportScoringDetails() {
 					dataIndex: 'paymentPeriod',
 					align: 'center',
 					render(value, record, index): JSX.Element {
+						if (record.id === 0) return <></>;
 						if (record.id === 0) return <div className='font-bold'>{formatNumber(value)} {t('мес.')}</div>;
 						return (
 							<div>
