@@ -314,7 +314,7 @@ function BusinessReportScoringDetails() {
 							</Button>
 						) : (
 							<Button
-								onClick={() => navigate(`/nasiya/applications/${record.id}/${params.sale_point_id}/${params.salePointName}`)}
+								onClick={() => navigate(`/nasiya/applications/${record.id}`)}
 							>
 								{value}
 							</Button>

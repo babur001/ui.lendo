@@ -73,7 +73,7 @@ function Formalization({ onFinish }: IProps) {
 	});
 
 	useEffect(() => {
-		append({ name: '', amount: 1, price: '', hasVat: 1, priceWithVat: '' });
+		append({ name: '', amount: 1, price: '', hasVat: 2, priceWithVat: '' });
 		return () => remove();
 	}, []);
 
@@ -194,7 +194,7 @@ function Formalization({ onFinish }: IProps) {
 					</Button>
 				</div>
 				<div className='col-span-12 grid grid-cols-12'>
-					<div className='col-span-12'>
+					<div className='col-span-8'>
 						<TotalAllProduсtsSum control={control} />
 					</div>
 				</div>

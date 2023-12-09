@@ -4,6 +4,7 @@ import React from 'react';
 import { Control, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { log } from 'console';
+import { formatNumber } from '@/auth/Scoring.tsx';
 
 function TotalInstallmentSum({ control }: { control: Control<any> }) {
 	const { t, i18n } = useTranslation();
@@ -19,7 +20,7 @@ function TotalInstallmentSum({ control }: { control: Control<any> }) {
 		hasVat = product.hasVat;
 	});
 	if (hasVat === 1) {
-		total += total * 12 / 112;
+		total += total * 0.12;
 	}
 	total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
 	const percentages = {
@@ -38,7 +39,7 @@ function TotalInstallmentSum({ control }: { control: Control<any> }) {
 			className='flex-grow'
 			title={t('Сумма рассрочки в месяц')}
 			content={
-				<Input scale={1.2} readOnly value={String(total)} width={'100%'} />
+				<Input scale={1.2} readOnly value={String(formatNumber(total))} width={'100%'} />
 			}
 		/>
 	);
