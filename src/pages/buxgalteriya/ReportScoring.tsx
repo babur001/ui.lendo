@@ -207,7 +207,7 @@ function BusinessReportScoring() {
 					dataIndex: 'bankPendingProductTotal',
 					align: 'center',
 					render(value, record, index) {
-						return formatNumber(value);
+						return <div className='whitespace-normal'>{formatNumber(value)}</div>;
 					},
 				},
 			],

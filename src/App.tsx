@@ -19,8 +19,8 @@ import BusinessReport from '@/pages/buxgalteriya/Report.tsx';
 import CompanyBuyers from '@/pages/company/admin/CompanyBuyers.tsx';
 import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.tsx';
 import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
-import ApplicationDetails from '@/pages/buyers/applicationsDetails.tsx';
 import BusinessReportScoringDetails from '@/pages/buxgalteriya/ReportScoringDetails.tsx';
+import ReportApplicationsDetails from '@/pages/buxgalteriya/ReportApplicationsDetails.tsx';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | '*';
 
@@ -81,7 +81,7 @@ const CompanyRoutes = [
 	},
 	{
 		path: 'applications/:applicationId/:sale_point_id/:salePointName',
-		element: <ApplicationDetails />,
+		element: <ReportApplicationsDetails />,
 	},
 	{
 		path: 'analytics',
@@ -118,7 +118,7 @@ export type TEmployeePages =
 	'analytics'
 	| 'default'
 	| 'business-report-scoring-details'
-	| 'applications/:applicationId/:sale_point_id/:salePointName'
+	| 'applications/:applicationId'
 	| '*';
 
 const EmployeeRoutes = [
@@ -135,8 +135,8 @@ const EmployeeRoutes = [
 		element: <BusinessReportScoringDetails />,
 	},
 	{
-		path: 'applications/:applicationId/:sale_point_id/:salePointName',
-		element: <ApplicationDetails />,
+		path: 'applications/:applicationId',
+		element: <ReportApplicationsDetails />,
 	},
 	{
 		path: '*',

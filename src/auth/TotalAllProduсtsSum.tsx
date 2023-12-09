@@ -17,12 +17,11 @@ function TotalAllProduсtsSum({ control }: { control: Control<any> }) {
 		hasVat = product.hasVat;
 	});
 	if (hasVat === 1) {
-		total += total * 12 / 112;
+		total += total * 0.12;
 	}
-	total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
 	total = Math.round(total * 100) / 100;
 	return (
-		<div>{t('Общая сумма товаров')} : {formatNumber(total)}</div>
+		<div className='flex gap-2'>{t('Общая сумма товаров')} : <div className='font-bold'>{formatNumber(total)}</div></div>
 	);
 }
 
