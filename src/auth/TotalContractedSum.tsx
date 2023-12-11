@@ -12,15 +12,18 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 	});
 
 	let total = 0;
-	let hasVat = 2;
 
 	get(values, 'items', []).forEach((product: any) => {
-		total += (isNaN(+product.price) ? 0 : product.price) * product.amount;
-		hasVat = product.hasVat;
+		let productTotal = (isNaN(+product.price) ? 0 : product.price) * product.amount;
+
+		if (product.hasVat === 1) {
+			productTotal += productTotal * 0.12;
+		}
+
+		total += productTotal;
 	});
-	if (hasVat === 1) {
-		total += total* 0.12
-	}
+
+	total = Math.round(total * 100) / 100;
 	total -= isNaN(+values.initialPayment) ? 0 : values.initialPayment;
 	const percentages = {
 		3: 23,
@@ -28,8 +31,7 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 		18: 35,
 	} as any;
 
-	const percentage =
-		percentages[isNaN(+values.paymentPeriod) ? 4 : values.paymentPeriod];
+	const percentage = percentages[isNaN(+values.paymentPeriod) ? 4 : values.paymentPeriod];
 
 	total = total + total * (percentage / 100);
 	total = Math.round(total * 100) / 100;
@@ -38,9 +40,7 @@ function TotalContractedSum({ control }: { control: Control<any> }) {
 		<Description
 			className='flex-grow'
 			title={t('Сумма рассрочки')}
-			content={
-				<Input scale={1.2} readOnly value={String(formatNumber(total))} width={'100%'} />
-			}
+			content={<Input scale={1.2} readOnly value={String(formatNumber(total))} width={'100%'} />}
 		/>
 	);
 }
