@@ -76,7 +76,7 @@ function BusinessReportScoring() {
 			},
 		},
 		{
-			title: t('Do\'kon nomi'),
+			title: t("Do'kon nomi"),
 			dataIndex: 'salePointName',
 			align: 'center',
 		},
@@ -138,7 +138,7 @@ function BusinessReportScoring() {
 							dataIndex: 'bankPaidAppCount',
 							align: 'center',
 							render(value, record, index) {
-								return Math.round((value/record.bankApprovedAppCount*100)*100)/100;
+								return Math.round((value / record.bankApprovedAppCount) * 100 * 100) / 100;
 							},
 						},
 					],
@@ -158,7 +158,7 @@ function BusinessReportScoring() {
 							dataIndex: 'bankPaidProductCount',
 							align: 'center',
 							render(value, record, index) {
-								return Math.round((value/record.approvedProductCount*100)*100)/100;
+								return Math.round((value / record.approvedProductCount) * 100 * 100) / 100;
 							},
 						},
 					],
@@ -180,7 +180,7 @@ function BusinessReportScoring() {
 							dataIndex: 'bankPaidProductTotal',
 							align: 'center',
 							render(value, record, index) {
-								return Math.round((value/record.approvedSummaWithVat*100)*100)/100;
+								return Math.round((value / record.approvedSummaWithVat) * 100 * 100) / 100;
 							},
 						},
 					],
@@ -206,6 +206,7 @@ function BusinessReportScoring() {
 					title: t('сумма'),
 					dataIndex: 'bankPendingProductTotal',
 					align: 'center',
+					width: 120,
 					render(value, record, index) {
 						return <div className='whitespace-normal'>{formatNumber(value)}</div>;
 					},
@@ -243,9 +244,7 @@ function BusinessReportScoring() {
 					</Button>
 				) : (
 					<Button
-						onClick={() =>
-							navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)
-						}
+						onClick={() => navigate(`/nasiya/business-report-scoring-details/${record.salePointId}/${record.salePointName}`)}
 					>
 						<ArrowRight strokeWidth={1} />
 					</Button>

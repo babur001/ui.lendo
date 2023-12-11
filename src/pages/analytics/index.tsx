@@ -40,7 +40,6 @@ function AnalyticsByDate() {
 
 	const [salePointId, setSalePoint] = useState(null);
 
-	console.log('salePointId', salePointId);
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const roleName = get(user, 'data.data.data.roles.0.name', null);
@@ -75,7 +74,6 @@ function AnalyticsByDate() {
 			});
 		},
 	});
-
 
 	const stats: Record<
 		IAnalyticsByDateTabs,
@@ -112,7 +110,7 @@ function AnalyticsByDate() {
 						title: t('payment_summa'),
 						value: humanizeNumber(analytics.summa, 1, true),
 					},
-				],
+				]
 			);
 		} catch (error) {
 			console.log(error);
@@ -132,25 +130,29 @@ function AnalyticsByDate() {
 				<Title className='flex justify-center' level={2}>
 					<div className='text-[#325ecd]'>{t('Analytics')}</div>
 				</Title>
-				{roleName === Roles.COMPANY_ADMIN ? (<div className='col-span-2'>
-					<Description
-						title={t('Магазины')}
-						content={
-							<Select
-								allowClear
-								onChange={setSalePoint}
-								placeholder={t('...')}
-								className='!w-96'
-								options={salePointData.map((salePoint, idx) => {
-									return {
-										value: salePoint.id,
-										label: salePoint.name,
-									};
-								})}
-							/>}
-					/>
-				</div>) : (<div></div>)}
-
+				{roleName === Roles.COMPANY_ADMIN ? (
+					<div className='col-span-2'>
+						<Description
+							title={t('Магазины')}
+							content={
+								<Select
+									allowClear
+									onChange={setSalePoint}
+									placeholder={t('...')}
+									className='!w-96'
+									options={salePointData.map((salePoint, idx) => {
+										return {
+											value: salePoint.id,
+											label: salePoint.name,
+										};
+									})}
+								/>
+							}
+						/>
+					</div>
+				) : (
+					<div></div>
+				)}
 
 				<div className='h-[20px]' />
 				<div className='grid grid-cols-12 !gap-7'>

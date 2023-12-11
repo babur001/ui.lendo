@@ -11,17 +11,23 @@ function TotalAllProduсtsSum({ control }: { control: Control<any> }) {
 		control,
 	});
 	let total = 0;
-	let hasVat = 2;
+
 	get(values, 'items', []).forEach((product: any) => {
-		total += (isNaN(+product.price) ? 0 : product.price) * product.amount;
-		hasVat = product.hasVat;
+		let productTotal = (isNaN(+product.price) ? 0 : product.price) * product.amount;
+
+		if (product.hasVat === 1) {
+			productTotal += productTotal * 0.12;
+		}
+
+		total += productTotal;
 	});
-	if (hasVat === 1) {
-		total += total * 0.12;
-	}
+
 	total = Math.round(total * 100) / 100;
+
 	return (
-		<div className='flex gap-2'>{t('Общая сумма товаров')} : <div className='font-bold'>{formatNumber(total)}</div></div>
+		<div className='flex gap-2'>
+			{t('Общая сумма товаров')} : <div className='font-bold'>{formatNumber(total)}</div>
+		</div>
 	);
 }
 

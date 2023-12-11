@@ -27,7 +27,7 @@ function AnalyticsByDateLineChart({ type }: { type: IAnalyticsByDateTabs }) {
 				url: `/stat/get-card-stat`,
 				params: {
 					year: year.year,
-					periodTypeNo: type,
+					periodType: type,
 				},
 			});
 		},
@@ -40,11 +40,11 @@ function AnalyticsByDateLineChart({ type }: { type: IAnalyticsByDateTabs }) {
 		{
 			name: t(`payment_summa`),
 			data: data.map((stat) => stat.summa),
-		},/*
+		} /*
 		{
 			name: t(`applicationCount`),
 			data: data.map((stat) => stat.applicationCount),
-		},*/
+		},*/,
 	];
 
 	return (
