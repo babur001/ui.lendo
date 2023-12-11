@@ -14,13 +14,16 @@ interface IAnalyticsChartData {
 	summa: 0;
 }
 
-function AnalyticsByDateLineChart({ type }: { type: IAnalyticsByDateTabs }) {
+function AnalyticsByDateLineChart({ type, salePointId }: { type: IAnalyticsByDateTabs, salePointId: any }) {
 	const { t, i18n } = useTranslation();
 	const [year, setYear] = useState({
 		year: 2023,
 	});
+
+	const now = new Date();
+
 	const queryChart = useQuery({
-		queryKey: ['queryChart--AnalyticsByDate', type, year],
+		queryKey: ['queryChart--AnalyticsByDate', type, year, salePointId],
 		queryFn: () => {
 			return req({
 				method: 'GET',
@@ -28,6 +31,8 @@ function AnalyticsByDateLineChart({ type }: { type: IAnalyticsByDateTabs }) {
 				params: {
 					year: year.year,
 					periodType: type,
+					month: now.getMonth() + 1,
+					salePointId: salePointId,
 				},
 			});
 		},

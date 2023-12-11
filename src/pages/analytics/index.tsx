@@ -12,7 +12,7 @@ import AdminCards from '@/pages/analytics/AdminCards.tsx';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { Roles } from '@/pages/auth';
 
-export type IAnalyticsByDateTabs = 'MONTHLY' | 'QUARTERLY' | 'YEARLY';
+export type IAnalyticsByDateTabs = 'DAILY' | 'MONTHLY' | 'QUARTERLY' | 'YEARLY';
 
 interface IAnalyticsData {
 	periodType: IAnalyticsByDateTabs;
@@ -82,6 +82,21 @@ function AnalyticsByDate() {
 			children: Array<{ title: string; value: string | number }>;
 		}
 	> = {
+
+		DAILY: {
+			title: t('Кунлар кесимида'),
+			children: [
+				/*	{
+						title: t('applicationCount'),
+						value: 18,
+					},
+					{
+						title: t('payment_summa'),
+						value: humanizeNumber(26400000, 1, true),
+					},*/
+			],
+		},
+
 		MONTHLY: {
 			title: t('Ойлар кесимида'),
 			children: [],
@@ -99,7 +114,6 @@ function AnalyticsByDate() {
 	(get(queryAnalyticsByDate, 'data.data.data', []) as IAnalyticsData[]).forEach((analytics) => {
 		try {
 			const card = stats[analytics.periodType];
-
 			card.children.push(
 				...[
 					{
@@ -110,7 +124,7 @@ function AnalyticsByDate() {
 						title: t('payment_summa'),
 						value: humanizeNumber(analytics.summa, 1, true),
 					},
-				]
+				],
 			);
 		} catch (error) {
 			console.log(error);
@@ -210,7 +224,7 @@ function AnalyticsByDate() {
 					</div>
 
 					<div className='col-span-8 h-full rounded-md border border-gray-200'>
-						<AnalyticsByDateLineChart type={activeFilter} />
+						<AnalyticsByDateLineChart type={activeFilter} salePointId={salePointId} />
 					</div>
 				</div>
 			</div>
