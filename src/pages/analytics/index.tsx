@@ -9,7 +9,6 @@ import AnalyticsByDateLineChart from '@/pages/analytics/AnalyticsByDateLineChart
 import { Description, Spinner, Text } from '@geist-ui/core';
 import { useTranslation } from 'react-i18next';
 import AdminCards from '@/pages/analytics/AdminCards.tsx';
-import { Controller } from 'react-hook-form';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { Roles } from '@/pages/auth';
 
@@ -38,6 +37,10 @@ function AnalyticsByDate() {
 	const [year, setYear] = useState({
 		year: 2023,
 	});
+
+	const [salePointId, setSalePoint] = useState(null);
+
+	console.log('salePointId', salePointId);
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const roleName = get(user, 'data.data.data.roles.0.name', null);
@@ -60,13 +63,14 @@ function AnalyticsByDate() {
 
 	const [activeFilter, setActiveFilter] = useState<IAnalyticsByDateTabs>('MONTHLY');
 	const queryAnalyticsByDate = useQuery({
-		queryKey: ['queryAnalyticsByDate', year],
+		queryKey: ['queryAnalyticsByDate', year, salePointId],
 		queryFn: () => {
 			return req({
 				method: 'GET',
 				url: `/stat/get-this-period-card-stat`,
 				params: {
-					// year: year.year,
+					/*year: year.year,*/
+					salePointId: salePointId,
 				},
 			});
 		},
@@ -133,6 +137,8 @@ function AnalyticsByDate() {
 						title={t('Магазины')}
 						content={
 							<Select
+								allowClear
+								onChange={setSalePoint}
 								placeholder={t('...')}
 								className='!w-96'
 								options={salePointData.map((salePoint, idx) => {
