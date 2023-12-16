@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 interface IProps {
 	onFinish: () => unknown;
 }
+
 function MyIdAuth({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
 	const queryUser = useAuthUser();
