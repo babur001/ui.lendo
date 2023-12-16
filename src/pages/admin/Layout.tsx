@@ -123,7 +123,13 @@ function Layout({ items, children }: IProps) {
 										<Building className='mt-0.5' size={15} strokeWidth={1.5} />
 										<div className='font-bold mr-1'>{t('Органиция')}</div>
 									</div>
-									- "{companyName}"{rolesName === Roles.COMPANY_EMPLOYEE?(<div className='ml-1'>{t("(Магазин")}:{salePointName})</div>):null}
+									- "{companyName}"
+									{rolesName === Roles.COMPANY_EMPLOYEE ? (
+										<div className='ml-1'>
+											{t('(Магазин')}:{salePointName})
+										</div>
+									) : null}
+									``{' '}
 								</div>
 							</Tag>
 						</div>
