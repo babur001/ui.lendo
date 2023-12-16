@@ -2,17 +2,14 @@ import { TStatus } from '@/auth/Scoring';
 import useAuthUser from '@/auth/useAuthUser';
 import { req } from '@/services/api';
 import { useBuyerStore } from '@/stores/buyer';
-import { Spinner, Text } from '@geist-ui/core';
+import { Spinner } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
 import { Alert, QRCode } from 'antd';
 import { get } from 'lodash';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface IProps {
-	onFinish: () => unknown;
-}
-function MyIdAuth({ onFinish }: IProps) {
+function MyIdAuth() {
 	const { t, i18n } = useTranslation();
 	const queryUser = useAuthUser();
 	const setUser = useBuyerStore((store) => store.setUser);
@@ -73,15 +70,11 @@ function MyIdAuth({ onFinish }: IProps) {
 				createdAt: get(userMyId, 'userProfile.doc_data.issued_date'),
 				updatedAt: get(userMyId, 'userProfile.doc_data.issued_date'),
 			});
-
-			onFinish();
 		}
 	}, [userMyId]);
 
 	return (
 		<>
-			<Text h3>3. {t('MY ID')}</Text>
-
 			<Alert message={t('Идентификациядан ўтиш учун сканер қилинг')} type='info' showIcon />
 
 			<div className='h-[20px]' />

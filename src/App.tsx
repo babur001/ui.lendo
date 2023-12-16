@@ -21,6 +21,7 @@ import CompanyApplications from '@/pages/company/admin/CompanyApplicationsList.t
 import BusinessReportScoring from '@/pages/buxgalteriya/ReportScoring.tsx';
 import BusinessReportScoringDetails from '@/pages/buxgalteriya/ReportScoringDetails.tsx';
 import ReportApplicationsDetails from '@/pages/buxgalteriya/ReportApplicationsDetails.tsx';
+import NasiyaNew from '@/pages/nasiya-new';
 
 export type TAdminPages = 'business-analytics' | 'clients' | 'companies' | 'company/:companyId' | '*';
 
@@ -115,10 +116,11 @@ const CompanyRoutes = [
 ] satisfies (RouteObject & { path: TCompanyPages })[];
 
 export type TEmployeePages =
-	'analytics'
+	| 'analytics'
 	| 'default'
 	| 'business-report-scoring-details'
 	| 'applications/:applicationId'
+	| 'new'
 	| '*';
 
 const EmployeeRoutes = [
@@ -129,6 +131,10 @@ const EmployeeRoutes = [
 	{
 		path: 'default',
 		element: <Nasiya />,
+	},
+	{
+		path: 'new',
+		element: <NasiyaNew />,
 	},
 	{
 		path: 'business-report-scoring-details',
@@ -170,7 +176,6 @@ const AccountantRoutes = [
 		element: <Navigate to={`business-report`} />,
 	},
 ] satisfies (RouteObject & { path: TAccountantPages })[];
-
 
 const router = createBrowserRouter([
 	{

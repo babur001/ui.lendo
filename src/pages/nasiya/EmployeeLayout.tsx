@@ -24,6 +24,11 @@ function EmployeeLayout() {
 			label: t(`Рўйхатдан ўтказиш`),
 		},
 		{
+			key: 'new',
+			icon: <Users strokeWidth={1.5} className='!h-5' />,
+			label: t(`(NEW) Рўйхатдан ўтказиш`),
+		},
+		{
 			key: 'business-report-scoring-details',
 			icon: <LineChart strokeWidth={1.5} className='!h-5' />,
 			label: t(`Аналитика`),
