@@ -43,7 +43,6 @@ function BusinessReportScoringDetails() {
 	};
 
 	const setStatusSelect = (value: any) => {
-		console.log('value', value);
 		setStatus(value);
 	};
 

@@ -209,7 +209,8 @@ function Formalization({ onFinish }: IProps) {
 				<Description
 					title={t('Бошланғич тўлов')}
 					className='flex-grow'
-					content={<Input placeholder={'0'} scale={1.2} width={'100%'} {...register('initialPayment')} />}
+					content={<Input disabled={true}
+						placeholder={'0'} scale={1.2} width={'100%'} {...register('initialPayment')} />}
 				/>
 
 				<Controller

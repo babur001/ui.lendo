@@ -3,14 +3,12 @@ import { Building, Lamp, Lock, LockIcon, LogOut, User, User2Icon } from 'lucide-
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '@/Logo';
-import { TAdminPages } from '@/App';
 import clsx from 'clsx';
 import useAuthUser from '@/auth/useAuthUser';
 import { get } from 'lodash';
 import { TLanguages } from '@/auth/i18n';
 import { useQuery } from '@tanstack/react-query';
 import { req } from '@/services/api';
-import TotalSingleProduct from '@/auth/TotalSingleProduct.tsx';
 import { useSyncExternalStore } from 'react';
 
 interface IProps {
