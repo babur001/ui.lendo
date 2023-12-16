@@ -171,6 +171,7 @@ const AccountantRoutes = [
 	},
 ] satisfies (RouteObject & { path: TAccountantPages })[];
 
+
 const router = createBrowserRouter([
 	{
 		path: '/admin',

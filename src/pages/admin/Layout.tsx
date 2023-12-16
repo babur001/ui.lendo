@@ -3,15 +3,14 @@ import { Building, Lamp, Lock, LockIcon, LogOut, User, User2Icon } from 'lucide-
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '@/Logo';
-import { TAdminPages } from '@/App';
 import clsx from 'clsx';
 import useAuthUser from '@/auth/useAuthUser';
 import { get } from 'lodash';
 import { TLanguages } from '@/auth/i18n';
 import { useQuery } from '@tanstack/react-query';
 import { req } from '@/services/api';
-import TotalSingleProduct from '@/auth/TotalSingleProduct.tsx';
 import { useSyncExternalStore } from 'react';
+import { Roles } from '@/pages/auth';
 
 interface IProps {
 	items: {
@@ -30,7 +29,7 @@ function Layout({ items, children }: IProps) {
 	const name = get(user, 'data.data.data.fullName', null);
 	const companyName = get(user, 'data.data.data.company.name', null);
 	const rolesName = get(user, 'data.data.data.roles.0.name', null);
-
+	const salePointName = get(user, 'data.data.data.salePoint.name', null);
 	const fileGuid = get(user, 'data.data.data.fileGuid', null);
 
 	const changeLanguageHandler = (lang: TLanguages) => {
@@ -124,7 +123,7 @@ function Layout({ items, children }: IProps) {
 										<Building className='mt-0.5' size={15} strokeWidth={1.5} />
 										<div className='font-bold mr-1'>{t('Органиция')}</div>
 									</div>
-									- "{companyName}"
+									- "{companyName}"{rolesName === Roles.COMPANY_EMPLOYEE?(<div className='ml-1'>{t("(Магазин")}:{salePointName})</div>):null}
 								</div>
 							</Tag>
 						</div>
