@@ -1,12 +1,14 @@
+import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 import { req } from '@/services/api';
 import { useBuyerStore } from '@/stores/buyer';
 import { Card, Description, Dot, Note, Pagination, Spinner, Text } from '@geist-ui/core';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Alert, Button, Segmented, Select, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { ArrowRight } from 'lucide-react';
 import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 interface ITableEDIT {
@@ -30,28 +32,69 @@ interface IProps {
 	onFinish: () => unknown;
 }
 
+interface IBank {
+	id: number;
+	createdAt: string;
+	updatedAt: string;
+	createdUserId?: null;
+	updatedUserId?: null;
+	bankName: string;
+	bankTin: string;
+	bankShare: number;
+	bankInsurance: number;
+	operatorShare: number;
+}
 function Scoring({ onFinish }: IProps) {
-	const { t, i18n } = useTranslation();
-	const { clientScoringId } = useBuyerStore((store) => ({
-		clientScoringId: store.clientScoringId,
+	const { t } = useTranslation();
+	const { pinfl } = useNewBuyerStore((store) => ({
+		pinfl: store.pinfl,
 	}));
 
-	const queryScoring = useQuery({
-		queryKey: ['queryScoring', clientScoringId],
-		queryFn: () => {
+	const {
+		control,
+		register,
+		handleSubmit,
+		getValues,
+		watch,
+		formState: { errors },
+	} = useForm<{ bankIds: number[] }>();
+
+	const mutateScoreFromBanks = useMutation({
+		mutationKey: ['mutateScoreFromBanks'],
+		mutationFn: ({ bankIds, applicationId }: { bankIds: number[]; applicationId: number }) => {
 			return req({
-				method: 'GET',
-				url: '/registration/get-scoring-status',
-				params: {
-					scoringId: clientScoringId,
+				method: 'POST',
+				url: '/registration/check-scoring-v2',
+				data: {
+					pinfl,
+					bankIds,
+					applicationId,
+					main: true,
 				},
 			});
 		},
-		refetchInterval: 5000,
 	});
 
-	const status = get(queryScoring, 'data.data.data.status', 'STATUS_NEW') as TStatus;
-	const result = get(queryScoring, 'data.data.data', {}) as IScoringResult;
+	const queryBanks = useQuery({
+		queryKey: ['queryBanks'],
+		queryFn: () => {
+			return req({
+				method: 'GET',
+				url: '/admin/get-banks',
+			});
+		},
+	});
+
+	const banks = get(queryBanks, 'data.data.data', []) as IBank[];
+
+	const status = get(mutateScoreFromBanks, 'data.data.data.status', 'STATUS_NEW') as TStatus;
+	const result = get(mutateScoreFromBanks, 'data.data.data', {}) as IScoringResult;
+
+	const results = get(mutateScoreFromBanks, 'data.data.data', []);
+
+	const score = async () => {
+		const res = await mutateScoreFromBanks.mutateAsync({ applicationId: 1, bankIds: getValues('bankIds') });
+	};
 
 	return (
 		<>
@@ -78,27 +121,29 @@ function Scoring({ onFinish }: IProps) {
 							<div className='h-[20px]' />
 
 							<div className='flex items-center !gap-5'>
-								<Select
-									className='w-auto min-w-[200px]'
-									mode='multiple'
-									allowClear
-									options={[
-										{
-											label: 'Agrobank',
-											value: 'Agrobank',
-										},
-										{
-											label: 'Kapitalbank',
-											value: 'Kapitalbank',
-										},
-										{
-											label: 'Hamkorbank',
-											value: 'Hamkorbank',
-										},
-									]}
+								<Controller
+									control={control}
+									name='bankIds'
+									render={({ field }) => {
+										return (
+											<Select
+												allowClear
+												loading={queryBanks.status === 'loading'}
+												className='w-auto min-w-[200px]'
+												mode='multiple'
+												options={banks.map((bank) => {
+													return {
+														value: bank.id,
+														label: bank.bankName,
+													};
+												})}
+												{...field}
+											/>
+										);
+									}}
 								/>
 
-								<Button type='text' className='bg-gray-100'>
+								<Button type='text' className='bg-gray-100' onClick={score}>
 									Send for score
 								</Button>
 							</div>
@@ -106,17 +151,31 @@ function Scoring({ onFinish }: IProps) {
 							<div className='h-[20px]' />
 
 							<div className='grid grid-cols-3 !gap-5'>
-								<Card>
-									<Text h4 my={0}>
-										Agrobank
-									</Text>
+								{results.map((result: any) => {
+									return (
+										<Card key={result.id}>
+											<Text h4 my={0}>
+												{result.bankName}
+											</Text>
 
-									<div className='h-[10px]' />
+											<div className='h-[10px]' />
 
-									<Button block type='primary' className='flex items-center justify-center !gap-3 !text-base'>
-										{formatNumber(24122000)} <ArrowRight size={16} />
-									</Button>
-								</Card>
+											<div>
+												<Description title={`Total sum:`} content={<Text h5>{formatNumber(result.scoringSum)}</Text>} />
+												<Description title={`Total rate:`} content={<Text h5>{result.scoringRate}</Text>} />
+											</div>
+
+											<Button
+												block
+												type='primary'
+												className='flex items-center justify-center !gap-3 !text-base'
+												onClick={onFinish}
+											>
+												{result.bankName} <ArrowRight size={16} />
+											</Button>
+										</Card>
+									);
+								})}
 							</div>
 						</div>
 					);

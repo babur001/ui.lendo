@@ -1,16 +1,14 @@
-import MyIdAuth from '@/auth-new/MyIdAuth';
 import { req } from '@/services/api';
-import { IBuyer, Store, useBuyerStore } from '@/stores/buyer';
-import { Description, Input, Tabs, Text } from '@geist-ui/core';
+import { Input, Tabs, Text } from '@geist-ui/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { Button, Image } from 'antd';
+import { Button } from 'antd';
 import clsx from 'clsx';
 import { get } from 'lodash';
-import { ArrowRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { useTranslation } from 'react-i18next';
+import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 
 const authManual = z.object({
 	pinfl: z.string().length(14, { message: 'PINFL должен состоять из 14 символов.' }),
@@ -28,9 +26,9 @@ interface IIdentificationForm {
 
 function Identification({ onFinish }: IProps) {
 	const { t } = useTranslation();
-	const { user, setUser } = useBuyerStore((store) => ({
-		user: store.user,
-		setUser: store.setUser,
+	const { pinfl, setPinfl } = useNewBuyerStore((store) => ({
+		pinfl: store.pinfl,
+		setPinfl: store.setPinfl,
 	}));
 
 	const {
@@ -39,6 +37,9 @@ function Identification({ onFinish }: IProps) {
 		formState: { errors },
 	} = useForm<IIdentificationForm>({
 		resolver: zodResolver(authManual),
+		defaultValues: {
+			pinfl: pinfl,
+		},
 	});
 
 	const mutateUser = useMutation({
@@ -54,57 +55,14 @@ function Identification({ onFinish }: IProps) {
 		},
 	});
 
-	const mutateSetUser = useMutation({
-		mutationKey: ['mutateSetUser'],
-		mutationFn: (userParam: Store['user']) => {
-			return req({
-				method: 'POST',
-				url: `/registration/set-client-info`,
-				data: userParam,
-			});
-		},
-	});
-
-	const onSubmit = async (values: IIdentificationForm) => {
-		try {
-			const res = await mutateUser.mutateAsync(values.pinfl);
-
-			const user = get(res, 'data.data', null) as IBuyer;
-
-			if (user) {
-				setUser(user);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const errorMessages = {
 		pinfl: get(errors, 'pinfl.message', null),
 	};
 
-	const userData = [
-		{ title: t('ЖИШШР'), value: get(user, 'pinfl', '-') },
-		{ title: t('Фамилия'), value: get(user, 'firstName', '-') },
-		{ title: t('Исми'), value: get(user, 'lastName', '-') },
-		{ title: t('Шарифи'), value: get(user, 'middleName', '-') },
-		{ title: t('Паспорт серияси'), value: get(user, 'passportSerial', '-') },
-		{ title: t('Паспорт рақами'), value: get(user, 'passportNumber', '-') },
-		{ title: t('Ким томонидан берилган'), value: get(user, '', '-') },
-		{ title: t('Жинси'), value: get(user, 'gender', '-') },
-		{ title: t('Миллати'), value: get(user, 'citizenship', '-') },
-	];
+	const onSubmit = async (values: IIdentificationForm) => {
+		setPinfl(values.pinfl);
 
-	const onNext = async () => {
-		try {
-			if (user) {
-				const { createdAt, updatedAt, ...restUser } = user;
-
-				const res = await mutateSetUser.mutateAsync(restUser);
-
-				onFinish();
-			}
-		} catch (error) {}
+		onFinish();
 	};
 
 	return (
