@@ -34,20 +34,11 @@ function AdminCards() {
 		},
 	});
 
-	const zeroElement = {
-		appCount: 0,
-		sompanyId: 0,
-		statType: null,
-		paymentSum: 0,
-		salePointId: 0,
-		salePointName: '0',
-		periodType: null,
-	};
 
 	const data = get(queryStatMain, 'data.data.data', []) as ICards[];
-	const totalData = [zeroElement, ...data.filter(item => item.statType === 'TOTAL')];
-	const highestSaleData = [zeroElement, ...data.filter(item => item.statType === 'HIGHEST_SALE')];
-	const salePointData = [zeroElement, ...data.filter(item => item.statType === 'SALE_POINT')];
+	const totalData = [...data.filter(item => item.statType === 'TOTAL')];
+	const highestSaleData = [...data.filter(item => item.statType === 'HIGHEST_SALE')];
+	const salePointData = [...data.filter(item => item.statType === 'SALE_POINT')];
 
 	const rolesName = get(user, 'data.data.data.roles.0.name', null);
 	const titles = [t('Вчера'), t('С начала месяца'), t('С начала года')];

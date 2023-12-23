@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { PatternFormat } from 'react-number-format';
 import useAuthUser from '@/auth/useAuthUser.tsx';
 import { ICompany } from '@/pages/company/admin/SalePointList.tsx';
-import { UploadIcon } from 'lucide-react';
 import FileUpload from '@/pages/admin/company/FileUpload';
 
 interface ISellerForm {
@@ -43,6 +42,7 @@ function AddCompanyUsersModal({ onAdd }: IProps) {
 	const user = useAuthUser();
 	const companyId = get(user, 'data.data.data.companyId', null);
 	const userId = get(user, 'data.data.data.id', null);
+
 	const mutateAddSeller = useMutation({
 		mutationFn: (data: ISellerForm) => {
 			return req({

@@ -68,40 +68,38 @@ function Identification({ onFinish }: IProps) {
 	return (
 		<>
 			<>
-				<Text h3>Идентификация</Text>
+				<Text h3>Проверка</Text>
+				{/*		<Tabs initialValue='1'>*/}
+				<div className='h-[15px]' />
+				{/*<Tabs.Item label='Вручную' value='1'>*/}
+				<div className='flex flex-col gap-5 !w-96'>
+					<form className='flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
 
-				<Tabs initialValue='1'>
-					<div className='h-[15px]' />
-
-					<Tabs.Item label='Вручную' value='1'>
-						<div className='flex flex-col gap-5 !w-96'>
-							<form className='flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
-								51704005120013
-								<Input
-									placeholder='...'
-									className='!w-full'
-									type={errorMessages.pinfl ? 'error' : 'default'}
-									{...register('pinfl')}
+						<Input
+							placeholder='...'
+							className='!w-full'
+							type={errorMessages.pinfl ? 'error' : 'default'}
+							{...register('pinfl')}
+						>
+							<div className='flex items-center justify-between'>
+								<span>ПИНФЛ*</span>51704005120013
+								<span
+									className={clsx({
+										'text-[#c50000]': true,
+										hidden: !errorMessages.pinfl,
+									})}
 								>
-									<div className='flex items-center justify-between'>
-										<span>ПИНФЛ*</span>
-										<span
-											className={clsx({
-												'text-[#c50000]': true,
-												hidden: !errorMessages.pinfl,
-											})}
-										>
 											{errorMessages.pinfl}
 										</span>
-									</div>
-								</Input>
-								<Button type='primary' htmlType='submit' loading={mutateUser.status === 'loading'}>
-									{t('Рўйхатдан ўтказиш')}
-								</Button>
-							</form>
-						</div>
-					</Tabs.Item>
-				</Tabs>
+							</div>
+						</Input>
+						<Button type='primary' htmlType='submit' loading={mutateUser.status === 'loading'}>
+							{t('Проверить')}
+						</Button>
+					</form>
+				</div>
+				{/*</Tabs.Item>*/}
+				{/*</Tabs>*/}
 			</>
 		</>
 	);

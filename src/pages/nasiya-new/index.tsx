@@ -30,8 +30,8 @@ function NasiyaNew() {
 
 	return (
 		<>
-			<div>
-				<Alert showIcon description={'Бета версия'} closable />
+			<div>{/*
+				<Alert showIcon description={'Бета версия'} closable />*/}
 
 				<div className='h-[20px]' />
 
@@ -49,7 +49,7 @@ function NasiyaNew() {
 							}
 							items={[
 								{
-									title: t('Определение'),
+									title: t('Проверка'),
 								},
 								{
 									// disabled: step.actual < TEnumSteps.SCORING,
@@ -101,8 +101,8 @@ function NasiyaNew() {
 							<Scoring
 								onFinish={() =>
 									setStep({
-										active: TEnumSteps.FORMALIZATION,
-										actual: TEnumSteps.FORMALIZATION,
+										active: TEnumSteps.MY_ID,
+										actual: TEnumSteps.MY_ID,
 									})
 								}
 							/>
