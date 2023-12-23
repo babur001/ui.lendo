@@ -24,8 +24,8 @@ enum TEnumSteps {
 function NasiyaNew() {
 	const { t } = useTranslation();
 	const [step, setStep] = useState<{ active: TEnumSteps; actual: TEnumSteps }>({
-		active: TEnumSteps.IDENTIFICATION,
-		actual: TEnumSteps.IDENTIFICATION,
+		active: TEnumSteps.SCORING,
+		actual: TEnumSteps.SCORING,
 	});
 
 	return (

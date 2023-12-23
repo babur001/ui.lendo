@@ -1,8 +1,8 @@
 import { req } from '@/services/api';
 import { useBuyerStore } from '@/stores/buyer';
-import { Description, Note, Pagination, Spinner, Text } from '@geist-ui/core';
+import { Card, Description, Dot, Note, Pagination, Spinner, Text } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
-import { Alert, Button, Table } from 'antd';
+import { Alert, Button, Segmented, Select, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { get } from 'lodash';
 import { ArrowRight } from 'lucide-react';
@@ -53,26 +53,75 @@ function Scoring({ onFinish }: IProps) {
 	const status = get(queryScoring, 'data.data.data.status', 'STATUS_NEW') as TStatus;
 	const result = get(queryScoring, 'data.data.data', {}) as IScoringResult;
 
-	const columns: ColumnsType<ITableEDIT> = [
-		{
-			title: t('Ой'),
-			dataIndex: 'month',
-		},
-		{
-			title: t('Минимал сумма'),
-			dataIndex: 'min_sum',
-		},
-		{
-			title: t('Maksimal summa'),
-			dataIndex: 'max_sum',
-		},
-	];
-
 	return (
 		<>
 			<Text h3>2. {t('Скоринг тизими')}</Text>
 
 			{(() => {
+				if (true) {
+					return (
+						<div>
+							<Segmented
+								size='large'
+								options={[
+									{
+										label: 'Scoring',
+										value: 'scoring',
+									},
+									{
+										label: 'Detailed Scoring',
+										value: 'detailed_scoring',
+									},
+								]}
+							/>
+
+							<div className='h-[20px]' />
+
+							<div className='flex items-center !gap-5'>
+								<Select
+									className='w-auto min-w-[200px]'
+									mode='multiple'
+									allowClear
+									options={[
+										{
+											label: 'Agrobank',
+											value: 'Agrobank',
+										},
+										{
+											label: 'Kapitalbank',
+											value: 'Kapitalbank',
+										},
+										{
+											label: 'Hamkorbank',
+											value: 'Hamkorbank',
+										},
+									]}
+								/>
+
+								<Button type='text' className='bg-gray-100'>
+									Send for score
+								</Button>
+							</div>
+
+							<div className='h-[20px]' />
+
+							<div className='grid grid-cols-3 !gap-5'>
+								<Card>
+									<Text h4 my={0}>
+										Agrobank
+									</Text>
+
+									<div className='h-[10px]' />
+
+									<Button block type='primary' className='flex items-center justify-center !gap-3 !text-base'>
+										{formatNumber(24122000)} <ArrowRight size={16} />
+									</Button>
+								</Card>
+							</div>
+						</div>
+					);
+				}
+
 				if (status === 'STATUS_PENDING' || status === 'STATUS_NEW') {
 					return (
 						<div className='flex items-center justify-center h-full'>
