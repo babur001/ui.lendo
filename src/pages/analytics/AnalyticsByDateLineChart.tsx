@@ -2,8 +2,8 @@ import { IAnalyticsByDateTabs, humanizeNumber } from '@/pages/analytics';
 import { req } from '@/services/api';
 import { Spinner } from '@geist-ui/core';
 import { useQuery } from '@tanstack/react-query';
-import { get, last } from 'lodash';
-import { useState } from 'react';
+import { get } from 'lodash';
+import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 
@@ -39,17 +39,54 @@ function AnalyticsByDateLineChart({ type, salePointId }: { type: IAnalyticsByDat
 	});
 	const data = get(queryChart, 'data.data.data', []) as IAnalyticsChartData[];
 
-	const periodNames = data.map((stat) => stat.period);
-
+	const periodTypeNames = (type: string, value: any) => {
+		switch (type) {
+			case 'DAILY':
+				return `${value}-день`;
+			case 'MONTHLY':
+				switch (value) {
+					case 1:
+						return 'Январь';
+					case 2:
+						return 'Февраль';
+					case 3:
+						return 'Март';
+					case 4:
+						return 'Апрель';
+					case 5:
+						return 'Май';
+					case 6:
+						return 'Июнь';
+					case 7:
+						return 'Июль';
+					case 8:
+						return 'Август';
+					case 9:
+						return 'Сентябрь';
+					case 10:
+						return 'Октябрь';
+					case 11:
+						return 'Ноябрь';
+					case 12:
+						return 'Декабрь';
+					default:
+						return 'месяц';
+				}
+				break;
+			case 'QUARTERLY':
+				return `${value}-квартал`;
+			case 'YEARLY':
+				return `${value}-год`;
+			default:
+				return `${value}-день`;
+		}
+	};
+	const periodNames = data.map((stat) => periodTypeNames(type, stat.period));
 	const series = [
 		{
 			name: t(`payment_summa`),
 			data: data.map((stat) => stat.summa),
-		} /*
-		{
-			name: t(`applicationCount`),
-			data: data.map((stat) => stat.applicationCount),
-		},*/,
+		},
 	];
 
 	return (
@@ -60,6 +97,9 @@ function AnalyticsByDateLineChart({ type, salePointId }: { type: IAnalyticsByDat
 				</div>
 			) : (
 				<div className='w-full rounded-lg h-full min-h-[350px] !pb-3 !relative'>
+					<div className='h-[10px]' />
+					<div className='flex items-center justify-center'>{year.year}-год</div>
+					<div className='h-[10px]' />
 					<Chart
 						options={{
 							tooltip: {
