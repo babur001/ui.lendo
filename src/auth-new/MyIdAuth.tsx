@@ -1,20 +1,33 @@
 import { TStatus } from '@/auth/Scoring';
 import useAuthUser from '@/auth/useAuthUser';
+import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 import { req } from '@/services/api';
-import { useBuyerStore } from '@/stores/buyer';
-import { Spinner } from '@geist-ui/core';
-import { useQuery } from '@tanstack/react-query';
-import { Alert, QRCode } from 'antd';
+import { IBuyer } from '@/stores/buyer';
+import { Description, Spinner, Text } from '@geist-ui/core';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Alert, Button, Image, QRCode } from 'antd';
 import { get } from 'lodash';
+import { ArrowRight } from 'lucide-react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-function MyIdAuth() {
+interface IProps {
+	onFinish: () => unknown;
+}
+
+interface IIdentificationForm {
+	pinfl: string;
+}
+
+function MyIdAuth({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
 	const queryUser = useAuthUser();
-	const setUser = useBuyerStore((store) => store.setUser);
 
-	const user = get(queryUser, 'data.data.data', null);
+	const { setUser, pinfl, user } = useNewBuyerStore((store) => ({
+		setUser: store.setUser,
+		pinfl: store.pinfl,
+		user: store.user,
+	}));
 
 	const queryQrCodeGuid = useQuery({
 		queryKey: ['queryQrCodeGuid'],
@@ -70,28 +83,111 @@ function MyIdAuth() {
 				createdAt: get(userMyId, 'userProfile.doc_data.issued_date'),
 				updatedAt: get(userMyId, 'userProfile.doc_data.issued_date'),
 			});
+
+			onFinish();
 		}
 	}, [userMyId]);
 
+	const mutateUser = useMutation({
+		mutationKey: ['queryUser'],
+		mutationFn: (pinflParam: string) => {
+			return req({
+				method: 'GET',
+				url: `/registration/get-client-info`,
+				params: {
+					pinfl: pinflParam,
+				},
+			});
+		},
+	});
+
+	const onSubmit = async () => {
+		try {
+			const res = await mutateUser.mutateAsync(pinfl);
+
+			const user = get(res, 'data.data', null) as IBuyer;
+
+			if (user) {
+				setUser(user);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const userData = [
+		{ title: t('ЖИШШР'), value: get(user, 'pinfl', '-') },
+		{ title: t('Фамилия'), value: get(user, 'firstName', '-') },
+		{ title: t('Исми'), value: get(user, 'lastName', '-') },
+		{ title: t('Шарифи'), value: get(user, 'middleName', '-') },
+		{ title: t('Паспорт серияси'), value: get(user, 'passportSerial', '-') },
+		{ title: t('Паспорт рақами'), value: get(user, 'passportNumber', '-') },
+		{ title: t('Ким томонидан берилган'), value: get(user, '', '-') },
+		{ title: t('Жинси'), value: get(user, 'gender', '-') },
+		{ title: t('Миллати'), value: get(user, 'citizenship', '-') },
+	];
+
 	return (
 		<>
-			<Alert message={t('Идентификациядан ўтиш учун сканер қилинг')} type='info' showIcon />
+			{user ? (
+				<>
+					<Text h3>1. {t('Шахсга доир маълумотлар')}</Text>
 
-			<div className='h-[20px]' />
+					<div className='h-[15px]' />
 
-			{queryUser.status === 'loading' || queryQrCodeGuid.status === 'loading' ? (
-				<Spinner />
-			) : (
-				<div className='flex items-center justify-center'>
-					<QRCode
-						size={250}
-						value={`client_id=taqsit_qr_in-place-uZWZXSjGz1wDOuj3EQVbA1g21YAfcM8HoyJ6Bul8&method=strong&client_guid=${guid}&auth_user_id=${get(
-							user,
-							'id',
-							null
-						)}`}
+					<Image
+						src='https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_960_720.jpg'
+						alt='man_image'
+						width={192}
+						height={192}
+						className='rounded-lg object-contain'
 					/>
-				</div>
+
+					<div className='h-[35px]' />
+
+					<div className='grid grid-cols-3 gap-5'>
+						{userData.map((data, idx) => {
+							return <Description title={data.title} content={data.value} />;
+						})}
+					</div>
+
+					<div className='h-[35px]' />
+
+					<Button
+						onClick={onFinish}
+						type='primary'
+						size='large'
+						className='flex items-center !gap-2 w-full justify-center'
+						// loading={mutateSetUser.status === 'loading'}
+					>
+						{t('Ҳаридор маълумотлари')} <ArrowRight strokeWidth={1.5} className='!h-5' />
+					</Button>
+				</>
+			) : (
+				<>
+					<Button onClick={onSubmit}>onSubmit</Button>
+
+					<Text h3>3. {t('MY ID')}</Text>
+
+					<Alert message={t('Идентификациядан ўтиш учун сканер қилинг')} type='info' showIcon />
+
+					<div className='h-[20px]' />
+
+					{queryUser.status === 'loading' || queryQrCodeGuid.status === 'loading' ? (
+						<Spinner />
+					) : (
+						<div className='flex items-center justify-center'>
+							<QRCode
+								size={250}
+								value={`client_id=taqsit_qr_in-place-uZWZXSjGz1wDOuj3EQVbA1g21YAfcM8HoyJ6Bul8&method=strong&client_guid=${guid}&auth_user_id=${get(
+									user,
+									'id',
+									null
+								)}`}
+							/>
+						</div>
+					)}
+				</>
 			)}
 		</>
 	);

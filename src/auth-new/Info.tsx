@@ -42,9 +42,6 @@ function Info({ onFinish }: IProps) {
 		setUniqueIds: store.setUniqueIds,
 	}));
 
-	const store = useNewBuyerStore();
-	console.log(store);
-
 	const { register, handleSubmit, control, watch } = useForm<IUserInfo>({
 		defaultValues: userInfo ? userInfo : {},
 	});

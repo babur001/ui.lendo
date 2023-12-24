@@ -89,7 +89,17 @@ export const useNewBuyerStore = create<Store & Actions>()((set) => ({
 	setBank: (bank: Store['bank']) => set((state) => ({ bank })),
 
 	pinfl: '',
-	setPinfl: (pinfl: Store['pinfl']) => set((state) => ({ pinfl })),
+	setPinfl: (pinfl: Store['pinfl']) =>
+		set((state) => ({
+			pinfl,
+			applicationId: null,
+			bank: null,
+			clientProfileId: null,
+			clientScoringId: null,
+			products: null,
+			user: null,
+			userInfo: null,
+		})),
 
 	applicationId: null,
 	setApplicationId: (applicationId: Store['applicationId']) => set((state) => ({ applicationId })),
