@@ -58,7 +58,7 @@ function NasiyaNew() {
 								},
 								{
 									// disabled: step.actual < TEnumSteps.MY_ID,
-									title: t('MY ID'),
+									title: t('Идентификация'),
 								},
 								{
 									// disabled: step.actual < TEnumSteps.INFO,

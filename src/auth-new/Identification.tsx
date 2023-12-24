@@ -82,7 +82,7 @@ function Identification({ onFinish }: IProps) {
 							{...register('pinfl')}
 						>
 							<div className='flex items-center justify-between'>
-								<span>ПИНФЛ*</span>51704005120013
+								<span>ПИНФЛ*</span>51704005120014
 								<span
 									className={clsx({
 										'text-[#c50000]': true,

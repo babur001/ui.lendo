@@ -75,6 +75,7 @@ function MyIdAuth() {
 
 	return (
 		<>
+			фывыфв
 			<Alert message={t('Идентификациядан ўтиш учун сканер қилинг')} type='info' showIcon />
 
 			<div className='h-[20px]' />
