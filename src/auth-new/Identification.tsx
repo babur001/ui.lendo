@@ -30,6 +30,7 @@ function Identification({ onFinish }: IProps) {
 		pinfl: store.pinfl,
 		setPinfl: store.setPinfl,
 	}));
+	const store = useNewBuyerStore();
 
 	const {
 		register,
@@ -60,6 +61,14 @@ function Identification({ onFinish }: IProps) {
 	};
 
 	const onSubmit = async (values: IIdentificationForm) => {
+		// Clear all values
+		store.setBank(null);
+		store.setApplicationId(null);
+		store.setUniqueIds({ clientProfileId: null, clientScoringId: null });
+		store.setProducts(null);
+		store.setUser(null);
+		store.setUserInfo(null);
+
 		setPinfl(values.pinfl);
 
 		onFinish();
@@ -74,7 +83,6 @@ function Identification({ onFinish }: IProps) {
 				{/*<Tabs.Item label='Вручную' value='1'>*/}
 				<div className='flex flex-col gap-5 !w-96'>
 					<form className='flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
-
 						<Input
 							placeholder='...'
 							className='!w-full'
@@ -89,8 +97,8 @@ function Identification({ onFinish }: IProps) {
 										hidden: !errorMessages.pinfl,
 									})}
 								>
-											{errorMessages.pinfl}
-										</span>
+									{errorMessages.pinfl}
+								</span>
 							</div>
 						</Input>
 						<Button type='primary' htmlType='submit' loading={mutateUser.status === 'loading'}>

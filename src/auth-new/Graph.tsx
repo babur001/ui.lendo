@@ -5,10 +5,10 @@ import { saveAs } from 'file-saver';
 import { Download } from 'lucide-react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useBuyerStore } from '@/stores/buyer';
 import { get } from 'lodash';
 import { IApplications } from '@/pages/buyers/applicationsList.tsx';
 import { formatNumber } from '@/auth/Scoring.tsx';
+import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 
 interface IProps {
 	onFinish: () => unknown;
@@ -16,7 +16,7 @@ interface IProps {
 
 function Graph({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
-	const { applicationId } = useBuyerStore((store) => ({ applicationId: store.applicationId }));
+	const { applicationId } = useNewBuyerStore((store) => ({ applicationId: store.applicationId }));
 
 	const queryApplications = useQuery({
 		queryKey: ['queryApplications', applicationId],
@@ -31,7 +31,7 @@ function Graph({ onFinish }: IProps) {
 		},
 	});
 	const applicationData = get(queryApplications, 'data.data.data.content.0', []) as IApplications;
-	const monthPay = Math.round(applicationData.paymentSumDeferral / applicationData.paymentPeriod * 100) / 100;
+	const monthPay = Math.round((applicationData.paymentSumDeferral / applicationData.paymentPeriod) * 100) / 100;
 
 	const pdfDownloadMutation = useMutation({
 		mutationKey: ['mutateExcel', applicationId],
@@ -59,14 +59,22 @@ function Graph({ onFinish }: IProps) {
 			<div className='h-[10px]' />
 
 			<div className='flex flex-col gap-4'>
-				<Description title={<div className='text-2xl'>{t('Насия сумма:')}</div>}
-										 content={<div className='text-2xl'>{formatNumber(applicationData.paymentSumDeferral)}</div>} />
-				<Description title={<div className='text-2xl'>{t('Давр')}</div>}
-										 content={<div
-											 className='text-2xl'>{formatNumber(applicationData.paymentPeriod)} {t('месяц(ев)а')}</div>} />
-				<Description title={<div className='text-2xl'>{t('Ойлик тўлов:')}</div>}
-										 content={<div
-											 className='text-2xl'>{formatNumber(monthPay)}</div>} />
+				<Description
+					title={<div className='text-2xl'>{t('Насия сумма:')}</div>}
+					content={<div className='text-2xl'>{formatNumber(applicationData.paymentSumDeferral)}</div>}
+				/>
+				<Description
+					title={<div className='text-2xl'>{t('Давр')}</div>}
+					content={
+						<div className='text-2xl'>
+							{formatNumber(applicationData.paymentPeriod)} {t('месяц(ев)а')}
+						</div>
+					}
+				/>
+				<Description
+					title={<div className='text-2xl'>{t('Ойлик тўлов:')}</div>}
+					content={<div className='text-2xl'>{formatNumber(monthPay)}</div>}
+				/>
 			</div>
 
 			<div className='h-[30px]' />

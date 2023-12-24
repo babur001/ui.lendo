@@ -8,7 +8,7 @@ import Contract from '@/auth-new/Contract';
 import Approval from '@/auth-new/Approval';
 import Graph from '@/auth-new/Graph';
 import { useTranslation } from 'react-i18next';
-import MyIdAuth from '@/auth/MyIdAuth';
+import MyIdAuth from '@/auth-new/MyIdAuth';
 
 enum TEnumSteps {
 	IDENTIFICATION = 0,
