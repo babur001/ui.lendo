@@ -114,7 +114,7 @@ function Scoring({ onFinish }: IProps) {
 
 	return (
 		<>
-			<Text h3>{t('Скоринг тизими')}</Text>
+		{/*	<Text h3>{t('Скоринг тизими')}</Text>*/}
 
 			{(() => {
 				if (true) {
