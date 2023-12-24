@@ -117,10 +117,10 @@ const CompanyRoutes = [
 
 export type TEmployeePages =
 	| 'analytics'
-	| 'default'
+	| 'old'
 	| 'business-report-scoring-details'
 	| 'applications/:applicationId'
-	| 'new'
+	| 'default'
 	| '*';
 
 const EmployeeRoutes = [
@@ -129,11 +129,11 @@ const EmployeeRoutes = [
 		element: <AnalyticsByDate />,
 	},
 	{
-		path: 'default',
+		path: 'old',
 		element: <Nasiya />,
 	},
 	{
-		path: 'new',
+		path: 'default',
 		element: <NasiyaNew />,
 	},
 	{
