@@ -78,9 +78,7 @@ function Identification({ onFinish }: IProps) {
 		<>
 			<>
 				<Text h3>Проверка</Text>
-				{/*		<Tabs initialValue='1'>*/}
 				<div className='h-[15px]' />
-				{/*<Tabs.Item label='Вручную' value='1'>*/}
 				<div className='flex flex-col gap-5 !w-96'>
 					<form className='flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
 						<Input
@@ -106,8 +104,6 @@ function Identification({ onFinish }: IProps) {
 						</Button>
 					</form>
 				</div>
-				{/*</Tabs.Item>*/}
-				{/*</Tabs>*/}
 			</>
 		</>
 	);
