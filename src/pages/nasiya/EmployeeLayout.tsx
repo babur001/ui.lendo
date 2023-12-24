@@ -18,15 +18,15 @@ function EmployeeLayout() {
 			icon: <KeyboardIcon strokeWidth={1.5} className='!h-5' />,
 			label: t(`Главная`),
 		},
+		/*{
+			key: 'old',
+			icon: <Users strokeWidth={1.5} className='!h-5' />,
+			label: t(`Рўйхатдан ўтказиш`),
+		},*/
 		{
 			key: 'default',
 			icon: <Users strokeWidth={1.5} className='!h-5' />,
 			label: t(`Рўйхатдан ўтказиш`),
-		},
-		{
-			key: 'new',
-			icon: <Users strokeWidth={1.5} className='!h-5' />,
-			label: t(`(NEW) Рўйхатдан ўтказиш`),
 		},
 		{
 			key: 'business-report-scoring-details',
