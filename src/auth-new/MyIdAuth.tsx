@@ -165,7 +165,7 @@ function MyIdAuth({ onFinish }: IProps) {
 				</>
 			) : (
 				<>
-					<Text h3>3. {t('Идентификация через myid')}</Text>
+					<Text h3>3. {t('Биометрическая идентификация (MyID)')}</Text>
 
 					<Alert message={t('Идентификациядан ўтиш учун сканер қилинг')} type='info' showIcon />
 

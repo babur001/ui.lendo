@@ -52,10 +52,10 @@ function NasiyaNew() {
 								{
 									title: t('Проверка и скоринг клиента'),
 								},
-								{
+							/*	{
 									// disabled: step.actual < TEnumSteps.SCORING,
 									title: t('Скоринг тизими'),
-								},
+								},*/
 								{
 									// disabled: step.actual < TEnumSteps.MY_ID,
 									title: t('Идентификация'),
@@ -90,8 +90,11 @@ function NasiyaNew() {
 							<Identification
 								onFinish={() =>
 									setStep({
-										active: TEnumSteps.SCORING,
-										actual: TEnumSteps.SCORING,
+										/*active: TEnumSteps.SCORING,
+										actual: TEnumSteps.SCORING,*/
+
+										active: TEnumSteps.MY_ID,
+										actual: TEnumSteps.MY_ID,
 									})
 								}
 							/>

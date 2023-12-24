@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { useTranslation } from 'react-i18next';
 import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
+import Scoring from '@/auth-new/Scoring.tsx';
+import { useState } from 'react';
 
 const authManual = z.object({
 	pinfl: z.string().length(14, { message: 'PINFL должен состоять из 14 символов.' }),
@@ -31,6 +33,7 @@ function Identification({ onFinish }: IProps) {
 		setPinfl: store.setPinfl,
 	}));
 	const store = useNewBuyerStore();
+	const [scoring, setScoring] = useState(false);
 
 	const {
 		register,
@@ -68,10 +71,9 @@ function Identification({ onFinish }: IProps) {
 		store.setProducts(null);
 		store.setUser(null);
 		store.setUserInfo(null);
-
 		setPinfl(values.pinfl);
-
-		onFinish();
+		setScoring(true);
+		/*		onFinish();*/
 	};
 
 	return (
@@ -88,7 +90,7 @@ function Identification({ onFinish }: IProps) {
 							{...register('pinfl')}
 						>
 							<div className='flex items-center justify-between'>
-								<span>ПИНФЛ*</span>51704005120014
+								<span>ПИНФЛ*</span>51704005120013
 								<span
 									className={clsx({
 										'text-[#c50000]': true,
@@ -105,6 +107,16 @@ function Identification({ onFinish }: IProps) {
 					</form>
 				</div>
 			</>
+			{(() => {
+				if (scoring === true) {
+					return (
+						<>
+							<div className='h-[20px]' />
+							<Scoring onFinish={onFinish} />
+						</>
+					);
+				}
+			})()}
 		</>
 	);
 }
