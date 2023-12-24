@@ -79,7 +79,7 @@ function Identification({ onFinish }: IProps) {
 	return (
 		<>
 			<>
-				<Text h3>Проверка</Text>
+				<Text h3>1. Проверка и скоринг клиента</Text>
 				<div className='h-[15px]' />
 				<div className='flex flex-col gap-5 !w-96'>
 					<form className='flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
@@ -90,7 +90,7 @@ function Identification({ onFinish }: IProps) {
 							{...register('pinfl')}
 						>
 							<div className='flex items-center justify-between'>
-								<span>ПИНФЛ*</span>51704005120013
+								<span>Введите ПИНФЛ*</span>51704005120013
 								<span
 									className={clsx({
 										'text-[#c50000]': true,
@@ -111,7 +111,7 @@ function Identification({ onFinish }: IProps) {
 				if (scoring === true) {
 					return (
 						<>
-							<div className='h-[20px]' />
+							<div className='h-[40px]' />
 							<Scoring onFinish={onFinish} />
 						</>
 					);
