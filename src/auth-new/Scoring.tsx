@@ -69,7 +69,7 @@ function Scoring({ onFinish }: IProps) {
 					pinfl,
 					bankIds,
 					applicationId,
-					main: true,
+					main: false,
 				},
 			});
 		},
