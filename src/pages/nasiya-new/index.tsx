@@ -30,7 +30,8 @@ function NasiyaNew() {
 
 	return (
 		<>
-			<div>{/*
+			<div>
+				{/*
 				<Alert showIcon description={'Бета версия'} closable />*/}
 
 				<div className='h-[20px]' />

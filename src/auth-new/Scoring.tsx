@@ -1,13 +1,11 @@
-import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
+import { IBankScoringResult, useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 import { req } from '@/services/api';
-import { useBuyerStore } from '@/stores/buyer';
-import { Card, Description, Dot, Note, Pagination, Spinner, Text } from '@geist-ui/core';
+import { Card, Description, Spinner, Text } from '@geist-ui/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Alert, Button, Segmented, Select, Table } from 'antd';
-import { ColumnsType } from 'antd/es/table';
+import { Alert, Button, Segmented, Select } from 'antd';
 import { get } from 'lodash';
 import { ArrowRight } from 'lucide-react';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -44,11 +42,16 @@ interface IBank {
 	bankInsurance: number;
 	operatorShare: number;
 }
+
 function Scoring({ onFinish }: IProps) {
+	const [tab, setTab] = useState('scoring');
 	const { t } = useTranslation();
-	const { pinfl } = useNewBuyerStore((store) => ({
+	const { pinfl, setBank } = useNewBuyerStore((store) => ({
 		pinfl: store.pinfl,
+		setBank: store.setBank,
 	}));
+
+	const [applicationId, setApplicationId] = useState(null);
 
 	const {
 		control,
@@ -61,15 +64,15 @@ function Scoring({ onFinish }: IProps) {
 
 	const mutateScoreFromBanks = useMutation({
 		mutationKey: ['mutateScoreFromBanks'],
-		mutationFn: ({ bankIds, applicationId }: { bankIds: number[]; applicationId: number }) => {
+		mutationFn: ({ bankIds, applicationId }: { bankIds: number[]; applicationId: any }) => {
 			return req({
 				method: 'POST',
 				url: '/registration/check-scoring-v2',
 				data: {
 					pinfl,
 					bankIds,
-					applicationId,
-					main: false,
+					applicationId: tab === 'scoring' ? null : applicationId,
+					main: tab === 'scoring' ? false : true,
 				},
 			});
 		},
@@ -89,9 +92,24 @@ function Scoring({ onFinish }: IProps) {
 
 	const status = get(mutateScoreFromBanks, 'data.data.data.status', 'STATUS_NEW') as TStatus;
 	const result = get(mutateScoreFromBanks, 'data.data.data', {}) as IScoringResult;
-	const results = get(mutateScoreFromBanks, 'data.data.data', []);
+	const bankResults = get(mutateScoreFromBanks, 'data.data.data', []) as IBankScoringResult[];
+
+	useEffect(() => {
+		const applicationId = get(bankResults, '0.applicationId', null);
+		setApplicationId(applicationId);
+	}, [bankResults]);
+
 	const score = async () => {
-		const res = await mutateScoreFromBanks.mutateAsync({ applicationId: 1, bankIds: getValues('bankIds') });
+		const res = await mutateScoreFromBanks.mutateAsync({
+			applicationId,
+			bankIds: getValues('bankIds'),
+		});
+	};
+
+	const onBankSelect = (bank: IBankScoringResult) => {
+		setBank(bank);
+
+		onFinish();
 	};
 
 	return (
@@ -104,6 +122,8 @@ function Scoring({ onFinish }: IProps) {
 						<div>
 							<Segmented
 								size='large'
+								value={tab}
+								onChange={(active) => setTab(active as any)}
 								options={[
 									{
 										label: 'Проверка по клиентам банка',
@@ -147,27 +167,27 @@ function Scoring({ onFinish }: IProps) {
 							<div className='h-[20px]' />
 
 							<div className='grid grid-cols-3 !gap-5'>
-								{results.map((result: any) => {
+								{bankResults.map((bankResult) => {
 									return (
-										<Card key={result.id}>
+										<Card key={bankResult.id}>
 											<Text h4 my={0}>
-												{result.bankName}
+												{bankResult.bankName}
 											</Text>
 
 											<div className='h-[10px]' />
 
 											<div>
-												<Description title={`Total sum:`} content={<Text h5>{formatNumber(result.scoringSum)}</Text>} />
-												<Description title={`Total rate:`} content={<Text h5>{result.scoringRate}</Text>} />
+												<Description title={`Total sum:`} content={<Text h5>{formatNumber(bankResult.scoringSum)}</Text>} />
+												<Description title={`Total rate:`} content={<Text h5>{bankResult.scoringRate}</Text>} />
 											</div>
 
 											<Button
 												block
 												type='primary'
 												className='flex items-center justify-center !gap-3 !text-base'
-												onClick={onFinish}
+												onClick={() => onBankSelect(bankResult)}
 											>
-												{result.bankName} <ArrowRight size={16} />
+												{bankResult.bankName} <ArrowRight size={16} />
 											</Button>
 										</Card>
 									);

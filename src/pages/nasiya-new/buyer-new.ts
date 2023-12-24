@@ -43,8 +43,29 @@ export interface IProducts {
 	}[];
 }
 
+export interface IBankScoringResult {
+	createdAt: string;
+	updatedAt: string;
+	companyId?: null;
+	createdUserId?: null;
+	updatedUserId?: null;
+	id: number;
+	clientPinfl: number;
+	scoringRate: number;
+	scoringSum: number;
+	cardMask: string;
+	cardExpiry: string;
+	cardId: string;
+	bankId: number;
+	bankName: string;
+	applicationId: number;
+	status: string;
+	main: boolean;
+}
+
 export interface Store {
 	user: IBuyer | null;
+	bank: IBankScoringResult | null;
 	pinfl: string;
 	applicationId: number | null;
 	products: IProducts | null;
@@ -56,6 +77,7 @@ export interface Store {
 interface Actions {
 	setUser: (value: Store['user']) => void;
 	setPinfl: (value: Store['pinfl']) => void;
+	setBank: (value: Store['bank']) => void;
 	setProducts: (value: Store['products']) => void;
 	setUserInfo: (value: Store['userInfo']) => void;
 	setApplicationId: (value: Store['applicationId']) => void;
@@ -63,6 +85,9 @@ interface Actions {
 }
 
 export const useNewBuyerStore = create<Store & Actions>()((set) => ({
+	bank: null,
+	setBank: (bank: Store['bank']) => set((state) => ({ bank })),
+
 	pinfl: '',
 	setPinfl: (pinfl: Store['pinfl']) => set((state) => ({ pinfl })),
 

@@ -10,6 +10,7 @@ import { find, get } from 'lodash';
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import { Input as AntdInput } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 
 interface IProps {
 	onFinish: () => unknown;
@@ -33,12 +34,16 @@ interface IScoringParams {
 
 function Info({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
-	const { user, userInfo, setUserInfo, setUniqueIds } = useBuyerStore((store) => ({
+	const { pinfl, user, userInfo, setUserInfo, setUniqueIds } = useNewBuyerStore((store) => ({
 		user: store.user,
+		pinfl: store.pinfl,
 		userInfo: store.userInfo,
 		setUserInfo: store.setUserInfo,
 		setUniqueIds: store.setUniqueIds,
 	}));
+
+	const store = useNewBuyerStore();
+	console.log(store);
 
 	const { register, handleSubmit, control, watch } = useForm<IUserInfo>({
 		defaultValues: userInfo ? userInfo : {},
@@ -46,25 +51,12 @@ function Info({ onFinish }: IProps) {
 
 	const mutateAddUserInfo = useMutation({
 		mutationKey: ['mutateAddUserInfo'],
-		mutationFn: (userInfoParams: IUserInfo & IAdditionApiParam) => {
+		mutationFn: (userInfoParams: IUserInfo & IAdditionApiParam & { pinfl: string | null }) => {
 			return req({
 				method: 'POST',
 				url: `/registration/create-profile`,
 				data: {
 					...userInfoParams,
-				},
-			});
-		},
-	});
-
-	const mutateSendForScoring = useMutation({
-		mutationKey: ['mutateSendForScoring'],
-		mutationFn: (scoringParams: IScoringParams) => {
-			return req({
-				method: 'POST',
-				url: `/registration/check-scoring`,
-				data: {
-					...scoringParams,
 				},
 			});
 		},
@@ -79,16 +71,9 @@ function Info({ onFinish }: IProps) {
 				return tuman.DISTRICT_CODE === values.district_code;
 			});
 
-			const resScoring = await mutateSendForScoring.mutateAsync({
-				cardNumber: values.card,
-				cardExpiry: values.card_date,
-				pinfl: get(user, 'pinfl', ''),
-				loanAmount: 0,
-				applicationId: 0,
-			});
-
 			const resUser = await mutateAddUserInfo.mutateAsync({
 				...values,
+				pinfl,
 				livingAddress: values.homeNumber || values.flatNumber,
 				country: t('UZBEKISTAN'),
 				regionName: get(regionObj, 'NAME_UZ', '-'),
@@ -96,20 +81,18 @@ function Info({ onFinish }: IProps) {
 				clientPinfl: get(user, 'pinfl', ''),
 			});
 
-			const scoringSuccess = get(resScoring, 'data.success', false);
 			const userSuccess = get(resUser, 'data.success', false);
 
 			const clientProfileId = get(resUser, 'data.data.id', false);
-			const clientScoringId = get(resScoring, 'data.data.id', false);
 
-			if (scoringSuccess && userSuccess) {
+			if (userSuccess) {
 				setUserInfo(values);
-				setUniqueIds({ clientProfileId, clientScoringId });
+				setUniqueIds({ clientProfileId, clientScoringId: null });
 
 				onFinish();
 			}
 
-			if (!scoringSuccess || !userSuccess) {
+			if (!userSuccess) {
 				message.error(t('Xatolik yuz berdi!'));
 			}
 		} catch (error) {

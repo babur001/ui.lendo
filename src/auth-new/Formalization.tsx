@@ -12,6 +12,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import TotalAllProduсtsSum from '@/auth/TotalAllProduсtsSum.tsx';
 import TotalInstallmentSum from '@/auth/TotalInstallmentSum.tsx';
+import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
 
 interface ITableEDIT {
 	//
@@ -23,21 +24,17 @@ interface IProps {
 
 function Formalization({ onFinish }: IProps) {
 	const { t, i18n } = useTranslation();
-	const {
-		user,
-		clientProfileId,
-		clientScoringId,
-		products,
-		setProducts,
-		setApplicationId,
-	} = useBuyerStore((store) => ({
-		user: store.user,
-		setApplicationId: store.setApplicationId,
-		products: store.products,
-		setProducts: store.setProducts,
-		clientProfileId: store.clientProfileId,
-		clientScoringId: store.clientScoringId,
-	}));
+	const { bank, user, clientProfileId, clientScoringId, products, setProducts, setApplicationId } = useNewBuyerStore(
+		(store) => ({
+			user: store.user,
+			bank: store.bank,
+			setApplicationId: store.setApplicationId,
+			products: store.products,
+			setProducts: store.setProducts,
+			clientProfileId: store.clientProfileId,
+			clientScoringId: store.clientScoringId,
+		})
+	);
 
 	const { control, register, handleSubmit } = useForm<IProducts>({
 		defaultValues: {
@@ -59,7 +56,7 @@ function Formalization({ onFinish }: IProps) {
 				clientProfileId: string | number;
 				clientScoringId: string | number;
 				clientPinfl: number | string;
-			},
+			}
 		) => {
 			return req({
 				method: 'POST',
@@ -78,19 +75,16 @@ function Formalization({ onFinish }: IProps) {
 	}, []);
 
 	const onSubmit = async (values: IProducts) => {
-		if (!clientProfileId || !clientScoringId) {
-			return message.error(t(`Avtorizatysaiyadan qaytadan o'ting!`));
-		}
-
 		const data = {
 			...values,
 			clientPinfl: get(user, 'pinfl', ''),
 			clientProfileId,
-			clientScoringId,
+			clientScoringId: get(bank, 'id', ''),
 		};
 
 		setProducts(values);
 
+		// @ts-ignore
 		const res = await mutateAddProduct.mutateAsync(data);
 
 		const success = get(res, 'data.success', false);
@@ -209,8 +203,7 @@ function Formalization({ onFinish }: IProps) {
 				<Description
 					title={t('Бошланғич тўлов')}
 					className='flex-grow'
-					content={<Input disabled={true}
-						placeholder={'0'} scale={1.2} width={'100%'} {...register('initialPayment')} />}
+					content={<Input disabled={true} placeholder={'0'} scale={1.2} width={'100%'} {...register('initialPayment')} />}
 				/>
 
 				<Controller
