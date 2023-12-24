@@ -8,6 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import Identification from '@/auth-new/Identification.tsx';
 
 interface ITableEDIT {
 	//
@@ -108,13 +109,12 @@ function Scoring({ onFinish }: IProps) {
 
 	const onBankSelect = (bank: IBankScoringResult) => {
 		setBank(bank);
-
 		onFinish();
 	};
 
 	return (
 		<>
-			<Text h3>2. {t('Скоринг тизими')}</Text>
+			<Text h3>{t('Скоринг тизими')}</Text>
 
 			{(() => {
 				if (true) {
@@ -126,11 +126,11 @@ function Scoring({ onFinish }: IProps) {
 								onChange={(active) => setTab(active as any)}
 								options={[
 									{
-										label: 'Проверка по клиентам банка',
+										label: 'Клиентская аутентификация',
 										value: 'scoring',
 									},
 									{
-										label: 'Скоринг банка',
+										label: 'Скоринг клиента',
 										value: 'detailed_scoring',
 									},
 								]}
@@ -177,8 +177,9 @@ function Scoring({ onFinish }: IProps) {
 											<div className='h-[10px]' />
 
 											<div>
-												<Description title={`Total sum:`} content={<Text h5>{formatNumber(bankResult.scoringSum)}</Text>} />
-												<Description title={`Total rate:`} content={<Text h5>{bankResult.scoringRate}</Text>} />
+												<Description title={`ДОСТУПНЫЙ ЛИМИТ:`}
+																		 content={<Text h5>{formatNumber(bankResult.scoringSum)}</Text>} />
+												<Description title={`Наценка к лимиту`} content={<Text h5>{bankResult.scoringRate}</Text>} />
 											</div>
 
 											<Button
@@ -187,7 +188,7 @@ function Scoring({ onFinish }: IProps) {
 												className='flex items-center justify-center !gap-3 !text-base'
 												onClick={() => onBankSelect(bankResult)}
 											>
-												{bankResult.bankName} <ArrowRight size={16} />
+												Пройти идентификацию <ArrowRight size={16} />
 											</Button>
 										</Card>
 									);

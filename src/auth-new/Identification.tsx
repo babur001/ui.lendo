@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { useTranslation } from 'react-i18next';
 import { useNewBuyerStore } from '@/pages/nasiya-new/buyer-new';
+import Scoring from '@/auth-new/Scoring.tsx';
+import { useState } from 'react';
 
 const authManual = z.object({
 	pinfl: z.string().length(14, { message: 'PINFL должен состоять из 14 символов.' }),
@@ -31,6 +33,7 @@ function Identification({ onFinish }: IProps) {
 		setPinfl: store.setPinfl,
 	}));
 	const store = useNewBuyerStore();
+	const [scoring, setScoring] = useState(false);
 
 	const {
 		register,
@@ -68,19 +71,16 @@ function Identification({ onFinish }: IProps) {
 		store.setProducts(null);
 		store.setUser(null);
 		store.setUserInfo(null);
-
 		setPinfl(values.pinfl);
-
-		onFinish();
+		setScoring(true);
+		/*		onFinish();*/
 	};
 
 	return (
 		<>
 			<>
 				<Text h3>Проверка</Text>
-				{/*		<Tabs initialValue='1'>*/}
 				<div className='h-[15px]' />
-				{/*<Tabs.Item label='Вручную' value='1'>*/}
 				<div className='flex flex-col gap-5 !w-96'>
 					<form className='flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
 						<Input
@@ -106,9 +106,17 @@ function Identification({ onFinish }: IProps) {
 						</Button>
 					</form>
 				</div>
-				{/*</Tabs.Item>*/}
-				{/*</Tabs>*/}
 			</>
+			{(() => {
+				if (scoring === true) {
+					return (
+						<>
+							<div className='h-[20px]' />
+							<Scoring onFinish={onFinish} />
+						</>
+					);
+				}
+			})()}
 		</>
 	);
 }

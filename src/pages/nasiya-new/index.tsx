@@ -50,15 +50,15 @@ function NasiyaNew() {
 							}
 							items={[
 								{
-									title: t('Проверка'),
+									title: t('Проверка и скоринг клиента'),
 								},
-								{
+							/*	{
 									// disabled: step.actual < TEnumSteps.SCORING,
 									title: t('Скоринг тизими'),
-								},
+								},*/
 								{
 									// disabled: step.actual < TEnumSteps.MY_ID,
-									title: t('MY ID'),
+									title: t('Идентификация'),
 								},
 								{
 									// disabled: step.actual < TEnumSteps.INFO,
@@ -90,8 +90,11 @@ function NasiyaNew() {
 							<Identification
 								onFinish={() =>
 									setStep({
-										active: TEnumSteps.SCORING,
-										actual: TEnumSteps.SCORING,
+										/*active: TEnumSteps.SCORING,
+										actual: TEnumSteps.SCORING,*/
+
+										active: TEnumSteps.MY_ID,
+										actual: TEnumSteps.MY_ID,
 									})
 								}
 							/>
