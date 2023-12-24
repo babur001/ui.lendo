@@ -89,9 +89,7 @@ function Scoring({ onFinish }: IProps) {
 
 	const status = get(mutateScoreFromBanks, 'data.data.data.status', 'STATUS_NEW') as TStatus;
 	const result = get(mutateScoreFromBanks, 'data.data.data', {}) as IScoringResult;
-
 	const results = get(mutateScoreFromBanks, 'data.data.data', []);
-
 	const score = async () => {
 		const res = await mutateScoreFromBanks.mutateAsync({ applicationId: 1, bankIds: getValues('bankIds') });
 	};
@@ -108,18 +106,16 @@ function Scoring({ onFinish }: IProps) {
 								size='large'
 								options={[
 									{
-										label: 'Scoring',
+										label: 'Проверка по клиентам банка',
 										value: 'scoring',
 									},
 									{
-										label: 'Detailed Scoring',
+										label: 'Скоринг банка',
 										value: 'detailed_scoring',
 									},
 								]}
 							/>
-
 							<div className='h-[20px]' />
-
 							<div className='flex items-center !gap-5'>
 								<Controller
 									control={control}
@@ -144,7 +140,7 @@ function Scoring({ onFinish }: IProps) {
 								/>
 
 								<Button type='text' className='bg-gray-100' onClick={score}>
-									Send for score
+									Проверка
 								</Button>
 							</div>
 

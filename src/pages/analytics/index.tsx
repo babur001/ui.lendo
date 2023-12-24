@@ -85,16 +85,7 @@ function AnalyticsByDate() {
 
 		DAILY: {
 			title: t('Кунлар кесимида'),
-			children: [
-				/*	{
-						title: t('applicationCount'),
-						value: 18,
-					},
-					{
-						title: t('payment_summa'),
-						value: humanizeNumber(26400000, 1, true),
-					},*/
-			],
+			children: [],
 		},
 
 		MONTHLY: {
