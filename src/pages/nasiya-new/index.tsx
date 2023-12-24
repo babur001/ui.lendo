@@ -50,7 +50,7 @@ function NasiyaNew() {
 							}
 							items={[
 								{
-									title: t('Проверка'),
+									title: t('Проверка и скоринг клиента'),
 								},
 								{
 									// disabled: step.actual < TEnumSteps.SCORING,
