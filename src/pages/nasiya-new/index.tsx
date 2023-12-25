@@ -12,13 +12,12 @@ import MyIdAuth from '@/auth-new/MyIdAuth';
 
 enum TEnumSteps {
 	IDENTIFICATION = 0,
-	SCORING = 1,
-	MY_ID = 2,
-	INFO = 3,
-	FORMALIZATION = 4,
-	CONTRACT = 5,
-	APPROVAL = 6,
-	GRAPH = 7,
+	MY_ID = 1,
+	INFO = 2,
+	FORMALIZATION = 3,
+	CONTRACT = 4,
+	APPROVAL = 5,
+	GRAPH = 6,
 }
 
 function NasiyaNew() {
@@ -52,7 +51,11 @@ function NasiyaNew() {
 								{
 									title: t('Проверка и скоринг клиента'),
 								},
-							/*	{
+								{
+									// disabled: step.actual < TEnumSteps.INFO,
+									title: t('Ҳаридор маълумотлари'),
+								},
+								/*	{
 									// disabled: step.actual < TEnumSteps.SCORING,
 									title: t('Скоринг тизими'),
 								},*/
@@ -60,10 +63,7 @@ function NasiyaNew() {
 									// disabled: step.actual < TEnumSteps.MY_ID,
 									title: t('Идентификация'),
 								},
-								{
-									// disabled: step.actual < TEnumSteps.INFO,
-									title: t('Ҳаридор маълумотлари'),
-								},
+
 								{
 									// disabled: step.actual < TEnumSteps.FORMALIZATION,
 									title: t('Расмийлаштириш'),
@@ -90,9 +90,6 @@ function NasiyaNew() {
 							<Identification
 								onFinish={() =>
 									setStep({
-										/*active: TEnumSteps.SCORING,
-										actual: TEnumSteps.SCORING,*/
-
 										active: TEnumSteps.MY_ID,
 										actual: TEnumSteps.MY_ID,
 									})
@@ -100,19 +97,7 @@ function NasiyaNew() {
 							/>
 						) : null}
 
-						{/* 2. SCORING */}
-						{step.active === TEnumSteps.SCORING ? (
-							<Scoring
-								onFinish={() =>
-									setStep({
-										active: TEnumSteps.MY_ID,
-										actual: TEnumSteps.MY_ID,
-									})
-								}
-							/>
-						) : null}
-
-						{/* 3. MY_ID */}
+						{/* 2. MY_ID */}
 						{step.active === TEnumSteps.MY_ID ? (
 							<MyIdAuth
 								onFinish={() =>

@@ -87,7 +87,8 @@ function Identification({ onFinish }: IProps) {
 							placeholder='...'
 							className='!w-full'
 							type={errorMessages.pinfl ? 'error' : 'default'}
-							{...register('pinfl')}
+							value={pinfl}
+							onChange={(e) => setPinfl(e.currentTarget.value)}
 						>
 							<div className='flex items-center justify-between'>
 								<span>Введите ПИНФЛ*</span>51704005120013
@@ -101,22 +102,13 @@ function Identification({ onFinish }: IProps) {
 								</span>
 							</div>
 						</Input>
-						<Button type='primary' htmlType='submit' loading={mutateUser.status === 'loading'}>
-							{t('Проверить')}
-						</Button>
 					</form>
 				</div>
 			</>
-			{(() => {
-				if (scoring === true) {
-					return (
-						<>
-							<div className='h-[40px]' />
-							<Scoring onFinish={onFinish} />
-						</>
-					);
-				}
-			})()}
+
+			<div className='h-[20px]' />
+
+			<Scoring onFinish={onFinish} />
 		</>
 	);
 }
