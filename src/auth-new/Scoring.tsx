@@ -140,7 +140,7 @@ function Scoring({ onFinish }: IProps) {
 							/>
 							<div className='h-[20px]' />
 
-							<div className='flex items-center !gap-5'>
+							<div className='flex items-center !gap-3'>
 								<Controller
 									control={control}
 									name='bankIds'
@@ -149,7 +149,7 @@ function Scoring({ onFinish }: IProps) {
 											<Select
 												allowClear
 												loading={queryBanks.status === 'loading'}
-												className='w-auto min-w-[200px]'
+												className='w-auto min-w-[240px]'
 												mode='multiple'
 												options={banks.map((bank) => {
 													return {
@@ -163,8 +163,8 @@ function Scoring({ onFinish }: IProps) {
 									}}
 								/>
 
-								<Button type='primary' htmlType='submit' onClick={score}>
-									{t('Проверка')}
+								<Button className='w-auto min-w-[140px]' type='primary' htmlType='submit' onClick={score}>
+									{t('Проверить')}
 								</Button>
 							</div>
 
