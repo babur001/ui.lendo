@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { Alert, Button, Segmented, Select } from 'antd';
 import { get } from 'lodash';
 import { ArrowRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Identification from '@/auth-new/Identification.tsx';
@@ -93,7 +93,10 @@ function Scoring({ onFinish }: IProps) {
 
 	const status = get(mutateScoreFromBanks, 'data.data.data.status', 'STATUS_NEW') as TStatus;
 	const result = get(mutateScoreFromBanks, 'data.data.data', {}) as IScoringResult;
-	const bankResults = get(mutateScoreFromBanks, 'data.data.data', []) as IBankScoringResult[];
+	const bankResults = useMemo(
+		() => (get(mutateScoreFromBanks, 'data.data.data', []) || []) as IBankScoringResult[],
+		[mutateScoreFromBanks.data]
+	);
 
 	useEffect(() => {
 		const applicationId = get(bankResults, '0.applicationId', null);
@@ -114,7 +117,7 @@ function Scoring({ onFinish }: IProps) {
 
 	return (
 		<>
-		{/*	<Text h3>{t('Скоринг тизими')}</Text>*/}
+			{/*	<Text h3>{t('Скоринг тизими')}</Text>*/}
 
 			{(() => {
 				if (true) {
@@ -136,6 +139,7 @@ function Scoring({ onFinish }: IProps) {
 								]}
 							/>
 							<div className='h-[20px]' />
+
 							<div className='flex items-center !gap-5'>
 								<Controller
 									control={control}
@@ -159,8 +163,8 @@ function Scoring({ onFinish }: IProps) {
 									}}
 								/>
 
-								<Button type='text' className='bg-gray-100' onClick={score}>
-									Проверка
+								<Button type='primary' htmlType='submit' onClick={score}>
+									{t('Проверка')}
 								</Button>
 							</div>
 
@@ -177,8 +181,10 @@ function Scoring({ onFinish }: IProps) {
 											<div className='h-[10px]' />
 
 											<div>
-												<Description title={`ДОСТУПНЫЙ ЛИМИТ:`}
-																		 content={<Text h5>{formatNumber(bankResult.scoringSum)}</Text>} />
+												<Description
+													title={`ДОСТУПНЫЙ ЛИМИТ:`}
+													content={<Text h5>{formatNumber(bankResult.scoringSum)}</Text>}
+												/>
 												<Description title={`Наценка к лимиту`} content={<Text h5>{bankResult.scoringRate}</Text>} />
 											</div>
 

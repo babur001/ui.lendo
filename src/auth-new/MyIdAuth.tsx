@@ -131,7 +131,7 @@ function MyIdAuth({ onFinish }: IProps) {
 		<>
 			{user ? (
 				<>
-					<Text h3>{t('Шахсга доир маълумотлар')}</Text>
+					<Text h3>2. {t('Шахсга доир маълумотлар')}</Text>
 
 					<div className='h-[15px]' />
 
@@ -165,7 +165,7 @@ function MyIdAuth({ onFinish }: IProps) {
 				</>
 			) : (
 				<>
-					<Text h3>3. {t('Биометрическая идентификация (MyID)')}</Text>
+					<Text h3>2. {t('Биометрическая идентификация (MyID)')}</Text>
 
 					<Alert message={t('Идентификациядан ўтиш учун сканер қилинг')} type='info' showIcon />
 
@@ -180,7 +180,7 @@ function MyIdAuth({ onFinish }: IProps) {
 								value={`client_id=taqsit_qr_in-place-uZWZXSjGz1wDOuj3EQVbA1g21YAfcM8HoyJ6Bul8&method=strong&client_guid=${guid}&auth_user_id=${get(
 									user,
 									'id',
-									null,
+									null
 								)}`}
 							/>
 						</div>
