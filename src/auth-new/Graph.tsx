@@ -30,8 +30,10 @@ function Graph({ onFinish }: IProps) {
 			});
 		},
 	});
-	const applicationData = get(queryApplications, 'data.data.data.content.0', []) as IApplications;
-	const monthPay = Math.round((applicationData.paymentSumDeferral / applicationData.paymentPeriod) * 100) / 100;
+	const applicationData = get(queryApplications, 'data.data.data.content.0', null) as IApplications | null;
+	const monthPay = applicationData 
+		? Math.round((applicationData.paymentSumDeferral / applicationData.paymentPeriod) * 100) / 100 
+		: 0;
 
 	const pdfDownloadMutation = useMutation({
 		mutationKey: ['mutateExcel', applicationId],
@@ -58,24 +60,28 @@ function Graph({ onFinish }: IProps) {
 
 			<div className='h-[10px]' />
 
-			<div className='flex flex-col gap-4'>
-				<Description
-					title={<div className='text-2xl'>{t('Насия сумма:')}</div>}
-					content={<div className='text-2xl'>{formatNumber(applicationData.paymentSumDeferral)}</div>}
-				/>
-				<Description
-					title={<div className='text-2xl'>{t('Давр')}</div>}
-					content={
-						<div className='text-2xl'>
-							{formatNumber(applicationData.paymentPeriod)} {t('месяц(ев)а')}
-						</div>
-					}
-				/>
-				<Description
-					title={<div className='text-2xl'>{t('Ойлик тўлов:')}</div>}
-					content={<div className='text-2xl'>{formatNumber(monthPay)}</div>}
-				/>
-			</div>
+			{applicationData ? (
+				<div className='flex flex-col gap-4'>
+					<Description
+						title={<div className='text-2xl'>{t('Насия сумма:')}</div>}
+						content={<div className='text-2xl'>{formatNumber(applicationData.paymentSumDeferral)}</div>}
+					/>
+					<Description
+						title={<div className='text-2xl'>{t('Давр')}</div>}
+						content={
+							<div className='text-2xl'>
+								{formatNumber(applicationData.paymentPeriod)} {t('месяц(ев)а')}
+							</div>
+						}
+					/>
+					<Description
+						title={<div className='text-2xl'>{t('Ойлик тўлов:')}</div>}
+						content={<div className='text-2xl'>{formatNumber(monthPay)}</div>}
+					/>
+				</div>
+			) : (
+				<div>Loading application data...</div>
+			)}
 
 			<div className='h-[30px]' />
 

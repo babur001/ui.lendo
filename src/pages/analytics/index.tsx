@@ -82,7 +82,6 @@ function AnalyticsByDate() {
 			children: Array<{ title: string; value: string | number }>;
 		}
 	> = {
-
 		DAILY: {
 			title: t('Кунлар кесимида'),
 			children: [],
@@ -102,7 +101,7 @@ function AnalyticsByDate() {
 		},
 	};
 
-	(get(queryAnalyticsByDate, 'data.data.data', []) as IAnalyticsData[]).forEach((analytics) => {
+	((get(queryAnalyticsByDate, 'data.data.data') || []) as IAnalyticsData[]).forEach((analytics) => {
 		try {
 			const card = stats[analytics.periodType];
 			card.children.push(
@@ -115,7 +114,7 @@ function AnalyticsByDate() {
 						title: t('payment_summa'),
 						value: humanizeNumber(analytics.summa, 1, true),
 					},
-				],
+				]
 			);
 		} catch (error) {
 			console.log(error);

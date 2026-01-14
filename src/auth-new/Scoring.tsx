@@ -104,10 +104,16 @@ function Scoring({ onFinish }: IProps) {
 	}, [bankResults]);
 
 	const score = async () => {
-		const res = await mutateScoreFromBanks.mutateAsync({
-			applicationId,
-			bankIds: getValues('bankIds'),
-		});
+		try {
+			const res = await mutateScoreFromBanks.mutateAsync({
+				applicationId,
+				bankIds: getValues('bankIds') || [],
+			});
+			// The mutation result is automatically stored in mutateScoreFromBanks.data
+			// and will trigger a re-render via the useMemo hook
+		} catch (error) {
+			console.error('Scoring error:', error);
+		}
 	};
 
 	const onBankSelect = (bank: IBankScoringResult) => {
@@ -151,7 +157,7 @@ function Scoring({ onFinish }: IProps) {
 												loading={queryBanks.status === 'loading'}
 												className='w-auto min-w-[240px]'
 												mode='multiple'
-												options={banks.map((bank) => {
+												options={(Array.isArray(banks) ? banks : []).map((bank) => {
 													return {
 														value: bank.id,
 														label: bank.bankName,

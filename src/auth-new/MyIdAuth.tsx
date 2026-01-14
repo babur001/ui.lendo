@@ -109,6 +109,8 @@ function MyIdAuth({ onFinish }: IProps) {
 
 			if (user) {
 				setUser(user);
+				// After setting user, call onFinish to proceed to next step
+				onFinish();
 			}
 		} catch (error) {
 			console.log(error);
